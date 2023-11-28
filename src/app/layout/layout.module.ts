@@ -5,6 +5,8 @@ import { HomeComponent } from './home/home.component';
 import { FooterComponent } from './footer/footer.component';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from '../infrastructure/material/material.module';
+import { LogInComponent } from './log-in/log-in.component';
+import { RegisterComponent } from './register/register.component';
 
 
 
@@ -12,7 +14,9 @@ import { MaterialModule } from '../infrastructure/material/material.module';
   declarations: [
     NavBarComponent,
     HomeComponent,
-    FooterComponent
+    FooterComponent,
+    LogInComponent,
+    RegisterComponent
   ],
   imports: [
     CommonModule,
@@ -22,7 +26,9 @@ import { MaterialModule } from '../infrastructure/material/material.module';
   exports: [
     NavBarComponent,
     HomeComponent,
-    FooterComponent
+    FooterComponent,
+    RegisterComponent,
+    LogInComponent
   ]
 })
 export class LayoutModule { }
