@@ -6,6 +6,9 @@ input,button{
     border:none;
     outline:none;
 }
+img {
+    cursor: pointer;
+}
 
 input {
     font-size: 17px;
@@ -16,7 +19,8 @@ input {
     margin: 10px 0;
     filter: drop-shadow(6px 7px 7px rgba(0, 0, 0, 0.1));
 }
-#button-login{
+#button-register{
+    cursor: pointer;
     font-size: 18px;
     background-color: #235471;
     color: #FFFF;
@@ -44,6 +48,7 @@ input {
     position: relative; 
 }
 .button-no-background{
+    cursor: pointer;
     font-size: 15px;
     background-color: transparent;
     border: none;
