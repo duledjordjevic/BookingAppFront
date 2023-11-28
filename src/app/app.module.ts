@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from './layout/layout.module';
+import {AccommodationModule} from "./accommodation/accommodation.module";
 
 @NgModule({
   declarations: [
@@ -14,9 +15,10 @@ import { LayoutModule } from './layout/layout.module';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    LayoutModule
+    LayoutModule,
+	  AccommodationModule
   ],
-  
+
   providers: [],
   bootstrap: [AppComponent]
 })
