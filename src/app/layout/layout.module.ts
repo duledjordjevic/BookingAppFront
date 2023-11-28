@@ -26,9 +26,7 @@ import { RegisterComponent } from './register/register.component';
   exports: [
     NavBarComponent,
     HomeComponent,
-    FooterComponent,
-    RegisterComponent,
-    LogInComponent
+    FooterComponent
   ]
 })
 export class LayoutModule { }
