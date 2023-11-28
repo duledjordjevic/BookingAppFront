@@ -16,6 +16,7 @@ import { LayoutModule } from './layout/layout.module';
     BrowserAnimationsModule,
     LayoutModule
   ],
+  
   providers: [],
   bootstrap: [AppComponent]
 })
