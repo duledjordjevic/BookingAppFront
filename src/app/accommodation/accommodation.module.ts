@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule, NgOptimizedImage} from '@angular/common';
 import { AccommodationDetailsComponent } from './accommodation-details/accommodation-details.component';
 
 
@@ -8,9 +8,10 @@ import { AccommodationDetailsComponent } from './accommodation-details/accommoda
   declarations: [
     AccommodationDetailsComponent
   ],
-  imports: [
-    CommonModule
-  ],
+	imports: [
+		CommonModule,
+		NgOptimizedImage
+	],
 	exports: [
 		AccommodationDetailsComponent
 	]
