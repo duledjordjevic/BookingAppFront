@@ -5,6 +5,7 @@ import { HomeComponent } from './home/home.component';
 import { FooterComponent } from './footer/footer.component';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from '../infrastructure/material/material.module';
+import {AccommodationModule} from "../accommodation/accommodation.module";
 
 
 
@@ -14,11 +15,12 @@ import { MaterialModule } from '../infrastructure/material/material.module';
     HomeComponent,
     FooterComponent
   ],
-  imports: [
-    CommonModule,
-    RouterModule,
-    MaterialModule
-  ],
+    imports: [
+        CommonModule,
+        RouterModule,
+        MaterialModule,
+        AccommodationModule
+    ],
   exports: [
     NavBarComponent,
     HomeComponent,
