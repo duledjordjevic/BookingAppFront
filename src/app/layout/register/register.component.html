@@ -1,1 +1,40 @@
-<p>register works!</p>
+
+<div class="center-container">
+    <div class="logo-container">
+        <img  routerLink="/home" src="../../../assets/images/logo-no-background.svg">
+    </div>
+    <div class="main-content">
+
+        <h1>Sign up for Booking</h1>
+        <div class="div-margin">
+            <input type="text" required required placeholder="Name">
+        </div>
+        <div class="div-margin">
+            <input type="text" required required placeholder="Lastname">
+        </div>
+        <div class="div-margin">
+            <input type="text" required required placeholder="Home address">
+        </div>
+        <div class="div-margin">
+            <select class="custom-combobox">
+                <option value="" disabled selected hidden>Account type</option>
+                <option value="option1">Guest</option>
+                <option value="option2">Host</option>
+            </select>
+        </div>
+        <div class="div-margin">
+            <input type="text" required required placeholder="Email">
+        </div>
+        <div class="div-margin">
+            <input type="password" required required placeholder="Password">
+        </div>
+        <div class="div-margin">
+            <input type="password" required required placeholder="Password">
+        </div>
+        <div class="div-margin">
+            <button id="button-login">Create Account</button>
+        </div>
+        <button class="button-no-background" routerLink="/login">Back to login</button>
+    
+    </div>
+</div>

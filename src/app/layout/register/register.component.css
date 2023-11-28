@@ -1,0 +1,83 @@
+h1{
+    color: #235471;
+    font-size: 35px;
+}
+input,button{
+    border:none;
+    outline:none;
+}
+
+input {
+    font-size: 17px;
+    border-radius: 5px;
+    width: 400px;
+    height: 25px;
+    padding: 10px;
+    margin: 10px 0;
+    filter: drop-shadow(6px 7px 7px rgba(0, 0, 0, 0.1));
+}
+#button-login{
+    font-size: 18px;
+    background-color: #235471;
+    color: #FFFF;
+    border-radius: 5px;
+    width: 420px;
+    padding: 10px;
+    height: 45px;
+    margin: 15px 0;
+    filter: drop-shadow(0px 0.25px 0px rgba(0, 0, 0, 0.039));
+}
+.div-margin{
+    margin-top: 20px;
+}
+.center-container {
+    margin-top: 170px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
+.main-content {
+    max-height: 500px;
+    text-align: center;
+    max-width: 400px;
+    position: relative; 
+}
+.button-no-background{
+    font-size: 15px;
+    background-color: transparent;
+    border: none;
+    padding: 10px; 
+    color: #235471; 
+    cursor: pointer;
+}
+.logo-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.logo-container img {
+    max-width: 15%; 
+}
+
+.custom-combobox {
+
+    font-size: 15px;
+    border-radius: 5px;
+    width: 420px;
+    height: 45px;
+    padding: 10px;
+    margin: 10px 0;
+    filter: drop-shadow(6px 7px 7px rgba(0, 0, 0, 0.1));
+    border: none; 
+    opacity: 0.8;
+    outline: none; 
+}
+.custom-combobox::after {
+    content: '\25BC'; /* Unicode za strelicu nadole */
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
