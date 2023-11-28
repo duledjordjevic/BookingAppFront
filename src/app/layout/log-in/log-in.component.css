@@ -1,3 +1,7 @@
+img {
+    cursor: pointer;
+}
+
 h1{
     color: #235471;
     font-size: 35px;
@@ -18,6 +22,7 @@ input {
     filter: drop-shadow(6px 7px 7px rgba(0, 0, 0, 0.1));
 }
 #button-login{
+    cursor: pointer;
     font-size: 18px;
     background-color: #235471;
     color: #FFFF;
@@ -45,6 +50,7 @@ input {
     position: relative; 
 }
 .button-no-background{
+    cursor: pointer;
     font-size: 15px;
     background-color: transparent;
     border: none;
