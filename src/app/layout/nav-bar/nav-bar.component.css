@@ -9,10 +9,10 @@ div {
     justify-content: flex-end;
 }
   
-.btn-sign-up {
-    margin-right: 30px;
-    background-color: #2C698D;
-    color: #ffffff;
+button{
+    margin-right: 40px;
+    background-color: #2C698D !important;
+    color: #ffffff !important; 
 }
 a{
     margin-right: 50px;

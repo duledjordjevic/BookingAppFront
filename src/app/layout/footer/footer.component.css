@@ -1,0 +1,86 @@
+.logo {
+    margin-left: 60px;
+    margin-top: 5px;
+    width: 150px;
+    height: 93px;
+}
+img{
+    cursor: pointer;
+}
+
+.footer-container{
+    height: 360px;
+    margin-top: 100px;
+}
+
+hr {
+    width: 80%;
+    color: #BBB5B5;
+    opacity: 60%;
+}
+
+.icons{
+    display: flex;
+    width: 78%;
+    margin: auto;
+    justify-content: space-between;
+    height: 200px;
+    align-items: center;
+}
+
+.icons-horizontal{
+    margin-right: 40px;
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.icons-vertical{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 25px;
+}
+.icons-right{
+    display: flex;
+    align-items: center;
+}
+/* .shop-icons{
+    margin-top: 20px;
+} */
+
+.social-icons{
+    width: 35px;
+    height: 35px;
+    margin-right: 30px;
+}
+
+.links{
+    width: 80%;
+    margin: auto;
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+}
+
+.social-media,
+.copyright{
+    font-size: 1.1rem;
+    margin-right: 15px;
+    font-weight: 530;
+}
+
+a{
+    margin-right: 70px;
+    align-self: center;
+    text-decoration: none;
+    color: #000;
+}
+
+.links-left{
+    display: flex;
+    gap: 70px;   
+}
+.links-left p{
+    cursor: pointer;
+}
