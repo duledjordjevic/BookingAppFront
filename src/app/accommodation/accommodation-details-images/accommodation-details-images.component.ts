@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AccommodationDetailsImagesComponent {
 
+  images: {src : string, name: string}[] = [
+    { src: "../../../assets/images/side1.jpg", name: "side1"},
+    { src: "../../../assets/images/side2.jpg", name: "side2"},
+    { src: "../../../assets/images/side3.jpg", name: "side3"}
+  ];
 }

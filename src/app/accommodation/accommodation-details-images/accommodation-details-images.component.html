@@ -1,1 +1,6 @@
-<p>accommodation-details-images works!</p>
+<div id="images">
+    <div *ngFor="let image of images" id="images-container">
+        <img [src]=[image.src] alt=[image.name]>
+    </div>
+</div>
+
