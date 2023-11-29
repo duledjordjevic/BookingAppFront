@@ -7,11 +7,14 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
 import {MatButtonModule} from "@angular/material/button";
 import {GoogleMapsModule} from "@angular/google-maps"
+import { RouterModule } from '@angular/router';
+import { AccommodationDetailsImagesComponent } from './accommodation-details-images/accommodation-details-images.component';
 
 
 @NgModule({
   declarations: [
-    AccommodationDetailsComponent
+    AccommodationDetailsComponent,
+	AccommodationDetailsImagesComponent
   ],
 	imports: [
 		CommonModule,
@@ -21,10 +24,12 @@ import {GoogleMapsModule} from "@angular/google-maps"
 		MatDatepickerModule,
 		MatNativeDateModule,
 		MatButtonModule,
-		GoogleMapsModule
+		GoogleMapsModule,
+		RouterModule
 	],
 	exports: [
-		AccommodationDetailsComponent
+		AccommodationDetailsComponent,
+		AccommodationDetailsImagesComponent
 	]
 })
 export class AccommodationModule { }

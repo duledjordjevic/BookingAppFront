@@ -15,7 +15,7 @@ import {AccommodationModule} from "./accommodation/accommodation.module";
     AppRoutingModule,
     BrowserAnimationsModule,
     LayoutModule,
-	  AccommodationModule,  
+	  AccommodationModule
   ],
   
   providers: [SharedService],

@@ -109,6 +109,7 @@
 #overlayedImage {
 	position: relative;
 	max-width: 100%;
+	cursor: pointer;
 }
 
 .numberOfPictures {
