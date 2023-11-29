@@ -100,14 +100,108 @@
 
 		<div class="location">
 			<h4>Location of apartment</h4>
-			<google-map [options]="mapOptions" width="100%">
-				<map-marker [position]="{ lat: spot.lat, lng: spot.lng }"></map-marker> 
-			 </google-map>
+			<div class="map">
+				<google-map [options]="mapOptions" width="100%">
+					<map-marker [position]="{ lat: spot.lat, lng: spot.lng }"></map-marker>
+				</google-map>
+			</div>
 		</div>
 	</div>
 
-	<div class="comments">
+	<div class="commentsSection">
+		<div class="comments">
+			<div class="comments-container">
+				<div class="review">
+					<div class="reviewEl">
+						<div class="reviewDisplay">
+							<div class="reviewDisplayLeft">
+								<h1>{{review}}</h1>
+							</div>
+							<div class="reviewDisplayRight">
+								<div class="reviewDisplayRightUp">
+									<h5>Excellent</h5>
+								</div>
+								<div class="reviewDisplayRightUp">
+									<p>{{reviewNumbers}} reviewers</p>
+								</div>
+							</div>
+						</div>
 
+						<div class="oneReview">
+							<div class="infoReview">
+								<div class="rightReview">
+									<p>5 - Excellent</p>
+								</div>
+								<div class="leftReview">
+									<p class="progressValue">120</p>
+								</div>
+							</div>
+							<mat-progress-bar mode="determinate" value="60" class="progressColor"></mat-progress-bar>
+						</div>
+						<div class="oneReview">
+							<div class="infoReview">
+								<div class="rightReview">
+									<p>4 - Good</p>
+								</div>
+								<div class="leftReview">
+									<p class="progressValue">66</p>
+								</div>
+							</div>
+							<mat-progress-bar mode="determinate" value="33"></mat-progress-bar>
+						</div>
+						<div class="oneReview">
+							<div class="infoReview">
+								<div class="rightReview">
+									<p>3 - Okay</p>
+								</div>
+								<div class="leftReview">
+									<p class="progressValue">4</p>
+								</div>
+							</div>
+							<mat-progress-bar mode="determinate" value="2"></mat-progress-bar>
+						</div>
+						<div class="oneReview">
+							<div class="infoReview">
+								<div class="rightReview">
+									<p>2 - Poor</p>
+								</div>
+								<div class="leftReview">
+									<p class="progressValue">2</p>
+								</div>
+							</div>
+							<mat-progress-bar mode="determinate" value="1"></mat-progress-bar>
+						</div>
+						<div class="oneReview">
+							<div class="infoReview">
+								<div class="rightReview">
+									<p>1 - Terrible</p>
+								</div>
+								<div class="leftReview">
+									<p class="progressValue">1</p>
+								</div>
+							</div>
+							<mat-progress-bar mode="determinate" value="0.5"></mat-progress-bar>
+						</div>
+					</div>
+				</div>
+
+				<div class="commentsAcc">
+					<div *ngFor="let comment of displayedComments">
+						<div class="comment">
+							<h4>{{comment.review}}</h4>
+							<h5>{{comment.name}}</h5>
+							<p>{{comment.date}}</p>
+							<p>{{comment.description}}</p>
+							<hr>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="expandCommentsButton">
+			<button (click)="expandComments()" *ngIf="!allCommentsVisible" mat-raised-button>See all reviews</button>
+		</div>
 	</div>
 </div>
 

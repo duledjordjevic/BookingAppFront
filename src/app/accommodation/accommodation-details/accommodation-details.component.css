@@ -130,6 +130,7 @@
 	background-color: white;
 	border-radius: 15px;
 	padding: 30px;
+	margin-bottom: 50px;
 }
 
 .description p {
@@ -178,4 +179,132 @@ hr {
 	color: white;
 	background-color: #235471;
 	padding-inline: 70px;
+}
+
+.map {
+	padding: 30px;
+}
+
+.comments {
+	display: flex;
+}
+
+.comments-container {
+	display: flex;
+	width: 100%;
+}
+
+.review {
+	box-sizing: border-box;
+	flex: 1;
+	margin-right: 155px;
+	overflow: hidden;
+}
+
+.commentsAcc {
+	box-sizing: border-box;
+	flex: 1;
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: column;
+	overflow: hidden;
+	margin-left: 35px;
+}
+
+.comment {
+	flex: 1;
+	box-sizing: border-box;
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+.infoReview {
+	display: flex;
+	justify-content: space-between;
+	height: auto;
+}
+.leftReview,
+.rightReview {
+	display: flex;
+	justify-content: space-around;
+	margin-top: 10px;
+}
+
+.leftReview {
+	margin-left: 10px;
+}
+
+.rightReview {
+	margin-right: 10px;
+}
+
+.commentsSection button {
+	color: #235471;
+	background-color: white;
+	padding-inline: 50px;
+	border-radius: 15px;
+	border: 0.5px solid black;
+}
+
+.commentsSection {
+	background-color: white;
+	border-radius: 15px;
+	padding: 30px;
+	margin-bottom: 50px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.expandCommentsButton {
+	margin-top: 50px;
+}
+
+.reviewDisplay {
+	display: flex;
+	justify-content: flex-start; /* Postavlja elemente na početak */
+}
+
+.reviewDisplayLeft,
+.reviewDisplayRight {
+	box-sizing: border-box;
+}
+
+.reviewDisplayRight {
+	display: flex;
+	flex-direction: column;
+	padding-top: 10px;
+}
+
+.reviewDisplayRightUp,
+.reviewDisplayRightDown {
+	flex: 1;
+	box-sizing: border-box;
+	/*padding: 2px;*/
+}
+
+.reviewDisplayRightUp {
+	order: 1;
+}
+
+.reviewDisplayRightDown {
+	order: 2;
+}
+
+.reviewDisplayLeft {
+	margin-right: 20px;
+}
+
+.reviewDisplayLeft h1 {
+	/*font-weight: bold;*/
+	font-size: 64px;
+}
+
+.reviewDisplay {
+	margin-bottom: 20px;
+}
+
+.progressValue {
+	font-weight: bold;
 }

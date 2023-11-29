@@ -7,8 +7,11 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatSortModule} from "@angular/material/sort";
 import {MatFormFieldModule, MatLabel} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatNativeDateModule} from "@angular/material/core";
 import {MatIconModule} from '@angular/material/icon';
 import { FormsModule } from '@angular/forms'
+import {MatProgressBarModule} from "@angular/material/progress-bar";
 
 
 @NgModule({
@@ -22,6 +25,9 @@ import { FormsModule } from '@angular/forms'
     MatSortModule,
     MatFormFieldModule,
     MatInputModule,
+	  MatDatepickerModule,
+	  MatNativeDateModule,
+	  MatProgressBarModule
   ],
   exports: [
     MatToolbarModule,
@@ -32,8 +38,11 @@ import { FormsModule } from '@angular/forms'
     MatFormFieldModule,
     MatInputModule,
     MatLabel,
+	  MatDatepickerModule,
+	  MatNativeDateModule,
     MatIconModule,
-    FormsModule
+    FormsModule,
+	  MatProgressBarModule
   ]
 })
 export class MaterialModule { }
