@@ -8,7 +8,7 @@ import { MaterialModule } from '../infrastructure/material/material.module';
 import { LogInComponent } from './log-in/log-in.component';
 import { RegisterComponent } from './register/register.component';
 import {AccommodationModule} from "../accommodation/accommodation.module";
-
+import { FormsModule } from '@angular/forms'
 
 
 @NgModule({
@@ -23,7 +23,9 @@ import {AccommodationModule} from "../accommodation/accommodation.module";
         CommonModule,
         RouterModule,
         MaterialModule,
-        AccommodationModule
+        AccommodationModule,
+        MaterialModule,
+        FormsModule
     ],
   exports: [
     NavBarComponent,
