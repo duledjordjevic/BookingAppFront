@@ -74,7 +74,7 @@
 .inner_side_picture_up .picture {
 	flex: 1;
 	box-sizing: border-box;
-	margin-bottom: 1%;
+	margin-bottom: 2%;
 	margin-left: 1%;
 	margin-right: 1%;
 }
@@ -137,6 +137,23 @@
 	text-align: justify;
 }
 
+.buttons {
+	padding: 10px;
+	display: flex;
+	justify-content: space-between;
+	height: auto;
+	margin-bottom: 20px;
+}
+
+.datePickers {
+	display: flex;
+	flex-direction: row;
+}
+
+.datePicker {
+	padding-right: 10px;
+}
+
 hr {
 	border: 1px solid;
 }
@@ -155,4 +172,10 @@ hr {
 
 .location {
 	padding-top: 10px;
+}
+
+.reservate button {
+	color: white;
+	background-color: #235471;
+	padding-inline: 70px;
 }

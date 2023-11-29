@@ -46,9 +46,32 @@
 		</div>
 	</div>
 
-<!--	<div class="buttons">-->
+	<div class="buttons">
+		<div class="datePickers">
+			<div class="datePicker">
+				<mat-form-field>
+					<mat-label>Check in</mat-label>
+					<input matInput [matDatepicker]="picker">
+					<mat-hint>MM/DD/YYYY</mat-hint>
+					<mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+					<mat-datepicker #picker></mat-datepicker>
+				</mat-form-field>
+			</div>
+			<div class="datePicker">
+				<mat-form-field>
+					<mat-label>Check out</mat-label>
+					<input matInput [matDatepicker]="picker">
+					<mat-hint>MM/DD/YYYY</mat-hint>
+					<mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+					<mat-datepicker #picker></mat-datepicker>
+				</mat-form-field>
+			</div>
 
-<!--	</div>-->
+		</div>
+		<div class="reservate">
+			<button mat-raised-button>Reserve</button>
+		</div>
+	</div>
 
 	<div class="description">
 		<h2>Description</h2>
