@@ -8,8 +8,20 @@ import { SharedService } from '../../services/shared.service';
   styleUrls: ['./log-in.component.css']
 })
 export class LogInComponent {
-  constructor(private navbarService: SharedService) {}
+  password: string = '';
+  showPassword: boolean = false;
+  toggleIconClass: string = 'fa-eye';
 
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+    this.toggleIconClass = this.showPassword ? 'fa-eye' : 'fa-eye-slash';
+  }
+
+  getPasswordFieldType() {
+    return this.showPassword ? 'text' : 'password';
+  }
+  constructor(private navbarService: SharedService) {}
+  hide =false;
   ngOnInit(): void {
     this.navbarService.toggleNavbarVisibility(false);
   }
