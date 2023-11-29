@@ -1,11 +1,13 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import {GoogleMap} from '@angular/google-maps'
+
 
 @Component({
   selector: 'app-accommodation-details',
   templateUrl: './accommodation-details.component.html',
   styleUrls: ['./accommodation-details.component.css']
 })
-export class AccommodationDetailsComponent {
+export class AccommodationDetailsComponent{
 	// sidePicturesUp: String[] = ["assets/images/side1.jpg", "assets/images/side2.jpg"];
 	// sidePicturesDown: String[] = ["assets/images/side3.jpg", "assets/images/side4.png"]
 	sidePicture1 = "assets/images/side1.jpg";
@@ -36,4 +38,16 @@ export class AccommodationDetailsComponent {
 		"making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as " +
 		"their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. " +
 		"Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).";
+
+	
+	myLatLng: {lat : number, lng: number} = { lat: 40, lng: 40 }; 
+	mapOptions: google.maps.MapOptions = {
+		center: this.myLatLng,
+		zoom: 10,
+	};
+	
+	spot: { id: number; lat: number; lng: number } = { id: 1, lat: 40, lng: 40};  
+		
 }
+
+

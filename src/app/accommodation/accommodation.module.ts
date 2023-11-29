@@ -6,7 +6,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
 import {MatButtonModule} from "@angular/material/button";
-
+import {GoogleMapsModule} from "@angular/google-maps"
 
 
 @NgModule({
@@ -20,7 +20,8 @@ import {MatButtonModule} from "@angular/material/button";
 		MatInputModule,
 		MatDatepickerModule,
 		MatNativeDateModule,
-		MatButtonModule
+		MatButtonModule,
+		GoogleMapsModule
 	],
 	exports: [
 		AccommodationDetailsComponent
