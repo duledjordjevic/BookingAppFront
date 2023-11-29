@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from './layout/layout.module';
 import { SharedService } from './services/shared.service';
+import {AccommodationModule} from "./accommodation/accommodation.module";
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { SharedService } from './services/shared.service';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    LayoutModule
+    LayoutModule,
+	  AccommodationModule
   ],
   
   providers: [SharedService],

@@ -1,0 +1,181 @@
+.main {
+	background-color: #F6F8FA;
+	padding-top: 70px;
+	padding-left: 100px;
+	padding-right: 100px;
+}
+
+.title {
+	display: flex;
+	margin-bottom: 50px;
+}
+
+.info {
+	display: flex;
+	justify-content: space-between;
+	height: auto;
+	margin-bottom: 30px;
+	padding-right: 10px;
+}
+
+.leftInfo,
+.rightInfo {
+	display: flex;
+	justify-content: space-around;
+}
+
+.leftInfo {
+	margin-left: 10px;
+}
+
+.rightInfo {
+	margin-right: 10px;
+}
+.addressAndReview {
+	font-weight: bold;
+	display: flex;
+	flex-direction: row;
+}
+
+.info p {
+	margin-left: 10px;
+	white-space: nowrap;
+}
+
+.addressAndReview p {
+	font-weight: bold;
+	padding-right: 5px;
+}
+.info img {
+	width: 100%;
+	height: 100%;
+	max-height: 50%;
+}
+
+.pictures {
+	display: flex;
+	height: auto;
+	margin-bottom: 30px;
+}
+
+.main_picture,
+.side_pictures {
+	flex: 1;
+	padding: 5px;
+	box-sizing: border-box;
+}
+
+.inner_side_picture_up,
+.inner_side_picture_down {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.inner_side_picture_up .picture {
+	flex: 1;
+	box-sizing: border-box;
+	margin-bottom: 2%;
+	margin-left: 1%;
+	margin-right: 1%;
+}
+
+.inner_side_picture_down .picture {
+	flex: 1;
+	box-sizing: border-box;
+	margin-top: 1%;
+	margin-left: 1%;
+	margin-right: 1%;
+}
+
+.pictures img {
+	width: 100%;
+	height: 100%;
+}
+
+.main_picture img {
+	border-top-left-radius: 15px;
+	border-bottom-left-radius: 15px;
+}
+
+#rightUp {
+	border-top-right-radius: 15px;
+}
+
+#rightBottom {
+	border-bottom-right-radius: 15px;
+	filter: brightness(60%);
+}
+
+#overlayedImage {
+	position: relative;
+	max-width: 100%;
+}
+
+.numberOfPictures {
+	position: absolute;
+	height: auto;
+	width: auto;
+	top: 50%;
+	left: 50%;
+	color: white;
+	transform: translate(-50%,-50%);
+}
+
+.numberOfPictures h2{
+	text-align: center;
+	font-size: 3vh;
+}
+
+.description {
+	background-color: white;
+	border-radius: 15px;
+	padding: 30px;
+}
+
+.description p {
+	padding-top: 15px;
+	text-align: justify;
+}
+
+.buttons {
+	padding: 10px;
+	display: flex;
+	justify-content: space-between;
+	height: auto;
+	margin-bottom: 20px;
+}
+
+.datePickers {
+	display: flex;
+	flex-direction: row;
+}
+
+.datePicker {
+	padding-right: 10px;
+}
+
+hr {
+	border: 1px solid;
+}
+.amenities {
+	padding-top: 5px;
+	padding-bottom: 10px;
+}
+.amenitie {
+	display: flex;
+	justify-content: flex-start;
+}
+
+.amenitie p{
+	padding-left: 15px;
+}
+
+.location {
+	padding-top: 10px;
+}
+
+.reservate button {
+	color: white;
+	background-color: #235471;
+	padding-inline: 70px;
+}

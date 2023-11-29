@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { MaterialModule } from '../infrastructure/material/material.module';
 import { LogInComponent } from './log-in/log-in.component';
 import { RegisterComponent } from './register/register.component';
+import {AccommodationModule} from "../accommodation/accommodation.module";
 
 
 
@@ -18,11 +19,12 @@ import { RegisterComponent } from './register/register.component';
     LogInComponent,
     RegisterComponent
   ],
-  imports: [
-    CommonModule,
-    RouterModule,
-    MaterialModule
-  ],
+    imports: [
+        CommonModule,
+        RouterModule,
+        MaterialModule,
+        AccommodationModule
+    ],
   exports: [
     NavBarComponent,
     HomeComponent,

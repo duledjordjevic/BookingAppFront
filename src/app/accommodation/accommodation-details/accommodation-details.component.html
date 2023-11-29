@@ -1,0 +1,110 @@
+<div class="main">
+	<div class="title">
+		<h1>{{title}}</h1>
+	</div>
+
+	<div class="info">
+		<div class="leftInfo">
+			<img [src] = "starFill" alt="Star">
+			<div class="addressAndReview">
+				<p>{{review}}</p>
+				<p>{{reviewNumbers}} reviewers</p>
+				<p>{{address}}</p>
+			</div>
+		</div>
+		<div class="rightInfo">
+			<img [src] = "star" alt="Star">
+			<p>Save as favorite</p>
+		</div>
+	</div>
+
+	<div class="pictures">
+		<div class="main_picture">
+			<img [src]="mainPicture" alt="Slika levi-div">
+		</div>
+
+		<div class="side_pictures">
+			<div class="inner_side_picture_up">
+				<div class="picture">
+					<img [src]="sidePicture1" alt="Side picture">
+				</div>
+				<div class="picture">
+					<img [src]="sidePicture2" alt="Side picture" id="rightUp">
+				</div>
+			</div>
+			<div class="inner_side_picture_down">
+				<div class="picture">
+					<img [src]="sidePicture3" alt="Side picture">
+				</div>
+				<div class="picture" id="overlayedImage">
+					<img [src]="sidePicture4" alt="Side picture" id="rightBottom">
+					<div class="numberOfPictures">
+						<h2 class="font-style">5+ photos</h2>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="buttons">
+		<div class="datePickers">
+			<div class="datePicker">
+				<mat-form-field>
+					<mat-label>Check in</mat-label>
+					<input matInput [matDatepicker]="checkinPicker">
+					<mat-hint>MM/DD/YYYY</mat-hint>
+					<mat-datepicker-toggle matIconSuffix [for]="checkinPicker"></mat-datepicker-toggle>
+					<mat-datepicker #checkinPicker></mat-datepicker>
+				</mat-form-field>
+			</div>
+			<div class="datePicker">
+				<mat-form-field>
+					<mat-label>Check out</mat-label>
+					<input matInput [matDatepicker]="checkoutPicker">
+					<mat-hint>MM/DD/YYYY</mat-hint>
+					<mat-datepicker-toggle matIconSuffix [for]="checkoutPicker"></mat-datepicker-toggle>
+					<mat-datepicker #checkoutPicker></mat-datepicker>
+				</mat-form-field>
+			</div>
+
+		</div>
+		<div class="reservate">
+			<button mat-raised-button>Reserve</button>
+		</div>
+	</div>
+
+	<div class="description">
+		<h2>Description</h2>
+		<p>{{descText}}</p>
+
+		<div class="amenities">
+			<div class="amenitie">
+				<img [src]="amenitieWifi" alt="Amenitie">
+				<p>Internet</p>
+			</div>
+			<div class="amenitie">
+				<img [src]="amenitieParking" alt="Amenitie">
+				<p>Parking</p>
+			</div>
+			<div class="amenitie">
+				<img [src]="amenitieAirCondition" alt="Amenitie">
+				<p>Air condition</p>
+			</div>
+			<div class="amenitie">
+				<img [src]="amenitieBreakfast" alt="Amenitie">
+				<p>Breakfast</p>
+			</div>
+		</div>
+
+		<hr>
+
+		<div class="location">
+			<h4>Location of apartment</h4>
+		</div>
+	</div>
+
+	<div class="comments">
+
+	</div>
+</div>
+
