@@ -11,6 +11,7 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
 import {MatIconModule} from '@angular/material/icon';
 import { FormsModule } from '@angular/forms'
+import {MatProgressBarModule} from "@angular/material/progress-bar";
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { FormsModule } from '@angular/forms'
     MatFormFieldModule,
     MatInputModule,
 	  MatDatepickerModule,
-	  MatNativeDateModule
+	  MatNativeDateModule,
+	  MatProgressBarModule
   ],
   exports: [
     MatToolbarModule,
@@ -39,7 +41,8 @@ import { FormsModule } from '@angular/forms'
 	  MatDatepickerModule,
 	  MatNativeDateModule,
     MatIconModule,
-    FormsModule
+    FormsModule,
+	  MatProgressBarModule
   ]
 })
 export class MaterialModule { }
