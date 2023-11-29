@@ -3,6 +3,7 @@
 	padding-top: 70px;
 	padding-left: 100px;
 	padding-right: 100px;
+	padding-bottom: 150px;
 }
 
 .title {
@@ -109,6 +110,7 @@
 #overlayedImage {
 	position: relative;
 	max-width: 100%;
+	cursor: pointer;
 }
 
 .numberOfPictures {

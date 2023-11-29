@@ -30,7 +30,9 @@ import { FormsModule } from '@angular/forms'
   exports: [
     NavBarComponent,
     HomeComponent,
-    FooterComponent
+    FooterComponent,
+    LogInComponent,
+    RegisterComponent
   ]
 })
 export class LayoutModule { }
