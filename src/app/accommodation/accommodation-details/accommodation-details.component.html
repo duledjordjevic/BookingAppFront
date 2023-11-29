@@ -51,19 +51,19 @@
 			<div class="datePicker">
 				<mat-form-field>
 					<mat-label>Check in</mat-label>
-					<input matInput [matDatepicker]="picker">
+					<input matInput [matDatepicker]="checkinPicker">
 					<mat-hint>MM/DD/YYYY</mat-hint>
-					<mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-					<mat-datepicker #picker></mat-datepicker>
+					<mat-datepicker-toggle matIconSuffix [for]="checkinPicker"></mat-datepicker-toggle>
+					<mat-datepicker #checkinPicker></mat-datepicker>
 				</mat-form-field>
 			</div>
 			<div class="datePicker">
 				<mat-form-field>
 					<mat-label>Check out</mat-label>
-					<input matInput [matDatepicker]="picker">
+					<input matInput [matDatepicker]="checkoutPicker">
 					<mat-hint>MM/DD/YYYY</mat-hint>
-					<mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-					<mat-datepicker #picker></mat-datepicker>
+					<mat-datepicker-toggle matIconSuffix [for]="checkoutPicker"></mat-datepicker-toggle>
+					<mat-datepicker #checkoutPicker></mat-datepicker>
 				</mat-form-field>
 			</div>
 
