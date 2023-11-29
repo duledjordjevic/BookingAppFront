@@ -15,11 +15,6 @@ import { AccommodationDetailsImagesComponent } from './accommodation-details-ima
 	imports: [
 		CommonModule,
 		NgOptimizedImage,
-		MatFormFieldModule,
-		MatInputModule,
-		MatDatepickerModule,
-		MatNativeDateModule,
-		MatButtonModule,
 		GoogleMapsModule,
 		RouterModule,
 		MaterialModule
