@@ -9,7 +9,8 @@ import {MatFormFieldModule, MatLabel} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
-
+import {MatIconModule} from '@angular/material/icon';
+import { FormsModule } from '@angular/forms'
 
 
 @NgModule({
@@ -36,7 +37,9 @@ import {MatNativeDateModule} from "@angular/material/core";
     MatInputModule,
     MatLabel,
 	  MatDatepickerModule,
-	  MatNativeDateModule
+	  MatNativeDateModule,
+    MatIconModule,
+    FormsModule
   ]
 })
 export class MaterialModule { }

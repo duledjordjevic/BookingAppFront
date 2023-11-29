@@ -5,35 +5,49 @@ img {
 h1{
     color: #235471;
     font-size: 35px;
-    margin-bottom: 25px;
+    margin-bottom: 100px;
 }
-input,button{
-    border:none;
-    outline:none;
+ input,button{
+    border:none ; 
+    outline:none ;
 }
-
+#show-hide-button{
+    height: 40px;
+    width: 40px;
+}
 input {
+    background-color: #FFFF;
     font-size: 17px;
     border-radius: 5px;
-    width: 400px;
-    height: 25px;
+    width: 400px ;
+    height: 45px;
     padding: 10px;
     margin: 10px 0;
     filter: drop-shadow(6px 7px 7px rgba(0, 0, 0, 0.1));
+} 
+#input-password{
+    width: 400px;
+    height:100px;
+    background-color: #FFFF;
+    filter: drop-shadow(6px 7px 7px rgba(0, 0, 0, 0.1));
 }
 #button-login{
+    border:5px black;
     cursor: pointer;
     font-size: 18px;
     background-color: #235471;
     color: #FFFF;
     border-radius: 5px;
-    width: 420px;
+    width: 400px;
     padding: 10px;
     height: 45px;
     margin: 15px 0;
     filter: drop-shadow(0px 0.25px 0px rgba(0, 0, 0, 0.039));
 }
+
+
 .div-margin{
+    background-color: #FFFF !important;
     margin-top: 30px;
 }
 .center-container {
@@ -58,6 +72,7 @@ input {
     color: #235471; 
     cursor: pointer;
 }
+
 .logo-container {
     position: absolute;
     top: 0;
@@ -65,5 +80,7 @@ input {
 }
 
 .logo-container img {
-    max-width: 15%; 
+    max-width: 12%; 
+    margin-left: 30px;
+    margin-top: 40px;
 }

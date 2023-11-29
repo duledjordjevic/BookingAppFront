@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import {CommonModule, NgOptimizedImage} from '@angular/common';
 import { AccommodationDetailsComponent } from './accommodation-details/accommodation-details.component';
 import {MaterialModule} from "../infrastructure/material/material.module";
-
+import {GoogleMapsModule} from "@angular/google-maps"
 
 
 @NgModule({
@@ -12,7 +12,8 @@ import {MaterialModule} from "../infrastructure/material/material.module";
 	imports: [
 		CommonModule,
 		NgOptimizedImage,
-		MaterialModule
+		MaterialModule,
+		GoogleMapsModule
 	],
 	exports: [
 		AccommodationDetailsComponent

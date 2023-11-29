@@ -1,14 +1,16 @@
-import { Component } from '@angular/core';
+
+// import { Component } from '@angular/core';
 import {CommentModel} from "./model/comment.model";
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import {GoogleMap} from '@angular/google-maps'
+
 
 @Component({
   selector: 'app-accommodation-details',
   templateUrl: './accommodation-details.component.html',
   styleUrls: ['./accommodation-details.component.css']
 })
-export class AccommodationDetailsComponent {
-	// sidePicturesUp: String[] = ["assets/images/side1.jpg", "assets/images/side2.jpg"];
-	// sidePicturesDown: String[] = ["assets/images/side3.jpg", "assets/images/side4.png"]
+export class AccommodationDetailsComponent{
 	sidePicture1 = "assets/images/side1.jpg";
 	sidePicture2 = "assets/images/side2.jpg";
 	sidePicture3 = "assets/images/side3.jpg";
@@ -73,4 +75,15 @@ export class AccommodationDetailsComponent {
 				"but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the " +
 				"1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop " +
 				"publishing software like Aldus PageMaker including versions of Lorem Ipsum."}];
+
+	myLatLng: {lat : number, lng: number} = { lat: 40, lng: 40 };
+	mapOptions: google.maps.MapOptions = {
+		center: this.myLatLng,
+		zoom: 10,
+	};
+
+	spot: { id: number; lat: number; lng: number } = { id: 1, lat: 40, lng: 40};
+
 }
+
+
