@@ -1,7 +1,8 @@
 <mat-toolbar>
-    <img [routerLink]="['home']"   routerLinkActive="router-link-active" src="../../../assets/images/logo-no-background.svg" alt="image">
+    <img [routerLink]="['/home']"   routerLinkActive="router-link-active" src="../../../assets/images/logo-no-background.svg" alt="image">
     <div>
-        <a [routerLink]="['login']" routerLinkActive="router-link-active">LOG IN</a>
-        <button [routerLink]="['register']" routerLinkActive="router-link-active" mat-raised-button color="primary">SIGN UP</button>
+        <a [routerLink]="['/update-profile']" routerLinkActive="router-link-active">PROFILE</a>
+        <a [routerLink]="['/login']" routerLinkActive="router-link-active">LOG IN</a>
+        <button [routerLink]="['/register']" routerLinkActive="router-link-active" mat-raised-button color="primary">SIGN UP</button>
     </div>
 </mat-toolbar>
