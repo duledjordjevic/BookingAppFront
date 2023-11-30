@@ -4,6 +4,11 @@
 	padding-left: 100px;
 	padding-right: 100px;
 	padding-bottom: 150px;
+	max-width: 1600px;
+	margin: auto;
+}
+.main-conatiner{
+	background-color: #F6F8FA;
 }
 
 .title {
@@ -309,4 +314,8 @@ hr {
 
 .progressValue {
 	font-weight: bold;
+}
+
+.star-favourite{
+	cursor: pointer;
 }

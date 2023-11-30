@@ -42,13 +42,13 @@ export class AccommodationDetailsComponent{
 
 	commentsAboutAcc: CommentModel[] = [];
 
-	myLatLng: {lat : number, lng: number} = { lat: 40, lng: 40 };
+	myLatLng: {lat : number, lng: number} = { lat: 42.546, lng: 21.882 };
 	mapOptions: google.maps.MapOptions = {
 		center: this.myLatLng,
-		zoom: 10,
+		zoom: 15,
 	};
 
-	spot: { id: number; lat: number; lng: number } = { id: 1, lat: 40, lng: 40};
+	spot: { id: number; lat: number; lng: number } = { id: 1, lat: 42.546, lng: 21.882};
 
 
 
