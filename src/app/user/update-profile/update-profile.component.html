@@ -9,7 +9,14 @@
             <input [value]="lastName" type="text" required required placeholder="Lastname">
         </div>
         <div class="div-margin">
-            <input [value]="address" type="text" required required placeholder="Home address">
+            <input type="text" required required placeholder="State">
+        </div>
+        <div class="city-postal">
+            <input id="city-input" type="text" required required placeholder="City">
+            <input id="postal-input" type="number" required required placeholder="Postal code">
+        </div>
+        <div class="div-margin">
+            <input type="text" required required placeholder="Street">
         </div>
         <div class="div-margin">
             <select class="custom-combobox" [value]="option">
@@ -31,6 +38,9 @@
         </div>
         <div class="div-margin">
             <button id="button-register">Save</button>
+        </div>
+        <div class="div-margin">
+            <button id="button-delete">Delete profile</button>
         </div>
     </form>
 </div>

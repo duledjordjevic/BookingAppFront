@@ -8,6 +8,7 @@ import { SharedService } from './services/shared.service';
 import {AccommodationModule} from "./accommodation/accommodation.module";
 import { UpdateProfileComponent } from './user/update-profile/update-profile.component';
 import { UserModule } from './user/user.module';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent
@@ -18,7 +19,8 @@ import { UserModule } from './user/user.module';
     BrowserAnimationsModule,
     LayoutModule,
 	  AccommodationModule,
-    UserModule
+    UserModule,
+    HttpClientModule
   ],
   
   providers: [SharedService],
