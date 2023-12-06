@@ -35,6 +35,18 @@ input {
 .div-margin{
     margin-top: 20px;
 }
+.city-postal{
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+#city-input{
+    width: 230px;
+}
+#postal-input{
+    width: 120px;
+}
 .center-container {
     margin-top: 170px;
     display: flex;
