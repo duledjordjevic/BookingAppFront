@@ -5,8 +5,6 @@ import { HomeComponent } from './home/home.component';
 import { FooterComponent } from './footer/footer.component';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from '../infrastructure/material/material.module';
-import { LogInComponent } from './log-in/log-in.component';
-import { RegisterComponent } from './register/register.component';
 import {AccommodationModule} from "../accommodation/accommodation.module";
 import { FormsModule } from '@angular/forms'
 
@@ -15,9 +13,7 @@ import { FormsModule } from '@angular/forms'
   declarations: [
     NavBarComponent,
     HomeComponent,
-    FooterComponent,
-    LogInComponent,
-    RegisterComponent
+    FooterComponent
   ],
     imports: [
         CommonModule,
@@ -30,9 +26,7 @@ import { FormsModule } from '@angular/forms'
   exports: [
     NavBarComponent,
     HomeComponent,
-    FooterComponent,
-    LogInComponent,
-    RegisterComponent
+    FooterComponent
   ]
 })
 export class LayoutModule { }

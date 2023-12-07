@@ -5,15 +5,15 @@
     <div class="main-content">
 
         <h1>Sign in to Booking</h1>
-        <form action="POST">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
             <div class="div-margin">
-                <input type="text" required required placeholder="Email">
+                <input formControlName="email" type="text" required required placeholder="Email">
             </div>
             <div class="div-margin">
-                <input type="password" required required placeholder="Password">
+                <input formControlName="password" type="password" required required placeholder="Password">
             </div>
             <div class="div-margin">
-                <button id="button-login">Log in</button>
+                <button type="submit" id="button-login">Log in</button>
             </div>
             <button class="button-no-background">Reset password</button>
             <div>
