@@ -36,20 +36,20 @@ export class AuthService {
       });
     }
 
-    setUser(): void {
-      this.user$.next(this.getRole());
-    }
-
     getRole(): any {
       if (this.isLoggedIn()) {
         const accessToken: any = localStorage.getItem('user');
         const helper = new JwtHelperService();
-        return helper.decodeToken(accessToken).role[0].authority;
+        return helper.decodeToken(accessToken).Authorities[0].authority;
       }
       return null;
     }
 
     isLoggedIn(): boolean {
       return localStorage.getItem('user') != null;
+    }
+
+    setUser(): void {
+      this.user$.next(this.getRole());
     }
   }

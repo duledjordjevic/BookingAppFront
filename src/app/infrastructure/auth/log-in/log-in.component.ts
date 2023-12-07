@@ -57,13 +57,13 @@ export class LogInComponent {
       }
       this.authService.login(login).subscribe({
         next: (response: AuthResponse) => {
-          localStorage.setItem('user', response.token);
+          localStorage.setItem('user', response.jwt);
           this.authService.setUser()
           this.router.navigate(['home'])
         }
       })
     }
-    // this.http.post<{user: UserInterface}>(environment.apiHost + 'login', {
+    // this.http.post<{user: Login}>('http://localhost:8080/api/login',  {
     //   user: this.form.getRawValue(),
     // }).subscribe(response => {
     //   console.log('response', response);
