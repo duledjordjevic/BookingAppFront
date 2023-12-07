@@ -1,46 +1,51 @@
 
 <div class="center-container">
     <h1>Update profile</h1>
-    <form action="POST">
+    <form [formGroup]="updateProfileForm">
+        <div>
         <div class="div-margin">
-            <input [value]="res?.name" type="text" required required placeholder="Name"> 
+            <input [(ngModel)]="updateProfileForm.value.name" formControlName="name" type="text" required required placeholder="Name"> 
         </div>
         <div class="div-margin">
-            <input [value]="res?.lastname" type="text" required required placeholder="Lastname">
+            <input [(ngModel)]="updateProfileForm.value.lastname" formControlName="lastname" type="text" required required placeholder="Lastname">
         </div>
         <div class="div-margin">
-            <input [value]="res?.address?.postalCode" type="text" required required placeholder="State">
+            <input [(ngModel)]="updateProfileForm.value.state" formControlName="state" type="text" required required placeholder="State">
         </div>
         <div class="city-postal">
-            <input [value]="res?.address?.city" id="city-input" type="text" required required placeholder="City">
-            <input [value]="res?.address?.postalCode" id="postal-input" type="number" required required placeholder="Postal code">
+            <input [(ngModel)]="updateProfileForm.value.city" formControlName="city" id="city-input" type="text" required required placeholder="City">
+            <input [(ngModel)]="updateProfileForm.value.postalCode" formControlName="postalCode" id="postal-input" type="number" required placeholder="Postal code">
         </div>
         <div class="div-margin">
-            <input [value]="res?.address?.street" type="text" required required placeholder="Street">
+            <input [(ngModel)]="updateProfileForm.value.street" formControlName="street" type="text"  required placeholder="Street">
         </div>
         <div class="div-margin">
-            <select class="custom-combobox" [attr.value]="res?.userType">
-                <option value="option1">GUEST</option>
-                <option value="option2">HOST</option>
-            </select>
+            <select class="custom-combobox" id="userType" formControlName="userType" >
+                <option value="GUEST">GUEST</option>
+                <option value="HOST">HOST</option>
+              </select>
         </div>
         <div class="div-margin">
-            <input  [value]="res?.email" type="text" required required placeholder="Email">
+            <input  [value]="res?.email" formControlName="email" type="text" required required placeholder="Email">
         </div>
         <div class="div-margin">
-            <input [value]="res?.phoneNumber" type="tel" required required placeholder="Phone number">
+            <input [value]="res?.phoneNumber" formControlName="phoneNumber" type="tel" required required placeholder="Phone number">
         </div>
         <div class="div-margin">
-            <input  type="password" required required placeholder="Password">
+            <input  type="password" formControlName="newPassword"   placeholder="New password">
         </div>
         <div class="div-margin">
-            <input type="password" required required placeholder="Password">
+            <input type="password" formControlName="newPasswordConfirmed"   placeholder="Confirm new password">
         </div>
         <div class="div-margin">
-            <button id="button-register">Save</button>
+            <input type="password" formControlName="oldPassword" required required placeholder="Old password">
+        </div>
+        <div class="div-margin">
+            <button id="button-register" type="submit" (click)="updateUser()">Save</button>
         </div>
         <div class="div-margin">
             <button id="button-delete">Delete profile</button>
+        </div>
         </div>
     </form>
 </div>

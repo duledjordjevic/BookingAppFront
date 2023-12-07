@@ -3,7 +3,7 @@ export interface AddressModel {
     street: string;
     city: string;
     state: string;
-    postalCode: number;
+    postalCode: string;
 }
 
 export interface UserModel {
@@ -12,7 +12,7 @@ export interface UserModel {
     password: string;
     address: AddressModel;
     phoneNumber: string;
-    userType: "GUEST" | "HOST" | "ADMIN"; 
+    userType: string; 
     name: string;
     lastname: string;
 }

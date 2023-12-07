@@ -10,7 +10,10 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  getUsers(): Observable<UserModel> {
-    return this.http.get<UserModel>('http://localhost:8080/api/users/2');
+  getUser(): Observable<UserModel> {
+    return this.http.get<UserModel>('http://localhost:8080/api/users/1');
+  }
+  updateUser(user: UserModel): Observable<UserModel>{
+    return this.http.put<UserModel>('http://localhost:8080/api/users/2',user);
   }
 }
