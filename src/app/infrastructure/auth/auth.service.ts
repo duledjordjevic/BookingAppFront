@@ -25,13 +25,13 @@ export class AuthService {
     }
   
     login(auth: any): Observable<AuthResponse> {
-      return this.http.post<AuthResponse>(environment.apiHost + 'login', auth, {
+      return this.http.post<AuthResponse>(environment.apiHost + 'auth/login', auth, {
         headers: this.headers,
       });
     }
   
     logout(): Observable<string> {
-      return this.http.get(environment.apiHost + 'logOut', {
+      return this.http.get(environment.apiHost + 'auth/logout', {
         responseType: 'text',
       });
     }
