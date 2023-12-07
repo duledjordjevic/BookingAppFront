@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { UserModel } from './update-profile/model/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  getUsers(): Observable<any> {
-    return this.http.get<any>('http://localhost:8080/api/users/2');
+  getUsers(): Observable<UserModel> {
+    return this.http.get<UserModel>('http://localhost:8080/api/users/2');
   }
 }

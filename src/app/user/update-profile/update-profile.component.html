@@ -3,38 +3,38 @@
     <h1>Update profile</h1>
     <form action="POST">
         <div class="div-margin">
-            <input [value]="name" type="text" required required placeholder="Name"> 
+            <input [value]="res?.name" type="text" required required placeholder="Name"> 
         </div>
         <div class="div-margin">
-            <input [value]="lastName" type="text" required required placeholder="Lastname">
+            <input [value]="res?.lastname" type="text" required required placeholder="Lastname">
         </div>
         <div class="div-margin">
-            <input type="text" required required placeholder="State">
+            <input [value]="res?.address?.postalCode" type="text" required required placeholder="State">
         </div>
         <div class="city-postal">
-            <input id="city-input" type="text" required required placeholder="City">
-            <input id="postal-input" type="number" required required placeholder="Postal code">
+            <input [value]="res?.address?.city" id="city-input" type="text" required required placeholder="City">
+            <input [value]="res?.address?.postalCode" id="postal-input" type="number" required required placeholder="Postal code">
         </div>
         <div class="div-margin">
-            <input type="text" required required placeholder="Street">
+            <input [value]="res?.address?.street" type="text" required required placeholder="Street">
         </div>
         <div class="div-margin">
-            <select class="custom-combobox" [value]="option">
-                <option value="option1">Guest</option>
-                <option value="option2">Host</option>
+            <select class="custom-combobox" [attr.value]="res?.userType">
+                <option value="option1">GUEST</option>
+                <option value="option2">HOST</option>
             </select>
         </div>
         <div class="div-margin">
-            <input  [value]="email" type="text" required required placeholder="Email">
+            <input  [value]="res?.email" type="text" required required placeholder="Email">
         </div>
         <div class="div-margin">
-            <input [value]="phoneNumber" type="tel" required required placeholder="Phone number">
+            <input [value]="res?.phoneNumber" type="tel" required required placeholder="Phone number">
         </div>
         <div class="div-margin">
-            <input [value]="password" type="password" required required placeholder="Password">
+            <input  type="password" required required placeholder="Password">
         </div>
         <div class="div-margin">
-            <input [value]="password" type="password" required required placeholder="Password">
+            <input type="password" required required placeholder="Password">
         </div>
         <div class="div-margin">
             <button id="button-register">Save</button>
