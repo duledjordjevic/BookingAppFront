@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
-import { AddressModel, UserModel } from './model/user.model';
+import { Address, UserInfo, UserUpdate } from './model/user.model';
 import { FormGroup, FormControl, Validators} from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-update-profile',
@@ -9,15 +10,14 @@ import { FormGroup, FormControl, Validators} from '@angular/forms';
   styleUrls: ['./update-profile.component.css'],
 })
 export class UpdateProfileComponent implements OnInit {
-    res: UserModel | undefined;
-    // updateProfileForm: FormGroup | undefined;
+    res: UserInfo | undefined;
 
-    constructor(private service: UserService) { }
+    constructor(private service: UserService,
+      private router: Router) { }
 
     ngOnInit(): void {
-      this.service.getUser().subscribe({
-        next:(result: UserModel) =>{
-            console.log(result);
+      this.service.getUser(1).subscribe({
+        next:(result: UserInfo) =>{
           this.res = result;
           this.updateProfileForm = new FormGroup({
             name: new FormControl(this.res.name,[Validators.required]),
@@ -26,8 +26,6 @@ export class UpdateProfileComponent implements OnInit {
             city: new FormControl(this.res.address.city,[Validators.required]),
             postalCode: new FormControl(this.res.address.postalCode,[Validators.required]),
             street: new FormControl(this.res.address.street,[Validators.required]),
-            userType: new FormControl(this.res.userType,[Validators.required]),
-            email: new FormControl(this.res.email,[Validators.required]),
             phoneNumber: new FormControl(this.res.phoneNumber,[Validators.required]),
             newPassword: new FormControl('',[Validators.required]),
             newPasswordConfirmed: new FormControl('',[Validators.required]),
@@ -46,8 +44,6 @@ export class UpdateProfileComponent implements OnInit {
         city: new FormControl('',[Validators.required]),
         postalCode: new FormControl('',[Validators.required]),
         street: new FormControl('',[Validators.required]),
-        userType: new FormControl('',[Validators.required]),
-        email: new FormControl('',[Validators.required]),
         phoneNumber: new FormControl('',[Validators.required]),
         newPassword: new FormControl('',[Validators.required]),
         newPasswordConfirmed: new FormControl('',[Validators.required]),
@@ -59,36 +55,40 @@ export class UpdateProfileComponent implements OnInit {
 
     updateUser(): void {
         console.log(this.updateProfileForm?.value);
-        const address: AddressModel = {
+        if(this.updateProfileForm.value.newPassword != "" || (this.updateProfileForm.value.newPassword != this.updateProfileForm.value.newPasswordConfirmed)){
+            return;
+        }
+        const address: Address = {
             id: null,
-            state: this.updateProfileForm.value.name || "",
+            state: this.updateProfileForm.value.state || "",
             city: this.updateProfileForm.value.city || "",
             postalCode: this.updateProfileForm.value.postalCode || "",
             street: this.updateProfileForm.value.street || ""
         }
-        const updatedUser: UserModel = {
+        const updatedUser: UserUpdate = {
             id: null,
             name: this.updateProfileForm.value.name || "",
             lastname: this.updateProfileForm.value.lastname || "",
-            email: this.updateProfileForm.value.email || "",
             phoneNumber: this.updateProfileForm.value.phoneNumber || "",
-            password: this.res?.password || "",
+            oldPassword: this.updateProfileForm.value.oldPassword || "",
+            newPassword: this.updateProfileForm.value.newPassword || "",
             address: address,
-            userType: "GUEST"
         }
-        this.service.updateUser(updatedUser).subscribe({
+        this.service.updateUser(updatedUser,this.res?.id || 0).subscribe({
             next:(_)=>{
                 console.log("Uspesan zahtev");
             }
         })
 
     }
-    // name: string = this.res.name
-    // lastName: string = "Maric";
-    // address: string = "Banovic Strahinje 30";
-    // option: string = "option1";
-    // email: string = "dusanmaric@gmail.com";
-    // phoneNumber: string = "063123123";
-    // password: string = "123456789";
+    deleteUser(): void{
+      this.service.deleteUser(this.res?.id || 0).subscribe({
+        next:(_)=>{
+          console.log("Uspesno obrisan user");
+          this.router.navigate(['login']);
+        }
+      })
+    }
+
 
 }

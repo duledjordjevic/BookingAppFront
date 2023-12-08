@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { UserModel } from './update-profile/model/user.model';
+import { UserInfo, UserUpdate } from './update-profile/model/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,10 +10,17 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  getUser(): Observable<UserModel> {
-    return this.http.get<UserModel>('http://localhost:8080/api/users/1');
+  getUser(id: number): Observable<UserInfo> {
+    const url = `http://localhost:8080/api/users/${id}`;
+    return this.http.get<UserInfo>(url);
   }
-  updateUser(user: UserModel): Observable<UserModel>{
-    return this.http.put<UserModel>('http://localhost:8080/api/users/2',user);
+  updateUser(user: UserUpdate,id: number): Observable<UserUpdate>{
+    const url = `http://localhost:8080/api/users/${id}`;
+    return this.http.put<UserUpdate>(url, user);  }
+    
+  deleteUser(id: number) {
+    const url = `http://localhost:8080/api/users/${id}`;
+    return this.http.delete(url);
   }
+
 }
