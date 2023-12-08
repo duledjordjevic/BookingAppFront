@@ -2,7 +2,6 @@
 // import { Component } from '@angular/core';
 import {CommentModel} from "./model/comment.model";
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import {GoogleMap} from '@angular/google-maps'
 
 
 @Component({

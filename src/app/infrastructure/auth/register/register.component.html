@@ -1,0 +1,55 @@
+
+<div class="center-container">
+    <div class="logo-container">
+        <img  routerLink="/home" src="../../../assets/images/logo-no-background.svg">
+    </div>
+    <div class="main-content">
+
+        <h1>Sign up for Booking</h1>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="div-margin">
+                <input formControlName="name" type="text" required required placeholder="Name">
+            </div>
+            <div class="div-margin">
+                <input formControlName="lastName" type="text" required required placeholder="Lastname">
+            </div>
+            <div class="div-margin">
+                <input formControlName="state" type="text" required required placeholder="State">
+            </div>
+            <div class="city-postal">
+                <input formControlName="city" id="city-input" type="text" required required placeholder="City">
+                <input formControlName="postalCode" id="postal-input" type="number" required required placeholder="Postal code">
+            </div>
+            <div class="div-margin">
+                <input formControlName="street" type="text" required required placeholder="Street">
+            </div>
+            
+            <div class="div-margin">
+                <select class="custom-combobox" formControlName="accountType">
+                    <option value="" disabled selected hidden>Account type</option>
+                    <option value="GUEST">Guest</option>
+                    <option value="HOST">Host</option>
+                </select>
+            </div>
+            <div class="div-margin">
+                <input formControlName="email" type="text" required required placeholder="Email">
+            </div>
+            <div class="div-margin">
+                <input formControlName="phoneNumber" type="tel" required required placeholder="Phone number">
+            </div>
+            <div class="div-margin">
+                <input formControlName="password" type="password" required required placeholder="Password">
+            </div>
+            <div class="div-margin">
+                <input formControlName="confirmPassword" type="password" required required placeholder="Password">
+            </div>
+            <div class="div-margin">
+                <button type="submit" id="button-register">Create Account</button>
+            </div>
+            <div>
+                <label>Already have one?</label>
+                <button class="button-no-background" routerLink="/login">Sign in</button>
+            </div>
+        </form>
+    </div>
+</div>

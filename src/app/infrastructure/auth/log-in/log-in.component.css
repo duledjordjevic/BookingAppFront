@@ -84,3 +84,12 @@ input {
     margin-left: 30px;
     margin-top: 40px;
 }
+
+.info-message {
+    background-color: #d4edda; 
+    color: #155724; 
+    padding: 15px;
+    /* margin: 10px; */
+    border: 1px solid #c3e6cb; 
+    border-radius: 8px; 
+  }

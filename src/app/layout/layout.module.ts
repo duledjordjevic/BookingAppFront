@@ -5,10 +5,11 @@ import { HomeComponent } from './home/home.component';
 import { FooterComponent } from './footer/footer.component';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from '../infrastructure/material/material.module';
-import { LogInComponent } from './log-in/log-in.component';
-import { RegisterComponent } from './register/register.component';
 import {AccommodationModule} from "../accommodation/accommodation.module";
-import { FormsModule } from '@angular/forms'
+import { FormsModule } from '@angular/forms';
+import { AdminNavBarComponent } from './nav-bar/admin-nav-bar/admin-nav-bar.component';
+import { GuestNavBarComponent } from './nav-bar/guest-nav-bar/guest-nav-bar.component';
+import { HostNavBarComponent } from './nav-bar/host-nav-bar/host-nav-bar.component'
 
 
 @NgModule({
@@ -16,8 +17,9 @@ import { FormsModule } from '@angular/forms'
     NavBarComponent,
     HomeComponent,
     FooterComponent,
-    LogInComponent,
-    RegisterComponent
+    AdminNavBarComponent,
+    GuestNavBarComponent,
+    HostNavBarComponent
   ],
     imports: [
         CommonModule,
@@ -30,9 +32,7 @@ import { FormsModule } from '@angular/forms'
   exports: [
     NavBarComponent,
     HomeComponent,
-    FooterComponent,
-    LogInComponent,
-    RegisterComponent
+    FooterComponent
   ]
 })
 export class LayoutModule { }
