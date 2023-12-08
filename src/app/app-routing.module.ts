@@ -13,7 +13,7 @@ const routes: Routes = [
   {path: "register", component: RegisterComponent},
   {path: "accommodation-details-images", component: AccommodationDetailsImagesComponent},
   {path: "update-profile", component: UpdateProfileComponent,  
-  canActivate: [AuthGuard], data: {role: ['ROLE_ADMIN', 'ROLE_GUEST', 'ROLE_HOST']}}
+  canActivate: [AuthGuard], data: {role: ['ADMIN', 'GUEST', 'HOST']}}
 ];
 
 @NgModule({

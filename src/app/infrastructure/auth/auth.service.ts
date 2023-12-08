@@ -40,9 +40,18 @@ export class AuthService {
       if (this.isLoggedIn()) {
         const accessToken: any = localStorage.getItem('user');
         const helper = new JwtHelperService();
-        return helper.decodeToken(accessToken).Authorities[0].authority;
+        return helper.decodeToken(accessToken).Authorities[0];
       }
       return null;
+    }
+
+    getEmail(): string{
+      if (this.isLoggedIn()) {
+        const accessToken: any = localStorage.getItem('user');
+        const helper = new JwtHelperService();
+        return helper.decodeToken(accessToken).sub;
+      }
+      return "";
     }
 
     isLoggedIn(): boolean {
