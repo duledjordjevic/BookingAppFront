@@ -2,24 +2,26 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UserInfo, UserUpdate } from './update-profile/model/user.model';
+import { inject } from '@angular/core/testing';
+import { AuthService } from '../infrastructure/auth/services/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private authService: AuthService) { }
 
-  getUser(id: number): Observable<UserInfo> {
-    const url = `http://localhost:8080/api/users/${id}`;
+  getUser(): Observable<UserInfo> {
+    const url = `http://localhost:8080/api/users/${this.authService.getId()}`;
     return this.http.get<UserInfo>(url);
   }
-  updateUser(user: UserUpdate,id: number): Observable<UserUpdate>{
-    const url = `http://localhost:8080/api/users/${id}`;
+  updateUser(user: UserUpdate): Observable<UserUpdate>{
+    const url = `http://localhost:8080/api/users/${this.authService.getId()}`;
     return this.http.put<UserUpdate>(url, user);  }
     
-  deleteUser(id: number) {
-    const url = `http://localhost:8080/api/users/${id}`;
+  deleteUser() {
+    const url = `http://localhost:8080/api/users/${this.authService.getId()}`;
     return this.http.delete(url);
   }
 

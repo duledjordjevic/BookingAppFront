@@ -13,7 +13,7 @@ import { ReactiveFormsModule} from '@angular/forms';
   imports: [
     CommonModule,
     RouterModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     UpdateProfileComponent

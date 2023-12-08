@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { SharedService } from '../../../services/shared.service';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Registration, Address } from '../model/registration.model';
 import { AuthService } from '../services/auth.service';
@@ -8,9 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css'],
-  standalone: true,
-  imports: [ReactiveFormsModule]
+  styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
   constructor(private navbarService: SharedService, 

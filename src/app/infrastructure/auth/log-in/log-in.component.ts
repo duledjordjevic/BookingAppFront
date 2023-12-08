@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { SharedService } from '../../../services/shared.service';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Login } from '../model/login.model';
 import {AuthService} from "../services/auth.service";
@@ -11,9 +11,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-log-in',
   templateUrl: './log-in.component.html',
-  styleUrls: ['./log-in.component.css'],
-  standalone: true,
-  imports: [ReactiveFormsModule, CommonModule]
+  styleUrls: ['./log-in.component.css']
 })
 export class LogInComponent {
   constructor(private authService: AuthService,
@@ -24,7 +22,7 @@ export class LogInComponent {
   fb = inject(FormBuilder)
   http = inject(HttpClient)
 
-  form = this.fb.nonNullable.group({
+  loginForm = this.fb.nonNullable.group({
     email: ['', Validators.required],
     password: ['', Validators.required],
   });
@@ -57,10 +55,10 @@ export class LogInComponent {
 
   onSubmit(): void {
 
-    if(this.form.valid) {
+    if(this.loginForm.valid) {
       const login: Login = {
-        email: this.form.value.email || "",
-        password: this.form.value.password || ""
+        email: this.loginForm.value.email || "",
+        password: this.loginForm.value.password || ""
       }
       this.authService.login(login).subscribe({
         next: (response: AuthResponse) => {

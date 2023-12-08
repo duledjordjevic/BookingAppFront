@@ -11,6 +11,7 @@ import { UserModule } from './user/user.module';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {Interceptor} from "./infrastructure/auth/interceptor";
+import { AuthModule } from './infrastructure/auth/auth.module';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import {Interceptor} from "./infrastructure/auth/interceptor";
     LayoutModule,
 	  AccommodationModule,
     UserModule,
-    HttpClientModule
+    HttpClientModule,
+    AuthModule
   ],
   
   providers: [
