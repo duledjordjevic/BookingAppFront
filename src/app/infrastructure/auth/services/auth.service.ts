@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {BehaviorSubject, Observable} from "rxjs";
-import { AuthResponse } from './model/auth-response.model';
+import { AuthResponse } from '../model/auth-response.model';
 import {JwtHelperService} from "@auth0/angular-jwt";
-import {environment} from '../../../env/env'
+import {environment} from '../../../../env/env'
+import { Registration } from '../model/registration.model';
+import { User } from '../model/user.model';
 
 
 @Injectable({
@@ -60,5 +62,11 @@ export class AuthService {
 
     setUser(): void {
       this.user$.next(this.getRole());
+    }
+
+    register(user: Registration): Observable<User> {
+      return this.http.post<User>(environment.apiHost + 'register', user, {
+        headers: this.headers,
+      });
     }
   }

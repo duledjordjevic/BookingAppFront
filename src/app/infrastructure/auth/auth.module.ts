@@ -1,12 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { BrowserModule } from '@angular/platform-browser';
+import { LogInComponent } from './log-in/log-in.component';
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    
+  ],
   imports: [
-    CommonModule
+    CommonModule,
+    BrowserModule
   ]
 })
 export class AuthModule { }

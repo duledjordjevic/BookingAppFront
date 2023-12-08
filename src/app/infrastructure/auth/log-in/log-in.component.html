@@ -5,6 +5,11 @@
     <div class="main-content">
 
         <h1>Sign in to Booking</h1>
+
+        <div class="info-message" *ngIf="infoMessage.length > 0">
+            <span>{{ infoMessage }}</span>
+        </div>
+
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
             <div class="div-margin">
                 <input formControlName="email" type="text" required required placeholder="Email">

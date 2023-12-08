@@ -3,23 +3,23 @@ import { SharedService } from '../../../services/shared.service';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Login } from '../model/login.model';
-import {AuthService} from "../auth.service";
+import {AuthService} from "../services/auth.service";
 import { AuthResponse } from '../model/auth-response.model';
-import { Router } from '@angular/router';
-import { UserInterface } from '../model/user.interface';
-import { environment } from 'src/env/env';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-log-in',
   templateUrl: './log-in.component.html',
   styleUrls: ['./log-in.component.css'],
   standalone: true,
-  imports: [ReactiveFormsModule]
+  imports: [ReactiveFormsModule, CommonModule]
 })
 export class LogInComponent {
   constructor(private authService: AuthService,
     private navbarService: SharedService,
-    private router: Router) {}
+    private router: Router,
+    private route: ActivatedRoute) {}
 
   fb = inject(FormBuilder)
   http = inject(HttpClient)
@@ -44,8 +44,15 @@ export class LogInComponent {
   }
   
   hide =false;
+  infoMessage = '';
   ngOnInit(): void {
     this.navbarService.toggleNavbarVisibility(false);
+    this.route.queryParams
+    .subscribe(params => {
+      if(params['registered'] !== undefined && params['registered'] === 'true') {
+          this.infoMessage = 'Registration Successful! Confirm account on your mail!';
+      }
+    });
   }
 
   onSubmit(): void {
@@ -63,10 +70,5 @@ export class LogInComponent {
         }
       })
     }
-    // this.http.post<{user: Login}>('http://localhost:8080/api/login',  {
-    //   user: this.form.getRawValue(),
-    // }).subscribe(response => {
-    //   console.log('response', response);
-    // })
   }
 }
