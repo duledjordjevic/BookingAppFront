@@ -1,1 +1,157 @@
-<p>accommodation-create works!</p>
+<div class="main-container">
+	<div class="main">
+		<div class="basicInfo">
+			<div class="title">
+				<h1>{{title}}</h1>
+			</div>
+			<div class="descOfTitle">
+				<h6>{{descOfTitle}}</h6>
+			</div>
+			<div class="inputsBasicInfo">
+				<div class="inputState">
+					<input type="text" required placeholder="State">
+				</div>
+				<div class="inputCityPostal">
+					<input id="city-input" type="text" required placeholder="City">
+					<input id="postal-input" type="number" required placeholder="Postal code">
+				</div>
+				<div class="inputStreet">
+					<input type="text" required placeholder="Street">
+				</div>
+				<div class="inputName">
+					<input type="text" required placeholder="Property name">
+				</div>
+				<div class="inputDesc">
+					<input type="text" required placeholder="Property description">
+				</div>
+				<div class="inputPropType">
+					<select class="custom-combobox">
+						<option value="" disabled selected hidden>Property type</option>
+						<option value="option1">Hotel</option>
+						<option value="option2">Apartment</option>
+					</select>
+				</div>
+			</div>
+			<div class="titlePhotos">
+				<h1>Photos</h1>
+			</div>
+			<div class="descOfTitle">
+				<p>{{photoText}}</p>
+			</div>
+		</div>
+
+		<div class="location">
+			<h4>Location of apartment</h4>
+			<div class="map">
+				<google-map [options]="mapOptions" width="100%">
+					<map-marker [position]="{ lat: spot.lat, lng: spot.lng }"></map-marker>
+				</google-map>
+			</div>
+		</div>
+
+		<div class="cancellationPolicy">
+			<div class="cancellationPolicyTitle">
+				<h4>Cancellation policy</h4>
+			</div>
+			<div class="cancellationPolicyDesc">
+				<p>{{descOfCancPolicy}}</p>
+			</div>
+			<div *ngFor="let option of optionsCancPolicy">
+				<input type="radio" name="options" [value]="option.id">
+				{{ option.label }}
+				<br>
+			</div>
+		</div>
+
+		<div class="amenities">
+			<div class="amenitie">
+				<div class="amenitieName">
+					<img [src]="amenitieWifi" alt="Amenitie">
+					<p>Do you offer internet?</p>
+				</div>
+				<div class="buttons">
+					<button mat-raised-button [ngClass]="{'clicked': buttonStates['button1'].button1}"
+							(click)="toggleColor('button1', 'button1')">Yes</button>
+					<button mat-raised-button [ngClass]="{'clicked': buttonStates['button1'].button2}"
+							(click)="toggleColor('button1', 'button2')">No</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="amenities">
+			<div class="amenitie">
+				<div class="amenitieName">
+					<img [src]="amenitieParking" alt="Amenitie">
+					<p>Do you offer parking?</p>
+				</div>
+				<div class="buttons">
+					<button mat-raised-button [ngClass]="{'clicked': buttonStates['button2'].button1}"
+							(click)="toggleColor('button2', 'button1')">Yes</button>
+					<button mat-raised-button [ngClass]="{'clicked': buttonStates['button2'].button2}"
+							(click)="toggleColor('button2', 'button2')">No</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="amenities">
+			<div class="amenitie">
+				<div class="amenitieName">
+					<img [src]="amenitieBreakfast" alt="Amenitie">
+					<p>Do you offer breakfast</p>
+				</div>
+				<div class="buttons">
+					<button mat-raised-button [ngClass]="{'clicked': buttonStates['button3'].button1}"
+							(click)="toggleColor('button3', 'button1')">Yes</button>
+					<button mat-raised-button [ngClass]="{'clicked': buttonStates['button3'].button2}"
+							(click)="toggleColor('button3', 'button2')">No</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="amenities">
+			<div class="amenitie">
+				<div class="amenitieName">
+					<img [src]="amenitiePoolAccess" alt="Amenitie">
+					<p>Do your guests have pool access?</p>
+				</div>
+				<div class="buttons">
+					<button mat-raised-button [ngClass]="{'clicked': buttonStates['button4'].button1}"
+							(click)="toggleColor('button4', 'button1')">Yes</button>
+					<button mat-raised-button [ngClass]="{'clicked': buttonStates['button4'].button2}"
+							(click)="toggleColor('button4', 'button2')">No</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="amenities">
+			<div class="amenitie">
+				<div class="amenitieName">
+					<img [src]="amenitieAirCondition" alt="Amenitie">
+					<p>Do you offer air conditioning?</p>
+				</div>
+				<div class="buttons">
+					<button mat-raised-button [ngClass]="{'clicked': buttonStates['button5'].button1}"
+							(click)="toggleColor('button5', 'button1')">Yes</button>
+					<button mat-raised-button [ngClass]="{'clicked': buttonStates['button5'].button2}"
+							(click)="toggleColor('button5', 'button2')">No</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="amenities">
+			<div class="amenitie">
+				<div class="amenitieName">
+					<img [src]="amenitieKitchen" alt="Amenitie">
+					<p>Do you offer kitchen?</p>
+				</div>
+				<div class="buttons">
+					<button mat-raised-button [ngClass]="{'clicked': buttonStates['button6'].button1}"
+							(click)="toggleColor('button6', 'button1')">Yes</button>
+					<button mat-raised-button [ngClass]="{'clicked': buttonStates['button6'].button2}"
+							(click)="toggleColor('button6', 'button2')">No</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

@@ -23,7 +23,8 @@ import { AccommodationCreateComponent } from './accommodation-create/accommodati
 	],
 	exports: [
 		AccommodationDetailsComponent,
-		AccommodationDetailsImagesComponent
+		AccommodationDetailsImagesComponent,
+		AccommodationCreateComponent
 	]
 })
 export class AccommodationModule { }
