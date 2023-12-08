@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UpdateProfileComponent } from './update-profile/update-profile.component';
 import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule} from '@angular/forms';
 
 
 
@@ -11,7 +12,8 @@ import { RouterModule } from '@angular/router';
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    ReactiveFormsModule,
   ],
   exports: [
     UpdateProfileComponent
