@@ -1,7 +1,7 @@
 
 <div class="center-container">
     <div class="logo-container">
-        <img  routerLink="/home" src="../../../assets/images/logo-no-background.svg">
+        <img  [routerLink]="['/home']" src="../../../assets/images/logo-no-background.svg">
     </div>
     <div class="main-content">
 
@@ -48,7 +48,7 @@
             </div>
             <div>
                 <label>Already have one?</label>
-                <button class="button-no-background" routerLink="/login">Sign in</button>
+                <button class="button-no-background" [routerLink]="['/login']">Sign in</button>
             </div>
         </form>
     </div>

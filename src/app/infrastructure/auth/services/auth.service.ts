@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {BehaviorSubject, Observable} from "rxjs";
 import { AuthResponse } from '../model/auth-response.model';
@@ -22,10 +22,11 @@ export class AuthService {
     user$ = new BehaviorSubject("");
     userState = this.user$.asObservable();
   
-    constructor(private http: HttpClient) {
+    constructor() {
       this.user$.next(this.getRole());
     }
   
+    http = inject(HttpClient);
     login(auth: any): Observable<AuthResponse> {
       return this.http.post<AuthResponse>(environment.apiHost + 'auth/login', auth, {
         headers: this.headers,
@@ -46,7 +47,14 @@ export class AuthService {
       }
       return null;
     }
-
+    getId(): number{
+      if (this.isLoggedIn()) {
+        const accessToken: any = localStorage.getItem('user');
+        const helper = new JwtHelperService();
+        return helper.decodeToken(accessToken).id;
+      }
+      return 0;
+    }
     getEmail(): string{
       if (this.isLoggedIn()) {
         const accessToken: any = localStorage.getItem('user');

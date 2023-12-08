@@ -3,6 +3,7 @@ import { UserService } from '../user.service';
 import { Address, UserInfo, UserUpdate } from './model/user.model';
 import { FormGroup, FormControl, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-update-profile',
@@ -13,10 +14,10 @@ export class UpdateProfileComponent implements OnInit {
     res: UserInfo | undefined;
 
     constructor(private service: UserService,
-      private router: Router) { }
+      private sharedService: SharedService) { }
 
     ngOnInit(): void {
-      this.service.getUser(1).subscribe({
+      this.service.getUser().subscribe({
         next:(result: UserInfo) =>{
           this.res = result;
           this.updateProfileForm = new FormGroup({
@@ -74,7 +75,7 @@ export class UpdateProfileComponent implements OnInit {
             newPassword: this.updateProfileForm.value.newPassword || "",
             address: address,
         }
-        this.service.updateUser(updatedUser,this.res?.id || 0).subscribe({
+        this.service.updateUser(updatedUser).subscribe({
             next:(_)=>{
                 console.log("Uspesan zahtev");
             }
@@ -82,10 +83,10 @@ export class UpdateProfileComponent implements OnInit {
 
     }
     deleteUser(): void{
-      this.service.deleteUser(this.res?.id || 0).subscribe({
+      this.service.deleteUser().subscribe({
         next:(_)=>{
           console.log("Uspesno obrisan user");
-          this.router.navigate(['login']);
+          this.sharedService.deleteUserFromLocalStorage();
         }
       })
     }

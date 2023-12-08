@@ -1,6 +1,6 @@
 <div class="center-container">
     <div class="logo-container">
-        <img routerLink="/home" src="../../../assets/images/logo-no-background.svg">
+        <img [routerLink]="['/home']" src="../../../assets/images/logo-no-background.svg">
     </div>
     <div class="main-content">
 
@@ -10,7 +10,7 @@
             <span>{{ infoMessage }}</span>
         </div>
 
-        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
             <div class="div-margin">
                 <input formControlName="email" type="text" required required placeholder="Email">
             </div>
@@ -23,7 +23,7 @@
             <button class="button-no-background">Reset password</button>
             <div>
                 <label>No account?</label>
-                <button class="button-no-background" routerLink="/register">Create one</button>
+                <button class="button-no-background" [routerLink]="['/register']">Create one</button>
             </div>
         </form>
     </div>
