@@ -8,8 +8,8 @@
 			<div class="leftInfo">
 				<img [src] = "starFill" alt="Star">
 				<div class="addressAndReview">
-					<p>{{review}}</p>
-					<p>{{reviewNumbers}} reviewers</p>
+					<p>{{ratings.average}}</p>
+					<p>{{ratings.count}} reviewers</p>
 					<p>{{address}}</p>
 				</div>
 			</div>
@@ -116,14 +116,14 @@
 						<div class="reviewEl">
 							<div class="reviewDisplay">
 								<div class="reviewDisplayLeft">
-									<h1>{{review}}</h1>
+									<h1>{{ratings.average}}</h1>
 								</div>
 								<div class="reviewDisplayRight">
 									<div class="reviewDisplayRightUp">
 										<h5>Excellent</h5>
 									</div>
 									<div class="reviewDisplayRightUp">
-										<p>{{reviewNumbers}} reviewers</p>
+										<p>{{ratings.count}} reviewers</p>
 									</div>
 								</div>
 							</div>
@@ -134,10 +134,10 @@
 										<p>5 - Excellent</p>
 									</div>
 									<div class="leftReview">
-										<p class="progressValue">120</p>
+										<p class="progressValue">{{ratings.excellent}}</p>
 									</div>
 								</div>
-								<mat-progress-bar mode="determinate" value="60" class="progressColor"></mat-progress-bar>
+								<mat-progress-bar mode="determinate" value="ratings.excellent" class="progressColor"></mat-progress-bar>
 							</div>
 							<div class="oneReview">
 								<div class="infoReview">
@@ -145,10 +145,10 @@
 										<p>4 - Good</p>
 									</div>
 									<div class="leftReview">
-										<p class="progressValue">66</p>
+										<p class="progressValue">{{ratings.good}}</p>
 									</div>
 								</div>
-								<mat-progress-bar mode="determinate" value="33"></mat-progress-bar>
+								<mat-progress-bar mode="determinate" value="ratings.good"></mat-progress-bar>
 							</div>
 							<div class="oneReview">
 								<div class="infoReview">
@@ -156,10 +156,10 @@
 										<p>3 - Okay</p>
 									</div>
 									<div class="leftReview">
-										<p class="progressValue">4</p>
+										<p class="progressValue">{{ratings.okay}}</p>
 									</div>
 								</div>
-								<mat-progress-bar mode="determinate" value="2"></mat-progress-bar>
+								<mat-progress-bar mode="determinate" value="ratings.okay"></mat-progress-bar>
 							</div>
 							<div class="oneReview">
 								<div class="infoReview">
@@ -167,10 +167,10 @@
 										<p>2 - Poor</p>
 									</div>
 									<div class="leftReview">
-										<p class="progressValue">2</p>
+										<p class="progressValue">{{ratings.poor}}</p>
 									</div>
 								</div>
-								<mat-progress-bar mode="determinate" value="1"></mat-progress-bar>
+								<mat-progress-bar mode="determinate" value="ratings.poor"></mat-progress-bar>
 							</div>
 							<div class="oneReview">
 								<div class="infoReview">
@@ -178,10 +178,10 @@
 										<p>1 - Terrible</p>
 									</div>
 									<div class="leftReview">
-										<p class="progressValue">1</p>
+										<p class="progressValue">{{ratings.terrible}}</p>
 									</div>
 								</div>
-								<mat-progress-bar mode="determinate" value="0.5"></mat-progress-bar>
+								<mat-progress-bar mode="determinate" value="ratings.terrible"></mat-progress-bar>
 							</div>
 						</div>
 					</div>
@@ -189,10 +189,10 @@
 					<div class="commentsAcc">
 						<div *ngFor="let comment of displayedComments">
 							<div class="comment">
-								<h4>{{comment.review}}</h4>
-								<h5>{{comment.name}}</h5>
+								<h4>{{ comment.rating }}/5 {{ comment.ratingDescription }}  </h4>
+								<h5>{{ comment.guestEmail }}	{{ comment.guestName }} {{ comment.guestLastName }}</h5>
 								<p>{{comment.date}}</p>
-								<p>{{comment.description}}</p>
+								<p>{{ comment.content }}</p>
 								<hr>
 							</div>
 						</div>
