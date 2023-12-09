@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { UserInfo, UserUpdate } from './update-profile/model/user.model';
+import { UserInfo, UserUpdate } from '../update-profile/model/user.model';
 import { inject } from '@angular/core/testing';
-import { AuthService } from '../infrastructure/auth/services/auth.service';
+import { AuthService } from '../../infrastructure/auth/services/auth.service';
 
 @Injectable({
   providedIn: 'root'
