@@ -93,3 +93,10 @@ input {
     border: 1px solid #c3e6cb; 
     border-radius: 8px; 
   }
+
+p{
+    margin-left: 15px;
+    margin-top: 2px;
+    position: absolute;
+    color: #e91b00;
+}

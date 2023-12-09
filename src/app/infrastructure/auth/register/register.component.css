@@ -101,3 +101,10 @@ input {
     top: 50%;
     transform: translateY(-50%);
 }
+
+p{
+    margin-left: 15px;
+    margin-top: 2px;
+    position: absolute;
+    color: #e91b00;
+}
