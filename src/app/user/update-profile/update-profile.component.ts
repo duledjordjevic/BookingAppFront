@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
-import { Address, UserInfo, UserUpdate } from './model/user.model';
+import { UserInfo, UserUpdate } from './model/user.model';
 import { FormGroup, FormControl, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import { SharedService } from 'src/app/services/shared.service';
+import { Address } from 'src/app/models/shared.models';
 
 @Component({
   selector: 'app-update-profile',

@@ -1,7 +1,7 @@
 <div class="main-conatiner">
 	<div class="main">
 		<div class="title">
-			<h1>{{title}}</h1>
+			<h1>{{accommodationDetails?.title}}</h1>
 		</div>
 
 		<div class="info">
@@ -10,7 +10,7 @@
 				<div class="addressAndReview">
 					<p>{{ratings.average}}</p>
 					<p>{{ratings.count}} reviewers</p>
-					<p>{{address}}</p>
+					<p>{{accommodationDetails?.address?.street}}, {{accommodationDetails?.address?.city}}, {{accommodationDetails?.address?.state}}</p>
 				</div>
 			</div>
 			<div class="rightInfo">
@@ -76,24 +76,12 @@
 
 		<div class="description">
 			<h2>Description</h2>
-			<p>{{descText}}</p>
+			<p>{{accommodationDetails?.description}}</p>
 
-			<div class="amenities">
+			<div class="amenities" *ngFor="let amenitie of amenitiesIcons">
 				<div class="amenitie">
-					<img [src]="amenitieWifi" alt="Amenitie">
-					<p>Internet</p>
-				</div>
-				<div class="amenitie">
-					<img [src]="amenitieParking" alt="Amenitie">
-					<p>Parking</p>
-				</div>
-				<div class="amenitie">
-					<img [src]="amenitieAirCondition" alt="Amenitie">
-					<p>Air condition</p>
-				</div>
-				<div class="amenitie">
-					<img [src]="amenitieBreakfast" alt="Amenitie">
-					<p>Breakfast</p>
+					<img [src]="amenitie.icon" alt="Amenitie">
+					<p>{{amenitie.name}}</p>
 				</div>
 			</div>
 
