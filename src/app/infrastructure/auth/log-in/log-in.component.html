@@ -9,14 +9,17 @@
         <div class="info-message" *ngIf="infoMessage.length > 0">
             <span>{{ infoMessage }}</span>
         </div>
-
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
             <div class="div-margin">
-                <input formControlName="email" type="text" required required placeholder="Email">
+                <input formControlName="email" type="text" required required placeholder="Email" trim>
             </div>
+            <p *ngIf="emailRequired == true">*email is required</p>
+            <p *ngIf="emailWrong == true">*email wrong format</p>
             <div class="div-margin">
-                <input formControlName="password" type="password" required required placeholder="Password">
+                <input formControlName="password" type="password" required required placeholder="Password" trim>
             </div>
+            <p *ngIf="passwordRequired == true">*password is required</p>
+            <p *ngIf="wrongCredentials == true">Password or email are wrong</p>
             <div class="div-margin">
                 <button type="submit" id="button-login">Log in</button>
             </div>

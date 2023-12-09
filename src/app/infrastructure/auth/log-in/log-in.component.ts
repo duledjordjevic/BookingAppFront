@@ -1,6 +1,6 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { SharedService } from '../../../services/shared.service';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, ValidationErrors, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Login } from '../model/login.model';
 import {AuthService} from "../services/auth.service";
@@ -23,7 +23,7 @@ export class LogInComponent {
   http = inject(HttpClient)
 
   loginForm = this.fb.nonNullable.group({
-    email: ['', Validators.required],
+    email: ['', Validators.email],
     password: ['', Validators.required],
   });
 
@@ -53,20 +53,58 @@ export class LogInComponent {
     });
   }
 
+  trimValues() {
+    const email = this.loginForm.value.email;
+    const password = this.loginForm.value.password;
+  
+    this.loginForm.patchValue({
+      email: email?.trim(),
+      password: password?.trim()
+    });
+  }
+  emailRequired: boolean = false;
+  emailWrong:boolean = false;
+  passwordRequired:boolean = false;
+  wrongCredentials:boolean = false;
+
   onSubmit(): void {
+    this.emailRequired = false;
+    this.emailWrong = false;
+    this.passwordRequired = false;
+    this.wrongCredentials = false;
+    this.trimValues();
 
     if(this.loginForm.valid) {
       const login: Login = {
-        email: this.loginForm.value.email || "",
-        password: this.loginForm.value.password || ""
+        email: this.loginForm.value.email?.trim() || "",
+        password: this.loginForm.value.password?.trim() || ""
       }
       this.authService.login(login).subscribe({
         next: (response: AuthResponse) => {
           localStorage.setItem('user', response.jwt);
           this.authService.setUser()
           this.router.navigate(['home'])
-        }
+        },
+        error:(error) => {
+          if(error.status === 403){
+            this.wrongCredentials = true;
+          } 
+        } 
       })
+    }
+    else{
+      if(this.loginForm.value.password === ""){
+        this.passwordRequired = true;
+      }
+      if(this.loginForm.value.email === ""){
+        this.emailRequired = true;
+      }else{
+        this.emailWrong = true;
+      }
+      
     }
   }
 }
+
+
+
