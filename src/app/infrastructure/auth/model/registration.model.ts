@@ -5,7 +5,7 @@ export interface Registration {
     userType: string;
     email: string;
     password: string;
-    phoneNumber: number;
+    phoneNumber: string;
 }
 
 export interface Address{

@@ -34,8 +34,9 @@
             <div class="div-margin">
                 <input formControlName="email" type="text" required required placeholder="Email">
             </div>
+            <p *ngIf="emailWrong == true">*email wrong format</p>
             <div class="div-margin">
-                <input formControlName="phoneNumber" type="tel" required required placeholder="Phone number">
+                <input formControlName="phoneNumber" type="text" required required placeholder="Phone number">
             </div>
             <div class="div-margin">
                 <input formControlName="password" type="password" required required placeholder="Password">
@@ -43,6 +44,9 @@
             <div class="div-margin">
                 <input formControlName="confirmPassword" type="password" required required placeholder="Password">
             </div>
+            <p *ngIf="fieldsRequired == true">*All fields are required</p>
+            <p *ngIf="userExist == true">User with that email already exist</p>
+            <p *ngIf="passwordNotMatch == true">*Password not match</p>
             <div class="div-margin">
                 <button type="submit" id="button-register">Create Account</button>
             </div>
