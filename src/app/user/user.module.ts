@@ -3,12 +3,14 @@ import { CommonModule } from '@angular/common';
 import { UpdateProfileComponent } from './update-profile/update-profile.component';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule} from '@angular/forms';
+import { UpdateAdminComponent } from './update-admin/update-admin.component';
 
 
 
 @NgModule({
   declarations: [
-    UpdateProfileComponent
+    UpdateProfileComponent,
+    UpdateAdminComponent
   ],
   imports: [
     CommonModule,
@@ -16,7 +18,8 @@ import { ReactiveFormsModule} from '@angular/forms';
     ReactiveFormsModule
   ],
   exports: [
-    UpdateProfileComponent
+    UpdateProfileComponent,
+    UpdateAdminComponent
   ]
 })
 export class UserModule { }

@@ -1,10 +1,5 @@
-export interface Address {
-    id: number | null;
-    street: string;
-    city: string;
-    state: string;
-    postalCode: string;
-}
+import { Address } from "src/app/models/shared.models";
+
 export interface UserInfo {
     id: number | null;
     email: string;
@@ -31,4 +26,8 @@ export enum UserType{
     GUEST = "GUEST",
     HOST = "HOST",
     ADMIN = "ADMIN"
+}
+
+export interface UserDelete{
+    password:string;
 }

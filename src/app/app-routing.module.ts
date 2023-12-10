@@ -6,6 +6,7 @@ import { UpdateProfileComponent } from './user/update-profile/update-profile.com
 import { LogInComponent } from './infrastructure/auth/log-in/log-in.component';
 import { RegisterComponent } from './infrastructure/auth/register/register.component';
 import { AuthGuard } from './infrastructure/auth/guard/auth.guard';
+import { UpdateAdminComponent } from './user/update-admin/update-admin.component';
 
 const routes: Routes = [
   {path : "home", component : HomeComponent,},
@@ -13,7 +14,8 @@ const routes: Routes = [
   {path: "register", component: RegisterComponent},
   {path: "accommodation-details-images", component: AccommodationDetailsImagesComponent},
   {path: "update-profile", component: UpdateProfileComponent,  
-  canActivate: [AuthGuard], data: {role: ['ADMIN', 'GUEST', 'HOST']}}
+  canActivate: [AuthGuard], data: {role: ['ADMIN', 'GUEST', 'HOST']}},
+  {path:"update-admin",component: UpdateAdminComponent}
 ];
 
 @NgModule({
