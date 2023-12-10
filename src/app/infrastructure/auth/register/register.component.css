@@ -1,38 +1,26 @@
-img {
-    cursor: pointer;
-}
-
 h1{
     color: #235471;
     font-size: 35px;
     margin-bottom: 100px;
 }
- input,button{
-    border:none ; 
-    outline:none ;
+input,button{
+    border:none;
+    outline:none;
 }
-#show-hide-button{
-    height: 40px;
-    width: 40px;
+img {
+    cursor: pointer;
 }
+
 input {
-    background-color: #FFFF;
     font-size: 17px;
     border-radius: 5px;
-    width: 400px ;
+    width: 400px;
     height: 45px;
     padding: 10px;
     margin: 10px 0;
     filter: drop-shadow(6px 7px 7px rgba(0, 0, 0, 0.1));
-} 
-#input-password{
-    width: 400px;
-    height:100px;
-    background-color: #FFFF;
-    filter: drop-shadow(6px 7px 7px rgba(0, 0, 0, 0.1));
 }
-#button-login{
-    border:5px black;
+#button-register{
     cursor: pointer;
     font-size: 18px;
     background-color: #235471;
@@ -44,14 +32,23 @@ input {
     margin: 15px 0;
     filter: drop-shadow(0px 0.25px 0px rgba(0, 0, 0, 0.039));
 }
-
-
 .div-margin{
-    background-color: #FFFF !important;
-    margin-top: 30px;
+    margin-top: 20px;
+}
+.city-postal{
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+#city-input{
+    width: 230px;
+}
+#postal-input{
+    width: 120px;
 }
 .center-container {
-    margin-top: 200px;
+    margin-top: 170px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -72,7 +69,6 @@ input {
     color: #235471; 
     cursor: pointer;
 }
-
 .logo-container {
     position: absolute;
     top: 0;
@@ -83,4 +79,32 @@ input {
     max-width: 12%; 
     margin-left: 30px;
     margin-top: 40px;
+}
+
+.custom-combobox {
+
+    font-size: 15px;
+    border-radius: 5px;
+    width: 400px;
+    height: 45px;
+    padding: 10px;
+    margin: 10px 0;
+    filter: drop-shadow(6px 7px 7px rgba(0, 0, 0, 0.1));
+    border: none; 
+    opacity: 0.8;
+    outline: none; 
+}
+.custom-combobox::after {
+    content: '\25BC'; 
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+p{
+    margin-left: 15px;
+    margin-top: 2px;
+    position: absolute;
+    color: #e91b00;
 }
