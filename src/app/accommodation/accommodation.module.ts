@@ -8,6 +8,7 @@ import { AccommodationDetailsImagesComponent } from './accommodation-details-ima
 import { AccommodationCreateComponent } from './accommodation-create/accommodation-create.component';
 import { AccommodationPictureUploadComponent } from './accommodation-picture-upload/accommodation-picture-upload.component';
 import {NgxDropzoneModule} from "ngx-dropzone";
+import { PricelistComponent } from './pricelist/pricelist.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import {NgxDropzoneModule} from "ngx-dropzone";
     AccommodationDetailsComponent,
 	AccommodationDetailsImagesComponent,
  AccommodationCreateComponent,
- AccommodationPictureUploadComponent
+ AccommodationPictureUploadComponent,
+ PricelistComponent
   ],
 	imports: [
 		CommonModule,
