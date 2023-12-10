@@ -1,0 +1,24 @@
+<div class="main-container">
+    <div class="container">
+        <div class="card" *ngFor="let card of cards;">
+            <div class="left-section">
+                <img src="{{imageBase64}} {{card.image}}" alt="Image" class="coverImage">
+            </div>
+            <div class="right-section">
+                <div class="titleSection">
+                    <p class="title">{{card.title}}</p>
+                    <p class="address">{{card.address}}</p>
+                </div>
+                <div class="description-container">
+                    <p>{{ card.description | slice:0:250 }}{{ card.description && card.description.length > 250 ? '...' : '' }}</p>
+                </div>
+                <div class="buttons">
+                    <button mat-raised-button class="btnApproved" (onClick)="approve(card.id)">Approve</button>
+                    <button mat-raised-button class="btnDecline" (onClick)="decline(card.id)">Decline</button>
+                </div>
+            </div>
+    
+        </div>
+    
+    </div>
+</div>
