@@ -5,3 +5,8 @@ export interface Admin{
     password:string;
     userType: UserType;
 }
+export interface AdminUpdate{
+    email:string;
+    newPassword:string;
+    oldPassword:string;
+}

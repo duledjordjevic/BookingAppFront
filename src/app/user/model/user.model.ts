@@ -27,3 +27,7 @@ export enum UserType{
     HOST = "HOST",
     ADMIN = "ADMIN"
 }
+
+export interface UserDelete{
+    password:string;
+}

@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { UserInfo, UserUpdate } from '../model/user.model';
+import { UserDelete, UserInfo, UserUpdate } from '../model/user.model';
 import { inject } from '@angular/core/testing';
 import { AuthService } from '../../infrastructure/auth/services/auth.service';
-import { Admin } from '../model/admin.model';
+import { Admin, AdminUpdate } from '../model/admin.model';
 import { environment } from 'src/env/env';
 
 @Injectable({
@@ -22,13 +22,16 @@ export class UserService {
     const url = environment.apiHost + `users/${this.authService.getId()}`;
     return this.http.put<UserUpdate>(url, user);  }
     
-  deleteUser() {
-    const url = environment.apiHost + `users/${this.authService.getId()}`;
-    return this.http.delete(url);
+  deleteUser(userPassword: UserDelete) {
+    const url = environment.apiHost + `users/delete/${this.authService.getId()}`;
+    return this.http.put(url,userPassword);
   }
   getAdmin(): Observable<Admin> {
     const url = environment.apiHost + `users/${this.authService.getId()}`;
     return this.http.get<Admin>(url);
   }
+  updateAdmin(admin: AdminUpdate): Observable<Admin>{
+    const url = environment.apiHost + `users/admin/${this.authService.getId()}`;
+    return this.http.put<Admin>(url, admin);  }
 
 }

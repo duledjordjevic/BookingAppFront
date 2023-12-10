@@ -11,31 +11,45 @@
             </div>
             <div class="div-margin">
                 <input [(ngModel)]="updateProfileForm.value.name" formControlName="name" type="text" required required placeholder="Name"> 
+                <p *ngIf="nameRequired == true">*Your name is required</p>
             </div>
             <div class="div-margin">
                 <input [(ngModel)]="updateProfileForm.value.lastname" formControlName="lastname" type="text" required required placeholder="Lastname">
+                <p *ngIf="lastNameRequired == true">*Your lastname is required</p>
             </div>
             <div class="div-margin">
                 <input [(ngModel)]="updateProfileForm.value.state" formControlName="state" type="text" required required placeholder="State">
+                <p *ngIf="stateRequired == true">*Your state is required</p>
             </div>
             <div class="city-postal">
                 <input [(ngModel)]="updateProfileForm.value.city" formControlName="city" id="city-input" type="text" required required placeholder="City">
                 <input [(ngModel)]="updateProfileForm.value.postalCode" formControlName="postalCode" id="postal-input" type="number" required placeholder="Postal code">
             </div>
+            <div class="required-validators">
+                <p *ngIf="cityAndPostalCodeRequired == true">*Your city and postal code are required</p>
+                <p *ngIf="cityRequired == true">*Your city is required</p>
+                <p *ngIf="postalCodeRequired == true">*Your postal code is required</p>
+            </div>
             <div class="div-margin">
                 <input [(ngModel)]="updateProfileForm.value.street" formControlName="street" type="text"  required placeholder="Street">
+                <p *ngIf="streetRequired == true">*Your street is required</p>
             </div>
             <div class="div-margin">
                 <input [value]="res?.phoneNumber" formControlName="phoneNumber" type="tel" required required placeholder="Phone number">
+                <p *ngIf="phoneNumberRequired == true">*Your phone number is required</p>
             </div>
             <div class="div-margin">
                 <input  type="password" formControlName="newPassword"   placeholder="New password">
             </div>
             <div class="div-margin">
                 <input type="password" formControlName="newPasswordConfirmed"   placeholder="Confirm new password">
+                <p *ngIf="passwordsMatching == true">*Passwords do not match</p>
+
             </div>
             <div class="div-margin">
                 <input type="password" formControlName="oldPassword" required required required placeholder="Old password">
+                <p *ngIf="passwordRequired == true">*Your password is required</p>
+                <p id="update-label" *ngIf="updateConfirmation == true">Successfully updated informations</p>
             </div>
             <div class="div-margin">
                 <button id="button-register" type="submit" (click)="updateUser()">Save</button>

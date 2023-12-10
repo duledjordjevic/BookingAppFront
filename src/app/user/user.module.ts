@@ -18,7 +18,8 @@ import { UpdateAdminComponent } from './update-admin/update-admin.component';
     ReactiveFormsModule
   ],
   exports: [
-    UpdateProfileComponent
+    UpdateProfileComponent,
+    UpdateAdminComponent
   ]
 })
 export class UserModule { }
