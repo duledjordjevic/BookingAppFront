@@ -107,7 +107,7 @@
 	border-top-right-radius: 15px;
 }
 
-#rightBottom {
+.rightBottom {
 	border-bottom-right-radius: 15px;
 	filter: brightness(60%);
 }

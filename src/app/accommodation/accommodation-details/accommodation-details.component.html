@@ -21,26 +21,26 @@
 
 		<div class="pictures">
 			<div class="main_picture">
-				<img [src]="mainPicture" alt="Slika levi-div">
+				<img [src]="images[0]" alt="Slika levi-div">
 			</div>
 
 			<div class="side_pictures">
 				<div class="inner_side_picture_up">
 					<div class="picture">
-						<img [src]="sidePicture1" alt="Side picture">
+						<img [src]="images[1]" alt="Side picture">
 					</div>
 					<div class="picture">
-						<img [src]="sidePicture2" alt="Side picture" id="rightUp">
+						<img [src]="images[2]" alt="Side picture" id="rightUp">
 					</div>
 				</div>
 				<div class="inner_side_picture_down">
 					<div class="picture">
-						<img [src]="sidePicture3" alt="Side picture">
+						<img [src]="images[3]" alt="Side picture">
 					</div>
-					<div class="picture" id="overlayedImage">
-							<img [src]="sidePicture4" alt="Side picture" id="rightBottom" [routerLink]="['/accommodation-details-images']" routerLinkActive="router-link-active">
+					<div class="picture" id="overlayedImage" [routerLink]="['/accommodation-details-images']" [queryParams]="{img: images}">
+							<img [src]="images[4]" alt="Side picture" [ngClass]="{'rightBottom':displayLinkToRemainingPictures}"  routerLinkActive="router-link-active">
 						<div class="numberOfPictures">
-							<h2 class="font-style">5+ photos</h2>
+							<h2 *ngIf="displayLinkToRemainingPictures == true" class="font-style">{{remainingPicturesCount}}+ photos</h2>
 						</div>
 					</div>
 				</div>
