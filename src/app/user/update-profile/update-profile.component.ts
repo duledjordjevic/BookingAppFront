@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
-import { UserInfo, UserUpdate } from './model/user.model';
+import { UserInfo, UserUpdate } from '../model/user.model';
 import { FormGroup, FormControl, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import { SharedService } from 'src/app/services/shared.service';
