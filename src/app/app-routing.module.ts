@@ -5,11 +5,13 @@ import { LogInComponent } from './layout/log-in/log-in.component';
 import { RegisterComponent } from './layout/register/register.component';
 import { AccommodationDetailsImagesComponent } from './accommodation/accommodation-details-images/accommodation-details-images.component';
 import { UpdateProfileComponent } from './user/update-profile/update-profile.component';
+import {AccommodationCreateComponent} from "./accommodation/accommodation-create/accommodation-create.component";
 
 const routes: Routes = [
   {path : "home", component : HomeComponent},
   {path: "login", component: LogInComponent},
   {path: "register", component: RegisterComponent},
+	{path: "accommodation-create", component: AccommodationCreateComponent},
   {path: "accommodation-details-images", component: AccommodationDetailsImagesComponent},
   {path: "update-profile", component: UpdateProfileComponent}
 ];
