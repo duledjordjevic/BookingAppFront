@@ -5,25 +5,31 @@ import {MaterialModule} from "../infrastructure/material/material.module";
 import {GoogleMapsModule} from "@angular/google-maps"
 import { RouterModule } from '@angular/router';
 import { AccommodationDetailsImagesComponent } from './accommodation-details-images/accommodation-details-images.component';
-import { AccommodationApprovingComponent } from './accommodation-approving/accommodation-approving.component';
+import { NgxDropzoneModule } from 'ngx-dropzone';
+import { AccommodationCreateComponent } from './accommodation-create/accommodation-create.component'; 
+import { AccommodationPictureUploadComponent } from './accommodation-picture-upload/accommodation-picture-upload.component';
+
 
 
 @NgModule({
   declarations: [
     AccommodationDetailsComponent,
 	AccommodationDetailsImagesComponent,
- AccommodationApprovingComponent
+	AccommodationCreateComponent,
+ 	AccommodationPictureUploadComponent
   ],
 	imports: [
 		CommonModule,
 		NgOptimizedImage,
 		GoogleMapsModule,
 		RouterModule,
-		MaterialModule
+		MaterialModule,
+		NgxDropzoneModule
 	],
 	exports: [
 		AccommodationDetailsComponent,
-		AccommodationDetailsImagesComponent
+		AccommodationDetailsImagesComponent,
+		AccommodationCreateComponent
 	]
 })
 export class AccommodationModule { }

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../user.service';
-import { Address, UserInfo, UserUpdate } from './model/user.model';
+import { UserService } from '../services/user.service';
+import { UserDelete, UserInfo, UserUpdate } from '../model/user.model';
 import { FormGroup, FormControl, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import { SharedService } from 'src/app/services/shared.service';
+import { Address } from 'src/app/models/shared.models';
 
 @Component({
   selector: 'app-update-profile',
@@ -28,8 +29,8 @@ export class UpdateProfileComponent implements OnInit {
             postalCode: new FormControl(this.res.address.postalCode,[Validators.required]),
             street: new FormControl(this.res.address.street,[Validators.required]),
             phoneNumber: new FormControl(this.res.phoneNumber,[Validators.required]),
-            newPassword: new FormControl('',[Validators.required]),
-            newPasswordConfirmed: new FormControl('',[Validators.required]),
+            newPassword: new FormControl(''),
+            newPasswordConfirmed: new FormControl(''),
             oldPassword: new FormControl('',[Validators.required]),
           })
         },
@@ -46,17 +47,72 @@ export class UpdateProfileComponent implements OnInit {
         postalCode: new FormControl('',[Validators.required]),
         street: new FormControl('',[Validators.required]),
         phoneNumber: new FormControl('',[Validators.required]),
-        newPassword: new FormControl('',[Validators.required]),
-        newPasswordConfirmed: new FormControl('',[Validators.required]),
+        newPassword: new FormControl(''),
+        newPasswordConfirmed: new FormControl(''),
         oldPassword: new FormControl('',[Validators.required]),
       })
     
     
-    
+    passwordRequired: boolean = false;
+    allFieldsRequired: boolean = false;
+    nameRequired: boolean = false;
+    lastNameRequired: boolean = false;
+    stateRequired: boolean = false;
+    cityRequired: boolean = false;
+    postalCodeRequired: boolean = false;
+    streetRequired: boolean = false;
+    phoneNumberRequired: boolean = false;
+    cityAndPostalCodeRequired: boolean = false;
+    passwordsMatching: boolean = false;
+    updateConfirmation: boolean = false;
 
     updateUser(): void {
-        console.log(this.updateProfileForm?.value);
+      this.streetRequired = false;
+      this.phoneNumberRequired = false;
+      this.postalCodeRequired = false;
+      this.cityRequired = false;
+      this.stateRequired = false;
+      this.lastNameRequired = false;
+      this.nameRequired = false;
+      this.passwordRequired = false;
+      this.allFieldsRequired = false;
+      this.cityAndPostalCodeRequired = false;
+      this.passwordsMatching = false;
+      this.updateConfirmation = false;
+
+        if(!this.updateProfileForm.valid){
+
+          if(this.updateProfileForm.value.oldPassword === ""){
+            this.passwordRequired = true;
+          }
+          if(this.updateProfileForm.value.name === ""){
+            this.nameRequired = true;
+          }
+          if(this.updateProfileForm.value.lastname === ""){
+            this.lastNameRequired = true;
+          }
+          if(this.updateProfileForm.value.state === ""){
+            this.stateRequired = true;
+          }
+          if(this.updateProfileForm.value.city === "" || this.updateProfileForm.value.postalCode === null){
+            if(this.updateProfileForm.value.city === "" && this.updateProfileForm.value.postalCode === null){
+              this.cityAndPostalCodeRequired = true;
+            } else if(this.updateProfileForm.value.postalCode === null){
+              this.postalCodeRequired = true;
+            }else if(this.updateProfileForm.value.city === ""){
+              this.cityRequired = true;
+            }
+          }
+          if(this.updateProfileForm.value.street === ""){
+            this.streetRequired = true;
+          }
+          if(this.updateProfileForm.value.phoneNumber === ""){
+            this.phoneNumberRequired = true;
+          }
+          return;
+        }
         if(this.updateProfileForm.value.newPassword != "" || (this.updateProfileForm.value.newPassword != this.updateProfileForm.value.newPasswordConfirmed)){
+            this.passwordsMatching = true;
             return;
         }
         const address: Address = {
@@ -77,13 +133,22 @@ export class UpdateProfileComponent implements OnInit {
         }
         this.service.updateUser(updatedUser).subscribe({
             next:(_)=>{
-                console.log("Uspesan zahtev");
+              this.updateConfirmation = true;
+              console.log("Uspesan zahtev");
             }
         })
 
     }
     deleteUser(): void{
-      this.service.deleteUser().subscribe({
+      this.passwordRequired = false;
+      if(this.updateProfileForm.value.oldPassword ==""){
+        this.passwordRequired = true;
+        return;
+      }
+      const user: UserDelete = {
+        password:this.updateProfileForm.value.oldPassword || ""
+      }
+      this.service.deleteUser(user).subscribe({
         next:(_)=>{
           console.log("Uspesno obrisan user");
           this.sharedService.deleteUserFromLocalStorage();

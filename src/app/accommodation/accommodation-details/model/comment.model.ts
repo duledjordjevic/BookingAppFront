@@ -1,7 +1,9 @@
 export interface CommentModel {
-
-	review: string,
-	name: string,
-	date: string,
-	description: string
+	rating: number;
+	ratingDescription: string;
+	content: string;
+	guestName: string;
+	guestLastName: string;
+	guestEmail: string;
+	date:Date;
 }

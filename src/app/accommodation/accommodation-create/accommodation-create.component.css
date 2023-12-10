@@ -1,0 +1,208 @@
+.main {
+	background-color: #F6F8FA;
+	padding: 70px 250px 150px;
+	max-width: 1300px;
+	margin: auto;
+}
+
+.main-container{
+	background-color: #F6F8FA;
+}
+
+.basicInfo {
+	background-color: white;
+	border-radius: 15px;
+	padding: 30px 50px;
+	margin-bottom: 50px;
+}
+
+.title {
+	margin-bottom: 15px;
+}
+
+.descOfTitle {
+	margin-bottom: 15px;
+}
+
+.inputCityPostal{
+	box-sizing: border-box;
+	display: flex;
+	justify-content: space-between;
+}
+
+#city-input{
+	width: 70%;
+}
+#postal-input{
+	width: 30%;
+	margin-left: 20px;
+}
+
+.inputsBasicInfo {
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 15px;
+}
+
+.inputsBasicInfo div {
+	margin-bottom: 10px;
+}
+
+.inputsBasicInfo input {
+	width: 100%;
+	padding: 10px;
+	height: 45px;
+	box-sizing: border-box;
+	margin: 10px 0;
+	filter: drop-shadow(6px 7px 7px rgba(0, 0, 0, 0.1));
+	border:none;
+	outline:none;
+	font-size: 17px;
+	border-radius: 5px;
+	text-indent: 25px;
+}
+
+.custom-combobox {
+
+	border-radius: 5px;
+	box-sizing: border-box;
+	width: 100%;
+	padding: 10px;
+	height: 45px;
+	margin: 10px 0;
+	filter: drop-shadow(6px 7px 7px rgba(0, 0, 0, 0.1));
+	border: none;
+	outline:none;
+	opacity: 0.8;
+	font-size: 17px;
+	text-indent: 25px;
+}
+.custom-combobox::after {
+	content: '\25BC';
+	position: absolute;
+	right: 10px;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.titlePhotos {
+	margin-bottom: 15px;
+}
+
+.location {
+	margin-bottom: 50px;
+	padding-top: 10px;
+}
+
+.location h4 {
+	margin-bottom: 25px;
+}
+
+.cancellationPolicy {
+	background-color: white;
+	border-radius: 15px;
+	padding: 30px 50px;
+	margin-bottom: 50px;
+}
+
+.title {
+	margin-bottom: 25px;
+}
+
+input[type="radio"] {
+	transform: scale(1.5); /* Povećajte veličinu dugmeta po potrebi */
+	margin-right: 15px; /* Dodajte prostor s desne strane dugmeta */
+	margin-bottom: 20px;
+}
+
+.cancellationPolicyDesc {
+	margin-top: 15px;
+	margin-bottom: 20px;
+}
+
+.amenities {
+	background-color: white;
+	border-radius: 15px;
+	padding: 20px 50px;
+	margin-bottom: 50px;
+}
+.amenitieName {
+	display: flex;
+	justify-content: flex-start;
+}
+
+.amenitieName p{
+	padding-left: 15px;
+	padding-top: 15px;
+	font-size: 15px;
+}
+
+.amenities {
+	display: flex;
+	justify-content: space-between;
+}
+
+.amenitie {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+}
+
+.buttons {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.buttons button{
+	margin-left: 15px;
+	color: black;
+	background-color: white;
+	padding-inline: 30px;
+	border-radius: 5px;
+	border: 0.3px solid black;
+}
+
+.buttons button.clicked {
+	color: white;
+	background-color: #235471;;
+}
+
+.descOfTitle {
+	text-align: justify;
+}
+
+.datePickers {
+	margin-top: 25px;
+	margin-bottom: 25px;
+	display: flex;
+	justify-content: space-between;
+}
+
+.datePicker {
+	padding-right: 10px;
+}
+
+#add {
+	color: white;
+	background-color: #235471;
+	width: 120px;
+	border-radius: 5px;
+}
+
+#cancel {
+	margin-right: 15px;
+	color: #235471;
+	background-color: white;
+	width: 120px;
+	border-radius: 5px;
+	border: 0.3px #235471;
+}
+
+.addButtons {
+	margin-top: 50px;
+	margin-bottom: 25px;
+	display: flex;
+	justify-content: flex-end;
+}

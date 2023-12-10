@@ -1,7 +1,10 @@
 
 // import { Component } from '@angular/core';
+import { AccommodationService } from "../services/accommodation.service";
 import {CommentModel} from "./model/comment.model";
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { RatingModel } from "./model/rating.model";
+import { AccommodationDetails, Amenities, AmenitiesIcons } from "./model/accommodation.model";
 
 
 @Component({
@@ -16,7 +19,7 @@ export class AccommodationDetailsComponent{
 	sidePicture4 = "assets/images/side4.png";
 	mainPicture = "assets/images/main.jpeg";
 
-	amenitieWifi = "assets/images/wifi.svg";
+	WIFI = "assets/images/wifi.svg";
 	amenitieBreakfast = "assets/images/breakfast.svg";
 	amenitieAirCondition = "assets/images/air_condition.svg";
 	amenitieParking= "assets/images/parking.svg";
@@ -52,51 +55,151 @@ export class AccommodationDetailsComponent{
 
 
 	allCommentsVisible = false; // Da li su svi komentari vidljivi
-	comments: any[] = []; // Niz svih komentara
-	displayedComments: any[] = []; // Niz komentara koji trenutno treba da se prikažu
+	comments: CommentModel[] = []; // Niz svih komentara
+	displayedComments: CommentModel[] = []; // Niz komentara koji trenutno treba da se prikažu
+	ratings: RatingModel = {
+		average: 0,
+		count: 0,
+		excellent:0,
+		good:0,
+		okay:0,
+		poor:0,
+		terrible:0,
+	};
+	
+	accommodationDetails: AccommodationDetails |undefined;
+	amenities: Amenities[] = [];
+	amenitiesIcons: AmenitiesIcons[] = [];
+	
 
 	// Inicijalizacija komentara (možete dobiti ove podatke sa servera ili ih hardkodirati)
-	constructor() {
-		this.comments = [
-			{review: "5/5 Excellent", name: "Mark Zuckenberg", date: "Oct 10, 2023",
-				description:  "Lorem Ipsum is simply dummy text of the printing and typesetting industry. " +
-					"Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took " +
-					"a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, " +
-					"but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the " +
-					"1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop " +
-					"publishing software like Aldus PageMaker including versions of Lorem Ipsum."},
-			{review: "5/5 Excellent", name: "Mark Zuckenberg", date: "Oct 10, 2023",
-				description:  "Lorem Ipsum is simply dummy text of the printing and typesetting industry. " +
-					"Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took " +
-					"a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, " +
-					"but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the " +
-					"1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop " +
-					"publishing software like Aldus PageMaker including versions of Lorem Ipsum."},
-			{review: "5/5 Excellent", name: "Mark Zuckenberg", date: "Oct 10, 2023",
-				description:  "Lorem Ipsum is simply dummy text of the printing and typesetting industry. " +
-					"Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took " +
-					"a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, " +
-					"but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the " +
-					"1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop " +
-					"publishing software like Aldus PageMaker including versions of Lorem Ipsum."},
-			{review: "5/5 Excellent", name: "Mark Zuckenberg", date: "Oct 10, 2023",
-				description:  "Lorem Ipsum is simply dummy text of the printing and typesetting industry. " +
-					"Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took " +
-					"a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, " +
-					"but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the " +
-					"1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop " +
-					"publishing software like Aldus PageMaker including versions of Lorem Ipsum."},
-			{review: "5/5 Excellent", name: "Mark Zuckenberg", date: "Oct 10, 2023",
-				description:  "Lorem Ipsum is simply dummy text of the printing and typesetting industry. " +
-					"Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took " +
-					"a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, " +
-					"but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the " +
-					"1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop " +
-					"publishing software like Aldus PageMaker including versions of Lorem Ipsum."}
-		];
+	constructor(private service: AccommodationService) {
+		// this.comments = [
+		// 	{review: "5/5 Excellent", name: "Mark Zuckenberg", date: "Oct 10, 2023",
+		// 		description:  "Lorem Ipsum is simply dummy text of the printing and typesetting industry. " +
+		// 			"Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took " +
+		// 			"a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, " +
+		// 			"but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the " +
+		// 			"1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop " +
+		// 			"publishing software like Aldus PageMaker including versions of Lorem Ipsum."},
+		// 	{review: "5/5 Excellent", name: "Mark Zuckenberg", date: "Oct 10, 2023",
+		// 		description:  "Lorem Ipsum is simply dummy text of the printing and typesetting industry. " +
+		// 			"Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took " +
+		// 			"a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, " +
+		// 			"but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the " +
+		// 			"1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop " +
+		// 			"publishing software like Aldus PageMaker including versions of Lorem Ipsum."},
+		// 	{review: "5/5 Excellent", name: "Mark Zuckenberg", date: "Oct 10, 2023",
+		// 		description:  "Lorem Ipsum is simply dummy text of the printing and typesetting industry. " +
+		// 			"Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took " +
+		// 			"a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, " +
+		// 			"but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the " +
+		// 			"1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop " +
+		// 			"publishing software like Aldus PageMaker including versions of Lorem Ipsum."},
+		// 	{review: "5/5 Excellent", name: "Mark Zuckenberg", date: "Oct 10, 2023",
+		// 		description:  "Lorem Ipsum is simply dummy text of the printing and typesetting industry. " +
+		// 			"Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took " +
+		// 			"a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, " +
+		// 			"but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the " +
+		// 			"1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop " +
+		// 			"publishing software like Aldus PageMaker including versions of Lorem Ipsum."},
+		// 	{review: "5/5 Excellent", name: "Mark Zuckenberg", date: "Oct 10, 2023",
+		// 		description:  "Lorem Ipsum is simply dummy text of the printing and typesetting industry. " +
+		// 			"Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took " +
+		// 			"a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, " +
+		// 			"but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the " +
+		// 			"1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop " +
+		// 			"publishing software like Aldus PageMaker including versions of Lorem Ipsum."}
+		// ];
 		this.updateDisplayedComments();
 	}
+	
+	ngOnInit(): void{
+		this.service.getCommentsAboutAcc(2).subscribe({
+			next:(allComments:CommentModel[]) =>{
+				this.comments = allComments;
+				this.ratings.count = this.comments.length;
 
+				const updatedComments = this.comments.map(comment => {
+					switch (comment.rating) {
+					  case 5:
+						comment.ratingDescription = 'Excellent';
+						this.ratings.excellent += 1;
+						break;
+					  case 4:
+						comment.ratingDescription = 'Good';
+						this.ratings.good += 1;
+						break;
+					  case 3:
+						comment.ratingDescription = 'Okay';
+						this.ratings.okay += 1;
+						break;
+					  case 2:
+						comment.ratingDescription = 'Poor';
+						this.ratings.poor += 1;
+						break;
+					  case 1:
+						comment.ratingDescription = 'Terrible';
+						this.ratings.terrible += 1;
+						break;
+					  default:
+						comment.ratingDescription = 'Unknown';
+						break;
+					}
+					return comment;
+				  });
+				this.ratings.average = this.calculateAverageRating();
+				this.displayedComments = updatedComments.slice(0, 3);
+			}
+		})
+		this.service.getAccommodationInfo(2).subscribe({
+			next:(accommodationInfo: AccommodationDetails)=> {
+				this.accommodationDetails = accommodationInfo;
+				this.amenities = accommodationInfo.amenities;
+				for(const element of this.amenities){
+					let amenitieTemp = {
+						name:element,
+						icon:""
+					};
+					this.amenitiesIcons.push(amenitieTemp);
+				}
+				const updatedAmenities = this.amenitiesIcons.map(amenitie => {
+					switch (amenitie.name) {
+					  case 'WIFI':
+						amenitie.icon = 'assets/images/wifi.svg';
+						this.ratings.excellent += 1;
+						break;
+					  case 'BREAKFAST':
+						amenitie.icon= 'assets/images/breakfast.svg';
+						this.ratings.good += 1;
+						break;
+					  case 'PARKING':
+						amenitie.icon= 'assets/images/parking.svg';
+						this.ratings.okay += 1;
+						break;
+					  case 'POOL':
+						amenitie.icon= 'assets/images/swimming-pool.svg';
+						this.ratings.poor += 1;
+						break;
+					  case 'AIRCONDITION':
+						amenitie.icon= 'assets/images/air_condition.svg';
+						this.ratings.terrible += 1;
+						break;
+					case 'KITCHEN':
+						amenitie.icon= 'assets/images/kitchen-spoons-icon.svg';
+						this.ratings.terrible += 1;
+						break;
+					  default:
+						amenitie.icon= 'Unknown';
+						break;
+					}
+					return amenitie;
+				  });
+				this.amenitiesIcons = updatedAmenities;
+				console.log(this.accommodationDetails);
+			}
+		})
+	}
 	// Metoda koja se poziva prilikom klika na dugme
 	expandComments() {
 		this.allCommentsVisible = true;
@@ -112,6 +215,13 @@ export class AccommodationDetailsComponent{
 			this.displayedComments = this.comments.slice(0, 3);
 		}
 	}
+	calculateAverageRating(): number {
+	  
+		const sumaOcena = this.comments.reduce((suma, komentar) => suma + komentar.rating, 0);
+		const prosecnaOcena = sumaOcena / this.comments.length;
+	  
+		return Number(prosecnaOcena.toFixed(1));
+	  }
 
 }
 
