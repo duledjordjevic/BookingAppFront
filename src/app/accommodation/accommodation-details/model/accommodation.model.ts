@@ -7,6 +7,7 @@ export interface AccommodationDetails {
     maxGuests: number;
     address: Address;
     amenities:Amenities[];
+    images:string[];
 }
 
 export enum Amenities {
