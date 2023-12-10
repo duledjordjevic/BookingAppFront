@@ -40,6 +40,10 @@
 			</div>
 		</div>
 
+		<div class="imageUpload">
+			<app-accommodation-picture-upload></app-accommodation-picture-upload>
+		</div>
+
 		<div class="location">
 			<h4>Location of apartment</h4>
 			<div class="map">
@@ -152,6 +156,37 @@
 				</div>
 			</div>
 		</div>
+
+		<div class="propertyAvailable">
+			<h3>Define the time when the property is available</h3>
+			<div class="datePickers">
+				<div class="datePicker">
+					<mat-form-field>
+						<mat-label>Check in</mat-label>
+						<input matInput [matDatepicker]="checkinPicker">
+						<mat-hint>MM/DD/YYYY</mat-hint>
+						<mat-datepicker-toggle matIconSuffix [for]="checkinPicker"></mat-datepicker-toggle>
+						<mat-datepicker #checkinPicker></mat-datepicker>
+					</mat-form-field>
+				</div>
+				<div class="datePicker">
+					<mat-form-field>
+						<mat-label>Check out</mat-label>
+						<input matInput [matDatepicker]="checkoutPicker">
+						<mat-hint>MM/DD/YYYY</mat-hint>
+						<mat-datepicker-toggle matIconSuffix [for]="checkoutPicker"></mat-datepicker-toggle>
+						<mat-datepicker #checkoutPicker></mat-datepicker>
+					</mat-form-field>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="addButtons">
+			<button mat-raised-button id="cancel">Cancel</button>
+			<button mat-raised-button id="add">Add</button>
+		</div>
+
 	</div>
 </div>
 

@@ -172,3 +172,37 @@ input[type="radio"] {
 .descOfTitle {
 	text-align: justify;
 }
+
+.datePickers {
+	margin-top: 25px;
+	margin-bottom: 25px;
+	display: flex;
+	justify-content: space-between;
+}
+
+.datePicker {
+	padding-right: 10px;
+}
+
+#add {
+	color: white;
+	background-color: #235471;
+	width: 120px;
+	border-radius: 5px;
+}
+
+#cancel {
+	margin-right: 15px;
+	color: #235471;
+	background-color: white;
+	width: 120px;
+	border-radius: 5px;
+	border: 0.3px #235471;
+}
+
+.addButtons {
+	margin-top: 50px;
+	margin-bottom: 25px;
+	display: flex;
+	justify-content: flex-end;
+}
