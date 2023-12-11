@@ -53,7 +53,7 @@ export class AccommodationDetailsComponent{
 	spot: { id: number; lat: number; lng: number } = { id: 1, lat: 42.546, lng: 21.882};
 
 
-
+	images:String[] = [];
 	allCommentsVisible = false; // Da li su svi komentari vidljivi
 	comments: CommentModel[] = []; // Niz svih komentara
 	displayedComments: CommentModel[] = []; // Niz komentara koji trenutno treba da se prikažu
@@ -113,6 +113,8 @@ export class AccommodationDetailsComponent{
 		// ];
 		this.updateDisplayedComments();
 	}
+	remainingPicturesCount: number = 0;
+	displayLinkToRemainingPictures: boolean = true;
 	
 	ngOnInit(): void{
 		this.service.getCommentsAboutAcc(2).subscribe({
@@ -195,8 +197,15 @@ export class AccommodationDetailsComponent{
 					}
 					return amenitie;
 				  });
+				const updateImagesData = this.accommodationDetails.images.map(image =>{
+					this.images.push('data:image/jpeg;base64,' + image);
+				})
+				this.remainingPicturesCount = this.images.length - 5;
+				if(this.remainingPicturesCount == 0){
+					this.displayLinkToRemainingPictures = false;
+				}
 				this.amenitiesIcons = updatedAmenities;
-				console.log(this.accommodationDetails);
+				console.log(this.images);
 			}
 		})
 	}
