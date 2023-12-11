@@ -2,10 +2,15 @@
 // import { Component } from '@angular/core';
 import { AccommodationService } from "../services/accommodation.service";
 import {CommentModel} from "./model/comment.model";
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild, inject } from '@angular/core';
 import { RatingModel } from "./model/rating.model";
 import { AccommodationDetails, Amenities, AmenitiesIcons } from "./model/accommodation.model";
 import { MapService } from "src/app/layout/map/map.service";
+import { ReservationService } from "../services/reservation.service";
+import { Reservation } from "../model/reservation.model";
+import { AbstractControl, FormBuilder, ValidationErrors, Validators } from "@angular/forms";
+import { HttpClient } from "@angular/common/http";
+import { AuthService } from "src/app/infrastructure/auth/services/auth.service";
 
 @Component({
   selector: 'app-accommodation-details',
@@ -14,8 +19,10 @@ import { MapService } from "src/app/layout/map/map.service";
 })
 export class AccommodationDetailsComponent{
 
-	constructor(private service: AccommodationService, private mapService: MapService) {
+	constructor(private accommodationService: AccommodationService, private mapService: MapService, 
+		private reservationService: ReservationService, private authService: AuthService) {
 		this.updateDisplayedComments();
+		this.reservationForm.get('numOfGuests')?.setValue(0);
 	}
 
 	mainPicture = "assets/images/main.jpeg";
@@ -74,7 +81,7 @@ export class AccommodationDetailsComponent{
 	numberOfGuests: number[] = [];
 	
 	ngOnInit(): void{
-		this.service.getCommentsAboutAcc(1).subscribe({
+		this.accommodationService.getCommentsAboutAcc(1).subscribe({
 			next:(allComments:CommentModel[]) =>{
 				this.comments = allComments;
 				this.ratings.count = this.comments.length;
@@ -114,7 +121,7 @@ export class AccommodationDetailsComponent{
 			}
 		})
 
-		this.service.getAccommodationInfo(1).subscribe({
+		this.accommodationService.getAccommodationInfo(1).subscribe({
 			next:(accommodationInfo: AccommodationDetails)=> {
 				this.accommodationDetails = accommodationInfo;
 
@@ -200,6 +207,88 @@ export class AccommodationDetailsComponent{
 	  
 		return Number(prosecnaOcena.toFixed(1));
 	  }
+
+
+
+	
+	fb = inject(FormBuilder)
+	http = inject(HttpClient)
+	
+	reservationForm = this.fb.nonNullable.group({
+		startDate: [new Date(), Validators.required],
+		endDate: [new Date(), Validators.required],
+		numOfGuests: [0, Validators.required]
+	});
+
+	
+	// reservation: Reservation = {
+	// 	startDate: new Date('2023-12-17'),
+	// 	endDate: new Date('2023-12-18'),
+	// 	numberOfGuests: 3,
+	// 	guestId: 3,
+	// 	accommodationId: 1
+	// }
+	
+	setCustomValidators() {
+		this.reservationForm.setValidators(this.dateValidator.bind(this));
+		this.reservationForm.updateValueAndValidity();
+	  }
+	
+	dateValidator(control: AbstractControl): ValidationErrors | null {
+		const startDate = control.get('startDate')?.value;
+		const endDate = control.get('endDate')?.value;
+
+		if (startDate && endDate && startDate > endDate) {
+			return { 'dateError': true, 'message': 'End date must be greater than start date.' };
+		}
+
+		if (startDate && startDate < new Date()) {
+			return { 'dateError': true, 'message': 'Start date must be in the future.' };
+		}
+
+		return null;
+	}
+
+
+	fieldsNotValid: boolean = false;
+	notAvailable : boolean = false;
+	createdReservation: boolean = false;
+
+	onSubmit(){
+		this.setCustomValidators();
+
+		this.fieldsNotValid = false;
+		this.notAvailable = false;
+		this.createdReservation = false;
+
+		if(this.reservationForm.valid && this.reservationForm.value.numOfGuests !== 0){
+			this.reservationForm.value.startDate?.setHours(this.reservationForm.value.startDate.getHours() + 1);
+			this.reservationForm.value.endDate?.setHours(this.reservationForm.value.endDate.getHours() + 1);
+			const reservation: Reservation = {
+				startDate: this.reservationForm.value.startDate,
+				endDate: this.reservationForm.value.endDate,
+				numberOfGuests: this.reservationForm.value.numOfGuests,
+				guestId: this.authService.getId(),
+				accommodationId: this.accommodationDetails?.id
+			}
+			this.reservate(reservation);
+		}
+		else{
+			this.fieldsNotValid = true;
+		}
+	}
+
+
+	reservate(reservation: Reservation): void{
+		this.reservationService.reservate(reservation).subscribe({
+			next: () => {
+				this.createdReservation = true;
+			},
+			error: () => {
+				this.notAvailable = true;
+			}
+		})
+	}
 
 }
 
