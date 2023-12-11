@@ -1,0 +1,78 @@
+.main-container{
+    background-color: #F6F8FA;
+}
+.container{
+    padding-top: 100px;
+    min-height: 1200px;
+    max-width: 1000px;
+}
+
+.card{
+    display: flex;
+    /* justify-content:space-between; */
+    flex-direction: row;
+    border-radius: 20px;
+    border-color: #fff;
+    filter: drop-shadow(12px 12px 12px #cacacd);
+    margin-bottom: 80px;
+    cursor: pointer;
+}
+.righ-section{
+    width: max-content;
+}
+
+.coverImage{
+    width: 200px;
+    height: auto;
+}
+.left-section{
+    display: flex;
+    align-items: center;
+    margin-right: 40px;
+}
+.titleSection{
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+    padding: 15px;
+    align-items: center;
+}
+.title{
+    font-size: 22px;
+    font-weight: 500;
+}
+.address{
+    font-size: 15px;
+}
+
+
+.description-container{
+    background-color: #FAFAFA;
+    width: 90%;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.description-container p {
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.buttons{
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+}
+
+.buttons button{
+    margin: 15px;
+}
+
+.btnApproved{
+    background-color: #235471 !important;
+    color: #fff !important;
+}
+.btnDecline{
+    background-color: #BA1A1A !important;
+    color: #fff !important;
+}
