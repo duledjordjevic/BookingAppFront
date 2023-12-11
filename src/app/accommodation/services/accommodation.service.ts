@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CommentModel } from '../accommodation-details/model/comment.model';
+import { CommentModel } from '../model/comment.model';
 import { Observable } from 'rxjs';
-import { AccommodationDetails } from '../accommodation-details/model/accommodation.model';
+import { AccommodationDetails } from '../model/accommodation.model';
 import { environment } from 'src/env/env';
 import { AuthService } from "src/app/infrastructure/auth/services/auth.service";
 import { AccommodationCard } from "../model/card.model";

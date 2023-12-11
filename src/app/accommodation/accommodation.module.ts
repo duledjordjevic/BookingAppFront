@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import {CommonModule, NgOptimizedImage} from '@angular/common';
 import { AccommodationDetailsComponent } from './accommodation-details/accommodation-details.component';
 import {MaterialModule} from "../infrastructure/material/material.module";
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatSliderModule} from '@angular/material/slider';
 import {GoogleMapsModule} from "@angular/google-maps"
 import { RouterModule } from '@angular/router';
 import { AccommodationDetailsImagesComponent } from './accommodation-details-images/accommodation-details-images.component';
@@ -9,6 +11,7 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 import { AccommodationCreateComponent } from './accommodation-create/accommodation-create.component'; 
 import { AccommodationPictureUploadComponent } from './accommodation-picture-upload/accommodation-picture-upload.component';
 import { AccommodationApprovingComponent } from './accommodation-approving/accommodation-approving.component';
+import { AccommodationsFilterComponent } from './accommodations-filter/accommodations-filter.component';
 
 
 
@@ -18,7 +21,8 @@ import { AccommodationApprovingComponent } from './accommodation-approving/accom
     AccommodationDetailsComponent,
 	AccommodationDetailsImagesComponent,
 	AccommodationCreateComponent,
- 	AccommodationPictureUploadComponent
+ 	AccommodationPictureUploadComponent,
+  AccommodationsFilterComponent
   ],
 	imports: [
 		CommonModule,
@@ -26,13 +30,16 @@ import { AccommodationApprovingComponent } from './accommodation-approving/accom
 		GoogleMapsModule,
 		RouterModule,
 		MaterialModule,
-		NgxDropzoneModule
+		NgxDropzoneModule,
+		MatCheckboxModule,
+		MatSliderModule
 	],
 	exports: [
 		AccommodationDetailsComponent,
 		AccommodationDetailsImagesComponent,
 		AccommodationCreateComponent,
-		AccommodationApprovingComponent
+		AccommodationApprovingComponent,
+		AccommodationsFilterComponent
 	]
 })
 export class AccommodationModule { }

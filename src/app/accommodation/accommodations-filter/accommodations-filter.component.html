@@ -1,0 +1,170 @@
+<div class="main-container">
+    <div class="image-container">
+        <!-- <img class="cropped-image" src="../../../assets/images/cover-img.jpg" alt="image"> -->
+        <div class="header-filter-container">
+            <div class="location">
+                <div class="icon-container">
+                    <img src="../../../assets/images/bed.png" alt="image">
+                    <label>Where</label>
+                </div>
+                
+                <input>
+            </div>
+            <div class="datePicker">
+                <mat-form-field>
+                    <mat-label>Check in</mat-label>
+                    <input matInput [matDatepicker]="checkinPicker">
+                    <mat-datepicker-toggle matIconSuffix [for]="checkinPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #checkinPicker></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="datePicker">
+                <mat-form-field>
+                    <mat-label>Check out</mat-label>
+                    <input matInput [matDatepicker]="checkoutPicker">
+                    <mat-datepicker-toggle matIconSuffix [for]="checkoutPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #checkoutPicker></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="num-of-persons">
+                <div class="icon-container">
+                    <img src="../../../assets/images/person.svg" alt="image">
+                    <label>Persons</label>
+                </div>
+                <input>
+            </div>
+            <div class="search-btn">
+                <button>Search</button>
+            </div>
+        
+            
+        </div>
+    </div>
+   
+    <div class="main">
+        <div class="amenities-price-filter">
+            <h4>Amenities</h4>
+            <hr>
+            <label>
+                <mat-checkbox aria-label="amenitie">
+                </mat-checkbox>
+                Wi-fi
+            </label>
+            <label>
+                <mat-checkbox aria-label="amenitie">
+                </mat-checkbox>
+                Aircondition
+            </label>
+            <label>
+                <mat-checkbox aria-label="amenitie">
+                </mat-checkbox>
+                Parking
+            </label>
+            <label>
+                <mat-checkbox aria-label="amenitie">
+                </mat-checkbox>
+                Pool
+            </label>
+            <label>
+                <mat-checkbox aria-label="amenitie">
+                </mat-checkbox>
+                Breakfast
+            </label>
+            <label>
+                <mat-checkbox aria-label="amenitie">
+                </mat-checkbox>
+                Kitchen
+            </label>
+            <hr>
+            <h4>Price</h4>
+            <mat-slider min="0" max="500"  (input)="onSliderInput($event)">
+                <input matSliderStartThumb [(ngModel)]="startedValue">
+                <input matSliderEndThumb [(ngModel)]="endValue">
+              </mat-slider>
+              
+              <div class="min-max-labels">
+                <span>Min: {{ startedValue }}</span>
+                <span>Max: {{ endValue }}</span>
+              </div>
+        
+        </div>
+        <div class="cards">
+            <div class="card">
+                <img src="../../../assets/images/main.jpeg">
+                <div class="card-description">
+                    <h4>Naziv kartice</h4>
+                    <p>Srbija, Novi Sad</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="../../../assets/images/main.jpeg">
+                <div class="card-description">
+                    <h4>Naziv kartice</h4>
+                    <p>Srbija, Novi Sad</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="../../../assets/images/main.jpeg">
+                <div class="card-description">
+                    <h4>Naziv kartice</h4>
+                    <p>Srbija, Novi Sad</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="../../../assets/images/main.jpeg">
+                <div class="card-description">
+                    <h4>Naziv kartice</h4>
+                    <p>Srbija, Novi Sad</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="../../../assets/images/main.jpeg">
+                <div class="card-description">
+                    <h4>Naziv kartice</h4>
+                    <p>Srbija, Novi Sad</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="../../../assets/images/main.jpeg">
+                <div class="card-description">
+                    <h4>Naziv kartice</h4>
+                    <p>Srbija, Novi Sad</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="../../../assets/images/main.jpeg">
+                <div class="card-description">
+                    <h4>Naziv kartice</h4>
+                    <p>Srbija, Novi Sad</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="../../../assets/images/main.jpeg">
+                <div class="card-description">
+                    <h4>Naziv kartice</h4>
+                    <p>Srbija, Novi Sad</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="../../../assets/images/main.jpeg">
+                <div class="card-description">
+                    <h4>Naziv kartice</h4>
+                    <p>Srbija, Novi Sad</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="../../../assets/images/main.jpeg">
+                <div class="card-description">
+                    <h4>Naziv kartice</h4>
+                    <p>Srbija, Novi Sad</p>
+                </div>
+            </div>
+
+            
+            
+        </div>
+        
+    </div>
+
+</div>
+    

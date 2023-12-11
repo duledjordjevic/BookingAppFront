@@ -1,10 +1,10 @@
 
 // import { Component } from '@angular/core';
 import { AccommodationService } from "../services/accommodation.service";
-import {CommentModel} from "./model/comment.model";
+import {CommentModel} from "../model/comment.model";
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { RatingModel } from "./model/rating.model";
-import { AccommodationDetails, Amenities, AmenitiesIcons } from "./model/accommodation.model";
+import { RatingModel } from "../model/rating.model";
+import { AccommodationDetails, Amenities, AmenitiesIcons } from "../model/accommodation.model";
 
 
 @Component({
