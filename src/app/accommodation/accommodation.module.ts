@@ -8,11 +8,13 @@ import { AccommodationDetailsImagesComponent } from './accommodation-details-ima
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { AccommodationCreateComponent } from './accommodation-create/accommodation-create.component'; 
 import { AccommodationPictureUploadComponent } from './accommodation-picture-upload/accommodation-picture-upload.component';
+import { AccommodationApprovingComponent } from './accommodation-approving/accommodation-approving.component';
 
 
 
 @NgModule({
   declarations: [
+	AccommodationApprovingComponent,
     AccommodationDetailsComponent,
 	AccommodationDetailsImagesComponent,
 	AccommodationCreateComponent,
@@ -29,7 +31,8 @@ import { AccommodationPictureUploadComponent } from './accommodation-picture-upl
 	exports: [
 		AccommodationDetailsComponent,
 		AccommodationDetailsImagesComponent,
-		AccommodationCreateComponent
+		AccommodationCreateComponent,
+		AccommodationApprovingComponent
 	]
 })
 export class AccommodationModule { }

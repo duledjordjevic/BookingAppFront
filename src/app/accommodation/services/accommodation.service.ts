@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CommentModel } from '../accommodation-details/model/comment.model';
 import { Observable } from 'rxjs';
@@ -23,11 +23,13 @@ export class AccommodationService {
    // return this.http.post<User>(environment.apiHost + 'register', user, {
   //     headers: this.headers,
   //   });
-  approveAccommodation(id: number): Observable<any>{
+  setApprovalStatusAccommodation(id: number, approvalStatus: string): Observable<any>{
     const url = environment.apiHost + 'accommodations/' + id + '/approvalStatus' ;
-    const approvalStatus = {"approvalStatus" : "APPROVED"};
-    return this.http.post<boolean>(url, approvalStatus);
-
+    return this.http.put<AccommodationDetails>(url, {"approvalStatus" : approvalStatus}, {
+        headers: new HttpHeaders({
+            'Content-Type': 'application/json'
+          })
+    });
   }
 
   getCommentsAboutAcc(id: number): Observable<CommentModel[]> {

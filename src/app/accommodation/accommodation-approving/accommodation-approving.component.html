@@ -13,8 +13,8 @@
                     <p>{{ card.description | slice:0:250 }}{{ card.description && card.description.length > 250 ? '...' : '' }}</p>
                 </div>
                 <div class="buttons">
-                    <button mat-raised-button class="btnApproved" (onClick)="approve(card.id)">Approve</button>
-                    <button mat-raised-button class="btnDecline" (onClick)="decline(card.id)">Decline</button>
+                    <button mat-raised-button class="btnApproved" (click)="setApprovalStatusAccommodation(card.id, 'APPROVED')">Approve</button>
+                    <button mat-raised-button class="btnDecline" (click)="setApprovalStatusAccommodation(card.id, 'DECLINED')">Decline</button>
                 </div>
             </div>
     
