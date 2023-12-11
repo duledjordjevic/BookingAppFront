@@ -319,3 +319,14 @@ hr {
 .star-favourite{
 	cursor: pointer;
 }
+
+#combo-numberOfGuests{
+	height: 40px;
+	border-radius: 4px;
+	padding: 5px;
+	border: none; 
+    opacity: 0.8;
+    outline: none;
+	filter: drop-shadow(6px 7px 7px rgba(0, 0, 0, 0.1));
+	align-self: auto;
+}
