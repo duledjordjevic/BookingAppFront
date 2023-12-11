@@ -9,6 +9,7 @@ import { AccommodationCreateComponent } from './accommodation-create/accommodati
 import { AccommodationPictureUploadComponent } from './accommodation-picture-upload/accommodation-picture-upload.component';
 import {NgxDropzoneModule} from "ngx-dropzone";
 import { PricelistComponent } from './pricelist/pricelist.component';
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { PricelistComponent } from './pricelist/pricelist.component';
 		GoogleMapsModule,
 		RouterModule,
 		MaterialModule,
-		NgxDropzoneModule
+		NgxDropzoneModule,
+		ReactiveFormsModule
 	],
 	exports: [
 		AccommodationDetailsComponent,

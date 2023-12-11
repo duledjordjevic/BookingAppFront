@@ -1,0 +1,77 @@
+/* unos-podataka.component.css */
+.data-entry-form {
+	display: flex;
+	flex-direction: column;
+	align-items: center; /* Centralizuje sadržaj vertikalno */
+	max-width: 400px;
+	margin: 0 auto; /* Centrira formu */
+}
+
+.mat-form-field {
+	width: 100%;
+	margin-bottom: 15px;
+}
+
+.price-input {
+	margin-top: 0;
+}
+
+.data-table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 20px;
+}
+
+.data-table th, .data-table td {
+	border: 1px solid #ddd;
+	padding: 8px;
+	text-align: left;
+}
+
+.data-table th {
+	background-color: #f2f2f2;
+}
+
+.highlighted-row {
+	background-color: #e0f7fa; /* Pozadina za obeleženi red */
+}
+
+/* Stilizacija za smanjenje veličine Datepickera, labela i dugmeta */
+.mat-datepicker-content {
+	font-size: 12px;
+}
+
+.mat-form-field-label {
+	font-size: 12px;
+}
+
+.mat-datepicker-toggle {
+	font-size: 12px;
+	line-height: 1;
+	height: 20px;
+}
+
+.mat-input-element {
+	font-size: 12px; /* Prilagodite veličinu fonta za input polje cene */
+}
+
+.mat-button-wrapper {
+	font-size: 12px;
+	height: 24px;
+}
+
+.datePickers {
+	display: flex;
+	flex-direction: row;
+	gap: 10px;
+	align-items: baseline; /* Centralizuje Datepickere vertikalno */
+}
+
+.datePicker {
+	flex: 1;
+}
+
+.add-button {
+	margin-top: 10px; /* Dodajte razmak iznad dugmeta "Add" */
+	align-self: center; /* Centralizuje dugme "Add" horizontalno */
+}

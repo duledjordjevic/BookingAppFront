@@ -158,28 +158,28 @@
 		</div>
 
 		<div class="propertyAvailable">
-			<h3>Define the time when the property is available</h3>
-			<div class="datePickers">
-				<div class="datePicker">
-					<mat-form-field>
-						<mat-label>Check in</mat-label>
-						<input matInput [matDatepicker]="checkinPicker">
-						<mat-hint>MM/DD/YYYY</mat-hint>
-						<mat-datepicker-toggle matIconSuffix [for]="checkinPicker"></mat-datepicker-toggle>
-						<mat-datepicker #checkinPicker></mat-datepicker>
-					</mat-form-field>
-				</div>
-				<div class="datePicker">
-					<mat-form-field>
-						<mat-label>Check out</mat-label>
-						<input matInput [matDatepicker]="checkoutPicker">
-						<mat-hint>MM/DD/YYYY</mat-hint>
-						<mat-datepicker-toggle matIconSuffix [for]="checkoutPicker"></mat-datepicker-toggle>
-						<mat-datepicker #checkoutPicker></mat-datepicker>
-					</mat-form-field>
-				</div>
-
-			</div>
+<!--			<h3>Define the time when the property is available</h3>-->
+<!--			<div class="datePickers">-->
+<!--				<div class="datePicker">-->
+<!--					<mat-form-field>-->
+<!--						<mat-label>Check in</mat-label>-->
+<!--						<input matInput [matDatepicker]="checkinPicker">-->
+<!--						<mat-hint>MM/DD/YYYY</mat-hint>-->
+<!--						<mat-datepicker-toggle matIconSuffix [for]="checkinPicker"></mat-datepicker-toggle>-->
+<!--						<mat-datepicker #checkinPicker></mat-datepicker>-->
+<!--					</mat-form-field>-->
+<!--				</div>-->
+<!--				<div class="datePicker">-->
+<!--					<mat-form-field>-->
+<!--						<mat-label>Check out</mat-label>-->
+<!--						<input matInput [matDatepicker]="checkoutPicker">-->
+<!--						<mat-hint>MM/DD/YYYY</mat-hint>-->
+<!--						<mat-datepicker-toggle matIconSuffix [for]="checkoutPicker"></mat-datepicker-toggle>-->
+<!--						<mat-datepicker #checkoutPicker></mat-datepicker>-->
+<!--					</mat-form-field>-->
+<!--				</div>-->
+<!--			</div>-->
+			<app-pricelist></app-pricelist>
 		</div>
 
 		<div class="addButtons">
