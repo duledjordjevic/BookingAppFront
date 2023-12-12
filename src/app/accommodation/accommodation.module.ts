@@ -5,20 +5,26 @@ import {MaterialModule} from "../infrastructure/material/material.module";
 import {GoogleMapsModule} from "@angular/google-maps"
 import { RouterModule } from '@angular/router';
 import { AccommodationDetailsImagesComponent } from './accommodation-details-images/accommodation-details-images.component';
+import { NgxDropzoneModule } from 'ngx-dropzone';
 import { AccommodationCreateComponent } from './accommodation-create/accommodation-create.component';
 import { AccommodationPictureUploadComponent } from './accommodation-picture-upload/accommodation-picture-upload.component';
-import {NgxDropzoneModule} from "ngx-dropzone";
 import { PricelistComponent } from './pricelist/pricelist.component';
-import {ReactiveFormsModule} from "@angular/forms";
+import { AccommodationApprovingComponent } from './accommodation-approving/accommodation-approving.component';
+import { ReactiveFormsModule } from '@angular/forms';
+
+
 
 
 @NgModule({
   declarations: [
+	AccommodationApprovingComponent,
     AccommodationDetailsComponent,
 	AccommodationDetailsImagesComponent,
  AccommodationCreateComponent,
  AccommodationPictureUploadComponent,
- PricelistComponent
+ PricelistComponent,
+	AccommodationCreateComponent,
+ 	AccommodationPictureUploadComponent
   ],
 	imports: [
 		CommonModule,
@@ -32,7 +38,8 @@ import {ReactiveFormsModule} from "@angular/forms";
 	exports: [
 		AccommodationDetailsComponent,
 		AccommodationDetailsImagesComponent,
-		AccommodationCreateComponent
+		AccommodationCreateComponent,
+		AccommodationApprovingComponent
 	]
 })
 export class AccommodationModule { }

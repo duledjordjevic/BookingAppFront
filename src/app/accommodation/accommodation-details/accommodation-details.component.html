@@ -8,8 +8,9 @@
 			<div class="leftInfo">
 				<img [src] = "starFill" alt="Star">
 				<div class="addressAndReview">
-					<p>{{ratings.average}}</p>
-					<p>{{ratings.count}} reviewers</p>
+					<p *ngIf="haveCommentsAndReviews == true">{{ratings.average}}</p>
+					<p *ngIf="haveCommentsAndReviews == true">{{ratings.count}} reviewers</p>
+					<p *ngIf="haveCommentsAndReviews == false">0 reviewers</p>
 					<p>{{accommodationDetails?.address?.street}}, {{accommodationDetails?.address?.city}}, {{accommodationDetails?.address?.state}}</p>
 				</div>
 			</div>
@@ -47,32 +48,46 @@
 			</div>
 		</div>
 
-		<div class="buttons">
-			<div class="datePickers">
-				<div class="datePicker">
-					<mat-form-field>
-						<mat-label>Check in</mat-label>
-						<input matInput [matDatepicker]="checkinPicker">
-						<mat-hint>MM/DD/YYYY</mat-hint>
-						<mat-datepicker-toggle matIconSuffix [for]="checkinPicker"></mat-datepicker-toggle>
-						<mat-datepicker #checkinPicker></mat-datepicker>
-					</mat-form-field>
-				</div>
-				<div class="datePicker">
-					<mat-form-field>
-						<mat-label>Check out</mat-label>
-						<input matInput [matDatepicker]="checkoutPicker">
-						<mat-hint>MM/DD/YYYY</mat-hint>
-						<mat-datepicker-toggle matIconSuffix [for]="checkoutPicker"></mat-datepicker-toggle>
-						<mat-datepicker #checkoutPicker></mat-datepicker>
-					</mat-form-field>
-				</div>
-
+		<form [formGroup]="reservationForm" (ngSubmit)="onSubmit()">
+			<div class="buttons">
+				
+					<div class="datePickers">
+						<div class="datePicker">
+							<mat-form-field>
+								<mat-label>Check in</mat-label>
+								<input matInput [matDatepicker]="checkinPicker" formControlName="startDate">
+								<mat-hint>MM/DD/YYYY</mat-hint>
+								<mat-datepicker-toggle matIconSuffix [for]="checkinPicker"></mat-datepicker-toggle>
+								<mat-datepicker #checkinPicker></mat-datepicker>
+							</mat-form-field>
+						</div>
+						<div class="datePicker">
+							<mat-form-field>
+								<mat-label>Check out</mat-label>
+								<input matInput [matDatepicker]="checkoutPicker" formControlName="endDate">
+								<mat-hint>MM/DD/YYYY</mat-hint>
+								<mat-datepicker-toggle matIconSuffix [for]="checkoutPicker"></mat-datepicker-toggle>
+								<mat-datepicker #checkoutPicker></mat-datepicker>
+							</mat-form-field>
+						</div>
+						<div>
+							<select id="combo-numberOfGuests" formControlName="numOfGuests">
+								<!-- <option value="" disabled selected hidden>Number of guests</option> -->
+								<option [ngValue]=0 disabled selected>Select number of guests</option>
+								<option *ngFor="let num of numberOfGuests" [value]="num">{{ num }}</option>
+							</select>
+						</div>
+						<div class="ui-messages">
+							<p *ngIf="fieldsNotValid == true" style="color:#e91b00">*Input fields are not valid</p>
+							<p *ngIf="notAvailable == true" style="color:#e91b00">Apartment is not available in that interval</p>
+							<p *ngIf="createdReservation == true" style="color:#d4edda">Reservation is created!</p>
+						</div>
+					</div>
+					<div class="reservate">
+						<button mat-raised-button type="submit">Reserve</button>
+					</div>
 			</div>
-			<div class="reservate">
-				<button mat-raised-button>Reserve</button>
-			</div>
-		</div>
+		</form>
 
 		<div class="description">
 			<h2>Description</h2>
@@ -91,14 +106,15 @@
 				<h4>Location of apartment</h4>
 				<div class="map">
 					<google-map [options]="mapOptions" width="100%">
-						<map-marker [position]="{ lat: spot.lat, lng: spot.lng }"></map-marker>
+						<map-marker [position]="{ lat: myLatLng.lat, lng: myLatLng.lng }"></map-marker>
 					</google-map>
 				</div>
 			</div>
 		</div>
 
 		<div class="commentsSection">
-			<div class="comments">
+			<h2 *ngIf="haveCommentsAndReviews == false">This accommodation has no comments or ratings</h2>
+			<div class="comments" *ngIf="haveCommentsAndReviews == true">
 				<div class="comments-container">
 					<div class="review">
 						<div class="reviewEl">
@@ -188,7 +204,7 @@
 				</div>
 			</div>
 
-			<div class="expandCommentsButton">
+			<div *ngIf="haveCommentsAndReviews == true" class="expandCommentsButton">
 				<button (click)="expandComments()" *ngIf="!allCommentsVisible" mat-raised-button>See all reviews</button>
 			</div>
 		</div>

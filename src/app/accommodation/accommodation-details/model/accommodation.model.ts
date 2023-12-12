@@ -1,10 +1,11 @@
 import { Address } from "src/app/models/shared.models";
 
 export interface AccommodationDetails {
+    id: number,
     title: string;
     description: string;
-    minGuests: number;
-    maxGuests: number;
+    minGuest: number;
+    maxGuest: number;
     address: Address;
     amenities:Amenities[];
     images:string[];

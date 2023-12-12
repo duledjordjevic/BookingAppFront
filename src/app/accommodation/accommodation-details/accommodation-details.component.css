@@ -186,6 +186,7 @@ hr {
 	color: white;
 	background-color: #235471;
 	padding-inline: 70px;
+	height: 45px;
 }
 
 .map {
@@ -318,4 +319,20 @@ hr {
 
 .star-favourite{
 	cursor: pointer;
+}
+
+#combo-numberOfGuests{
+	width: 220px;
+	height: 55px;
+	border-radius: 4px;
+	padding: 5px;
+	border: none; 
+    opacity: 0.8;
+    outline: none;
+	filter: drop-shadow(6px 7px 7px rgba(0, 0, 0, 0.1));
+	align-self: auto;
+}
+
+.ui-messages p{
+	margin: 10px 0 0 40px;
 }
