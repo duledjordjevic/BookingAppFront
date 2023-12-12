@@ -1,6 +1,7 @@
-<!-- unos-podataka.component.html -->
 <form [formGroup]="form" class="data-entry-form">
-	<h3>Define the time when the property is available</h3>
+	<div class="title">
+		<h3>Define the time when the property is available</h3>
+	</div>
 
 	<div class="datePickers">
 		<div class="datePicker">
@@ -27,26 +28,33 @@
 				<input matInput type="number" formControlName="price">
 			</mat-form-field>
 		</div>
+
 	</div>
 
-	<button type="button" mat-raised-button color="primary" (click)="addRow()">Add Row</button>
-</form>
+	<div class="message">
+		<p>* First row is required (default price)</p>
+	</div>
+	<div class="buttonAdd">
+		<button type="button" mat-raised-button color="primary" (click)="addRow()">Add Row</button>
+	</div>
 
-<table class="data-table">
-	<thead>
-	<tr>
-		<th>Row Number</th>
-		<th>Start Date</th>
-		<th>End Date</th>
-		<th>Price</th>
-	</tr>
-	</thead>
-	<tbody>
-	<tr *ngFor="let element of data; let i = index" [ngClass]="{'highlighted-row': i === 0}">
-		<td>{{ element.rowNumber }}</td>
-		<td>{{ element.startDate | date }}</td>
-		<td>{{ element.endDate | date }}</td>
-		<td>{{ element.price }}</td>
-	</tr>
-	</tbody>
-</table>
+	<table class="data-table">
+		<thead>
+		<tr>
+			<th>Id</th>
+			<th>Start Date</th>
+			<th>End Date</th>
+			<th>Price</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr *ngFor="let element of data; let i = index" [ngClass]="{'highlighted-row': i === 0}">
+			<td>{{ element.rowNumber }}</td>
+			<td>{{ element.startDate | date }}</td>
+			<td>{{ element.endDate | date }}</td>
+			<td>{{ element.price }}</td>
+		</tr>
+		</tbody>
+	</table>
+
+</form>
