@@ -16,11 +16,24 @@ export enum Amenities {
     AIRCONDITION = "AIRCONDITION",
     PARKING = "PARKING",
     BREAKFAST = "BREAKFAST",
+    LUNCH = "LUNCH",
+    DINNER ="DINNER",
     POOL = "POOL",
-    KITCHEN = "KITCHEN"
+    KITCHEN = "KITCHEN",
+    TV = "TV"
 }
 
 export interface AmenitiesIcons{
     name: string;
     icon: string;
+}
+
+export interface AccommodationPopular{
+    id?:number;
+    title?:string;
+    address?: Address;
+    avgRate?: number;
+    pricePerNight?: number;
+    totalPrice?:number;
+    image?: string;
 }

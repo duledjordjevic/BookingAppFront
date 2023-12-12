@@ -34,65 +34,25 @@
                 <input type="number">
             </div>
             <div class="search-btn">
-                <button>Search</button>
+                <button (click)="filterAccommodations()">Search</button>
             </div>
         
             
         </div>
     </div>
    
+    
     <div class="main">
+        
         <div class="amenities-price-filter">
             <h4>Filter by:</h4>
             <hr>
             <h5>Amenities</h5>
-            <label>
-                <mat-checkbox aria-label="amenitie">
+            <label *ngFor="let checkbox of checkboxes;">
+                <mat-checkbox aria-label="amenitie"  [(ngModel)]="checkbox.isChecked" (change)="onCheckboxChange()">
                 </mat-checkbox>
-                Wi-fi
+                {{checkbox.label}}
             </label>
-            <label>
-                <mat-checkbox aria-label="amenitie">
-                </mat-checkbox>
-                Aircondition
-            </label>
-            <label>
-                <mat-checkbox aria-label="amenitie">
-                </mat-checkbox>
-                Parking
-            </label>
-            <label>
-                <mat-checkbox aria-label="amenitie">
-                </mat-checkbox>
-                Pool
-            </label>
-            <label>
-                <mat-checkbox aria-label="amenitie">
-                </mat-checkbox>
-                Breakfast
-            </label>
-            <label>
-                <mat-checkbox aria-label="amenitie">
-                </mat-checkbox>
-                Lunch
-            </label>
-            <label>
-                <mat-checkbox aria-label="amenitie">
-                </mat-checkbox>
-                Dinner
-            </label>
-            <label>
-                <mat-checkbox aria-label="amenitie">
-                </mat-checkbox>
-                Kitchen
-            </label>
-            <label>
-                <mat-checkbox aria-label="amenitie">
-                </mat-checkbox>
-                TV
-            </label>
-          
-            
             <hr>
             <h5>Price</h5>
             <div class="min-max-labels">
@@ -109,217 +69,39 @@
             </div>
             <hr>
             <h5>Accommodation type</h5>
-            <mat-radio-group aria-label="Select an option">
+            <mat-radio-group aria-label="Select an option" [(ngModel)]="selectedOption">
                 <mat-radio-button value="1">Hotel</mat-radio-button>
                 <mat-radio-button value="2">Apartment</mat-radio-button>
               </mat-radio-group>
         
         </div>
-        <div class="cards">
-            <div class="card">
-                <img src="../../../assets/images/main.jpeg">
-                <div class="card-description">
-                    <div class="title-rating">
-                        <h4>Suncev breg</h4>
-                        <div class="rating">
-                            <span><img src="../../../assets/images/star-fill.svg"></span>
-                            <span>4.6</span>
+        <div class="main-title">
+            <h3>Popular accommodations:</h3>
+            <div class="cards" >
+                <div class="card" *ngFor="let card of cards;" [routerLink]="['/accommodation-details']" [queryParams]="{id: card.id}">
+                    <img src="{{imageBase64}} {{card.image}}">
+                    <div class="card-description">
+                        <div class="title-rating">
+                            <h4>{{ card.title }}</h4>
+                            <div class="rating" *ngIf="accHaveRatings == true">
+                                <span><img src="../../../assets/images/star-fill.svg"></span>
+                                <span>{{card.avgRate?.toFixed(1)}}</span>
+                            </div>
+                            
+                        </div>
+                        <p>{{card.address?.city}}, {{card.address?.state}}</p>
+                        <div *ngIf="priceVisibility ==true">
+                            <p>19.12.2023-31.12.2023</p>
+                            <p>100$ per night</p>
+                            <p>1100$ in total</p>
                         </div>
                         
                     </div>
-                    <p>Srbija, Novi Sad</p>
-                    <div>
-                        <p>19.12.2023-31.12.2023</p>
-                        <p>100$ per night</p>
-                        <p>1100$ in total</p>
-                    </div>
-                    
                 </div>
+                
             </div>
-            <div class="card">
-                <img src="../../../assets/images/main.jpeg">
-                <div class="card-description">
-                    <div class="title-rating">
-                        <h4>Suncev breg</h4>
-                        <div class="rating">
-                            <span><img src="../../../assets/images/star-fill.svg"></span>
-                            <span>4.6</span>
-                        </div>
-                        
-                    </div>
-                    <p>Srbija, Novi Sad</p>
-                    <div>
-                        <p>19.12.2023-31.12.2023</p>
-                        <p>100$ per night</p>
-                        <p>1100$ in total</p>
-                    </div>
-                    
-                </div>
-            </div>
-            <div class="card">
-                <img src="../../../assets/images/main.jpeg">
-                <div class="card-description">
-                    <div class="title-rating">
-                        <h4>Suncev breg</h4>
-                        <div class="rating">
-                            <span><img src="../../../assets/images/star-fill.svg"></span>
-                            <span>4.6</span>
-                        </div>
-                        
-                    </div>
-                    <p>Srbija, Novi Sad</p>
-                    <div>
-                        <p>19.12.2023-31.12.2023</p>
-                        <p>100$ per night</p>
-                        <p>1100$ in total</p>
-                    </div>
-                    
-                </div>
-            </div>
-            <div class="card">
-                <img src="../../../assets/images/main.jpeg">
-                <div class="card-description">
-                    <div class="title-rating">
-                        <h4>Suncev breg</h4>
-                        <div class="rating">
-                            <span><img src="../../../assets/images/star-fill.svg"></span>
-                            <span>4.6</span>
-                        </div>
-                        
-                    </div>
-                    <p>Srbija, Novi Sad</p>
-                    <div>
-                        <p>19.12.2023-31.12.2023</p>
-                        <p>100$ per night</p>
-                        <p>1100$ in total</p>
-                    </div>
-                    
-                </div>
-            </div>
-            <div class="card">
-                <img src="../../../assets/images/main.jpeg">
-                <div class="card-description">
-                    <div class="title-rating">
-                        <h4>Suncev breg</h4>
-                        <div class="rating">
-                            <span><img src="../../../assets/images/star-fill.svg"></span>
-                            <span>4.6</span>
-                        </div>
-                        
-                    </div>
-                    <p>Srbija, Novi Sad</p>
-                    <div>
-                        <p>19.12.2023-31.12.2023</p>
-                        <p>100$ per night</p>
-                        <p>1100$ in total</p>
-                    </div>
-                    
-                </div>
-            </div>
-            <div class="card">
-                <img src="../../../assets/images/main.jpeg">
-                <div class="card-description">
-                    <div class="title-rating">
-                        <h4>Suncev breg</h4>
-                        <div class="rating">
-                            <span><img src="../../../assets/images/star-fill.svg"></span>
-                            <span>4.6</span>
-                        </div>
-                        
-                    </div>
-                    <p>Srbija, Novi Sad</p>
-                    <div>
-                        <p>19.12.2023-31.12.2023</p>
-                        <p>100$ per night</p>
-                        <p>1100$ in total</p>
-                    </div>
-                    
-                </div>
-            </div>
-            <div class="card">
-                <img src="../../../assets/images/main.jpeg">
-                <div class="card-description">
-                    <div class="title-rating">
-                        <h4>Suncev breg</h4>
-                        <div class="rating">
-                            <span><img src="../../../assets/images/star-fill.svg"></span>
-                            <span>4.6</span>
-                        </div>
-                        
-                    </div>
-                    <p>Srbija, Novi Sad</p>
-                    <div>
-                        <p>19.12.2023-31.12.2023</p>
-                        <p>100$ per night</p>
-                        <p>1100$ in total</p>
-                    </div>
-                    
-                </div>
-            </div>
-            <div class="card">
-                <img src="../../../assets/images/main.jpeg">
-                <div class="card-description">
-                    <div class="title-rating">
-                        <h4>Suncev breg</h4>
-                        <div class="rating">
-                            <span><img src="../../../assets/images/star-fill.svg"></span>
-                            <span>4.6</span>
-                        </div>
-                        
-                    </div>
-                    <p>Srbija, Novi Sad</p>
-                    <div>
-                        <p>19.12.2023-31.12.2023</p>
-                        <p>100$ per night</p>
-                        <p>1100$ in total</p>
-                    </div>
-                    
-                </div>
-            </div>
-            <div class="card">
-                <img src="../../../assets/images/main.jpeg">
-                <div class="card-description">
-                    <div class="title-rating">
-                        <h4>Suncev breg</h4>
-                        <div class="rating">
-                            <span><img src="../../../assets/images/star-fill.svg"></span>
-                            <span>4.6</span>
-                        </div>
-                        
-                    </div>
-                    <p>Srbija, Novi Sad</p>
-                    <div>
-                        <p>19.12.2023-31.12.2023</p>
-                        <p>100$ per night</p>
-                        <p>1100$ in total</p>
-                    </div>
-                    
-                </div>
-            </div>
-            <div class="card">
-                <img src="../../../assets/images/main.jpeg">
-                <div class="card-description">
-                    <div class="title-rating">
-                        <h4>Suncev breg</h4>
-                        <div class="rating">
-                            <span><img src="../../../assets/images/star-fill.svg"></span>
-                            <span>4.6</span>
-                        </div>
-                        
-                    </div>
-                    <p>Srbija, Novi Sad</p>
-                    <div>
-                        <p>19.12.2023-31.12.2023</p>
-                        <p>100$ per night</p>
-                        <p>1100$ in total</p>
-                    </div>
-                    
-                </div>
-            </div>
-           
-            
-            
         </div>
+       
         
     </div>
 

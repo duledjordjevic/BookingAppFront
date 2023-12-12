@@ -11,6 +11,7 @@ import { Reservation } from "../model/reservation.model";
 import { AbstractControl, FormBuilder, ValidationErrors, Validators } from "@angular/forms";
 import { HttpClient } from "@angular/common/http";
 import { AuthService } from "src/app/infrastructure/auth/services/auth.service";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'app-accommodation-details',
@@ -20,9 +21,10 @@ import { AuthService } from "src/app/infrastructure/auth/services/auth.service";
 export class AccommodationDetailsComponent{
 
 	constructor(private accommodationService: AccommodationService, private mapService: MapService, 
-		private reservationService: ReservationService, private authService: AuthService) {
+		private reservationService: ReservationService, private authService: AuthService,private route: ActivatedRoute) {
 		this.updateDisplayedComments();
 		this.reservationForm.get('numOfGuests')?.setValue(0);
+		
 	}
 
 	mainPicture = "assets/images/main.jpeg";
@@ -79,9 +81,14 @@ export class AccommodationDetailsComponent{
 	displayLinkToRemainingPictures: boolean = true;
 	haveCommentsAndReviews: boolean = true;
 	numberOfGuests: number[] = [];
+	accommodationId:number = 0;
 	
 	ngOnInit(): void{
-		this.accommodationService.getCommentsAboutAcc(1).subscribe({
+		this.route.queryParams.subscribe(params => {
+        	console.log(params); 
+        	this.accommodationId = params['id'];
+     	});
+		this.accommodationService.getCommentsAboutAcc(this.accommodationId).subscribe({
 			next:(allComments:CommentModel[]) =>{
 				this.comments = allComments;
 				this.ratings.count = this.comments.length;
@@ -121,7 +128,7 @@ export class AccommodationDetailsComponent{
 			}
 		})
 
-		this.accommodationService.getAccommodationInfo(1).subscribe({
+		this.accommodationService.getAccommodationInfo(this.accommodationId).subscribe({
 			next:(accommodationInfo: AccommodationDetails)=> {
 				this.accommodationDetails = accommodationInfo;
 
