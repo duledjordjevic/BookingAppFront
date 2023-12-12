@@ -6,10 +6,12 @@ import {GoogleMapsModule} from "@angular/google-maps"
 import { RouterModule } from '@angular/router';
 import { AccommodationDetailsImagesComponent } from './accommodation-details-images/accommodation-details-images.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
-import { AccommodationCreateComponent } from './accommodation-create/accommodation-create.component'; 
+import { AccommodationCreateComponent } from './accommodation-create/accommodation-create.component';
 import { AccommodationPictureUploadComponent } from './accommodation-picture-upload/accommodation-picture-upload.component';
+import { PricelistComponent } from './pricelist/pricelist.component';
 import { AccommodationApprovingComponent } from './accommodation-approving/accommodation-approving.component';
 import { ReactiveFormsModule } from '@angular/forms';
+
 
 
 @NgModule({
@@ -17,6 +19,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 	AccommodationApprovingComponent,
     AccommodationDetailsComponent,
 	AccommodationDetailsImagesComponent,
+ AccommodationCreateComponent,
+ AccommodationPictureUploadComponent,
+ PricelistComponent,
 	AccommodationCreateComponent,
  	AccommodationPictureUploadComponent
   ],
