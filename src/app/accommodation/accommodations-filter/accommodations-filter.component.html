@@ -2,40 +2,43 @@
     <div class="image-container">
         <!-- <img class="cropped-image" src="../../../assets/images/cover-img.jpg" alt="image"> -->
         <div class="header-filter-container">
-            <div class="location">
-                <div class="icon-container">
-                    <img src="../../../assets/images/bed.png" alt="image">
-                    <label>Where</label>
+            <form [formGroup]="headerFilterForm">
+                <div class="location">
+                    <div class="icon-container">
+                        <img src="../../../assets/images/bed.png" alt="image">
+                        <label>Where</label>
+                    </div>
+                    
+                    <input formControlName="city">
                 </div>
-                
-                <input>
-            </div>
-            <div class="datePicker">
-                <mat-form-field>
-                    <mat-label>Check in</mat-label>
-                    <input matInput [matDatepicker]="checkinPicker">
-                    <mat-datepicker-toggle matIconSuffix [for]="checkinPicker"></mat-datepicker-toggle>
-                    <mat-datepicker #checkinPicker></mat-datepicker>
-                </mat-form-field>
-            </div>
-            <div class="datePicker">
-                <mat-form-field>
-                    <mat-label>Check out</mat-label>
-                    <input matInput [matDatepicker]="checkoutPicker">
-                    <mat-datepicker-toggle matIconSuffix [for]="checkoutPicker"></mat-datepicker-toggle>
-                    <mat-datepicker #checkoutPicker></mat-datepicker>
-                </mat-form-field>
-            </div>
-            <div class="num-of-persons">
-                <div class="icon-container">
-                    <img src="../../../assets/images/person.svg" alt="image">
-                    <label>Persons</label>
+                <div class="datePicker">
+                    <mat-form-field>
+                        <mat-label>Check in</mat-label>
+                        <input matInput [matDatepicker]="checkinPicker" formControlName="startDate">
+                        <mat-datepicker-toggle matIconSuffix [for]="checkinPicker"></mat-datepicker-toggle>
+                        <mat-datepicker #checkinPicker></mat-datepicker>
+                    </mat-form-field>
                 </div>
-                <input type="number">
-            </div>
-            <div class="search-btn">
-                <button (click)="filterAccommodations()">Search</button>
-            </div>
+                <div class="datePicker">
+                    <mat-form-field>
+                        <mat-label>Check out</mat-label>
+                        <input matInput [matDatepicker]="checkoutPicker" formControlName="endDate">
+                        <mat-datepicker-toggle matIconSuffix [for]="checkoutPicker"></mat-datepicker-toggle>
+                        <mat-datepicker #checkoutPicker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div class="num-of-persons">
+                    <div class="icon-container">
+                        <img src="../../../assets/images/person.svg" alt="image">
+                        <label>Persons</label>
+                    </div>
+                    <input type="number" formControlName="numOfGuests">
+                </div>
+                <div class="search-btn">
+                    <button (click)="filterAccommodations()">Search</button>
+                </div>
+            </form>
+            
         
             
         </div>
@@ -69,15 +72,17 @@
             </div>
             <hr>
             <h5>Accommodation type</h5>
-            <mat-radio-group aria-label="Select an option" [(ngModel)]="selectedOption">
+            <mat-radio-group aria-label="Select an option" [(ngModel)]="selectedAccommodationType">
                 <mat-radio-button value="1">Hotel</mat-radio-button>
                 <mat-radio-button value="2">Apartment</mat-radio-button>
               </mat-radio-group>
         
         </div>
         <div class="main-title">
-            <h3>Popular accommodations:</h3>
-            <div class="cards" >
+            <h3 *ngIf="isFiltered == false">Popular accommodations:</h3>
+            <h3 *ngIf="haveFilteredResults == false">There are no accommodations matching your search criteria</h3>
+            
+            <div class="cards" *ngIf="isFiltered == false">
                 <div class="card" *ngFor="let card of cards;" [routerLink]="['/accommodation-details']" [queryParams]="{id: card.id}">
                     <img src="{{imageBase64}} {{card.image}}">
                     <div class="card-description">
@@ -100,10 +105,30 @@
                 </div>
                 
             </div>
+            <div class="cards" *ngIf="isFiltered == true" >
+                <div class="card" *ngFor="let card of filteredAccommodations;" [routerLink]="['/accommodation-details']" [queryParams]="{id: card.id}">
+                    <img src="{{imageBase64}} {{card.image}}">
+                    <div class="card-description">
+                        <div class="title-rating">
+                            <h4>{{ card.title }}</h4>
+                            <div class="rating" *ngIf="accHaveRatings == true">
+                                <span><img src="../../../assets/images/star-fill.svg"></span>
+                                <span>{{card.avgRate?.toFixed(1)}}</span>
+                            </div>
+                            
+                        </div>
+                        <p>{{card.address?.city}}, {{card.address?.state}}</p>
+                        <div *ngIf="priceVisibility ==true">
+                            <p>19.12.2023-31.12.2023</p>
+                            <p>{{card.pricePerNight}}$ per night</p>
+                            <p>{{card.totalPrice}}$ in total</p>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+            </div>
         </div>
-       
-        
     </div>
-
 </div>
     

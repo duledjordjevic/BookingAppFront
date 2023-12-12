@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { AccommodationService } from '../services/accommodation.service';
 import { AccommodationCard } from '../model/card.model';
-import { AccommodationPopular, Amenities } from '../model/accommodation.model';
+import { AccommodationPopular, AccommodationType, Amenities } from '../model/accommodation.model';
 import { environment } from 'src/env/env';
+import { FormBuilder, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-accommodations-filter',
   templateUrl: './accommodations-filter.component.html',
@@ -29,6 +31,8 @@ export class AccommodationsFilterComponent {
   cards: AccommodationPopular[] = [];
   isWiFiChecked: boolean = false;
   amenities: Amenities[] = [];
+  filteredAccommodations: AccommodationPopular[] = [];
+  haveFilteredResults:boolean = true;
 
 
   imageBase64:string = environment.imageBase64;
@@ -36,22 +40,38 @@ export class AccommodationsFilterComponent {
   sliderValues: number[] = [300, 400];
   startedValue:number = 0;
   endValue: number = 1500;
-  selectedOption: string = "";
+  selectedAccommodationType: string = "";
+
+  accommodationType?: AccommodationType | undefined;
+  
+
+  priceVisibility: boolean = false;
+  accHaveRatings: boolean = true;
+  isFiltered: boolean = false;
+
+  ngOnInit(): void {
+    if(!this.isFiltered){
+      this.getAccommodations();
+    }
+  }
+  fb = inject(FormBuilder)
+	http = inject(HttpClient)
+	
+	headerFilterForm = this.fb.nonNullable.group({
+		startDate: [null],
+		endDate: [null],
+		numOfGuests: [null],
+    city: [null]
+	});
+
 
   onSliderInput(event: any) {
-    // Ova funkcija će se pozvati svaki put kada se vrednost slajdera promeni
     console.log('Slider value changed:', event.value);
     console.log(this.startedValue,this.endValue);
 
   }
 
-  priceVisibility: boolean = false;
-  accHaveRatings: boolean = true;
-
-
-  ngOnInit(): void {
-    this.getAccommodations();
-  }
+ 
 
   getAccommodations() : void{
     this.accommodationService.getAllAccommodationsCards().subscribe({
@@ -70,8 +90,7 @@ export class AccommodationsFilterComponent {
   }
   onCheckboxChange() {
     this.amenities = [];
-    // console.log('Promenjen je barem jedan checkbox.');
-    // console.log(this.checkboxes[0].isChecked)
+
     if(this.checkboxes[0].isChecked){
       this.amenities.push(Amenities.WIFI);
     }
@@ -101,10 +120,30 @@ export class AccommodationsFilterComponent {
     }
   }
   filterAccommodations() {
-    console.log(this.startedValue);
-    console.log(this.endValue);
-    console.log(this.amenities);
-    console.log(this.selectedOption);
+    this.isFiltered = true;
+    this.priceVisibility = false;
+    this.haveFilteredResults = true;
+
+    if(this.selectedAccommodationType == '1'){
+      this.accommodationType = AccommodationType.HOTEL;
+    }else if(this.selectedAccommodationType == '2'){
+      this.accommodationType = AccommodationType.APARTMENT;
+    }
+    if(this.headerFilterForm.value.startDate != null && this.headerFilterForm.value.endDate != null){
+      this.priceVisibility = true;
+    }
+    this.accommodationService.filterAccommodations(this.headerFilterForm.value.city,this.headerFilterForm.value.numOfGuests,this.headerFilterForm.value.startDate,this.headerFilterForm.value.endDate,
+      this.startedValue,this.endValue,this.amenities,this.accommodationType).subscribe({
+        next:(accommodations: AccommodationPopular[]) => {
+          this.filteredAccommodations = accommodations;
+
+          console.log(this.filteredAccommodations);
+
+          if(this.filteredAccommodations.length == 0){
+            this.haveFilteredResults = false;
+          }
+        }
+      })
   }
 
 }

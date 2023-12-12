@@ -24,7 +24,7 @@
     height: 100%;
     object-fit: cover; /* Cropovanje slike kako bi popunila kontejner */
 }
-.header-filter-container{
+.header-filter-container form{
     overflow: hidden;
     position: absolute;
     flex-wrap: wrap;

@@ -15,7 +15,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AccommodationsFilterComponent } from './accommodations-filter/accommodations-filter.component';
 
 
-
 @NgModule({
   declarations: [
 	AccommodationApprovingComponent,
@@ -34,7 +33,7 @@ import { AccommodationsFilterComponent } from './accommodations-filter/accommoda
 		NgxDropzoneModule,
 		ReactiveFormsModule,
 		MatCheckboxModule,
-		MatSliderModule
+		MatSliderModule,
 	],
 	exports: [
 		AccommodationDetailsComponent,

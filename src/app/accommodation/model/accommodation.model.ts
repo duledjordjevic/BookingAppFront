@@ -22,7 +22,10 @@ export enum Amenities {
     KITCHEN = "KITCHEN",
     TV = "TV"
 }
-
+export enum AccommodationType{
+    HOTEL = "HOTEL",
+    APARTMENT = "APARTMENT"
+}
 export interface AmenitiesIcons{
     name: string;
     icon: string;
