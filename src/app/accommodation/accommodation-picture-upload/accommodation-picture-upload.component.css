@@ -16,10 +16,15 @@
 .container {
 	display: flex;
 	flex-direction: column;
+	position: relative; /* Ensure the container is positioned relative */
 }
 
 .image-container {
+	border-radius: 15px;
+	padding: 20px 50px;
+	margin-bottom: 50px;
 	display: flex;
+	justify-content: space-evenly;
 	flex-wrap: wrap;
 	margin-top: 20px;
 }
@@ -27,4 +32,41 @@
 .image {
 	margin-right: 10px;
 	margin-bottom: 10px;
+	/*filter:brightness(75%);*/
+}
+
+.container h5 {
+	margin-top: 25px;
+	margin-bottom: 15px;
+}
+
+.image-wrapper {
+	position: relative;
+	display: inline-block;
+}
+
+.delete-icon {
+	position: absolute !important;
+	top: 0 !important;
+	right: 0 !important;
+	cursor: pointer;
+	font-size: 15px;
+	color: white;
+	background: none;
+	font-weight: 100;
+	font-stretch: ultra-condensed;
+	border: none;
+	outline: none;
+	margin-right: 3px;
+	/*filter:brightness(100%);*/
+	/*padding: 5px;*/
+	/*margin-bottom: 50px;*/
+}
+
+.bi bi-x-lg {
+	color: white;
+}
+
+.brightness {
+	filter:brightness(60%);
 }
