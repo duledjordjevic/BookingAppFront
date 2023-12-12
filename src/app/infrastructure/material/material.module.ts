@@ -14,10 +14,11 @@ import { FormsModule } from '@angular/forms'
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {MatSelectModule} from "@angular/material/select";
 import {MatRadioModule} from "@angular/material/radio";
-
+import { MatDialogModule } from "@angular/material/dialog";
 
 @NgModule({
-  declarations: [],
+  declarations: [
+  ],
   imports: [
     CommonModule,
     MatToolbarModule,
@@ -31,7 +32,11 @@ import {MatRadioModule} from "@angular/material/radio";
 	  MatNativeDateModule,
 	  MatProgressBarModule,
 	  MatSelectModule,
-	  MatRadioModule
+	  MatRadioModule,
+    MatDialogModule,
+    MatIconModule,
+    MatButtonModule,
+    MatToolbarModule,
   ],
   exports: [
     MatToolbarModule,
@@ -48,7 +53,11 @@ import {MatRadioModule} from "@angular/material/radio";
     FormsModule,
 	  MatProgressBarModule,
 	  MatSelectModule,
-	  MatRadioModule
+	  MatRadioModule,
+    MatDialogModule,
+    MatIconModule,
+    MatButtonModule,
+    MatToolbarModule,
   ]
 })
 export class MaterialModule { }
