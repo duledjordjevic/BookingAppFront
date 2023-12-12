@@ -1,11 +1,11 @@
 
 .main{
     background-color: #F6F8FA;
-    height: 1000px;
+    height: fit-content;
     display: flex;
     flex-direction: row;
-    padding-top: 200px;
-    padding-bottom: 400px;
+    padding-top: 100px;
+    padding-bottom: 150px;
 }
 
 .image-container {
@@ -34,9 +34,15 @@
     display: flex;
     justify-content: space-around;
     flex-direction: row;
-    max-height: 75px;
+    /* max-height: 75px; */
+    padding: 15px 0;
 
 }
+mat-radio-group{
+    display: flex;
+    flex-direction: column;
+}
+
 .location{
     display: flex;
     flex-direction: column;
@@ -61,12 +67,12 @@ input {
     border-radius: 10px;
     border:none;
     outline: none;
-    /* filter: drop-shadow(6px 7px 7px rgba(0, 0, 0, 0.1)); */
+    filter: drop-shadow(6px 7px 7px rgba(0, 0, 0, 0.1));
     height: 30px;
 }
 .datePicker{
     border-right:1px solid black ;
-    padding-right: 40px;
+    padding-right: 50px;
 }
 .search-btn{
     display: flex;
@@ -83,20 +89,26 @@ input {
     width: 150px;
 }
 
+.search-btn > button:hover{
+    background-color: white;
+    border:1px solid black ;
+    color: #235471;
+    transition: transform 0.5s ease
+}
 .amenities-price-filter{
     display: flex;
     flex-direction: column;
     border-radius: 10px;
     min-width: 250px;
-    margin-left: 150px;
+    margin-left: 20%;
     margin-right: 100px;
     background-color: white;
     padding: 10px;
-    min-height: 450px;
+    height: fit-content;
+    filter: drop-shadow(6px 7px 7px rgba(0, 0, 0, 0.1));
 }
 
 .cards{
-    /* padding-left: 100px; */
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -106,17 +118,46 @@ input {
 }
 
 .card{
+    cursor: pointer;
+    transition: transform .1s; 
     border-radius: 15px;
-    margin-right: 50px;
+    margin-right: 60px;
     margin-bottom: 50px;
-    height: 350px;
-    width: 300px;
+    height: 450px;
+    width: 350px;
     filter: drop-shadow(6px 7px 7px rgba(0, 0, 0, 0.1));
 
 }
+.title-rating{
+    display:flex;
+    justify-content: space-between;
+    padding: 15px 15px 15px 0;
+}
+/* .rating{
+    display: flex;
+    justify-content: center;
+} */
+.rating > span img {
+    margin-right: 5px;
+    padding-bottom: 3px;
+}
+.card:hover {
+    transform: scale(1.01);
+}
+.card-description > h4{
+    padding: 15px 15px 15px 0;
+}
 .card-description{
-    padding: 15px;
+    padding-left: 15px;
 }
 .card > img{
     border-radius: 15px 15px 0 0;
+}
+.min-max-labels{
+    display: flex;
+    justify-content: space-between;
+}
+.min-max-labels-change{
+    display: flex;
+    justify-content: center;
 }

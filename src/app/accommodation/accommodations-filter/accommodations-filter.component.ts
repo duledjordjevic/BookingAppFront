@@ -7,8 +7,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 })
 export class AccommodationsFilterComponent {
   sliderValues: number[] = [300, 400];
-  startedValue:number = 200;
-  endValue: number = 500;
+  startedValue:number = 0;
+  endValue: number = 1500;
   onSliderInput(event: any) {
     // Ova funkcija će se pozvati svaki put kada se vrednost slajdera promeni
     console.log('Slider value changed:', event.value);

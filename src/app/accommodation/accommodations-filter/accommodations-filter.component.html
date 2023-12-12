@@ -31,7 +31,7 @@
                     <img src="../../../assets/images/person.svg" alt="image">
                     <label>Persons</label>
                 </div>
-                <input>
+                <input type="number">
             </div>
             <div class="search-btn">
                 <button>Search</button>
@@ -43,8 +43,9 @@
    
     <div class="main">
         <div class="amenities-price-filter">
-            <h4>Amenities</h4>
+            <h4>Filter by:</h4>
             <hr>
+            <h5>Amenities</h5>
             <label>
                 <mat-checkbox aria-label="amenitie">
                 </mat-checkbox>
@@ -73,93 +74,249 @@
             <label>
                 <mat-checkbox aria-label="amenitie">
                 </mat-checkbox>
+                Lunch
+            </label>
+            <label>
+                <mat-checkbox aria-label="amenitie">
+                </mat-checkbox>
+                Dinner
+            </label>
+            <label>
+                <mat-checkbox aria-label="amenitie">
+                </mat-checkbox>
                 Kitchen
             </label>
+            <label>
+                <mat-checkbox aria-label="amenitie">
+                </mat-checkbox>
+                TV
+            </label>
+          
+            
             <hr>
-            <h4>Price</h4>
-            <mat-slider min="0" max="500"  (input)="onSliderInput($event)">
+            <h5>Price</h5>
+            <div class="min-max-labels">
+                <span>0$</span>
+                <span>1500$</span>
+            </div>
+            <mat-slider min="0" max="1500"  (input)="onSliderInput($event)">
                 <input matSliderStartThumb [(ngModel)]="startedValue">
                 <input matSliderEndThumb [(ngModel)]="endValue">
-              </mat-slider>
+            </mat-slider>
               
-              <div class="min-max-labels">
-                <span>Min: {{ startedValue }}</span>
-                <span>Max: {{ endValue }}</span>
-              </div>
+            <div class="min-max-labels-change">
+                <span>{{ startedValue }} - {{ endValue }} $</span>
+            </div>
+            <hr>
+            <h5>Accommodation type</h5>
+            <mat-radio-group aria-label="Select an option">
+                <mat-radio-button value="1">Hotel</mat-radio-button>
+                <mat-radio-button value="2">Apartment</mat-radio-button>
+              </mat-radio-group>
         
         </div>
         <div class="cards">
             <div class="card">
                 <img src="../../../assets/images/main.jpeg">
                 <div class="card-description">
-                    <h4>Naziv kartice</h4>
+                    <div class="title-rating">
+                        <h4>Suncev breg</h4>
+                        <div class="rating">
+                            <span><img src="../../../assets/images/star-fill.svg"></span>
+                            <span>4.6</span>
+                        </div>
+                        
+                    </div>
                     <p>Srbija, Novi Sad</p>
+                    <div>
+                        <p>19.12.2023-31.12.2023</p>
+                        <p>100$ per night</p>
+                        <p>1100$ in total</p>
+                    </div>
+                    
                 </div>
             </div>
             <div class="card">
                 <img src="../../../assets/images/main.jpeg">
                 <div class="card-description">
-                    <h4>Naziv kartice</h4>
+                    <div class="title-rating">
+                        <h4>Suncev breg</h4>
+                        <div class="rating">
+                            <span><img src="../../../assets/images/star-fill.svg"></span>
+                            <span>4.6</span>
+                        </div>
+                        
+                    </div>
                     <p>Srbija, Novi Sad</p>
+                    <div>
+                        <p>19.12.2023-31.12.2023</p>
+                        <p>100$ per night</p>
+                        <p>1100$ in total</p>
+                    </div>
+                    
                 </div>
             </div>
             <div class="card">
                 <img src="../../../assets/images/main.jpeg">
                 <div class="card-description">
-                    <h4>Naziv kartice</h4>
+                    <div class="title-rating">
+                        <h4>Suncev breg</h4>
+                        <div class="rating">
+                            <span><img src="../../../assets/images/star-fill.svg"></span>
+                            <span>4.6</span>
+                        </div>
+                        
+                    </div>
                     <p>Srbija, Novi Sad</p>
+                    <div>
+                        <p>19.12.2023-31.12.2023</p>
+                        <p>100$ per night</p>
+                        <p>1100$ in total</p>
+                    </div>
+                    
                 </div>
             </div>
             <div class="card">
                 <img src="../../../assets/images/main.jpeg">
                 <div class="card-description">
-                    <h4>Naziv kartice</h4>
+                    <div class="title-rating">
+                        <h4>Suncev breg</h4>
+                        <div class="rating">
+                            <span><img src="../../../assets/images/star-fill.svg"></span>
+                            <span>4.6</span>
+                        </div>
+                        
+                    </div>
                     <p>Srbija, Novi Sad</p>
+                    <div>
+                        <p>19.12.2023-31.12.2023</p>
+                        <p>100$ per night</p>
+                        <p>1100$ in total</p>
+                    </div>
+                    
                 </div>
             </div>
             <div class="card">
                 <img src="../../../assets/images/main.jpeg">
                 <div class="card-description">
-                    <h4>Naziv kartice</h4>
+                    <div class="title-rating">
+                        <h4>Suncev breg</h4>
+                        <div class="rating">
+                            <span><img src="../../../assets/images/star-fill.svg"></span>
+                            <span>4.6</span>
+                        </div>
+                        
+                    </div>
                     <p>Srbija, Novi Sad</p>
+                    <div>
+                        <p>19.12.2023-31.12.2023</p>
+                        <p>100$ per night</p>
+                        <p>1100$ in total</p>
+                    </div>
+                    
                 </div>
             </div>
             <div class="card">
                 <img src="../../../assets/images/main.jpeg">
                 <div class="card-description">
-                    <h4>Naziv kartice</h4>
+                    <div class="title-rating">
+                        <h4>Suncev breg</h4>
+                        <div class="rating">
+                            <span><img src="../../../assets/images/star-fill.svg"></span>
+                            <span>4.6</span>
+                        </div>
+                        
+                    </div>
                     <p>Srbija, Novi Sad</p>
+                    <div>
+                        <p>19.12.2023-31.12.2023</p>
+                        <p>100$ per night</p>
+                        <p>1100$ in total</p>
+                    </div>
+                    
                 </div>
             </div>
             <div class="card">
                 <img src="../../../assets/images/main.jpeg">
                 <div class="card-description">
-                    <h4>Naziv kartice</h4>
+                    <div class="title-rating">
+                        <h4>Suncev breg</h4>
+                        <div class="rating">
+                            <span><img src="../../../assets/images/star-fill.svg"></span>
+                            <span>4.6</span>
+                        </div>
+                        
+                    </div>
                     <p>Srbija, Novi Sad</p>
+                    <div>
+                        <p>19.12.2023-31.12.2023</p>
+                        <p>100$ per night</p>
+                        <p>1100$ in total</p>
+                    </div>
+                    
                 </div>
             </div>
             <div class="card">
                 <img src="../../../assets/images/main.jpeg">
                 <div class="card-description">
-                    <h4>Naziv kartice</h4>
+                    <div class="title-rating">
+                        <h4>Suncev breg</h4>
+                        <div class="rating">
+                            <span><img src="../../../assets/images/star-fill.svg"></span>
+                            <span>4.6</span>
+                        </div>
+                        
+                    </div>
                     <p>Srbija, Novi Sad</p>
+                    <div>
+                        <p>19.12.2023-31.12.2023</p>
+                        <p>100$ per night</p>
+                        <p>1100$ in total</p>
+                    </div>
+                    
                 </div>
             </div>
             <div class="card">
                 <img src="../../../assets/images/main.jpeg">
                 <div class="card-description">
-                    <h4>Naziv kartice</h4>
+                    <div class="title-rating">
+                        <h4>Suncev breg</h4>
+                        <div class="rating">
+                            <span><img src="../../../assets/images/star-fill.svg"></span>
+                            <span>4.6</span>
+                        </div>
+                        
+                    </div>
                     <p>Srbija, Novi Sad</p>
+                    <div>
+                        <p>19.12.2023-31.12.2023</p>
+                        <p>100$ per night</p>
+                        <p>1100$ in total</p>
+                    </div>
+                    
                 </div>
             </div>
             <div class="card">
                 <img src="../../../assets/images/main.jpeg">
                 <div class="card-description">
-                    <h4>Naziv kartice</h4>
+                    <div class="title-rating">
+                        <h4>Suncev breg</h4>
+                        <div class="rating">
+                            <span><img src="../../../assets/images/star-fill.svg"></span>
+                            <span>4.6</span>
+                        </div>
+                        
+                    </div>
                     <p>Srbija, Novi Sad</p>
+                    <div>
+                        <p>19.12.2023-31.12.2023</p>
+                        <p>100$ per night</p>
+                        <p>1100$ in total</p>
+                    </div>
+                    
                 </div>
             </div>
-
+           
             
             
         </div>
