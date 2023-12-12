@@ -21,6 +21,7 @@ export class UpdateProfileComponent implements OnInit {
       this.service.getUser().subscribe({
         next:(result: UserInfo) =>{
           this.res = result;
+          console.log(this.res);
           this.updateProfileForm = new FormGroup({
             name: new FormControl(this.res.name,[Validators.required]),
             lastname: new FormControl(this.res.lastname,[Validators.required]),
