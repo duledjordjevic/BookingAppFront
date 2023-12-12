@@ -2,10 +2,15 @@
 // import { Component } from '@angular/core';
 import { AccommodationService } from "../services/accommodation.service";
 import {CommentModel} from "../model/comment.model";
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild, inject } from '@angular/core';
 import { RatingModel } from "../model/rating.model";
 import { AccommodationDetails, Amenities, AmenitiesIcons } from "../model/accommodation.model";
-
+import { MapService } from "src/app/layout/map/map.service";
+import { ReservationService } from "../services/reservation.service";
+import { Reservation } from "../model/reservation.model";
+import { AbstractControl, FormBuilder, ValidationErrors, Validators } from "@angular/forms";
+import { HttpClient } from "@angular/common/http";
+import { AuthService } from "src/app/infrastructure/auth/services/auth.service";
 
 @Component({
   selector: 'app-accommodation-details',
@@ -13,10 +18,13 @@ import { AccommodationDetails, Amenities, AmenitiesIcons } from "../model/accomm
   styleUrls: ['./accommodation-details.component.css']
 })
 export class AccommodationDetailsComponent{
-	sidePicture1 = "assets/images/side1.jpg";
-	sidePicture2 = "assets/images/side2.jpg";
-	sidePicture3 = "assets/images/side3.jpg";
-	sidePicture4 = "assets/images/side4.png";
+
+	constructor(private accommodationService: AccommodationService, private mapService: MapService, 
+		private reservationService: ReservationService, private authService: AuthService) {
+		this.updateDisplayedComments();
+		this.reservationForm.get('numOfGuests')?.setValue(0);
+	}
+
 	mainPicture = "assets/images/main.jpeg";
 
 	WIFI = "assets/images/wifi.svg";
@@ -30,12 +38,21 @@ export class AccommodationDetailsComponent{
 	commentsAboutAcc: CommentModel[] = [];
 
 	myLatLng: {lat : number, lng: number} = { lat: 42.546, lng: 21.882 };
-	mapOptions: google.maps.MapOptions = {
-		center: this.myLatLng,
-		zoom: 15,
-	};
+	mapOptions: google.maps.MapOptions = {};
 
-	spot: { id: number; lat: number; lng: number } = { id: 1, lat: 42.546, lng: 21.882};
+
+	search(street: string): void {
+		this.mapService.search(street).subscribe({
+		  next: (result) => {
+			this.myLatLng = { lat: Number(result[0].lat), lng: Number(result[0].lon) };
+			this.mapOptions =  {
+				center: this.myLatLng,
+				zoom: 15,
+			};
+		  },
+		  error: () => {},
+		});
+	  }
 
 
 	images:String[] = [];
@@ -56,9 +73,6 @@ export class AccommodationDetailsComponent{
 	amenities: Amenities[] = [];
 	amenitiesIcons: AmenitiesIcons[] = [];
 	
-	constructor(private service: AccommodationService) {
-		this.updateDisplayedComments();
-	}
 
 
 	remainingPicturesCount: number = 0;
@@ -67,7 +81,7 @@ export class AccommodationDetailsComponent{
 	numberOfGuests: number[] = [];
 	
 	ngOnInit(): void{
-		this.service.getCommentsAboutAcc(3).subscribe({
+		this.accommodationService.getCommentsAboutAcc(1).subscribe({
 			next:(allComments:CommentModel[]) =>{
 				this.comments = allComments;
 				this.ratings.count = this.comments.length;
@@ -106,9 +120,12 @@ export class AccommodationDetailsComponent{
 				this.displayedComments = updatedComments.slice(0, 3);
 			}
 		})
-		this.service.getAccommodationInfo(2).subscribe({
+
+		this.accommodationService.getAccommodationInfo(1).subscribe({
 			next:(accommodationInfo: AccommodationDetails)=> {
 				this.accommodationDetails = accommodationInfo;
+
+				this.search(this.accommodationDetails.address.street + ', ' + this.accommodationDetails.address.city);
 
 				this.amenities = accommodationInfo.amenities;
 				for(const element of this.amenities){
@@ -161,9 +178,12 @@ export class AccommodationDetailsComponent{
 				for(let i  = this.accommodationDetails.minGuest; i <= this.accommodationDetails.maxGuest; i++){
 					this.numberOfGuests.push(i);
 				}
-				console.log(this.accommodationDetails);
+				
 			}
+			
 		})
+		
+		
 	}
 	// Metoda koja se poziva prilikom klika na dugme
 	expandComments() {
@@ -187,6 +207,88 @@ export class AccommodationDetailsComponent{
 	  
 		return Number(prosecnaOcena.toFixed(1));
 	  }
+
+
+
+	
+	fb = inject(FormBuilder)
+	http = inject(HttpClient)
+	
+	reservationForm = this.fb.nonNullable.group({
+		startDate: [new Date(), Validators.required],
+		endDate: [new Date(), Validators.required],
+		numOfGuests: [0, Validators.required]
+	});
+
+	
+	// reservation: Reservation = {
+	// 	startDate: new Date('2023-12-17'),
+	// 	endDate: new Date('2023-12-18'),
+	// 	numberOfGuests: 3,
+	// 	guestId: 3,
+	// 	accommodationId: 1
+	// }
+	
+	setCustomValidators() {
+		this.reservationForm.setValidators(this.dateValidator.bind(this));
+		this.reservationForm.updateValueAndValidity();
+	  }
+	
+	dateValidator(control: AbstractControl): ValidationErrors | null {
+		const startDate = control.get('startDate')?.value;
+		const endDate = control.get('endDate')?.value;
+
+		if (startDate && endDate && startDate > endDate) {
+			return { 'dateError': true, 'message': 'End date must be greater than start date.' };
+		}
+
+		if (startDate && startDate < new Date()) {
+			return { 'dateError': true, 'message': 'Start date must be in the future.' };
+		}
+
+		return null;
+	}
+
+
+	fieldsNotValid: boolean = false;
+	notAvailable : boolean = false;
+	createdReservation: boolean = false;
+
+	onSubmit(){
+		this.setCustomValidators();
+
+		this.fieldsNotValid = false;
+		this.notAvailable = false;
+		this.createdReservation = false;
+
+		if(this.reservationForm.valid && this.reservationForm.value.numOfGuests !== 0){
+			this.reservationForm.value.startDate?.setHours(this.reservationForm.value.startDate.getHours() + 1);
+			this.reservationForm.value.endDate?.setHours(this.reservationForm.value.endDate.getHours() + 1);
+			const reservation: Reservation = {
+				startDate: this.reservationForm.value.startDate,
+				endDate: this.reservationForm.value.endDate,
+				numberOfGuests: this.reservationForm.value.numOfGuests,
+				guestId: this.authService.getId(),
+				accommodationId: this.accommodationDetails?.id
+			}
+			this.reservate(reservation);
+		}
+		else{
+			this.fieldsNotValid = true;
+		}
+	}
+
+
+	reservate(reservation: Reservation): void{
+		this.reservationService.reservate(reservation).subscribe({
+			next: () => {
+				this.createdReservation = true;
+			},
+			error: () => {
+				this.notAvailable = true;
+			}
+		})
+	}
 
 }
 

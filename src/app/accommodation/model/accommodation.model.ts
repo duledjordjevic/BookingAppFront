@@ -1,6 +1,7 @@
 import { Address } from "src/app/models/shared.models";
 
 export interface AccommodationDetails {
+    id: number,
     title: string;
     description: string;
     minGuest: number;

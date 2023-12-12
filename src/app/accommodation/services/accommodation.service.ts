@@ -17,13 +17,13 @@ export class AccommodationService {
   getAccommodations(): Observable<AccommodationCard[]> {
     const url = environment.apiHost + 'accommodations/adminApproving';
     return this.http.get<AccommodationCard[]>(url);
-    }
+}
 
 
    // return this.http.post<User>(environment.apiHost + 'register', user, {
   //     headers: this.headers,
   //   });
-  setApprovalStatusAccommodation(id: number, approvalStatus: string): Observable<any>{
+  setApprovalStatusAccommodation(id: number, approvalStatus: string): Observable<AccommodationDetails>{
     const url = environment.apiHost + 'accommodations/' + id + '/approvalStatus' ;
     return this.http.put<AccommodationDetails>(url, {"approvalStatus" : approvalStatus}, {
         headers: new HttpHeaders({
