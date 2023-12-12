@@ -58,5 +58,8 @@ export class AccommodationCreateComponent {
 	}
 
 	// wifiState = this.buttonStates['button1'].button1;
-
+	selectedPriceDef: string = 'property';
+	propertyDescription: string = ''
+	selectedReservationDef: string = 'automatic';
+	selectedCancPolicy: string = '4';
 }

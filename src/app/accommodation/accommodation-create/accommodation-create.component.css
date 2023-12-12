@@ -111,8 +111,8 @@
 }
 
 input[type="radio"] {
-	transform: scale(1.5); /* Povećajte veličinu dugmeta po potrebi */
-	margin-right: 15px; /* Dodajte prostor s desne strane dugmeta */
+	transform: scale(1.5);
+	margin-right: 15px;
 	margin-bottom: 20px;
 }
 
@@ -166,7 +166,7 @@ input[type="radio"] {
 
 .buttons button.clicked {
 	color: white;
-	background-color: #235471;;
+	background-color: #235471;
 }
 
 .descOfTitle {
@@ -207,9 +207,91 @@ input[type="radio"] {
 	justify-content: flex-end;
 }
 
-.propertyAvailable {
+.propertyAvailable{
+	background-color: white;
+	border-radius: 15px;
+	padding: 20px 40px;
+	margin-bottom: 50px;
+}
+
+.priceDefinition {
 	background-color: white;
 	border-radius: 15px;
 	padding: 20px 50px;
 	margin-bottom: 50px;
 }
+
+.priceDefinition label {
+	margin-right: 50px;
+}
+
+.priceDefinition h4 {
+	margin-bottom: 25px;
+}
+
+input[type='radio'] {
+	accent-color: #235471;
+}
+
+.inputDesc textarea {
+	width: 100%;
+	padding: 10px;
+	box-sizing: border-box;
+	margin: 10px 0;
+	filter: drop-shadow(6px 7px 7px rgba(0, 0, 0, 0.1));
+	border: none;
+	outline: none;
+	font-size: 17px;
+	border-radius: 5px;
+	text-indent: 25px;
+	height: 300px;
+	overflow-y: auto;
+	resize: none;
+}
+
+.reservationDefinition {
+	background-color: white;
+	border-radius: 15px;
+	padding: 20px 50px;
+	margin-bottom: 50px;
+}
+
+.reservationDefinition label {
+	margin-right: 50px;
+}
+
+.reservationDefinition h4 {
+	margin-bottom: 25px;
+}
+
+.numberOfGuestsDefinition {
+	background-color: white;
+	border-radius: 15px;
+	padding: 20px 50px;
+	margin-bottom: 50px;
+}
+
+.numberOfGuestsDefinition h4 {
+	margin-bottom: 25px;
+}
+
+.numGuests {
+	box-sizing: border-box;
+	display: flex;
+	justify-content: space-between;
+}
+
+.numGuests input {
+	width: 50%;
+	padding: 10px;
+	height: 45px;
+	box-sizing: border-box;
+	margin: 10px 10px 25px;
+	filter: drop-shadow(6px 7px 7px rgba(0, 0, 0, 0.1));
+	border:none;
+	outline:none;
+	font-size: 17px;
+	border-radius: 5px;
+	text-indent: 25px;
+}
+

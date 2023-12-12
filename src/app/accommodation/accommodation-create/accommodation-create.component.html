@@ -21,9 +21,6 @@
 				<div class="inputName">
 					<input type="text" required placeholder="Property name">
 				</div>
-				<div class="inputDesc">
-					<input type="text" required placeholder="Property description">
-				</div>
 				<div class="inputPropType">
 					<select class="custom-combobox">
 						<option value="" disabled selected hidden>Property type</option>
@@ -31,6 +28,11 @@
 						<option value="option2">Apartment</option>
 					</select>
 				</div>
+
+				<div class="inputDesc">
+					<textarea [(ngModel)]="propertyDescription" required placeholder="Property description"></textarea>
+				</div>
+
 			</div>
 			<div class="titlePhotos">
 				<h1>Photos</h1>
@@ -61,9 +63,43 @@
 				<p>{{descOfCancPolicy}}</p>
 			</div>
 			<div *ngFor="let option of optionsCancPolicy">
-				<input type="radio" name="options" [value]="option.id">
+				<input type="radio" name="options" [value]="option.id" [(ngModel)]="selectedCancPolicy">
 				{{ option.label }}
 				<br>
+			</div>
+		</div>
+
+		<div class="priceDefinition">
+			<h4>Payment method</h4>
+			<div>
+				<label>
+					<input type="radio" name="property" value="property" [(ngModel)]="selectedPriceDef">By property
+				</label>
+
+				<label>
+					<input type="radio" name="guests" value="guests" [(ngModel)]="selectedPriceDef">By number of guests
+				</label>
+			</div>
+		</div>
+
+		<div class="reservationDefinition">
+			<h4>Reservation confirmation method</h4>
+			<div>
+				<label>
+					<input type="radio" name="automatic" value="automatic" [(ngModel)]="selectedReservationDef">Automatic
+				</label>
+
+				<label>
+					<input type="radio" name="manual" value="manual" [(ngModel)]="selectedReservationDef">Manual
+				</label>
+			</div>
+		</div>
+
+		<div class="numberOfGuestsDefinition">
+			<h4>Number of guests</h4>
+			<div class="numGuests">
+				<input id="min-num-input" type="number" required placeholder="Minimum number of guests">
+				<input id="max-num-input" type="number" required placeholder="Maximum number of guests">
 			</div>
 		</div>
 
@@ -158,27 +194,6 @@
 		</div>
 
 		<div class="propertyAvailable">
-<!--			<h3>Define the time when the property is available</h3>-->
-<!--			<div class="datePickers">-->
-<!--				<div class="datePicker">-->
-<!--					<mat-form-field>-->
-<!--						<mat-label>Check in</mat-label>-->
-<!--						<input matInput [matDatepicker]="checkinPicker">-->
-<!--						<mat-hint>MM/DD/YYYY</mat-hint>-->
-<!--						<mat-datepicker-toggle matIconSuffix [for]="checkinPicker"></mat-datepicker-toggle>-->
-<!--						<mat-datepicker #checkinPicker></mat-datepicker>-->
-<!--					</mat-form-field>-->
-<!--				</div>-->
-<!--				<div class="datePicker">-->
-<!--					<mat-form-field>-->
-<!--						<mat-label>Check out</mat-label>-->
-<!--						<input matInput [matDatepicker]="checkoutPicker">-->
-<!--						<mat-hint>MM/DD/YYYY</mat-hint>-->
-<!--						<mat-datepicker-toggle matIconSuffix [for]="checkoutPicker"></mat-datepicker-toggle>-->
-<!--						<mat-datepicker #checkoutPicker></mat-datepicker>-->
-<!--					</mat-form-field>-->
-<!--				</div>-->
-<!--			</div>-->
 			<app-pricelist></app-pricelist>
 		</div>
 
