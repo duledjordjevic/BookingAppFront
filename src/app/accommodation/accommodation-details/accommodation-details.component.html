@@ -77,10 +77,13 @@
 								<option *ngFor="let num of numberOfGuests" [value]="num">{{ num }}</option>
 							</select>
 						</div>
+
 						<div class="ui-messages">
 							<p *ngIf="fieldsNotValid == true" style="color:#e91b00">*Input fields are not valid</p>
 							<p *ngIf="notAvailable == true" style="color:#e91b00">Apartment is not available in that interval</p>
-							<p *ngIf="createdReservation == true" style="color:#d4edda">Reservation is created!</p>
+							<p *ngIf="createdReservation == true" style="color:#4fea74">Reservation is created! {{reservationMessage}}</p>
+							<p *ngIf="serverError == true" style="color:#4fea74">Server error</p>
+							
 						</div>
 					</div>
 					<div class="reservate">

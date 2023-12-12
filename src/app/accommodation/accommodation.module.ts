@@ -12,7 +12,6 @@ import { AccommodationApprovingComponent } from './accommodation-approving/accom
 import { ReactiveFormsModule } from '@angular/forms';
 
 
-
 @NgModule({
   declarations: [
 	AccommodationApprovingComponent,

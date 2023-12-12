@@ -11,6 +11,9 @@ import { Reservation } from "../model/reservation.model";
 import { AbstractControl, FormBuilder, ValidationErrors, Validators } from "@angular/forms";
 import { HttpClient } from "@angular/common/http";
 import { AuthService } from "src/app/infrastructure/auth/services/auth.service";
+import { Observable } from "rxjs";
+import { DialogService } from "src/app/shared/services/dialog.service";
+import { ReservationMethod } from "../model/reservation-method.model";
 
 @Component({
   selector: 'app-accommodation-details',
@@ -20,7 +23,8 @@ import { AuthService } from "src/app/infrastructure/auth/services/auth.service";
 export class AccommodationDetailsComponent{
 
 	constructor(private accommodationService: AccommodationService, private mapService: MapService, 
-		private reservationService: ReservationService, private authService: AuthService) {
+		private reservationService: ReservationService, private authService: AuthService,
+		private dialogService: DialogService) {
 		this.updateDisplayedComments();
 		this.reservationForm.get('numOfGuests')?.setValue(0);
 	}
@@ -253,6 +257,9 @@ export class AccommodationDetailsComponent{
 	fieldsNotValid: boolean = false;
 	notAvailable : boolean = false;
 	createdReservation: boolean = false;
+	serverError: boolean = false;
+	reservationMessage: string = "";
+	reservationPrice: number = 0;
 
 	onSubmit(){
 		this.setCustomValidators();
@@ -262,33 +269,71 @@ export class AccommodationDetailsComponent{
 		this.createdReservation = false;
 
 		if(this.reservationForm.valid && this.reservationForm.value.numOfGuests !== 0){
-			this.reservationForm.value.startDate?.setHours(this.reservationForm.value.startDate.getHours() + 1);
-			this.reservationForm.value.endDate?.setHours(this.reservationForm.value.endDate.getHours() + 1);
-			const reservation: Reservation = {
-				startDate: this.reservationForm.value.startDate,
-				endDate: this.reservationForm.value.endDate,
-				numberOfGuests: this.reservationForm.value.numOfGuests,
-				guestId: this.authService.getId(),
-				accommodationId: this.accommodationDetails?.id
-			}
-			this.reservate(reservation);
+			const reservation: Reservation = this.getReservationFromForm();
+			this.calculateReservationPrice(reservation);
 		}
 		else{
 			this.fieldsNotValid = true;
 		}
 	}
 
+	reservationDialog(price: number) {
+		this.dialogService
+		  .confirmDialog({
+			title: 'Are you sure?',
+			message: 'Price for reservation is: ' + price + '$',
+			confirmCaption: 'Yes',
+			cancelCaption: 'No',
+		  })
+		  .subscribe((yes: any) => {
+			if (yes) this.reservate(this.getReservationFromForm());
+		  });
+	}
+
+	getReservationFromForm(): Reservation {
+		this.reservationForm.value.startDate?.setHours(this.reservationForm.value.startDate.getHours() + 1);
+		this.reservationForm.value.endDate?.setHours(this.reservationForm.value.endDate.getHours() + 1);
+		const reservation: Reservation = {
+			startDate: this.reservationForm.value.startDate,
+			endDate: this.reservationForm.value.endDate,
+			numberOfGuests: this.reservationForm.value.numOfGuests,
+			guestId: this.authService.getId(),
+			accommodationId: this.accommodationDetails?.id
+		}
+		return reservation;
+	}
+
+	calculateReservationPrice(reservation: Reservation): void{
+		this.reservationService.getReservationPrice(reservation).subscribe({
+			next: (price) => {
+				this.reservationPrice = price;
+				if (this.reservationPrice !== 0){
+					this.reservationDialog(this.reservationPrice);
+				}else{
+					this.notAvailable = true;
+				}
+			}
+		})
+		
+	}
 
 	reservate(reservation: Reservation): void{
 		this.reservationService.reservate(reservation).subscribe({
-			next: () => {
+			next: (reservationMethod) => {
 				this.createdReservation = true;
+				if(reservationMethod === ReservationMethod.MANUAL) {
+					this.reservationMessage = "Now, you are waiting for approve.";
+				}else{
+					this.reservationMessage = "Reservation automatically accepted.";
+				}
 			},
 			error: () => {
 				this.notAvailable = true;
 			}
 		})
 	}
+
+	
 
 }
 
