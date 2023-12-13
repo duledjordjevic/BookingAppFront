@@ -30,4 +30,10 @@ export class ReservationService {
         })
     });
   }
+
+  getAvailableDates(id: number): Observable<Date[]> {
+    const url = environment.apiHost + 'accommodations/' + id + '/availableDates';
+    return this.http.get<Date[]>(url);
+  }
+
 }

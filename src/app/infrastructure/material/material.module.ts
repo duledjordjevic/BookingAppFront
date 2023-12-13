@@ -36,7 +36,7 @@ import { MatDialogModule } from "@angular/material/dialog";
     MatDialogModule,
     MatIconModule,
     MatButtonModule,
-    MatToolbarModule,
+    MatToolbarModule
   ],
   exports: [
     MatToolbarModule,
@@ -57,7 +57,7 @@ import { MatDialogModule } from "@angular/material/dialog";
     MatDialogModule,
     MatIconModule,
     MatButtonModule,
-    MatToolbarModule,
+    MatToolbarModule
   ]
 })
 export class MaterialModule { }

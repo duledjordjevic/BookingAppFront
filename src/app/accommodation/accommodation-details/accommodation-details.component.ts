@@ -14,7 +14,7 @@ import { AuthService } from "src/app/infrastructure/auth/services/auth.service";
 import { Observable } from "rxjs";
 import { DialogService } from "src/app/shared/services/dialog.service";
 import { ReservationMethod } from "../model/reservation-method.model";
-
+import { MatCalendarCellCssClasses, MatDatepicker } from "@angular/material/datepicker";
 @Component({
   selector: 'app-accommodation-details',
   templateUrl: './accommodation-details.component.html',
@@ -60,9 +60,9 @@ export class AccommodationDetailsComponent{
 
 
 	images:String[] = [];
-	allCommentsVisible = false; // Da li su svi komentari vidljivi
-	comments: CommentModel[] = []; // Niz svih komentara
-	displayedComments: CommentModel[] = []; // Niz komentara koji trenutno treba da se prikažu
+	allCommentsVisible = false; 
+	comments: CommentModel[] = []; 
+	displayedComments: CommentModel[] = []; 
 	ratings: RatingModel = {
 		average: 0,
 		count: 0,
@@ -182,6 +182,9 @@ export class AccommodationDetailsComponent{
 				for(let i  = this.accommodationDetails.minGuest; i <= this.accommodationDetails.maxGuest; i++){
 					this.numberOfGuests.push(i);
 				}
+
+				//availableDates
+				this.getAvailableDates(accommodationInfo.id);
 				
 			}
 			
@@ -189,18 +192,16 @@ export class AccommodationDetailsComponent{
 		
 		
 	}
-	// Metoda koja se poziva prilikom klika na dugme
+
 	expandComments() {
 		this.allCommentsVisible = true;
 		this.updateDisplayedComments();
 	}
 
-	// Metoda za ažuriranje prikazanih komentara
 	updateDisplayedComments() {
 		if (this.allCommentsVisible) {
 			this.displayedComments = this.comments;
 		} else {
-			// Prikazi samo prvih 3 komentara
 			this.displayedComments = this.comments.slice(0, 3);
 		}
 	}
@@ -224,14 +225,25 @@ export class AccommodationDetailsComponent{
 		numOfGuests: [0, Validators.required]
 	});
 
-	
-	// reservation: Reservation = {
-	// 	startDate: new Date('2023-12-17'),
-	// 	endDate: new Date('2023-12-18'),
-	// 	numberOfGuests: 3,
-	// 	guestId: 3,
-	// 	accommodationId: 1
-	// }
+	availableDates: Date[] = [];
+
+	rangeFilter = (date: Date | null): boolean => {
+		if (!date || !this.availableDates) {
+		  return false;
+		}
+		return this.availableDates.some(availableDate => availableDate.getTime() === date?.getTime());
+	};
+
+	getAvailableDates(id: number){
+		this.reservationService.getAvailableDates(id).subscribe({
+			next: (availableDates) => {
+				availableDates.forEach( (availableDate) => {
+					const date:Date = new Date(availableDate)
+					this.availableDates.push(new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0, 0))
+				})
+			}
+		})
+	}
 	
 	setCustomValidators() {
 		this.reservationForm.setValidators(this.dateValidator.bind(this));
@@ -252,7 +264,6 @@ export class AccommodationDetailsComponent{
 
 		return null;
 	}
-
 
 	fieldsNotValid: boolean = false;
 	notAvailable : boolean = false;
