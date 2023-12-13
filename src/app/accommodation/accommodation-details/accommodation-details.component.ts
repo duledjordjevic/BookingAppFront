@@ -143,27 +143,30 @@ export class AccommodationDetailsComponent{
 					switch (amenitie.name) {
 					  case 'WIFI':
 						amenitie.icon = 'assets/images/wifi.svg';
-						this.ratings.excellent += 1;
 						break;
 					  case 'BREAKFAST':
 						amenitie.icon= 'assets/images/breakfast.svg';
-						this.ratings.good += 1;
 						break;
 					  case 'PARKING':
 						amenitie.icon= 'assets/images/parking.svg';
-						this.ratings.okay += 1;
 						break;
 					  case 'POOL':
 						amenitie.icon= 'assets/images/swimming-pool.svg';
-						this.ratings.poor += 1;
 						break;
 					  case 'AIRCONDITION':
 						amenitie.icon= 'assets/images/air_condition.svg';
-						this.ratings.terrible += 1;
 						break;
-					case 'KITCHEN':
+					  case 'KITCHEN':
 						amenitie.icon= 'assets/images/kitchen-spoons-icon.svg';
-						this.ratings.terrible += 1;
+						break;
+					  case 'DINNER':
+						amenitie.icon= 'assets/images/breakfast.svg';
+						break;
+					  case 'LUNCH':
+						amenitie.icon= 'assets/images/breakfast.svg';
+						break;
+					  case 'TV':
+						amenitie.icon= 'assets/images/tv.svg';
 						break;
 					  default:
 						amenitie.icon= 'Unknown';
