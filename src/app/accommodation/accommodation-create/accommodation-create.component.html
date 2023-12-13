@@ -136,8 +136,8 @@
 		<div class="amenities">
 			<div class="amenitie">
 				<div class="amenitieName">
-					<img [src]="amenitieBreakfast" alt="Amenitie">
-					<p>Do you offer breakfast</p>
+					<img [src]="amenitieTV" alt="Amenitie">
+					<p>Do your guests have TV access?</p>
 				</div>
 				<div class="buttons">
 					<button mat-raised-button [ngClass]="{'clicked': buttonStates['button3'].button1}"
@@ -151,8 +151,8 @@
 		<div class="amenities">
 			<div class="amenitie">
 				<div class="amenitieName">
-					<img [src]="amenitiePoolAccess" alt="Amenitie">
-					<p>Do your guests have pool access?</p>
+					<img [src]="amenitieBreakfast" alt="Amenitie">
+					<p>Do you offer breakfast</p>
 				</div>
 				<div class="buttons">
 					<button mat-raised-button [ngClass]="{'clicked': buttonStates['button4'].button1}"
@@ -166,8 +166,8 @@
 		<div class="amenities">
 			<div class="amenitie">
 				<div class="amenitieName">
-					<img [src]="amenitieAirCondition" alt="Amenitie">
-					<p>Do you offer air conditioning?</p>
+					<img [src]="amenitieLunch" alt="Amenitie">
+					<p>Do you offer lunch?</p>
 				</div>
 				<div class="buttons">
 					<button mat-raised-button [ngClass]="{'clicked': buttonStates['button5'].button1}"
@@ -181,14 +181,59 @@
 		<div class="amenities">
 			<div class="amenitie">
 				<div class="amenitieName">
-					<img [src]="amenitieKitchen" alt="Amenitie">
-					<p>Do you offer kitchen?</p>
+					<img [src]="amenitieDinner" alt="Amenitie">
+					<p>Do you offer dinner?</p>
 				</div>
 				<div class="buttons">
 					<button mat-raised-button [ngClass]="{'clicked': buttonStates['button6'].button1}"
 							(click)="toggleColor('button6', 'button1')">Yes</button>
 					<button mat-raised-button [ngClass]="{'clicked': buttonStates['button6'].button2}"
 							(click)="toggleColor('button6', 'button2')">No</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="amenities">
+			<div class="amenitie">
+				<div class="amenitieName">
+					<img [src]="amenitiePoolAccess" alt="Amenitie">
+					<p>Do your guests have pool access?</p>
+				</div>
+				<div class="buttons">
+					<button mat-raised-button [ngClass]="{'clicked': buttonStates['button7'].button1}"
+							(click)="toggleColor('button7', 'button1')">Yes</button>
+					<button mat-raised-button [ngClass]="{'clicked': buttonStates['button7'].button2}"
+							(click)="toggleColor('button7', 'button2')">No</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="amenities">
+			<div class="amenitie">
+				<div class="amenitieName">
+					<img [src]="amenitieAirCondition" alt="Amenitie">
+					<p>Do you offer air conditioning?</p>
+				</div>
+				<div class="buttons">
+					<button mat-raised-button [ngClass]="{'clicked': buttonStates['button8'].button1}"
+							(click)="toggleColor('button8', 'button1')">Yes</button>
+					<button mat-raised-button [ngClass]="{'clicked': buttonStates['button8'].button2}"
+							(click)="toggleColor('button8', 'button2')">No</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="amenities">
+			<div class="amenitie">
+				<div class="amenitieName">
+					<img [src]="amenitieKitchen" alt="Amenitie">
+					<p>Do you offer kitchen?</p>
+				</div>
+				<div class="buttons">
+					<button mat-raised-button [ngClass]="{'clicked': buttonStates['button9'].button1}"
+							(click)="toggleColor('button9', 'button1')">Yes</button>
+					<button mat-raised-button [ngClass]="{'clicked': buttonStates['button9'].button2}"
+							(click)="toggleColor('button9', 'button2')">No</button>
 				</div>
 			</div>
 		</div>

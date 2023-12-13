@@ -9,7 +9,7 @@ export class AccommodationCreateComponent {
 
 	buttonStates: { [key: string]: { button1: boolean, button2: boolean } } = {};
 	constructor() {
-		for (let i = 1; i <= 12; i++) {
+		for (let i = 1; i <= 18; i++) {
 			this.buttonStates[`button${i}`] = { button1: false, button2: false };
 		}
 	}
@@ -48,6 +48,9 @@ export class AccommodationCreateComponent {
 	amenitieParking= "assets/images/parking.svg";
 	amenitieKitchen = "assets/images/kitchen.svg";
 	amenitiePoolAccess = "assets/images/pool_access.svg";
+	amenitieLunch = "assets/images/breakfast.svg";
+	amenitieDinner = "assets/images/breakfast.svg";
+	amenitieTV = "assets/images/tv.svg";
 
 	toggleColor(button: string, buttonNumber: string) {
 		// @ts-ignore
