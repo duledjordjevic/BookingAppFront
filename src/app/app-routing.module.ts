@@ -19,7 +19,7 @@ const routes: Routes = [
   {path: "accommodation-details-images", component: AccommodationDetailsImagesComponent},
   {path: "update-profile", component: UpdateProfileComponent, canActivate: [AuthGuard], data: {role: ['ADMIN', 'GUEST', 'HOST']}},
   {path: "accommodation-approving", component: AccommodationApprovingComponent, canActivate: [AuthGuard], data: {role: ['ADMIN']}},
-  {path: "update-admin", component: UpdateAdminComponent},
+  {path: "update-admin", component: UpdateAdminComponent, canActivate: [AuthGuard], data: {role: ['ADMIN']}},
   {path: "all-accommodations", component: AccommodationsFilterComponent},
   {path: "accommodation-details", component: AccommodationDetailsComponent}
 ];

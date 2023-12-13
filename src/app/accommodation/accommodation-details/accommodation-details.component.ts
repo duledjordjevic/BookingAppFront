@@ -15,7 +15,7 @@ import { Observable } from "rxjs";
 import { DialogService } from "src/app/shared/services/dialog.service";
 import { ReservationMethod } from "../model/reservation-method.model";
 import { MatCalendarCellCssClasses, MatDatepicker } from "@angular/material/datepicker";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
   selector: 'app-accommodation-details',
@@ -26,7 +26,7 @@ export class AccommodationDetailsComponent{
 
 	constructor(private accommodationService: AccommodationService, private mapService: MapService, 
 		private reservationService: ReservationService, private authService: AuthService,
-		private dialogService: DialogService,private route: ActivatedRoute) {
+		private dialogService: DialogService,private route: ActivatedRoute,private router: Router) {
 		this.updateDisplayedComments();
 		this.reservationForm.get('numOfGuests')?.setValue(0);
 		
@@ -288,6 +288,9 @@ export class AccommodationDetailsComponent{
 	reservationPrice: number = 0;
 
 	onSubmit(){
+		if(this.user == "UNREGISTERED"){
+			this.router.navigate(["login"]);
+		}
 		this.setCustomValidators();
 
 		this.fieldsNotValid = false;
