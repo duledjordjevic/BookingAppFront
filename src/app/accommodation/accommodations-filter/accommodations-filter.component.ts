@@ -37,17 +37,19 @@ export class AccommodationsFilterComponent {
 
   imageBase64:string = environment.imageBase64;
 
-  sliderValues: number[] = [300, 400];
-  startedValue:number = 0;
-  endValue: number = 1500;
-  selectedAccommodationType: string = "";
+  startedValue?:Number | null;
+  endValue?: Number | null;
+  startPriceFix?:Number | null;
+  endPriceFix?:Number | null;
+  selectedAccommodationType: string = "3";
 
-  accommodationType?: AccommodationType | undefined;
+  accommodationType?: AccommodationType | null = null;
   
 
   priceVisibility: boolean = false;
   accHaveRatings: boolean = true;
   isFiltered: boolean = false;
+  headerValidator: boolean = false;
 
   ngOnInit(): void {
     if(!this.isFiltered){
@@ -70,6 +72,10 @@ export class AccommodationsFilterComponent {
     console.log(this.startedValue,this.endValue);
 
   }
+  containsOnlyLettersAndSpace(inputString: string): boolean {
+    const letterAndSpaceRegex = /^[a-zA-Z\s]+$/;
+    return letterAndSpaceRegex.test(inputString);
+  }
 
  
 
@@ -81,6 +87,14 @@ export class AccommodationsFilterComponent {
       },
       error:(err : any)=>{
         console.log(err);
+      }
+    })
+    this.accommodationService.getMinMaxPrice().subscribe({
+      next:(prices: Number[]) => {
+        this.startedValue = prices[0];
+        this.endValue = prices[1];
+        this.startPriceFix = prices[0];
+        this.endPriceFix = prices[1];
       }
     })
   }
@@ -119,15 +133,53 @@ export class AccommodationsFilterComponent {
       this.amenities.push(Amenities.TV);
     }
   }
+
+ 
+
+  rangeFilter = (date: Date | null): boolean => {
+    const today = new Date();
+    
+    if (date === null) {
+      return true; 
+    }
+
+    return today <= date; 
+  };
   filterAccommodations() {
-    this.isFiltered = true;
     this.priceVisibility = false;
     this.haveFilteredResults = true;
+    this.headerValidator = false;
+
+    if(this.headerFilterForm.value.startDate != null && this.headerFilterForm.value.endDate != null){
+      if(this.headerFilterForm.value.startDate > this.headerFilterForm.value.endDate){
+        this.headerValidator = true;
+        return;
+      }
+    }
+    if(this.headerFilterForm.value.numOfGuests != null){
+      if(this.headerFilterForm.value.numOfGuests > 15 || this.headerFilterForm.value.numOfGuests <0){
+        this.headerValidator = true;
+        return;
+      }
+    }
+    if(this.headerFilterForm.value.city != null && this.headerFilterForm.value.city != "") {
+      if(!this.containsOnlyLettersAndSpace(this.headerFilterForm.value.city)){
+        this.headerValidator = true;
+        return;
+      }
+    }
+    
+
+    this.isFiltered = true;
+    
+    
 
     if(this.selectedAccommodationType == '1'){
       this.accommodationType = AccommodationType.HOTEL;
     }else if(this.selectedAccommodationType == '2'){
       this.accommodationType = AccommodationType.APARTMENT;
+    }else if(this.selectedAccommodationType == '3'){
+      this.accommodationType = null;
     }
     if(this.headerFilterForm.value.startDate != null && this.headerFilterForm.value.endDate != null){
       this.priceVisibility = true;
@@ -142,6 +194,7 @@ export class AccommodationsFilterComponent {
           if(this.filteredAccommodations.length == 0){
             this.haveFilteredResults = false;
           }
+
         }
       })
   }

@@ -1,6 +1,5 @@
 <div class="main-container">
     <div class="image-container">
-        <!-- <img class="cropped-image" src="../../../assets/images/cover-img.jpg" alt="image"> -->
         <div class="header-filter-container">
             <form [formGroup]="headerFilterForm">
                 <div class="location">
@@ -14,7 +13,7 @@
                 <div class="datePicker">
                     <mat-form-field>
                         <mat-label>Check in</mat-label>
-                        <input matInput [matDatepicker]="checkinPicker" formControlName="startDate">
+                        <input matInput [matDatepicker]="checkinPicker" formControlName="startDate"  [matDatepickerFilter]="rangeFilter">
                         <mat-datepicker-toggle matIconSuffix [for]="checkinPicker"></mat-datepicker-toggle>
                         <mat-datepicker #checkinPicker></mat-datepicker>
                     </mat-form-field>
@@ -22,20 +21,22 @@
                 <div class="datePicker">
                     <mat-form-field>
                         <mat-label>Check out</mat-label>
-                        <input matInput [matDatepicker]="checkoutPicker" formControlName="endDate">
+                        <input matInput [matDatepicker]="checkoutPicker" formControlName="endDate"  [matDatepickerFilter]="rangeFilter">
                         <mat-datepicker-toggle matIconSuffix [for]="checkoutPicker"></mat-datepicker-toggle>
                         <mat-datepicker #checkoutPicker></mat-datepicker>
                     </mat-form-field>
+                   
                 </div>
                 <div class="num-of-persons">
                     <div class="icon-container">
                         <img src="../../../assets/images/person.svg" alt="image">
                         <label>Persons</label>
                     </div>
-                    <input type="number" formControlName="numOfGuests">
+                    <input type="number" min="1" max="15"  formControlName="numOfGuests">
                 </div>
                 <div class="search-btn">
                     <button (click)="filterAccommodations()">Search</button>
+                    <p *ngIf="headerValidator == true">*Invalid data</p>
                 </div>
             </form>
             
@@ -48,21 +49,21 @@
     <div class="main">
         
         <div class="amenities-price-filter">
-            <h4>Filter by:</h4>
+            <h5>Filter by:</h5>
             <hr>
-            <h5>Amenities</h5>
+            <h6>Amenities</h6>
             <label *ngFor="let checkbox of checkboxes;">
                 <mat-checkbox aria-label="amenitie"  [(ngModel)]="checkbox.isChecked" (change)="onCheckboxChange()">
                 </mat-checkbox>
                 {{checkbox.label}}
             </label>
             <hr>
-            <h5>Price</h5>
+            <h6>Price</h6>
             <div class="min-max-labels">
-                <span>0$</span>
-                <span>1500$</span>
+                <span>{{startPriceFix}}$</span>
+                <span>{{endPriceFix}}$</span>
             </div>
-            <mat-slider min="0" max="1500"  (input)="onSliderInput($event)">
+            <mat-slider min="{{startPriceFix}}" max="{{endPriceFix}}"  (input)="onSliderInput($event)">
                 <input matSliderStartThumb [(ngModel)]="startedValue">
                 <input matSliderEndThumb [(ngModel)]="endValue">
             </mat-slider>
@@ -71,10 +72,11 @@
                 <span>{{ startedValue }} - {{ endValue }} $</span>
             </div>
             <hr>
-            <h5>Accommodation type</h5>
+            <h6>Accommodation type</h6>
             <mat-radio-group aria-label="Select an option" [(ngModel)]="selectedAccommodationType">
                 <mat-radio-button value="1">Hotel</mat-radio-button>
                 <mat-radio-button value="2">Apartment</mat-radio-button>
+                <mat-radio-button value="3">Both options</mat-radio-button>
               </mat-radio-group>
         
         </div>
@@ -87,7 +89,7 @@
                     <img src="{{imageBase64}} {{card.image}}">
                     <div class="card-description">
                         <div class="title-rating">
-                            <h4>{{ card.title }}</h4>
+                            <h5>{{ card.title }}</h5>
                             <div class="rating" *ngIf="accHaveRatings == true">
                                 <span><img src="../../../assets/images/star-fill.svg"></span>
                                 <span>{{card.avgRate?.toFixed(1)}}</span>
@@ -111,15 +113,15 @@
                     <div class="card-description">
                         <div class="title-rating">
                             <h4>{{ card.title }}</h4>
-                            <div class="rating" *ngIf="accHaveRatings == true">
+                            <div class="rating">
                                 <span><img src="../../../assets/images/star-fill.svg"></span>
-                                <span>{{card.avgRate?.toFixed(1)}}</span>
+                                <span *ngIf="card.avgRate != null"> {{card.avgRate?.toFixed(1)}}</span>
+                                <span *ngIf="card.avgRate == null"> No reviews</span>
                             </div>
                             
                         </div>
                         <p>{{card.address?.city}}, {{card.address?.state}}</p>
                         <div *ngIf="priceVisibility ==true">
-                            <p>19.12.2023-31.12.2023</p>
                             <p>{{card.pricePerNight}}$ per night</p>
                             <p>{{card.totalPrice}}$ in total</p>
                         </div>

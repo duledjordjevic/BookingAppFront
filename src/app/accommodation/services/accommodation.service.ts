@@ -47,6 +47,10 @@ export class AccommodationService {
     const url = environment.apiHost + `accommodations/popular`;
     return this.http.get<AccommodationPopular[]>(url);
   }
+  getMinMaxPrice(): Observable<Number[]> {
+    const url = environment.apiHost + `accommodations/minMaxPrice`;
+    return this.http.get<Number[]>(url);
+  }
 
 
   filterAccommodations(
@@ -54,20 +58,11 @@ export class AccommodationService {
     numberOfGuests?: number | null,
     startDate?: Date | null,
     endDate?: Date | null,
-    startPrice?: number,
-    endPrice?: number,
+    startPrice?: Number | null,
+    endPrice?: Number | null,
     amenities?: Amenities[],  
-    accommodationType?: AccommodationType
+    accommodationType?: AccommodationType | null
   ): Observable<AccommodationPopular[]> {
-    // const params = new HttpParams()
-    //   .set('city', city || '' )
-    //   .set('numberOfGuests', numberOfGuests?.toString() || '')
-    //   .set('startDate', startDate ? startDate.toISOString() : '')
-    //   .set('endDate', endDate ? endDate.toISOString() : "")
-    //   .set('startPrice', startPrice?.toString() || '')
-    //   .set('endPrice', endPrice?.toString() || '')
-    //   .set('amenities', amenities?.join(',') || '')
-    //   .set('accommodationType', accommodationType || '');
     const url = environment.apiHost + `accommodations/cards/filter`;
     let params = new HttpParams()
       .set('city', city || '')

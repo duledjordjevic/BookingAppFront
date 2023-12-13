@@ -1,43 +1,47 @@
 
 .main{
-    background-color: #F6F8FA;
     height: fit-content;
     display: flex;
+    margin:auto;
     flex-direction: row;
     padding-top: 100px;
     padding-bottom: 150px;
+    padding-left: 90px;
+    max-width: 1600px;
+
 }
 .main-title h3{
     padding-bottom: 20px;
 }
+.main-container{
+    background-color: #F6F8FA;
 
+}
 .image-container {
     overflow: hidden;
+    display: flex;
     height: 200px;
-     max-height: 300px;
-     position: relative; /* Sakrivanje dela slike koji bi mogao biti van kontejnera */
-     background-color: #235471;
+    align-items: flex-end;
+    justify-content: center;
+    max-height: 300px;
+    position: relative; 
+    background-color: #235471;
   }
   
 .cropped-image {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Cropovanje slike kako bi popunila kontejner */
+    object-fit: cover; 
 }
 .header-filter-container form{
     overflow: hidden;
-    position: absolute;
-    flex-wrap: wrap;
-    left: 20%;
-    right: 20%;
-    bottom: 0;
+    flex-wrap: wrap;    
     border-radius: 10px 10px 0 0;
     background-color: #FFFFFF;
-    margin: auto;
     display: flex;
     justify-content: space-around;
     flex-direction: row;
-    /* max-height: 75px; */
+    max-height: 110px;
     padding: 15px 0;
 
 }
@@ -52,6 +56,7 @@ mat-radio-group{
     align-items: center;
     border-right:1px solid black ;
     padding-right: 40px;
+    padding-left: 40px;
 
 }
 .icon-container{
@@ -65,6 +70,10 @@ mat-radio-group{
     align-items: center;
     border-right:1px solid black ;
     padding-right: 40px;
+    padding-left: 40px;
+}
+.num-of-persons > input{
+    min-width: 130px;
 }
 input {
     border-radius: 10px;
@@ -75,12 +84,17 @@ input {
 }
 .datePicker{
     border-right:1px solid black ;
-    padding-right: 50px;
+    padding-right: 40px;
+    padding-left: 40px;
 }
 .search-btn{
     display: flex;
-    align-items: center;
-    margin-bottom: 5px;
+    flex-direction: column;
+    /* align-items: center; */
+    /* margin-bottom: 5px; */
+    margin-top: 20px;
+    padding-right: 40px;
+    padding-left: 40px;
 }
 .search-btn > button {
     background-color: #235471;
@@ -88,36 +102,40 @@ input {
     color: #FFFFFF;
     border: none;
     outline: none;
-    padding: 5px;
     width: 150px;
+    padding: 7px;
 }
 
 .search-btn > button:hover{
     background-color: white;
-    border:1px solid black ;
+    filter: drop-shadow(6px 7px 7px rgba(0, 0, 0, 0.1));
+
+    /* border:1px solid black ; */
     color: #235471;
     transition: transform 0.5s ease
+}
+.search-btn > p{
+    color: red;
 }
 .amenities-price-filter{
     display: flex;
     flex-direction: column;
     border-radius: 10px;
-    min-width: 250px;
-    margin-left: 20%;
+    min-width: 200px;
+    /* margin-left: 200px; */
     margin-right: 100px;
     background-color: white;
     padding: 10px;
     height: fit-content;
     filter: drop-shadow(6px 7px 7px rgba(0, 0, 0, 0.1));
 }
-
 .cards{
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
     flex-wrap: wrap;
-    margin-right: 200px;
+    /* margin-right: 200px; */
 }
 
 .card{
@@ -127,7 +145,7 @@ input {
     margin-right: 30px;
     margin-bottom: 50px;
     height: fit-content;
-    width: 350px;
+    width: 255px;
     filter: drop-shadow(6px 7px 7px rgba(0, 0, 0, 0.1));
 
 }
@@ -154,7 +172,7 @@ input {
     padding-left: 15px;
 }
 .card > img{
-    height: 220px;
+    height: 150px;
     border-radius: 15px 15px 0 0;
 }
 .min-max-labels{
