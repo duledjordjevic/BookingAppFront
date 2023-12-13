@@ -144,6 +144,7 @@ input {
     border-radius: 15px;
     margin-right: 20px;
     margin-bottom: 50px;
+    min-height: 280px;
     height: fit-content;
     width: 249px;
     filter: drop-shadow(6px 7px 7px rgba(0, 0, 0, 0.1));

@@ -14,7 +14,7 @@ import { DatePipe } from '@angular/common';
 })
 export class AccommodationService {
 
-  constructor(private http: HttpClient,private datePipe: DatePipe) { }
+  constructor(private http: HttpClient,private datePipe: DatePipe,private authService: AuthService) { }
 
   getAccommodations(): Observable<AccommodationCard[]> {
     const url = environment.apiHost + 'accommodations/adminApproving';
@@ -50,6 +50,11 @@ export class AccommodationService {
   getMinMaxPrice(): Observable<Number[]> {
     const url = environment.apiHost + `accommodations/minMaxPrice`;
     return this.http.get<Number[]>(url);
+  }
+
+  getAccommodationsForHost(): Observable<AccommodationPopular[]>{
+    const url = environment.apiHost + `accommodations/host/${this.authService.getId()}`;
+    return this.http.get<AccommodationPopular[]>(url);
   }
 
 
