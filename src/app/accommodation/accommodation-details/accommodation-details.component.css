@@ -336,3 +336,17 @@ hr {
 .ui-messages p{
 	margin: 10px 0 0 40px;
 }
+
+
+.updateButton {
+	margin-bottom: 20px;
+	display: flex;
+	justify-content: end;
+}
+.updateButton button{
+	height: 45px;
+	width: 170px;
+	margin: 10px;
+	background-color: #235471;
+	color: #FFF;
+}
