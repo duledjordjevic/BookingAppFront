@@ -48,7 +48,8 @@
 			</div>
 		</div>
 
-		<form [formGroup]="reservationForm" (ngSubmit)="onSubmit()">
+		<div>
+		<form [formGroup]="reservationForm" (ngSubmit)="onSubmit()" *ngIf="user == 'GUEST' || user == 'UNREGISTERED'">
 			<div class="buttons">
 				
 					<div class="datePickers">
@@ -91,6 +92,14 @@
 					</div>
 			</div>
 		</form>
+
+		<div class="updateButton"  *ngIf="user == 'HOST'">
+			<button mat-raised-button>Update</button>
+		</div>
+		
+
+		</div>
+
 
 		<div class="description">
 			<h2>Description</h2>

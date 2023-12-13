@@ -189,12 +189,16 @@ export class AccommodationDetailsComponent{
 				//availableDates
 				this.getAvailableDates(accommodationInfo.id);
 				
+				this.user = this.authService.getRole() ?? 'UNREGISTERED';
 			}
 			
 		})
 		
 		
 	}
+
+	user: string = "";
+	
 
 	expandComments() {
 		this.allCommentsVisible = true;
@@ -348,7 +352,6 @@ export class AccommodationDetailsComponent{
 	}
 
 	
-
 }
 
 
