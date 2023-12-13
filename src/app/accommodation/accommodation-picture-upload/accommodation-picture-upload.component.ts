@@ -44,4 +44,11 @@ export class AccommodationPictureUploadComponent {
 
 		reader.readAsDataURL(file);
 	}
+
+	deleteImage(index: number): void {
+		this.files.splice(index, 1);
+		this.imagePreviews.splice(index, 1);
+	}
+
+
 }
