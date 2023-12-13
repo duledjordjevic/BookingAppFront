@@ -13,6 +13,7 @@ import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {Interceptor} from "./infrastructure/auth/interceptor";
 import { AuthModule } from './infrastructure/auth/auth.module';
 import { SharedModule } from './shared/shared.module';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -30,11 +31,12 @@ import { SharedModule } from './shared/shared.module';
     SharedModule
   ],
   
-  providers: [
+  providers: [DatePipe,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: Interceptor,
       multi: true,
+      
     },
     SharedService],
   bootstrap: [AppComponent]

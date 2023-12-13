@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import {CommonModule, NgOptimizedImage} from '@angular/common';
 import { AccommodationDetailsComponent } from './accommodation-details/accommodation-details.component';
 import {MaterialModule} from "../infrastructure/material/material.module";
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatSliderModule} from '@angular/material/slider';
 import {GoogleMapsModule} from "@angular/google-maps"
 import { RouterModule } from '@angular/router';
 import { AccommodationDetailsImagesComponent } from './accommodation-details-images/accommodation-details-images.component';
@@ -11,7 +13,7 @@ import { AccommodationPictureUploadComponent } from './accommodation-picture-upl
 import { PricelistComponent } from './pricelist/pricelist.component';
 import { AccommodationApprovingComponent } from './accommodation-approving/accommodation-approving.component';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { AccommodationsFilterComponent } from './accommodations-filter/accommodations-filter.component';
 
 
 @NgModule({
@@ -23,7 +25,8 @@ import { ReactiveFormsModule } from '@angular/forms';
  AccommodationPictureUploadComponent,
  PricelistComponent,
 	AccommodationCreateComponent,
- 	AccommodationPictureUploadComponent
+ 	AccommodationPictureUploadComponent,
+  AccommodationsFilterComponent
   ],
 	imports: [
 		CommonModule,
@@ -32,13 +35,16 @@ import { ReactiveFormsModule } from '@angular/forms';
 		RouterModule,
 		MaterialModule,
 		NgxDropzoneModule,
-		ReactiveFormsModule
+		ReactiveFormsModule,
+		MatCheckboxModule,
+		MatSliderModule,
 	],
 	exports: [
 		AccommodationDetailsComponent,
 		AccommodationDetailsImagesComponent,
 		AccommodationCreateComponent,
-		AccommodationApprovingComponent
+		AccommodationApprovingComponent,
+		AccommodationsFilterComponent
 	]
 })
 export class AccommodationModule { }

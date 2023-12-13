@@ -1,10 +1,10 @@
 
 // import { Component } from '@angular/core';
 import { AccommodationService } from "../services/accommodation.service";
-import {CommentModel} from "./model/comment.model";
+import {CommentModel} from "../model/comment.model";
 import { AfterViewInit, Component, OnInit, ViewChild, inject } from '@angular/core';
-import { RatingModel } from "./model/rating.model";
-import { AccommodationDetails, Amenities, AmenitiesIcons } from "./model/accommodation.model";
+import { RatingModel } from "../model/rating.model";
+import { AccommodationDetails, Amenities, AmenitiesIcons } from "../model/accommodation.model";
 import { MapService } from "src/app/layout/map/map.service";
 import { ReservationService } from "../services/reservation.service";
 import { Reservation } from "../model/reservation.model";
@@ -15,6 +15,8 @@ import { Observable } from "rxjs";
 import { DialogService } from "src/app/shared/services/dialog.service";
 import { ReservationMethod } from "../model/reservation-method.model";
 import { MatCalendarCellCssClasses, MatDatepicker } from "@angular/material/datepicker";
+import { ActivatedRoute } from "@angular/router";
+
 @Component({
   selector: 'app-accommodation-details',
   templateUrl: './accommodation-details.component.html',
@@ -24,9 +26,10 @@ export class AccommodationDetailsComponent{
 
 	constructor(private accommodationService: AccommodationService, private mapService: MapService, 
 		private reservationService: ReservationService, private authService: AuthService,
-		private dialogService: DialogService) {
+		private dialogService: DialogService,private route: ActivatedRoute) {
 		this.updateDisplayedComments();
 		this.reservationForm.get('numOfGuests')?.setValue(0);
+		
 	}
 
 	mainPicture = "assets/images/main.jpeg";
@@ -83,9 +86,14 @@ export class AccommodationDetailsComponent{
 	displayLinkToRemainingPictures: boolean = true;
 	haveCommentsAndReviews: boolean = true;
 	numberOfGuests: number[] = [];
+	accommodationId:number = 0;
 	
 	ngOnInit(): void{
-		this.accommodationService.getCommentsAboutAcc(1).subscribe({
+		this.route.queryParams.subscribe(params => {
+        	console.log(params); 
+        	this.accommodationId = params['id'];
+     	});
+		this.accommodationService.getCommentsAboutAcc(this.accommodationId).subscribe({
 			next:(allComments:CommentModel[]) =>{
 				this.comments = allComments;
 				this.ratings.count = this.comments.length;
@@ -125,7 +133,7 @@ export class AccommodationDetailsComponent{
 			}
 		})
 
-		this.accommodationService.getAccommodationInfo(1).subscribe({
+		this.accommodationService.getAccommodationInfo(this.accommodationId).subscribe({
 			next:(accommodationInfo: AccommodationDetails)=> {
 				this.accommodationDetails = accommodationInfo;
 

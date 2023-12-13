@@ -9,6 +9,8 @@ import { RegisterComponent } from './infrastructure/auth/register/register.compo
 import { AuthGuard } from './infrastructure/auth/guard/auth.guard';
 import { AccommodationApprovingComponent } from './accommodation/accommodation-approving/accommodation-approving.component';
 import { UpdateAdminComponent } from './user/update-admin/update-admin.component';
+import { AccommodationsFilterComponent } from './accommodation/accommodations-filter/accommodations-filter.component';
+import { AccommodationDetailsComponent } from './accommodation/accommodation-details/accommodation-details.component';
 const routes: Routes = [
   {path : "home", component : HomeComponent,},
   {path: "login", component: LogInComponent},
@@ -18,6 +20,8 @@ const routes: Routes = [
   {path: "update-profile", component: UpdateProfileComponent, canActivate: [AuthGuard], data: {role: ['ADMIN', 'GUEST', 'HOST']}},
   {path: "accommodation-approving", component: AccommodationApprovingComponent, canActivate: [AuthGuard], data: {role: ['ADMIN']}},
   {path: "update-admin", component: UpdateAdminComponent},
+  {path: "all-accommodations", component: AccommodationsFilterComponent},
+  {path: "accommodation-details", component: AccommodationDetailsComponent}
 ];
 
 @NgModule({
