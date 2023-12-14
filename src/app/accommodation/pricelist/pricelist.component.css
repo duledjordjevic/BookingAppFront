@@ -80,6 +80,11 @@
 	margin-bottom: 20px; /* Dodatni razmak ispod dugmeta */
 }
 
+.mat-form-field-invalid .mat-form-field-infix {
+	border-bottom-color: inherit !important;
+}
+
+
 
 
 .title {

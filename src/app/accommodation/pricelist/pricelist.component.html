@@ -28,7 +28,6 @@
 				<input matInput type="number" formControlName="price">
 			</mat-form-field>
 		</div>
-
 	</div>
 
 	<div class="message">
@@ -48,7 +47,7 @@
 		</tr>
 		</thead>
 		<tbody>
-		<tr *ngFor="let element of data; let i = index" [ngClass]="{'highlighted-row': i === 0}">
+		<tr *ngFor="let element of data; let i = index" [ngClass]="{'highlighted-row': isRowSelected(i)}" (click)="selectRow(i)">
 			<td>{{ element.rowNumber }}</td>
 			<td>{{ element.startDate | date }}</td>
 			<td>{{ element.endDate | date }}</td>
@@ -57,4 +56,7 @@
 		</tbody>
 	</table>
 
+	<div class="buttonDelete">
+		<button type="button" mat-raised-button color="warn" [disabled]="selectedRowIndexes.length === 0" (click)="deleteSelectedRows()">Delete Selected Rows</button>
+	</div>
 </form>
