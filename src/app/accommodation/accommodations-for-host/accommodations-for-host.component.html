@@ -1,0 +1,24 @@
+<div class="main-container">
+    <div class="main">
+        <div class="cards">
+            <div class="card" *ngFor="let card of hostAccommodations;" [routerLink]="['/accommodation-details']" [queryParams]="{id: card.id}">
+                <img src="{{imageBase64}} {{card.image}}">
+                <div class="card-description">
+                    <div class="title-rating">
+                        <h5>{{ card.title }}</h5>
+                        <div class="rating">
+                            <span><img src="../../../assets/images/star-fill.svg"></span>
+                            <span *ngIf="card.avgRate != null"> {{card.avgRate.toFixed(1)}}</span>
+                            <span id="span-no-reviews" *ngIf="card.avgRate == null"> No reviews</span>
+                        </div>
+                        
+                    </div>
+                    <p>{{card.address?.city}}, {{card.address?.state}}</p>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+   
+
+</div>

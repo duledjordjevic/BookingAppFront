@@ -1,28 +1,27 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CommentModel } from '../accommodation-details/model/comment.model';
+import { CommentModel } from '../model/comment.model';
 import { Observable } from 'rxjs';
-import { AccommodationDetails } from '../accommodation-details/model/accommodation.model';
+import { AccommodationDetails, AccommodationPopular, AccommodationType, Amenities } from '../model/accommodation.model';
 import { environment } from 'src/env/env';
 import { AuthService } from "src/app/infrastructure/auth/services/auth.service";
 import { AccommodationCard } from "../model/card.model";
+import { DatePipe } from '@angular/common';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccommodationService {
 
-  constructor(private http: HttpClient,private authService: AuthService) { }
+  constructor(private http: HttpClient,private datePipe: DatePipe,private authService: AuthService) { }
 
   getAccommodations(): Observable<AccommodationCard[]> {
     const url = environment.apiHost + 'accommodations/adminApproving';
     return this.http.get<AccommodationCard[]>(url);
-}
+``}
 
 
-   // return this.http.post<User>(environment.apiHost + 'register', user, {
-  //     headers: this.headers,
-  //   });
   setApprovalStatusAccommodation(id: number, approvalStatus: string): Observable<AccommodationDetails>{
     const url = environment.apiHost + 'accommodations/' + id + '/approvalStatus' ;
     return this.http.put<AccommodationDetails>(url, {"approvalStatus" : approvalStatus}, {
@@ -37,9 +36,56 @@ export class AccommodationService {
     return this.http.get<CommentModel[]>(url);
   }
 
+
   getAccommodationInfo(id: number): Observable<AccommodationDetails> {
     const url = environment.apiHost + `accommodations/${id}`;
     return this.http.get<AccommodationDetails>(url);
+  }
+
+
+  getAllAccommodationsCards(): Observable<AccommodationPopular[]>{
+    const url = environment.apiHost + `accommodations/popular`;
+    return this.http.get<AccommodationPopular[]>(url);
+  }
+  getMinMaxPrice(): Observable<Number[]> {
+    const url = environment.apiHost + `accommodations/minMaxPrice`;
+    return this.http.get<Number[]>(url);
+  }
+
+  getAccommodationsForHost(): Observable<AccommodationPopular[]>{
+    const url = environment.apiHost + `accommodations/host/${this.authService.getId()}`;
+    return this.http.get<AccommodationPopular[]>(url);
+  }
+
+
+  filterAccommodations(
+    city?: string | null,
+    numberOfGuests?: number | null,
+    startDate?: Date | null,
+    endDate?: Date | null,
+    startPrice?: Number | null,
+    endPrice?: Number | null,
+    amenities?: Amenities[],  
+    accommodationType?: AccommodationType | null
+  ): Observable<AccommodationPopular[]> {
+    const url = environment.apiHost + `accommodations/cards/filter`;
+    let params = new HttpParams()
+      .set('city', city || '')
+      .set('numberOfGuests',  numberOfGuests?.toString() || '')
+      .set('startPrice', startPrice?.toString() || '')
+      .set('endPrice', endPrice?.toString() || '')
+      .set('amenities', amenities ? amenities.join(',') : '')
+      .set('accommodationType', accommodationType || '');
+
+    if (startDate) {
+      params = params.set('startDate', this.datePipe.transform(startDate, 'yyyy-MM-dd') || '');
+    }
+
+    if (endDate) {
+      params = params.set('endDate', this.datePipe.transform(endDate, 'yyyy-MM-dd') || '');
+    }
+
+    return this.http.get<AccommodationPopular[]>(url, { params });
   }
 
 }
