@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AccommodationCard } from '../model/card.model';
 import { AccommodationService } from '../services/accommodation.service';
 import { environment } from 'src/env/env';
-import { AccommodationDetails } from '../accommodation-details/model/accommodation.model';
+import { AccommodationDetails } from '../model/accommodation.model';
 
 @Component({
   selector: 'app-accommodation-approving',
