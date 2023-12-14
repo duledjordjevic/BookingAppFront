@@ -112,10 +112,10 @@
                     <img src="{{imageBase64}} {{card.image}}">
                     <div class="card-description">
                         <div class="title-rating">
-                            <h4>{{ card.title }}</h4>
+                            <h5>{{ card.title }}</h5>
                             <div class="rating">
                                 <span><img src="../../../assets/images/star-fill.svg"></span>
-                                <span *ngIf="card.avgRate != null"> {{card.avgRate?.toFixed(1)}}</span>
+                                <span *ngIf="card.avgRate != null"> {{card.avgRate.toFixed(1)}}</span>
                                 <span *ngIf="card.avgRate == null"> No reviews</span>
                             </div>
                             
