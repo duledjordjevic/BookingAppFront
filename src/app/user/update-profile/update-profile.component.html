@@ -49,6 +49,8 @@
             <div class="div-margin">
                 <input type="password" formControlName="oldPassword" required required required placeholder="Old password">
                 <p *ngIf="passwordRequired == true">*Your password is required</p>
+                <p *ngIf="canNotUpdateUser == true">*User cannot be updated</p>
+                <p *ngIf="canNotDeleteUser == true">*User cannot be deleted</p>
                 <p id="update-label" *ngIf="updateConfirmation == true">Successfully updated informations</p>
             </div>
             <div class="div-margin">
