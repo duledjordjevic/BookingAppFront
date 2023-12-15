@@ -66,6 +66,8 @@ export class UpdateProfileComponent implements OnInit {
     cityAndPostalCodeRequired: boolean = false;
     passwordsMatching: boolean = false;
     updateConfirmation: boolean = false;
+    canNotUpdateUser: boolean = false;
+    canNotDeleteUser:boolean = false;
 
     updateUser(): void {
       this.streetRequired = false;
@@ -80,6 +82,9 @@ export class UpdateProfileComponent implements OnInit {
       this.cityAndPostalCodeRequired = false;
       this.passwordsMatching = false;
       this.updateConfirmation = false;
+      this.canNotUpdateUser = false;
+      this.canNotDeleteUser = false;
+
 
         if(!this.updateProfileForm.valid){
 
@@ -136,12 +141,20 @@ export class UpdateProfileComponent implements OnInit {
             next:(_)=>{
               this.updateConfirmation = true;
               console.log("Uspesan zahtev");
+            },
+            error:(error) =>{
+              console.log(error);
+              this.canNotUpdateUser = true;
             }
         })
 
     }
     deleteUser(): void{
       this.passwordRequired = false;
+      this.canNotDeleteUser = false;
+      this.canNotUpdateUser = false;
+
+
       if(this.updateProfileForm.value.oldPassword ==""){
         this.passwordRequired = true;
         return;
@@ -153,6 +166,10 @@ export class UpdateProfileComponent implements OnInit {
         next:(_)=>{
           console.log("Uspesno obrisan user");
           this.sharedService.deleteUserFromLocalStorage();
+        },
+        error:(error) =>{
+          console.log(error);
+          this.canNotDeleteUser = true;
         }
       })
     }
