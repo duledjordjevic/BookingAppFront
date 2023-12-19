@@ -2,15 +2,28 @@
     min-height: 1200px;
     background-color: #F6F8FA;
 }
+#title{
+    max-width: 1600px;
+    margin:auto;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+#title h1{
+    font-size: 60px;
+    color: #2e2e2e;
+    align-self: center;
+}
+
 .main{
     display: flex;
     margin:auto;
     align-items: center;
     flex-direction: row;
     max-width: 1600px;
-    padding: 70px 100px;
+    padding: 40px;
     justify-content: center;
-    
 }
 .cards{
     display: flex;

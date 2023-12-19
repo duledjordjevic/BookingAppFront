@@ -87,7 +87,6 @@ export class AccommodationDetailsComponent{
 	haveCommentsAndReviews: boolean = true;
 	numberOfGuests: number[] = [];
 	accommodationId:number = 0;
-	
 	ngOnInit(): void{
 		this.route.queryParams.subscribe(params => {
         	console.log(params); 
@@ -202,7 +201,7 @@ export class AccommodationDetailsComponent{
 			
 		})
 		
-		
+
 	}
 
 	user: string = "";

@@ -1,4 +1,7 @@
 <div class="main-container">
+    <div id="title">
+        <h1>My properties</h1>
+    </div>
     <div class="main">
         <div class="cards">
             <div class="card" *ngFor="let card of hostAccommodations;" [routerLink]="['/accommodation-details']" [queryParams]="{id: card.id}">

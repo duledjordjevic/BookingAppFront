@@ -13,6 +13,7 @@ export interface AccommodationDetails {
     address: Address;
     amenities:Amenities[];
     images:string[];
+	hostId?: number;
 }
 
 export enum Amenities {
