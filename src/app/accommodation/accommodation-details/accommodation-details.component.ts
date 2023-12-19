@@ -87,6 +87,8 @@ export class AccommodationDetailsComponent{
 	haveCommentsAndReviews: boolean = true;
 	numberOfGuests: number[] = [];
 	accommodationId:number = 0;
+	isHostAcc:boolean = false;
+
 	ngOnInit(): void{
 		this.route.queryParams.subscribe(params => {
         	console.log(params); 
@@ -135,7 +137,14 @@ export class AccommodationDetailsComponent{
 		this.accommodationService.getAccommodationInfo(this.accommodationId).subscribe({
 			next:(accommodationInfo: AccommodationDetails)=> {
 				this.accommodationDetails = accommodationInfo;
-
+				this.authService.getHostId(this.authService.getId()).subscribe({
+					next: (hostId:number) => {
+						if(accommodationInfo.hostId === hostId){
+							this.isHostAcc = true;
+						}
+					}
+				}
+				)
 				this.search(this.accommodationDetails.address.street + ', ' + this.accommodationDetails.address.city);
 
 				this.amenities = accommodationInfo.amenities;
