@@ -1,6 +1,5 @@
 .mat-form-field {
 	width: 100%;
-	/*margin-bottom: 10px;*/
 }
 
 .price-input {
@@ -54,8 +53,10 @@
 .datePickers {
 	display: flex;
 	flex-direction: row;
-	gap: 10px;
-	align-items: baseline;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	gap: 5px;
 }
 
 .datePicker {
@@ -67,17 +68,25 @@
 	padding-inline: 60px;
 	margin-top: 10px;
 	background-color: #235471;
-	/*align-self: center;*/
 }
 
 .buttonAdd {
 	display: flex;
 	justify-content: center;
 	margin-top: 10px;
-	margin-bottom: 20px; /* Dodatni razmak ispod dugmeta */
+	margin-bottom: 20px;
 }
 
+.buttonDelete {
+	display: flex;
+	justify-content: center;
+	margin-top: 10px;
+	margin-bottom: 20px;
+}
 
+.mat-form-field-invalid .mat-form-field-infix {
+	border-bottom-color: inherit !important;
+}
 
 .title {
 	margin-bottom: 25px;
@@ -86,5 +95,9 @@
 .message {
 	display: flex;
 	justify-content: flex-start;
+}
+
+.buttonDelete button:disabled {
+	color: white;
 }
 

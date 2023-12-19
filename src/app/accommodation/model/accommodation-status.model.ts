@@ -1,0 +1,5 @@
+export enum AccommodationStatus{
+	AVAILABLE = "AVAILABLE",
+	NOT_AVAILABLE = "NOT_AVAILABLE",
+	RESERVED = "RESERVED"
+}

@@ -210,7 +210,7 @@ input[type="radio"] {
 .propertyAvailable{
 	background-color: white;
 	border-radius: 15px;
-	padding: 20px 40px;
+	padding: 20px 22px;
 	margin-bottom: 50px;
 }
 
@@ -293,5 +293,20 @@ input[type='radio'] {
 	font-size: 17px;
 	border-radius: 5px;
 	text-indent: 25px;
+}
+
+.setLocation {
+	display: flex;
+	align-items: flex-end;
+	justify-content: flex-end;
+}
+
+.setLocation button{
+	margin-left: 15px;
+	color: white;
+	background-color: #235471;
+	padding-inline: 25px;
+	border-radius: 5px;
+	border: 0.3px solid black;
 }
 
