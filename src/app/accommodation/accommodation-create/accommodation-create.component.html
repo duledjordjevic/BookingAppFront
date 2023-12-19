@@ -1,252 +1,129 @@
 <div class="main-container">
 	<div class="main">
-		<div class="basicInfo">
-			<div class="title">
-				<h1>{{title}}</h1>
-			</div>
-			<div class="descOfTitle">
-				<h6>{{descOfTitle}}</h6>
-			</div>
-			<div class="inputsBasicInfo">
-				<div class="inputState">
-					<input type="text" required placeholder="State">
+		<form [formGroup]="accommodation" (ngSubmit)="onSubmit()">
+			<div class="basicInfo">
+				<div class="title">
+					<h1>{{title}}</h1>
 				</div>
-				<div class="inputCityPostal">
-					<input id="city-input" type="text" required placeholder="City">
-					<input id="postal-input" type="number" required placeholder="Postal code">
+				<div class="descOfTitle">
+					<h6>{{descOfTitle}}</h6>
 				</div>
-				<div class="inputStreet">
-					<input type="text" required placeholder="Street">
+				<div class="inputsBasicInfo">
+					<div class="inputName">
+						<input formControlName="title" type="text" required placeholder="Property name">
+					</div>
+					<div class="inputState">
+						<input formControlName="state"  type="text" required placeholder="State">
+					</div>
+					<div class="inputCityPostal">
+						<input id="city-input" formControlName="city"  type="text" required placeholder="City">
+						<input id="postal-input" formControlName="postalCode" type="number" required placeholder="Postal code">
+					</div>
+					<div class="inputStreet">
+						<input formControlName="street" type="text" required placeholder="Street">
+					</div>
+					<div class="setLocation">
+						<button mat-raised-button type="button" (click)="setLocationOnMap()"
+								[ngClass]="{'clicked': buttonClicked}">Set location</button>
+					</div>
+					<div class="inputPropType">
+						<select class="custom-combobox" formControlName="type">
+							<option value="" disabled selected hidden>Property type</option>
+							<option value="HOTEL">Hotel</option>
+							<option value="APARTMENT">Apartment</option>
+						</select>
+					</div>
+
+					<div class="inputDesc">
+						<textarea formControlName="description" required placeholder="Property description"></textarea>
+					</div>
+
 				</div>
-				<div class="inputName">
-					<input type="text" required placeholder="Property name">
+				<div class="titlePhotos">
+					<h1>Photos</h1>
 				</div>
-				<div class="inputPropType">
-					<select class="custom-combobox">
-						<option value="" disabled selected hidden>Property type</option>
-						<option value="option1">Hotel</option>
-						<option value="option2">Apartment</option>
-					</select>
-				</div>
-
-				<div class="inputDesc">
-					<textarea [(ngModel)]="propertyDescription" required placeholder="Property description"></textarea>
-				</div>
-
-			</div>
-			<div class="titlePhotos">
-				<h1>Photos</h1>
-			</div>
-			<div class="descOfTitle">
-				<p>{{photoText}}</p>
-			</div>
-		</div>
-
-		<div class="imageUpload">
-			<app-accommodation-picture-upload></app-accommodation-picture-upload>
-		</div>
-
-		<div class="location">
-			<h4>Location of apartment</h4>
-			<div class="map">
-				<google-map [options]="mapOptions" width="100%">
-					<map-marker [position]="{ lat: spot.lat, lng: spot.lng }"></map-marker>
-				</google-map>
-			</div>
-		</div>
-
-		<div class="cancellationPolicy">
-			<div class="cancellationPolicyTitle">
-				<h4>Cancellation policy</h4>
-			</div>
-			<div class="cancellationPolicyDesc">
-				<p>{{descOfCancPolicy}}</p>
-			</div>
-			<div *ngFor="let option of optionsCancPolicy">
-				<input type="radio" name="options" [value]="option.id" [(ngModel)]="selectedCancPolicy">
-				{{ option.label }}
-				<br>
-			</div>
-		</div>
-
-		<div class="priceDefinition">
-			<h4>Payment method</h4>
-			<div>
-				<label>
-					<input type="radio" name="property" value="property" [(ngModel)]="selectedPriceDef">By property
-				</label>
-
-				<label>
-					<input type="radio" name="guests" value="guests" [(ngModel)]="selectedPriceDef">By number of guests
-				</label>
-			</div>
-		</div>
-
-		<div class="reservationDefinition">
-			<h4>Reservation confirmation method</h4>
-			<div>
-				<label>
-					<input type="radio" name="automatic" value="automatic" [(ngModel)]="selectedReservationDef">Automatic
-				</label>
-
-				<label>
-					<input type="radio" name="manual" value="manual" [(ngModel)]="selectedReservationDef">Manual
-				</label>
-			</div>
-		</div>
-
-		<div class="numberOfGuestsDefinition">
-			<h4>Number of guests</h4>
-			<div class="numGuests">
-				<input id="min-num-input" type="number" required placeholder="Minimum number of guests">
-				<input id="max-num-input" type="number" required placeholder="Maximum number of guests">
-			</div>
-		</div>
-
-		<div class="amenities">
-			<div class="amenitie">
-				<div class="amenitieName">
-					<img [src]="amenitieWifi" alt="Amenitie">
-					<p>Do you offer internet?</p>
-				</div>
-				<div class="buttons">
-					<button mat-raised-button [ngClass]="{'clicked': buttonStates['button1'].button1}"
-							(click)="toggleColor('button1', 'button1')">Yes</button>
-					<button mat-raised-button [ngClass]="{'clicked': buttonStates['button1'].button2}"
-							(click)="toggleColor('button1', 'button2')">No</button>
+				<div class="descOfTitle">
+					<p>{{photoText}}</p>
 				</div>
 			</div>
-		</div>
 
-		<div class="amenities">
-			<div class="amenitie">
-				<div class="amenitieName">
-					<img [src]="amenitieParking" alt="Amenitie">
-					<p>Do you offer parking?</p>
-				</div>
-				<div class="buttons">
-					<button mat-raised-button [ngClass]="{'clicked': buttonStates['button2'].button1}"
-							(click)="toggleColor('button2', 'button1')">Yes</button>
-					<button mat-raised-button [ngClass]="{'clicked': buttonStates['button2'].button2}"
-							(click)="toggleColor('button2', 'button2')">No</button>
+			<div class="imageUpload">
+				<app-accommodation-picture-upload></app-accommodation-picture-upload>
+			</div>
+
+			<div class="location">
+				<h4>Location of apartment</h4>
+				<div class="map">
+					<google-map [options]="mapOptions" width="100%">
+						<map-marker [position]="{ lat: spot.lat, lng: spot.lng }"></map-marker>
+					</google-map>
 				</div>
 			</div>
-		</div>
 
-		<div class="amenities">
-			<div class="amenitie">
-				<div class="amenitieName">
-					<img [src]="amenitieTV" alt="Amenitie">
-					<p>Do your guests have TV access?</p>
+			<div class="cancellationPolicy">
+				<div class="cancellationPolicyTitle">
+					<h4>Cancellation policy</h4>
 				</div>
-				<div class="buttons">
-					<button mat-raised-button [ngClass]="{'clicked': buttonStates['button3'].button1}"
-							(click)="toggleColor('button3', 'button1')">Yes</button>
-					<button mat-raised-button [ngClass]="{'clicked': buttonStates['button3'].button2}"
-							(click)="toggleColor('button3', 'button2')">No</button>
+				<div class="cancellationPolicyDesc">
+					<p>{{descOfCancPolicy}}</p>
+				</div>
+				<div *ngFor="let option of optionsCancPolicy">
+					<input type="radio" [value]="option.label" formControlName="cancellationPolicy">
+					{{ option.label }}
+					<br>
 				</div>
 			</div>
-		</div>
 
-		<div class="amenities">
-			<div class="amenitie">
-				<div class="amenitieName">
-					<img [src]="amenitieBreakfast" alt="Amenitie">
-					<p>Do you offer breakfast</p>
-				</div>
-				<div class="buttons">
-					<button mat-raised-button [ngClass]="{'clicked': buttonStates['button4'].button1}"
-							(click)="toggleColor('button4', 'button1')">Yes</button>
-					<button mat-raised-button [ngClass]="{'clicked': buttonStates['button4'].button2}"
-							(click)="toggleColor('button4', 'button2')">No</button>
+			<div class="priceDefinition">
+				<h4>Payment method</h4>
+				<div *ngFor="let option of optionsPaymentMethod">
+					<input type="radio" [value]="option.label" formControlName="isPriceForEntireAcc">
+					{{ option.label }}
+					<br>
 				</div>
 			</div>
-		</div>
 
-		<div class="amenities">
-			<div class="amenitie">
-				<div class="amenitieName">
-					<img [src]="amenitieLunch" alt="Amenitie">
-					<p>Do you offer lunch?</p>
-				</div>
-				<div class="buttons">
-					<button mat-raised-button [ngClass]="{'clicked': buttonStates['button5'].button1}"
-							(click)="toggleColor('button5', 'button1')">Yes</button>
-					<button mat-raised-button [ngClass]="{'clicked': buttonStates['button5'].button2}"
-							(click)="toggleColor('button5', 'button2')">No</button>
+			<div class="reservationDefinition">
+				<h4>Reservation confirmation method</h4>
+				<div *ngFor="let option of optionsReservationDefinition">
+					<input type="radio" [value]="option.label" formControlName="reservationMethod">
+					{{ option.label }}
+					<br>
 				</div>
 			</div>
-		</div>
 
-		<div class="amenities">
-			<div class="amenitie">
-				<div class="amenitieName">
-					<img [src]="amenitieDinner" alt="Amenitie">
-					<p>Do you offer dinner?</p>
-				</div>
-				<div class="buttons">
-					<button mat-raised-button [ngClass]="{'clicked': buttonStates['button6'].button1}"
-							(click)="toggleColor('button6', 'button1')">Yes</button>
-					<button mat-raised-button [ngClass]="{'clicked': buttonStates['button6'].button2}"
-							(click)="toggleColor('button6', 'button2')">No</button>
+			<div class="numberOfGuestsDefinition">
+				<h4>Number of guests</h4>
+				<div class="numGuests">
+					<input id="min-num-input" formControlName="minGuests" type="number" required placeholder="Minimum number of guests">
+					<input id="max-num-input" formControlName="maxGuests" type="number" required placeholder="Maximum number of guests">
 				</div>
 			</div>
-		</div>
 
-		<div class="amenities">
-			<div class="amenitie">
-				<div class="amenitieName">
-					<img [src]="amenitiePoolAccess" alt="Amenitie">
-					<p>Do your guests have pool access?</p>
-				</div>
-				<div class="buttons">
-					<button mat-raised-button [ngClass]="{'clicked': buttonStates['button7'].button1}"
-							(click)="toggleColor('button7', 'button1')">Yes</button>
-					<button mat-raised-button [ngClass]="{'clicked': buttonStates['button7'].button2}"
-							(click)="toggleColor('button7', 'button2')">No</button>
-				</div>
-			</div>
-		</div>
-
-		<div class="amenities">
-			<div class="amenitie">
-				<div class="amenitieName">
-					<img [src]="amenitieAirCondition" alt="Amenitie">
-					<p>Do you offer air conditioning?</p>
-				</div>
-				<div class="buttons">
-					<button mat-raised-button [ngClass]="{'clicked': buttonStates['button8'].button1}"
-							(click)="toggleColor('button8', 'button1')">Yes</button>
-					<button mat-raised-button [ngClass]="{'clicked': buttonStates['button8'].button2}"
-							(click)="toggleColor('button8', 'button2')">No</button>
+			<div *ngFor="let amenity of amenityData; let i = index" class="amenities">
+				<div class="amenitie">
+					<div class="amenitieName">
+						<img [src]="amenity.image" alt="Amenitie">
+						<p>{{ amenity.question }}</p>
+					</div>
+					<div class="buttons">
+						<button mat-raised-button type="button"  [ngClass]="{'clicked': buttonStates['button' + (i + 1)].button1}"
+								(click)="toggleColor('button' + (i + 1), 'button1', amenity.amenitie)">Yes</button>
+						<button mat-raised-button type="button"  [ngClass]="{'clicked': buttonStates['button' + (i + 1)].button2}"
+								(click)="toggleColor('button' + (i + 1), 'button2', amenity.amenitie)">No</button>
+					</div>
 				</div>
 			</div>
-		</div>
 
-		<div class="amenities">
-			<div class="amenitie">
-				<div class="amenitieName">
-					<img [src]="amenitieKitchen" alt="Amenitie">
-					<p>Do you offer kitchen?</p>
-				</div>
-				<div class="buttons">
-					<button mat-raised-button [ngClass]="{'clicked': buttonStates['button9'].button1}"
-							(click)="toggleColor('button9', 'button1')">Yes</button>
-					<button mat-raised-button [ngClass]="{'clicked': buttonStates['button9'].button2}"
-							(click)="toggleColor('button9', 'button2')">No</button>
-				</div>
+			<div class="propertyAvailable">
+				<app-pricelist></app-pricelist>
 			</div>
-		</div>
 
-		<div class="propertyAvailable">
-			<app-pricelist></app-pricelist>
-		</div>
-
-		<div class="addButtons">
-			<button mat-raised-button id="cancel">Cancel</button>
-			<button mat-raised-button id="add">Add</button>
-		</div>
-
+			<div class="addButtons">
+				<button mat-raised-button id="cancel">Cancel</button>
+				<button mat-raised-button type="submit" id="add">Add</button>
+			</div>
+		</form>
 	</div>
 </div>
 
