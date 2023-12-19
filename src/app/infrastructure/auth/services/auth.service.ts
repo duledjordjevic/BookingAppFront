@@ -55,6 +55,11 @@ export class AuthService {
       }
       return 0;
     }
+
+    getHostId(userId: number): Observable<number> {
+      return this.http.get<number>(environment.apiHost + 'users/host/' + userId);
+    }
+
     getEmail(): string{
       if (this.isLoggedIn()) {
         const accessToken: any = localStorage.getItem('user');

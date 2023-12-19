@@ -13,13 +13,14 @@ import { AccommodationsFilterComponent } from './accommodation/accommodations-fi
 import { AccommodationDetailsComponent } from './accommodation/accommodation-details/accommodation-details.component';
 import { combineLatest } from 'rxjs';
 import { AccommodationsForHostComponent } from './accommodation/accommodations-for-host/accommodations-for-host.component';
+import { UnauthorizedGuard } from './infrastructure/auth/guard/unauthorized.guard';
 const routes: Routes = [
   {path : "home", component : HomeComponent,},
-  {path: "login", component: LogInComponent},
-  {path: "register", component: RegisterComponent},
-	{path: "accommodation-create", component: AccommodationCreateComponent},
+  {path: "login", component: LogInComponent, canActivate: [UnauthorizedGuard]},
+  {path: "register", component: RegisterComponent, canActivate: [UnauthorizedGuard]},
+	{path: "accommodation-create", component: AccommodationCreateComponent, canActivate: [AuthGuard], data: {role: ['HOST']}},
   {path: "accommodation-details-images", component: AccommodationDetailsImagesComponent},
-  {path: "update-profile", component: UpdateProfileComponent, canActivate: [AuthGuard], data: {role: ['ADMIN', 'GUEST', 'HOST']}},
+  {path: "update-profile", component: UpdateProfileComponent, canActivate: [AuthGuard], data: {role: ['GUEST', 'HOST']}},
   {path: "accommodation-approving", component: AccommodationApprovingComponent, canActivate: [AuthGuard], data: {role: ['ADMIN']}},
   {path: "update-admin", component: UpdateAdminComponent, canActivate: [AuthGuard], data: {role: ['ADMIN']}},
   {path: "all-accommodations", component: AccommodationsFilterComponent},
