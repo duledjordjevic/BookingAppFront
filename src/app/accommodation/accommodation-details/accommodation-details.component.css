@@ -350,3 +350,7 @@ hr {
 	background-color: #235471;
 	color: #FFF;
 }
+
+.pictures img{
+	cursor: pointer;
+}
