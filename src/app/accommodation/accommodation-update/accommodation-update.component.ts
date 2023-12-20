@@ -25,7 +25,7 @@ import {
 })
 export class AccommodationUpdateComponent {
 
-	@ViewChild(AccommodationPictureUploadComponent) childComponent!: AccommodationPictureUploadComponent;
+	@ViewChild(AccommodationUpdatePicturesComponent) childComponent!: AccommodationUpdatePicturesComponent;
 	@ViewChild(PricelistComponent) priceListComponent!: PricelistComponent;
 
 	buttonStates: { [key: string]: { button1: boolean, button2: boolean } } = {};
@@ -345,7 +345,7 @@ export class AccommodationUpdateComponent {
 		this.minPictureNumber = false;
 
 		this.childComponent.sendObject();
-		this.priceListComponent.sendObject();
+		// this.priceListComponent.sendObject();
 
 		if (this.accommodation.valid)  {
 			if(this.accommodation.value.minGuests !== undefined && this.accommodation.value.maxGuests !== undefined
@@ -385,23 +385,23 @@ export class AccommodationUpdateComponent {
 					console.log(acc);
 					console.log("----");
 
-					this.accommodationService.addAccommodation(acc).subscribe({
+					this.accommodationService.updateAccommodation(acc, this.accommodationId).subscribe({
 						next: (createdAcc) => {
-							console.log("this is created acc");
+							console.log("this is updated acc");
 							console.log(createdAcc);
 							// this.childComponent.sendObject();
-							this.accommodationService.addAccommodationImages(this.files, createdAcc.id).subscribe({
+							this.accommodationService.addAccommodationImages(this.files, this.accommodationId).subscribe({
 								next:(result) => {
 									console.log(result);
-									this.accommodationService.addIntervalPrice(createdAcc.id, this.intervals).subscribe({
-										next:(result) => {
-											console.log(result);
-
-										},
-										error: (error) => {
-											console.error("Error adding intervals:", error);
-										}
-									})
+									// this.accommodationService.addIntervalPrice(createdAcc.id, this.intervals).subscribe({
+									// 	next:(result) => {
+									// 		console.log(result);
+									//
+									// 	},
+									// 	error: (error) => {
+									// 		console.error("Error adding intervals:", error);
+									// 	}
+									// })
 								},
 								error: (error) => {
 									console.error("Error adding accommodation images:", error);

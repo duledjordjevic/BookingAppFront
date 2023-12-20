@@ -135,5 +135,14 @@ export class AccommodationService {
 		const url = environment.apiHost + `images/${id}`;
 		return this.http.get<string []>(url);
 	}
+
+	updateAccommodation(accommodation: Accommodation, id:number): Observable<Accommodation>{
+		const url = environment.apiHost + `accommodations/${id}`;
+		return this.http.put<Accommodation>(url, accommodation, {
+			headers: new HttpHeaders({
+				'Content-Type': 'application/json'
+			})
+		});
+	}
 }
 
