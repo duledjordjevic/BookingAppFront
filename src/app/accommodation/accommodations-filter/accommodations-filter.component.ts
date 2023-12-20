@@ -80,15 +80,19 @@ export class AccommodationsFilterComponent {
  
 
   getAccommodations() : void{
-    this.accommodationService.getAllAccommodationsCards().subscribe({
-      next:(accommodations: AccommodationPopular[]) =>{
-        this.cards = accommodations;
-        console.log(this.cards);
-      },
-      error:(err : any)=>{
-        console.log(err);
-      }
-    })
+    this.accommodationService.filterAccommodations(this.headerFilterForm.value.city,this.headerFilterForm.value.numOfGuests,this.headerFilterForm.value.startDate,this.headerFilterForm.value.endDate,
+      this.startedValue,this.endValue,this.amenities,this.accommodationType).subscribe({
+        next:(accommodations: AccommodationPopular[]) => {
+          this.filteredAccommodations = accommodations;
+
+          console.log(this.filteredAccommodations);
+
+          if(this.filteredAccommodations.length == 0){
+            this.haveFilteredResults = false;
+          }
+
+        }
+      })
     this.accommodationService.getMinMaxPrice().subscribe({
       next:(prices: Number[]) => {
         this.startedValue = prices[0];
