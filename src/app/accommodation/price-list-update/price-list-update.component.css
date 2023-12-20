@@ -1,0 +1,108 @@
+.mat-form-field {
+	width: 100%;
+}
+
+.price-input {
+	margin-top: 0;
+}
+
+.data-table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 20px;
+	margin-bottom: 30px;
+}
+
+.data-table th, .data-table td {
+	border: 1px solid #ddd;
+	padding: 8px;
+	text-align: left;
+}
+
+.data-table th {
+	background-color: #f2f2f2;
+}
+
+.highlighted-row {
+	background-color: #e8f5fd;
+}
+
+.mat-datepicker-content {
+	font-size: 12px;
+}
+
+.mat-form-field-label {
+	font-size: 12px;
+}
+
+.mat-datepicker-toggle {
+	font-size: 12px;
+	line-height: 1;
+	height: 20px;
+}
+
+.mat-input-element {
+	font-size: 12px;
+}
+
+.mat-button-wrapper {
+	font-size: 12px;
+	height: 24px;
+}
+
+.datePickers {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	gap: 5px;
+}
+
+.datePicker {
+	flex: 1;
+	max-width: 250px;
+}
+
+.data-entry-form button {
+	padding-inline: 60px;
+	margin-top: 10px;
+	background-color: #235471;
+}
+
+.buttonAdd {
+	display: flex;
+	justify-content: center;
+	margin-top: 10px;
+	margin-bottom: 20px;
+}
+
+.buttonDelete {
+	display: flex;
+	justify-content: center;
+	margin-top: 10px;
+	margin-bottom: 20px;
+}
+
+.mat-form-field-invalid .mat-form-field-infix {
+	border-bottom-color: inherit !important;
+}
+
+.title {
+	margin-bottom: 25px;
+}
+
+.message {
+	display: flex;
+	justify-content: flex-start;
+}
+
+.buttonDelete button:disabled {
+	color: white;
+}
+
+.validateMessage p {
+	color: #BA1A1A;
+}
+
+

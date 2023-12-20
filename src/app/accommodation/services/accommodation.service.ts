@@ -144,5 +144,10 @@ export class AccommodationService {
 			})
 		});
 	}
+
+	getIntervals(id: number): Observable<IntervalPrice[]>{
+		const url = environment.apiHost + `accommodations/intervalPrices/${id}`;
+		return this.http.get<IntervalPrice[]>(url);
+	}
 }
 

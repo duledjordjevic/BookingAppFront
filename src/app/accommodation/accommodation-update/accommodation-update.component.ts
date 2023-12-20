@@ -17,6 +17,7 @@ import {ActivatedRoute} from "@angular/router";
 import {
 	AccommodationUpdatePicturesComponent
 } from "../accommodation-update-pictures/accommodation-update-pictures.component";
+import {PriceListUpdateComponent} from "../price-list-update/price-list-update.component";
 
 @Component({
   selector: 'app-accommodation-update',
@@ -26,7 +27,7 @@ import {
 export class AccommodationUpdateComponent {
 
 	@ViewChild(AccommodationUpdatePicturesComponent) childComponent!: AccommodationUpdatePicturesComponent;
-	@ViewChild(PricelistComponent) priceListComponent!: PricelistComponent;
+	@ViewChild(PriceListUpdateComponent) priceListComponent!: PriceListUpdateComponent;
 
 	buttonStates: { [key: string]: { button1: boolean, button2: boolean } } = {};
 	acc: Accommodation = {}
@@ -345,7 +346,7 @@ export class AccommodationUpdateComponent {
 		this.minPictureNumber = false;
 
 		this.childComponent.sendObject();
-		// this.priceListComponent.sendObject();
+		this.priceListComponent.sendObject();
 
 		if (this.accommodation.valid)  {
 			if(this.accommodation.value.minGuests !== undefined && this.accommodation.value.maxGuests !== undefined
@@ -393,15 +394,15 @@ export class AccommodationUpdateComponent {
 							this.accommodationService.addAccommodationImages(this.files, this.accommodationId).subscribe({
 								next:(result) => {
 									console.log(result);
-									// this.accommodationService.addIntervalPrice(createdAcc.id, this.intervals).subscribe({
-									// 	next:(result) => {
-									// 		console.log(result);
-									//
-									// 	},
-									// 	error: (error) => {
-									// 		console.error("Error adding intervals:", error);
-									// 	}
-									// })
+									console.log("OVO SU INTERVALI", this.intervals);
+									this.accommodationService.addIntervalPrice(this.accommodationId, this.intervals).subscribe({
+										next:(result) => {
+											console.log(result);
+										},
+										error: (error) => {
+											console.error("Error adding intervals:", error);
+										}
+									})
 								},
 								error: (error) => {
 									console.error("Error adding accommodation images:", error);
