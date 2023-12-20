@@ -1,1 +1,135 @@
-<p>accommodation-update works!</p>
+<div class="main-container">
+	<div class="main">
+		<form [formGroup]="accommodation" (ngSubmit)="onSubmit()">
+			<div class="basicInfo">
+				<div class="title">
+					<h1>{{title}}</h1>
+				</div>
+				<div class="inputsBasicInfo">
+					<div class="inputName">
+						<input formControlName="title" type="text" required placeholder="Property name">
+					</div>
+					<div class="inputState">
+						<input formControlName="state"  type="text" required placeholder="State">
+					</div>
+					<div class="inputCityPostal">
+						<input id="city-input" formControlName="city"  type="text" required placeholder="City">
+						<input id="postal-input" formControlName="postalCode" type="number" required placeholder="Postal code">
+					</div>
+					<div class="inputStreet">
+						<input formControlName="street" type="text" required placeholder="Street">
+					</div>
+					<div class="setLocation">
+						<button mat-raised-button type="button" (click)="setLocationOnMap()"
+								[ngClass]="{'clicked': buttonClicked}">Set location</button>
+					</div>
+					<div class="inputPropType">
+						<select class="custom-combobox" formControlName="type">
+							<option value="" disabled selected hidden>Property type</option>
+							<option value="HOTEL">Hotel</option>
+							<option value="APARTMENT">Apartment</option>
+						</select>
+					</div>
+
+					<div class="inputDesc">
+						<textarea formControlName="description" required placeholder="Property description"></textarea>
+					</div>
+
+				</div>
+				<div class="titlePhotos">
+					<h1>Photos</h1>
+				</div>
+				<div class="descOfTitle">
+					<p>{{photoText}}</p>
+				</div>
+			</div>
+
+			<div class="imageUpload">
+				<app-accommodation-update-pictures (childObject)="acceptObject($event)"></app-accommodation-update-pictures>
+			</div>
+
+			<div class="location">
+				<h4>Location of apartment</h4>
+				<div class="map">
+					<google-map [options]="mapOptions" width="100%">
+						<map-marker [position]="{ lat: spot.lat, lng: spot.lng }"></map-marker>
+					</google-map>
+				</div>
+			</div>
+
+			<div class="cancellationPolicy">
+				<div class="cancellationPolicyTitle">
+					<h4>Cancellation policy</h4>
+				</div>
+				<div class="cancellationPolicyDesc">
+					<p>{{descOfCancPolicy}}</p>
+				</div>
+				<div *ngFor="let option of optionsCancPolicy">
+					<input type="radio" [value]="option.label" formControlName="cancellationPolicy">
+					{{ option.label }}
+					<br>
+				</div>
+			</div>
+
+			<div class="priceDefinition">
+				<h4>Payment method</h4>
+				<div *ngFor="let option of optionsPaymentMethod">
+					<input type="radio" [value]="option.label" formControlName="isPriceForEntireAcc" [attr.disabled]="true">
+					{{ option.label }}
+					<br>
+				</div>
+			</div>
+
+			<div class="reservationDefinition">
+				<h4>Reservation confirmation method</h4>
+				<div *ngFor="let option of optionsReservationDefinition">
+					<input type="radio" [value]="option.label" formControlName="reservationMethod">
+					{{ option.label }}
+					<br>
+				</div>
+			</div>
+
+			<div class="numberOfGuestsDefinition">
+				<h4>Number of guests</h4>
+				<div class="numGuests">
+					<input id="min-num-input" formControlName="minGuests" type="number" required placeholder="Minimum number of guests">
+					<input id="max-num-input" formControlName="maxGuests" type="number" required placeholder="Maximum number of guests">
+				</div>
+			</div>
+
+			<div *ngFor="let amenity of amenityData; let i = index" class="amenities">
+				<div class="amenitie">
+					<div class="amenitieName">
+						<img [src]="amenity.image" alt="Amenitie">
+						<p>{{ amenity.question }}</p>
+					</div>
+					<div class="buttons">
+						<button mat-raised-button type="button" [ngClass]="{'clicked': buttonStates['button' + (i + 1)].button1}"
+								(click)="toggleColor('button' + (i + 1), 'button1', amenity.amenitie)">Yes</button>
+						<button mat-raised-button type="button" [ngClass]="{'clicked': buttonStates['button' + (i + 1)].button2}"
+								(click)="toggleColor('button' + (i + 1), 'button2', amenity.amenitie)">No</button>
+					</div>
+				</div>
+			</div>
+
+
+
+			<div class="propertyAvailable">
+				<app-pricelist (priceListObject)="acceptIntervals($event)"></app-pricelist>
+			</div>
+
+			<div class="validateMessage">
+				<p *ngIf="fieldsRequired">All fields are required</p>
+				<p *ngIf="minMaxGuests">Max number of guest is 10 and min is 1</p>
+				<p *ngIf="minPictureNumber">Min number of pictures if 5</p>
+			</div>
+
+			<div class="addButtons">
+				<button mat-raised-button id="cancel">Cancel</button>
+				<button mat-raised-button type="submit" id="add">Add</button>
+			</div>
+		</form>
+	</div>
+</div>
+
+

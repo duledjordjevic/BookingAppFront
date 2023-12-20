@@ -54,20 +54,20 @@ export interface AccommodationPopular{
 
 export interface Accommodation{
 	id?: number | null;
-	title: string;
-	type: AccommodationType;
-	description: string;
-	cancellationPolicy: CancellationPolicy;
-	reservationMethod: ReservationMethod;
-	minGuest: number;
-	maxGuest: number;
-	address: Address;
-	amenities:Amenities[];
-	isPriceForEntireAcc: boolean;
-	accommodationApprovalStatus: ApprovalStatus;
-	hostId: number;
+	title?: string;
+	type?: AccommodationType;
+	description?: string;
+	cancellationPolicy?: CancellationPolicy;
+	reservationMethod?: ReservationMethod;
+	minGuest?: number;
+	maxGuest?: number;
+	address?: Address;
+	amenities?:Amenities[];
+	isPriceForEntireAcc?: boolean;
+	accommodationApprovalStatus?: ApprovalStatus;
+	hostId?: number;
 	prices?: PriceList[] | null;
-	images?: string | null
+	images?: string[] | null;
 }
 
 export interface AccommodationCreate{

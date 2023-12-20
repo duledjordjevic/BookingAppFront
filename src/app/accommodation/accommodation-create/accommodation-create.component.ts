@@ -229,12 +229,14 @@ export class AccommodationCreateComponent {
 	fieldsRequired: boolean = false;
 	minMaxGuests: boolean = false;
 	minPictureNumber: boolean = false;
+	priceListRequired: boolean = false;
 
 	onSubmit(): void {
 		this.trimValues()
 		this.fieldsRequired = false;
 		this.minMaxGuests = false;
 		this.minPictureNumber = false;
+		this.priceListRequired = false;
 
 		this.childComponent.sendObject();
 		this.priceListComponent.sendObject();
@@ -244,66 +246,71 @@ export class AccommodationCreateComponent {
 				&& this.accommodation.value.minGuests > 0 && this.accommodation.value.minGuests <= this.accommodation.value.maxGuests
 			&& this.accommodation.value.maxGuests <= 10) {
 				if(this.files.length >= 5){
-					const address: Address = {
-						id: null,
-						street: this.accommodation.value.street || "",
-						city: this.accommodation.value.city || "",
-						postalCode: this.accommodation.value.postalCode || "",
-						state: this.accommodation.value.state || "",
-						latitude: 0,
-						longitude: 0
-
-					}
-					// @ts-ignore
-					const acc: Accommodation = {
-						id: null,
-						title: this.accommodation.value.title || "",
-						type: this.mapAccommodationType(this.accommodation.value.type) as AccommodationType,
-						description: this.accommodation.value.description || "",
-						address: address,
-						cancellationPolicy: this.mapCancellationPolicy(this.accommodation.value.cancellationPolicy) as CancellationPolicy,
-						isPriceForEntireAcc: this.mapPaymentMethod(this.accommodation.value.isPriceForEntireAcc),
-						amenities: this.selectedAmenities,
-						accommodationApprovalStatus: ApprovalStatus.PENDING,
-						reservationMethod: this.mapReservationMethod(this.accommodation.value.reservationMethod) as ReservationMethod,
-						maxGuest: this.accommodation.value.maxGuests || 0,
-						minGuest: this.accommodation.value.minGuests || 0,
-						prices: null,
-						images: null,
-						hostId: this.authService.getId()
-					}
-
-					console.log("----");
-					console.log(acc);
-					console.log("----");
-
-					this.accommodationService.addAccommodation(acc).subscribe({
-						next: (createdAcc) => {
-							console.log("this is created acc");
-							console.log(createdAcc);
-							// this.childComponent.sendObject();
-							this.accommodationService.addAccommodationImages(this.files, createdAcc.id).subscribe({
-								next:(result) => {
-									console.log(result);
-									this.accommodationService.addIntervalPrice(createdAcc.id, this.intervals).subscribe({
-										next:(result) => {
-											this.router.navigate(['accommodations-for-host'], {queryParams: { newAccommodation: createdAcc.title } })
-										},
-										error: (error) => {
-											console.error("Error adding intervals:", error);
-										}
-									})
-								},
-								error: (error) => {
-									console.error("Error adding accommodation images:", error);
-								}
-
-							})
-						},
-						error: (error) => {
-							console.error("Error creating accommodation:", error);
+					if(this.intervals.length > 0){
+						const address: Address = {
+							id: null,
+							street: this.accommodation.value.street || "",
+							city: this.accommodation.value.city || "",
+							postalCode: this.accommodation.value.postalCode || "",
+							state: this.accommodation.value.state || "",
+							latitude: 0,
+							longitude: 0
 						}
-					});
+						// @ts-ignore
+						const acc: Accommodation = {
+							id: null,
+							title: this.accommodation.value.title || "",
+							type: this.mapAccommodationType(this.accommodation.value.type) as AccommodationType,
+							description: this.accommodation.value.description || "",
+							address: address,
+							cancellationPolicy: this.mapCancellationPolicy(this.accommodation.value.cancellationPolicy) as CancellationPolicy,
+							isPriceForEntireAcc: this.mapPaymentMethod(this.accommodation.value.isPriceForEntireAcc),
+							amenities: this.selectedAmenities,
+							accommodationApprovalStatus: ApprovalStatus.PENDING,
+							reservationMethod: this.mapReservationMethod(this.accommodation.value.reservationMethod) as ReservationMethod,
+							maxGuest: this.accommodation.value.maxGuests || 0,
+							minGuest: this.accommodation.value.minGuests || 0,
+							prices: null,
+							images: null,
+							hostId: this.authService.getId()
+						}
+
+						console.log("----");
+						console.log(acc);
+						console.log("----");
+
+						this.accommodationService.addAccommodation(acc).subscribe({
+							next: (createdAcc) => {
+								console.log("this is created acc");
+								console.log(createdAcc);
+								// this.childComponent.sendObject();
+								this.accommodationService.addAccommodationImages(this.files, createdAcc.id).subscribe({
+									next:(result) => {
+										console.log(result);
+										this.accommodationService.addIntervalPrice(createdAcc.id, this.intervals).subscribe({
+											next:(result) => {
+												console.log(result);
+												this.router.navigate(['accommodations-for-host'], {queryParams: { newAccommodation: createdAcc.title } })
+											},
+											error: (error) => {
+												console.error("Error adding intervals:", error);
+											}
+										})
+									},
+									error: (error) => {
+										console.error("Error adding accommodation images:", error);
+									}
+
+								})
+							},
+							error: (error) => {
+								console.error("Error creating accommodation:", error);
+							}
+						});
+
+					} else {
+						this.priceListRequired = true;
+					}
 
 				} else {
 					this.minPictureNumber = true;

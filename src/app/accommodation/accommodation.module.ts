@@ -16,6 +16,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AccommodationsFilterComponent } from './accommodations-filter/accommodations-filter.component';
 import { AccommodationsForHostComponent } from './accommodations-for-host/accommodations-for-host.component';
 import { AccommodationUpdateComponent } from './accommodation-update/accommodation-update.component';
+import { AccommodationUpdatePicturesComponent } from './accommodation-update-pictures/accommodation-update-pictures.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { AccommodationUpdateComponent } from './accommodation-update/accommodati
  	AccommodationPictureUploadComponent,
   AccommodationsFilterComponent,
   AccommodationsForHostComponent,
-  AccommodationUpdateComponent
+  AccommodationUpdateComponent,
+  AccommodationUpdatePicturesComponent
   ],
 	imports: [
 		CommonModule,
