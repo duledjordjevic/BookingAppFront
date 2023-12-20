@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {NgxDropzoneChangeEvent} from "ngx-dropzone";
 
 @Component({
@@ -8,8 +8,15 @@ import {NgxDropzoneChangeEvent} from "ngx-dropzone";
 })
 export class AccommodationPictureUploadComponent {
 
+	@Output() childObject: EventEmitter<any> = new EventEmitter();
+
 	files: File[] = [];
 	imagePreviews: string[] = [];
+
+	maxNumberOfPictures: boolean = false;
+	sendObject() {
+		this.childObject.emit(this.files);
+	}
 
 	onDrop(event: NgxDropzoneChangeEvent): void {
 		if (event.addedFiles) {
@@ -18,16 +25,13 @@ export class AccommodationPictureUploadComponent {
 		}
 	}
 
-	onSelect(event: Event): void {
-		const input = event.target as HTMLInputElement;
-		if (input.files) {
-			const fileArray = Array.from(input.files);
-			this.handleFiles(fileArray);
-		}
-	}
-
 	private handleFiles(files: File[]): void {
 		for (let i = 0; i < files.length; i++) {
+			if (this.files.length > 9){
+				this.maxNumberOfPictures = true;
+				console.log(this.files.length);
+				return;
+			}
 			this.files.push(files[i]);
 			this.generateImagePreview(files[i]);
 		}

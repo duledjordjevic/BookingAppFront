@@ -70,3 +70,7 @@
 .brightness {
 	filter:brightness(60%);
 }
+
+.validateMessage p {
+	color: #BA1A1A;
+}
