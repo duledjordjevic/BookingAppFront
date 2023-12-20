@@ -13,7 +13,7 @@ import {CancellationPolicy} from "../model/cancellation-policy.model";
 import {ReservationMethod} from "../model/reservation-method.model";
 import {Address} from "../../models/shared.models";
 import {ApprovalStatus} from "../model/approval-status.model";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {
 	AccommodationUpdatePicturesComponent
 } from "../accommodation-update-pictures/accommodation-update-pictures.component";
@@ -33,7 +33,7 @@ export class AccommodationUpdateComponent {
 	accommodation: FormGroup;
 	constructor(private mapService: MapService, private cdr: ChangeDetectorRef,
 				private accommodationService: AccommodationService, private authService: AuthService,
-				private route: ActivatedRoute) {
+				private route: ActivatedRoute,private router: Router) {
 		for (let i = 1; i <= 18; i++) {
 			this.buttonStates[`button${i}`] = { button1: false, button2: false };
 		}
@@ -393,6 +393,7 @@ export class AccommodationUpdateComponent {
 							this.accommodationService.addAccommodationImages(this.files, this.accommodationId).subscribe({
 								next:(result) => {
 									console.log(result);
+									this.router.navigate(['accommodations-for-host'], {queryParams: { updateAccommodation: createdAcc.title } })
 									// this.accommodationService.addIntervalPrice(createdAcc.id, this.intervals).subscribe({
 									// 	next:(result) => {
 									// 		console.log(result);
