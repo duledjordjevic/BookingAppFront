@@ -17,6 +17,7 @@ import { AccommodationsFilterComponent } from './accommodations-filter/accommoda
 import { AccommodationsForHostComponent } from './accommodations-for-host/accommodations-for-host.component';
 import { AccommodationUpdateComponent } from './accommodation-update/accommodation-update.component';
 import { AccommodationUpdatePicturesComponent } from './accommodation-update-pictures/accommodation-update-pictures.component';
+import { PriceListUpdateComponent } from './price-list-update/price-list-update.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { AccommodationUpdatePicturesComponent } from './accommodation-update-pic
   AccommodationsFilterComponent,
   AccommodationsForHostComponent,
   AccommodationUpdateComponent,
-  AccommodationUpdatePicturesComponent
+  AccommodationUpdatePicturesComponent,
+  PriceListUpdateComponent
   ],
 	imports: [
 		CommonModule,
