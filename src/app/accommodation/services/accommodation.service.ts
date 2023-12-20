@@ -15,6 +15,7 @@ import { AccommodationCard } from "../model/card.model";
 import { DatePipe } from '@angular/common';
 import {Reservation} from "../model/reservation.model";
 import {ReservationMethod} from "../model/reservation-method.model";
+import {IntervalPrice} from "../model/interval-price.model";
 
 
 @Injectable({
@@ -105,5 +106,24 @@ export class AccommodationService {
 	  });
   }
 
+	addAccommodationImages(files: File[], accommodationId: number | null | undefined): Observable<any> {
+		const url = environment.apiHost + `images/${accommodationId}`;
+
+		const formData: FormData = new FormData();
+		for (let i = 0; i < files.length; i++) {
+			formData.append('image', files[i]);
+		}
+
+		return this.http.post<any>(url, formData);
+	}
+
+	addIntervalPrice(accommodationId: number | null | undefined, intervals: IntervalPrice[]): Observable<number> {
+		const url = environment.apiHost + `accommodations/priceList/${accommodationId}`;
+		return this.http.post<number>(url, intervals, {
+			headers: new HttpHeaders({
+				'Content-Type': 'application/json'
+			})
+		});
+	}
 }
 
