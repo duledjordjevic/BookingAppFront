@@ -13,6 +13,7 @@ import {
 } from "../accommodation-picture-upload/accommodation-picture-upload.component";
 import {PricelistComponent} from "../pricelist/pricelist.component";
 import {IntervalPrice} from "../model/interval-price.model";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-accommodation-create',
@@ -26,7 +27,7 @@ export class AccommodationCreateComponent {
 
 	buttonStates: { [key: string]: { button1: boolean, button2: boolean } } = {};
 	constructor(private mapService: MapService, private cdr: ChangeDetectorRef,
-				private accommodationService: AccommodationService, private authService: AuthService) {
+				private accommodationService: AccommodationService, private authService: AuthService, private router: Router) {
 		for (let i = 1; i <= 18; i++) {
 			this.buttonStates[`button${i}`] = { button1: false, button2: false };
 		}
@@ -286,8 +287,7 @@ export class AccommodationCreateComponent {
 									console.log(result);
 									this.accommodationService.addIntervalPrice(createdAcc.id, this.intervals).subscribe({
 										next:(result) => {
-											console.log(result);
-
+											this.router.navigate(['accommodations-for-host'], {queryParams: { newAccommodation: createdAcc.title } })
 										},
 										error: (error) => {
 											console.error("Error adding intervals:", error);
