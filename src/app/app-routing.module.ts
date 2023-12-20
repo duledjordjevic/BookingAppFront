@@ -25,7 +25,7 @@ const routes: Routes = [
   {path: "update-admin", component: UpdateAdminComponent, canActivate: [AuthGuard], data: {role: ['ADMIN']}},
   {path: "all-accommodations", component: AccommodationsFilterComponent},
   {path: "accommodation-details", component: AccommodationDetailsComponent},
-  {path: "accommodations-for-host", component: AccommodationsForHostComponent,canActivate: [AuthGuard], data: {role: ['HOST']}}
+  {path: "accommodations-for-host", component: AccommodationsForHostComponent,canActivate: [AuthGuard], data: {role: ['HOST']}},
 ];
 
 @NgModule({
