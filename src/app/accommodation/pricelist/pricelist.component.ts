@@ -1,12 +1,7 @@
-import { Component } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {Component, EventEmitter, Output} from '@angular/core';
+import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators} from "@angular/forms";
 import { ReactiveFormsModule } from '@angular/forms';
-interface DataRow {
-	rowNumber: number;
-	startDate: Date;
-	endDate: Date;
-	price: number;
-}
+import {IntervalPrice} from "../model/interval-price.model";
 @Component({
   selector: 'app-pricelist',
   templateUrl: './pricelist.component.html',
@@ -14,22 +9,31 @@ interface DataRow {
 })
 export class PricelistComponent {
 
+	@Output() priceListObject: EventEmitter<any> = new EventEmitter();
+
 	form: FormGroup;
-	data: DataRow[] = [];
-	currentId: number = 1;
+	data: IntervalPrice[] = [];
+	dateValidation: boolean = false;
+	// currentId: number = 1;
 
 	constructor(private fb: FormBuilder) {
 		this.form = this.fb.group({
-			startDate: [null, Validators.required],
-			endDate: [null, Validators.required],
-			price: [null, Validators.required]
+			startDate: [new Date(), Validators.required],
+			endDate: [new Date(), Validators.required],
+			price: [0, Validators.required]
 		});
 	}
 
+	sendObject() {
+		this.priceListObject.emit(this.data);
+	}
+
 	addRow() {
+		this.dateValidation = false;
+		this.setCustomValidators();
+
 		if (this.form.valid) {
-			const newRow: DataRow = {
-				rowNumber: this.currentId++,
+			const newRow: IntervalPrice = {
 				startDate: this.form.value.startDate,
 				endDate: this.form.value.endDate,
 				price: this.form.value.price
@@ -40,6 +44,8 @@ export class PricelistComponent {
 
 			// Resetujte formu
 			this.form.reset();
+		} else {
+			this.dateValidation = true;
 		}
 	}
 
@@ -75,14 +81,29 @@ export class PricelistComponent {
 				this.data.splice(index, 1);
 			});
 
-			this.resetCurrentId();
+			// this.resetCurrentId();
 			this.selectedRowIndexes = [];
 		}
 	}
 
-	resetCurrentId(): void {
-		const maxId = Math.max(...this.data.map(item => item.rowNumber), 0);
-		this.currentId = maxId + 1;
+	setCustomValidators() {
+		this.form.setValidators(this.dateValidator.bind(this));
+		this.form.updateValueAndValidity();
+	}
+
+	dateValidator(control: AbstractControl): ValidationErrors | null {
+		const startDate = control.get('startDate')?.value;
+		const endDate = control.get('endDate')?.value;
+
+		if (startDate && endDate && startDate > endDate) {
+			return { 'dateError': true, 'message': 'End date must be greater than start date.' };
+		}
+
+		if (startDate && startDate < new Date()) {
+			return { 'dateError': true, 'message': 'Start date must be in the future.' };
+		}
+
+		return null;
 	}
 
 }

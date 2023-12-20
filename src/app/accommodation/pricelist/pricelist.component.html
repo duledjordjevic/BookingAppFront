@@ -40,7 +40,6 @@
 	<table class="data-table">
 		<thead>
 		<tr>
-			<th>Id</th>
 			<th>Start Date</th>
 			<th>End Date</th>
 			<th>Price</th>
@@ -48,7 +47,6 @@
 		</thead>
 		<tbody>
 		<tr *ngFor="let element of data; let i = index" [ngClass]="{'highlighted-row': isRowSelected(i)}" (click)="selectRow(i)">
-			<td>{{ element.rowNumber }}</td>
 			<td>{{ element.startDate | date }}</td>
 			<td>{{ element.endDate | date }}</td>
 			<td>{{ element.price }}</td>
@@ -58,5 +56,9 @@
 
 	<div class="buttonDelete">
 		<button type="button" mat-raised-button color="warn" [disabled]="selectedRowIndexes.length === 0" (click)="deleteSelectedRows()">Delete Selected Rows</button>
+	</div>
+
+	<div class="validateMessage">
+		<p *ngIf="dateValidation">Date not valid</p>
 	</div>
 </form>
