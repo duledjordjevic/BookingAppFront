@@ -2,11 +2,20 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CommentModel } from '../model/comment.model';
 import { Observable } from 'rxjs';
-import { AccommodationDetails, AccommodationPopular, AccommodationType, Amenities } from '../model/accommodation.model';
+import {
+	Accommodation, AccommodationCreate,
+	AccommodationDetails,
+	AccommodationPopular,
+	AccommodationType,
+	Amenities
+} from '../model/accommodation.model';
 import { environment } from 'src/env/env';
 import { AuthService } from "src/app/infrastructure/auth/services/auth.service";
 import { AccommodationCard } from "../model/card.model";
 import { DatePipe } from '@angular/common';
+import {Reservation} from "../model/reservation.model";
+import {ReservationMethod} from "../model/reservation-method.model";
+import {IntervalPrice} from "../model/interval-price.model";
 
 
 @Injectable({
@@ -65,7 +74,7 @@ export class AccommodationService {
     endDate?: Date | null,
     startPrice?: Number | null,
     endPrice?: Number | null,
-    amenities?: Amenities[],  
+    amenities?: Amenities[],
     accommodationType?: AccommodationType | null
   ): Observable<AccommodationPopular[]> {
     const url = environment.apiHost + `accommodations/cards/filter`;
@@ -88,5 +97,33 @@ export class AccommodationService {
     return this.http.get<AccommodationPopular[]>(url, { params });
   }
 
+  addAccommodation(accommodation: Accommodation): Observable<Accommodation>{
+	  const url = environment.apiHost + 'accommodations';
+	  return this.http.post<Accommodation>(url, accommodation, {
+		  headers: new HttpHeaders({
+			  'Content-Type': 'application/json'
+		  })
+	  });
+  }
+
+	addAccommodationImages(files: File[], accommodationId: number | null | undefined): Observable<any> {
+		const url = environment.apiHost + `images/${accommodationId}`;
+
+		const formData: FormData = new FormData();
+		for (let i = 0; i < files.length; i++) {
+			formData.append('image', files[i]);
+		}
+
+		return this.http.post<any>(url, formData);
+	}
+
+	addIntervalPrice(accommodationId: number | null | undefined, intervals: IntervalPrice[]): Observable<number> {
+		const url = environment.apiHost + `accommodations/priceList/${accommodationId}`;
+		return this.http.post<number>(url, intervals, {
+			headers: new HttpHeaders({
+				'Content-Type': 'application/json'
+			})
+		});
+	}
 }
 

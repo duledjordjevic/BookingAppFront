@@ -1,0 +1,6 @@
+export enum CancellationPolicy{
+	HOURS24 = 'HOURS24',
+	HOURS48 = 'HOURS48',
+	HOURS72 = 'HOURS72',
+	NON_REFUNDABLE = 'NON_REFUNDABLE'
+}

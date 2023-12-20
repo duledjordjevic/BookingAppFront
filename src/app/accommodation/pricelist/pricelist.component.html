@@ -28,12 +28,8 @@
 				<input matInput type="number" formControlName="price">
 			</mat-form-field>
 		</div>
-
 	</div>
 
-	<div class="message">
-		<p>* First row is required (default price)</p>
-	</div>
 	<div class="buttonAdd">
 		<button type="button" mat-raised-button color="primary" (click)="addRow()">Add Row</button>
 	</div>
@@ -41,15 +37,13 @@
 	<table class="data-table">
 		<thead>
 		<tr>
-			<th>Id</th>
 			<th>Start Date</th>
 			<th>End Date</th>
 			<th>Price</th>
 		</tr>
 		</thead>
 		<tbody>
-		<tr *ngFor="let element of data; let i = index" [ngClass]="{'highlighted-row': i === 0}">
-			<td>{{ element.rowNumber }}</td>
+		<tr *ngFor="let element of data; let i = index" [ngClass]="{'highlighted-row': isRowSelected(i)}" (click)="selectRow(i)">
 			<td>{{ element.startDate | date }}</td>
 			<td>{{ element.endDate | date }}</td>
 			<td>{{ element.price }}</td>
@@ -57,4 +51,11 @@
 		</tbody>
 	</table>
 
+	<div class="buttonDelete">
+		<button type="button" mat-raised-button color="warn" [disabled]="selectedRowIndexes.length === 0" (click)="deleteSelectedRows()">Delete Selected Rows</button>
+	</div>
+
+	<div class="validateMessage">
+		<p *ngIf="dateValidation">Date not valid</p>
+	</div>
 </form>
