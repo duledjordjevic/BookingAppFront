@@ -21,13 +21,9 @@
                 <p *ngIf="passwordRequired == true">*Your password is required</p>
                 <p id="update-label" *ngIf="updateConfirmation == true">Successfully updated password</p>
                 <p *ngIf="canNotUpdateAdmin == true">*Incorrect password</p>
-                <p *ngIf="canNotDeleteAdmin == true">*Incorrect password</p>
             </div>
             <div class="div-margin">
                 <button id="button-register" type="submit" (click)="updateUser()">Save</button>
-            </div>
-            <div class="div-margin">
-                <button id="button-delete" (click)="deleteUser()">Delete profile</button>
             </div>
         </div>
     </form>
