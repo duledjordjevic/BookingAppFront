@@ -125,5 +125,15 @@ export class AccommodationService {
 			})
 		});
 	}
+
+	getAccommodation(id: number): Observable<Accommodation>{
+		const url = environment.apiHost + `accommodations/${id}`;
+		return this.http.get<Accommodation>(url);
+	}
+
+	getImages(id: number): Observable<string []>{
+		const url = environment.apiHost + `images/${id}`;
+		return this.http.get<string []>(url);
+	}
 }
 

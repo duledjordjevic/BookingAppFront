@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, inject, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, EventEmitter, inject, Output, ViewChild} from '@angular/core';
 import {
 	AccommodationPictureUploadComponent
 } from "../accommodation-picture-upload/accommodation-picture-upload.component";
@@ -6,13 +6,17 @@ import {PricelistComponent} from "../pricelist/pricelist.component";
 import {MapService} from "../../layout/map/map.service";
 import {AccommodationService} from "../services/accommodation.service";
 import {AuthService} from "../../infrastructure/auth/services/auth.service";
-import {FormBuilder, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Accommodation, AccommodationType, Amenities} from "../model/accommodation.model";
 import {IntervalPrice} from "../model/interval-price.model";
 import {CancellationPolicy} from "../model/cancellation-policy.model";
 import {ReservationMethod} from "../model/reservation-method.model";
 import {Address} from "../../models/shared.models";
 import {ApprovalStatus} from "../model/approval-status.model";
+import {ActivatedRoute} from "@angular/router";
+import {
+	AccommodationUpdatePicturesComponent
+} from "../accommodation-update-pictures/accommodation-update-pictures.component";
 
 @Component({
   selector: 'app-accommodation-update',
@@ -25,18 +29,167 @@ export class AccommodationUpdateComponent {
 	@ViewChild(PricelistComponent) priceListComponent!: PricelistComponent;
 
 	buttonStates: { [key: string]: { button1: boolean, button2: boolean } } = {};
+	acc: Accommodation = {}
+	accommodation: FormGroup;
 	constructor(private mapService: MapService, private cdr: ChangeDetectorRef,
-				private accommodationService: AccommodationService, private authService: AuthService) {
+				private accommodationService: AccommodationService, private authService: AuthService,
+				private route: ActivatedRoute) {
 		for (let i = 1; i <= 18; i++) {
 			this.buttonStates[`button${i}`] = { button1: false, button2: false };
 		}
+
+		this.accommodation = this.fb.group({
+			title: ['', Validators.required],
+			type: ['', Validators.required],
+			city: ['', Validators.required],
+			postalCode: ['', Validators.required],
+			street: ['', Validators.required],
+			state: ['', Validators.required],
+			description: ['', Validators.required],
+			cancellationPolicy: ['Non-refundable', Validators.required],
+			reservationMethod: ['Automatic', Validators.required],
+			isPriceForEntireAcc: ['By property', Validators.required],
+			minGuests: [1, Validators.required],
+			maxGuests: [5, Validators.required]
+		});
+
+	}
+	filesToSend: string[] | null | undefined = [];
+	accommodationId: number = 0;
+	ngOnInit(): void {
+		this.route.queryParams.subscribe(params => {
+			console.log(params);
+			this.accommodationId = params['id'];
+		});
+		this.getAccommodationData();
+		console.log("selektovani", this.selectedAmenities);
 	}
 
+	existingAmenities: Amenities[] | undefined = [];
+	selectedAmenities: Amenities[] = [];
+	toggleColor(button: string, buttonNumber: string, amenitie: Amenities) {
+		// @ts-ignore
+		this.buttonStates[button][buttonNumber] = !this.buttonStates[button][buttonNumber];
+		const pairButtonNumber = buttonNumber === 'button1' ? 'button2' : 'button1';
+		// @ts-ignore
+		this.buttonStates[button][pairButtonNumber] = !this.buttonStates[button][buttonNumber];
+
+		const amenityName = Amenities[amenitie];
+
+		if (buttonNumber === 'button1' && this.buttonStates[button]['button1']) {
+			// Provera da li je dugme "Yes" za istu amenitiju uključeno
+			if (!this.buttonStates[button]['button2']) {
+				// Provera da li je amenitija već dodata
+				if (!this.selectedAmenities.includes(amenitie)) {
+					this.selectedAmenities.push(amenitie);
+				}
+			}
+		} else if (buttonNumber === 'button2' && this.buttonStates[button]['button2']) {
+			// Provera da li je dugme "No" za istu amenitiju uključeno
+			if (!this.buttonStates[button]['button1']) {
+				// Ukloni amenitiju ako je već dodata
+				this.selectedAmenities = this.selectedAmenities.filter(selectedAmenity => selectedAmenity !== amenitie);
+			}
+		}
+	}
+
+
+	setYesState(amenity: Amenities): void {
+		// Find the button associated with the amenity
+		const index = this.amenityData.findIndex(data => data.amenitie === amenity);
+		const button = 'button' + (index + 1);
+
+		// Set the "Yes" state for the provided amenity
+		this.buttonStates[button] = this.buttonStates[button] || { button1: false, button2: false };
+		this.buttonStates[button].button1 = true;
+
+		// Additional logic if needed
+
+		// Update selectedAmenities
+		if (!this.selectedAmenities.includes(amenity)) {
+			this.selectedAmenities.push(amenity);
+		}
+	}
+
+	getAccommodationData(): void {
+		this.accommodationService.getAccommodation(this.accommodationId).subscribe({
+			next: (receivedAccommodation: Accommodation) => {
+				this.acc = receivedAccommodation;
+				this.populateForm();
+				console.log(receivedAccommodation);
+				this.existingAmenities = this.acc.amenities;
+				console.log(this.existingAmenities);
+				if (this.existingAmenities) {
+					// List of amenities to be initially set to "Yes"
+					this.existingAmenities.forEach(amenity => {
+						console.log(amenity);
+						// Toggle the "Yes" button for the existing amenity
+						this.setYesState(amenity);
+					});
+				}
+				console.log("slikefdh", this.acc.images);
+				this.filesToSend = this.acc.images;
+				console.log("slikefdh", this.filesToSend);
+
+			},
+			error: (error) => {
+				console.error('Error fetching accommodation data:', error);
+			}
+		});
+	}
+
+
+	populateForm(): void {
+		this.accommodation.patchValue({
+			title: this.acc.title,
+			type: this.acc.type,
+			city: this.acc.address?.city,
+			postalCode: this.acc.address?.postalCode,
+			street: this.acc.address?.street,
+			state: this.acc.address?.state,
+			description: this.acc.description,
+			cancellationPolicy: this.mapFromCancToString(this.acc.cancellationPolicy),
+			reservationMethod: this.mapFromReservationMethodToString(this.acc.reservationMethod),
+			isPriceForEntireAcc: this.mapFromPriceToString(this.acc.isPriceForEntireAcc),
+			minGuests: this.acc.minGuest,
+			maxGuests: this.acc.maxGuest
+		});
+	}
+
+	mapFromCancToString(value: CancellationPolicy | undefined): string | undefined {
+		switch (value) {
+			case CancellationPolicy.HOURS24:
+				return '24-hour cancellation';
+			case CancellationPolicy.HOURS48:
+				return '48-hour cancellation';
+			case CancellationPolicy.HOURS72:
+				return '72-hour cancellation';
+			case CancellationPolicy.NON_REFUNDABLE:
+				return 'Non-refundable';
+			default:
+				return undefined;
+		}
+	}
+
+	mapFromReservationMethodToString(value: ReservationMethod | undefined): string | undefined {
+		switch (value) {
+			case ReservationMethod.AUTOMATIC:
+				return 'Automatic';
+			case ReservationMethod.MANUAL:
+				return 'Manual';
+			default:
+				return undefined;
+		}
+	}
+	mapFromPriceToString(value: boolean | undefined): string | undefined {
+		if (value){
+			return 'By property';
+		}
+		return 'By guests'
+	}
 	fb = inject(FormBuilder);
 
-	title = "Tell us a little about your property?";
-	descOfTitle = "Start with your property name, like Hilton Downtown Los Angeles. This will make it easier to " +
-		"find your address.";
+	title = "Change information of your property";
 	photoText = "Travelers interact with photos more than any other part of your property listing, and the right " +
 		"ones can make a difference. We recommend using as many photos as you can, but 6 unique photos are required to " +
 		"get you started. Duplicates will be removed and need to be replaced.";
@@ -112,51 +265,7 @@ export class AccommodationUpdateComponent {
 		{ amenitie: Amenities.KITCHEN, question: 'Do you offer kitchen?', image: "assets/images/kitchen.svg" },
 	];
 
-	selectedAmenities: Amenities[] = [];
 
-	toggleColor(button: string, buttonNumber: string, amenitie: Amenities) {
-		// @ts-ignore
-		this.buttonStates[button][buttonNumber] = !this.buttonStates[button][buttonNumber];
-		const pairButtonNumber = buttonNumber === 'button1' ? 'button2' : 'button1';
-		// @ts-ignore
-		this.buttonStates[button][pairButtonNumber] = !this.buttonStates[button][buttonNumber];
-
-		const amenityName = Amenities[amenitie];
-
-		if (buttonNumber === 'button1' && this.buttonStates[button]['button1']) {
-			// Provera da li je dugme "Yes" za istu amenitiju uključeno
-			if (!this.buttonStates[button]['button2']) {
-				// Provera da li je amenitija već dodata
-				if (!this.selectedAmenities.includes(amenitie)) {
-					this.selectedAmenities.push(amenitie);
-				}
-			}
-		} else if (buttonNumber === 'button2' && this.buttonStates[button]['button2']) {
-			// Provera da li je dugme "No" za istu amenitiju uključeno
-			if (!this.buttonStates[button]['button1']) {
-				// Ukloni amenitiju ako je već dodata
-				this.selectedAmenities = this.selectedAmenities.filter(selectedAmenity => selectedAmenity !== amenitie);
-			}
-		}
-	}
-
-
-
-	// @ts-ignore
-	accommodation = this.fb.nonNullable.group({
-		title: ['', Validators.required],
-		type: ['', Validators.required],
-		city: ['', Validators.required],
-		postalCode: ['', Validators.required],
-		street: ['', Validators.required],
-		state: ['', Validators.required],
-		description: ['', Validators.required],
-		cancellationPolicy: ['Non-refundable', Validators.required],
-		reservationMethod: ['Automatic', Validators.required],
-		isPriceForEntireAcc: ['By property', Validators.required],
-		minGuests: [1, Validators.required],
-		maxGuests: [5, Validators.required],
-	});
 
 	trimValues() {
 		const title = this.accommodation.value.title;

@@ -5,9 +5,6 @@
 				<div class="title">
 					<h1>{{title}}</h1>
 				</div>
-				<div class="descOfTitle">
-					<h6>{{descOfTitle}}</h6>
-				</div>
 				<div class="inputsBasicInfo">
 					<div class="inputName">
 						<input formControlName="title" type="text" required placeholder="Property name">
@@ -48,7 +45,7 @@
 			</div>
 
 			<div class="imageUpload">
-				<app-accommodation-picture-upload (childObject)="acceptObject($event)"></app-accommodation-picture-upload>
+				<app-accommodation-update-pictures></app-accommodation-update-pictures>
 			</div>
 
 			<div class="location">
@@ -77,7 +74,7 @@
 			<div class="priceDefinition">
 				<h4>Payment method</h4>
 				<div *ngFor="let option of optionsPaymentMethod">
-					<input type="radio" [value]="option.label" formControlName="isPriceForEntireAcc">
+					<input type="radio" [value]="option.label" formControlName="isPriceForEntireAcc" [attr.disabled]="true">
 					{{ option.label }}
 					<br>
 				</div>
@@ -107,13 +104,15 @@
 						<p>{{ amenity.question }}</p>
 					</div>
 					<div class="buttons">
-						<button mat-raised-button type="button"  [ngClass]="{'clicked': buttonStates['button' + (i + 1)].button1}"
+						<button mat-raised-button type="button" [ngClass]="{'clicked': buttonStates['button' + (i + 1)].button1}"
 								(click)="toggleColor('button' + (i + 1), 'button1', amenity.amenitie)">Yes</button>
-						<button mat-raised-button type="button"  [ngClass]="{'clicked': buttonStates['button' + (i + 1)].button2}"
+						<button mat-raised-button type="button" [ngClass]="{'clicked': buttonStates['button' + (i + 1)].button2}"
 								(click)="toggleColor('button' + (i + 1), 'button2', amenity.amenitie)">No</button>
 					</div>
 				</div>
 			</div>
+
+
 
 			<div class="propertyAvailable">
 				<app-pricelist (priceListObject)="acceptIntervals($event)"></app-pricelist>

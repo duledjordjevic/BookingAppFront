@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {NgxDropzoneChangeEvent} from "ngx-dropzone";
 
 @Component({
@@ -9,11 +9,11 @@ import {NgxDropzoneChangeEvent} from "ngx-dropzone";
 export class AccommodationPictureUploadComponent {
 
 	@Output() childObject: EventEmitter<any> = new EventEmitter();
-
 	files: File[] = [];
 	imagePreviews: string[] = [];
 
 	maxNumberOfPictures: boolean = false;
+
 	sendObject() {
 		this.childObject.emit(this.files);
 	}

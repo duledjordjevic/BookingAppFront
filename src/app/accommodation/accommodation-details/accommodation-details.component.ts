@@ -24,12 +24,12 @@ import { ActivatedRoute, Router } from "@angular/router";
 })
 export class AccommodationDetailsComponent{
 
-	constructor(private accommodationService: AccommodationService, private mapService: MapService, 
+	constructor(private accommodationService: AccommodationService, private mapService: MapService,
 		private reservationService: ReservationService, private authService: AuthService,
 		private dialogService: DialogService,private route: ActivatedRoute,private router: Router) {
 		this.updateDisplayedComments();
 		this.reservationForm.get('numOfGuests')?.setValue(0);
-		
+
 	}
 
 	mainPicture = "assets/images/main.jpeg";
@@ -41,7 +41,7 @@ export class AccommodationDetailsComponent{
 
 	starFill = "assets/images/star-fill.svg"
 	star = "assets/images/star.svg"
-	
+
 	commentsAboutAcc: CommentModel[] = [];
 
 	myLatLng: {lat : number, lng: number} = { lat: 42.546, lng: 21.882 };
@@ -63,9 +63,9 @@ export class AccommodationDetailsComponent{
 
 
 	images:String[] = [];
-	allCommentsVisible = false; 
-	comments: CommentModel[] = []; 
-	displayedComments: CommentModel[] = []; 
+	allCommentsVisible = false;
+	comments: CommentModel[] = [];
+	displayedComments: CommentModel[] = [];
 	ratings: RatingModel = {
 		average: 0,
 		count: 0,
@@ -75,11 +75,11 @@ export class AccommodationDetailsComponent{
 		poor:0,
 		terrible:0,
 	};
-	
+
 	accommodationDetails: AccommodationDetails |undefined;
 	amenities: Amenities[] = [];
 	amenitiesIcons: AmenitiesIcons[] = [];
-	
+
 
 
 	remainingPicturesCount: number = 0;
@@ -91,7 +91,7 @@ export class AccommodationDetailsComponent{
 
 	ngOnInit(): void{
 		this.route.queryParams.subscribe(params => {
-        	console.log(params); 
+        	console.log(params);
         	this.accommodationId = params['id'];
      	});
 		this.accommodationService.getCommentsAboutAcc(this.accommodationId).subscribe({
@@ -204,17 +204,17 @@ export class AccommodationDetailsComponent{
 
 				//availableDates
 				this.getAvailableDates(accommodationInfo.id);
-				
+
 				this.user = this.authService.getRole() ?? 'UNREGISTERED';
 			}
-			
+
 		})
-		
+
 
 	}
 
 	user: string = "";
-	
+
 
 	expandComments() {
 		this.allCommentsVisible = true;
@@ -229,19 +229,19 @@ export class AccommodationDetailsComponent{
 		}
 	}
 	calculateAverageRating(): number {
-	  
+
 		const sumaOcena = this.comments.reduce((suma, komentar) => suma + komentar.rating, 0);
 		const prosecnaOcena = sumaOcena / this.comments.length;
-	  
+
 		return Number(prosecnaOcena.toFixed(1));
 	  }
 
 
 
-	
+
 	fb = inject(FormBuilder)
 	http = inject(HttpClient)
-	
+
 	reservationForm = this.fb.nonNullable.group({
 		startDate: [new Date(), Validators.required],
 		endDate: [new Date(), Validators.required],
@@ -267,12 +267,12 @@ export class AccommodationDetailsComponent{
 			}
 		})
 	}
-	
+
 	setCustomValidators() {
 		this.reservationForm.setValidators(this.dateValidator.bind(this));
 		this.reservationForm.updateValueAndValidity();
 	  }
-	
+
 	dateValidator(control: AbstractControl): ValidationErrors | null {
 		const startDate = control.get('startDate')?.value;
 		const endDate = control.get('endDate')?.value;
@@ -351,7 +351,7 @@ export class AccommodationDetailsComponent{
 				}
 			}
 		})
-		
+
 	}
 
 	reservate(reservation: Reservation): void{
@@ -370,7 +370,9 @@ export class AccommodationDetailsComponent{
 		})
 	}
 
-	
+	routeToUpdate(): void {
+		this.router.navigate(['accommodation-update'], {queryParams: { id: this.accommodationDetails?.id} })
+	}
 }
 
 

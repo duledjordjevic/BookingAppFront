@@ -51,7 +51,7 @@
 		<div>
 		<form [formGroup]="reservationForm" (ngSubmit)="onSubmit()" *ngIf="user == 'GUEST' || user == 'UNREGISTERED'">
 			<div class="buttons">
-				
+
 					<div class="datePickers">
 						<div class="datePicker">
 							<mat-form-field>
@@ -84,7 +84,7 @@
 							<p *ngIf="notAvailable == true" style="color:#e91b00">Apartment is not available in that interval</p>
 							<p *ngIf="createdReservation == true" style="color:#4fea74">Reservation is created! {{reservationMessage}}</p>
 							<p *ngIf="serverError == true" style="color:#4fea74">Server error</p>
-							
+
 						</div>
 					</div>
 					<div class="reservate">
@@ -94,9 +94,9 @@
 		</form>
 
 		<div class="updateButton"  *ngIf="user == 'HOST' && isHostAcc == true">
-			<button mat-raised-button>Update</button>
+			<button mat-raised-button (click)="routeToUpdate()">Update</button>
 		</div>
-		
+
 
 		</div>
 
