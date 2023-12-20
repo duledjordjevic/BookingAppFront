@@ -81,10 +81,9 @@
         
         </div>
         <div class="main-title">
-            <h3 *ngIf="isFiltered == false">Popular accommodations:</h3>
             <h3 *ngIf="haveFilteredResults == false">There are no accommodations matching your search criteria</h3>
             
-            <div class="cards" *ngIf="isFiltered == false">
+            <!-- <div class="cards" *ngIf="isFiltered == false">
                 <div class="card" *ngFor="let card of cards;" [routerLink]="['/accommodation-details']" [queryParams]="{id: card.id}">
                     <img src="{{imageBase64}} {{card.image}}">
                     <div class="card-description">
@@ -106,8 +105,8 @@
                     </div>
                 </div>
                 
-            </div>
-            <div class="cards" *ngIf="isFiltered == true" >
+            </div> -->
+            <div class="cards" >
                 <div class="card" *ngFor="let card of filteredAccommodations;" [routerLink]="['/accommodation-details']" [queryParams]="{id: card.id}">
                     <img src="{{imageBase64}} {{card.image}}">
                     <div class="card-description">

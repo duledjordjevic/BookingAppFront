@@ -117,7 +117,7 @@ export class UpdateProfileComponent implements OnInit {
           }
           return;
         }
-        if(this.updateProfileForm.value.newPassword != "" || (this.updateProfileForm.value.newPassword != this.updateProfileForm.value.newPasswordConfirmed)){
+        if(this.updateProfileForm.value.newPassword != "" && (this.updateProfileForm.value.newPassword != this.updateProfileForm.value.newPasswordConfirmed)){
             this.passwordsMatching = true;
             return;
         }
