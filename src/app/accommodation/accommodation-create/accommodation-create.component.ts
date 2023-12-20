@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, inject} from '@angular/core';
+import {ChangeDetectorRef, Component, inject, numberAttribute, ViewChild} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 import {Accommodation, AccommodationType, Amenities} from "../model/accommodation.model";
 import {MapService} from "../../layout/map/map.service";
@@ -8,6 +8,11 @@ import {ApprovalStatus} from "../model/approval-status.model";
 import {ReservationMethod} from "../model/reservation-method.model";
 import {AccommodationService} from "../services/accommodation.service";
 import {AuthService} from "../../infrastructure/auth/services/auth.service";
+import {
+	AccommodationPictureUploadComponent
+} from "../accommodation-picture-upload/accommodation-picture-upload.component";
+import {PricelistComponent} from "../pricelist/pricelist.component";
+import {IntervalPrice} from "../model/interval-price.model";
 
 @Component({
   selector: 'app-accommodation-create',
@@ -15,6 +20,9 @@ import {AuthService} from "../../infrastructure/auth/services/auth.service";
   styleUrls: ['./accommodation-create.component.css']
 })
 export class AccommodationCreateComponent {
+
+	@ViewChild(AccommodationPictureUploadComponent) childComponent!: AccommodationPictureUploadComponent;
+	@ViewChild(PricelistComponent) priceListComponent!: PricelistComponent;
 
 	buttonStates: { [key: string]: { button1: boolean, button2: boolean } } = {};
 	constructor(private mapService: MapService, private cdr: ChangeDetectorRef,
@@ -150,29 +158,31 @@ export class AccommodationCreateComponent {
 		maxGuests: [5, Validators.required],
 	});
 
-	// trimValues() {
-	// 	const name = this.accommodation.value.name;
-	// 	const lastName = this.accommodation.value.lastName;
-	// 	const city = this.accommodation.value.city;
-	// 	const street = this.accommodation.value.street;
-	// 	const state = this.accommodation.value.state;
-	// 	const phoneNumber = this.accommodation.value.phoneNumber;
-	// 	const email = this.accommodation.value.email;
-	// 	const password = this.accommodation.value.password;
-	// 	const confirmPassword = this.accommodation.value.confirmPassword;
-	//
-	// 	this.accommodation.patchValue({
-	// 		name: name?.trim(),
-	// 		lastName: lastName?.trim(),
-	// 		city: city?.trim(),
-	// 		street: street?.trim(),
-	// 		state: state?.trim(),
-	// 		phoneNumber: phoneNumber?.trim(),
-	// 		email: email?.trim(),
-	// 		password: password?.trim(),
-	// 		confirmPassword: confirmPassword?.trim()
-	// 	});
-	// }
+	trimValues() {
+		const title = this.accommodation.value.title;
+		const city = this.accommodation.value.city;
+		const street = this.accommodation.value.street;
+		const state = this.accommodation.value.state;
+		const description = this.accommodation.value.description;
+
+		this.accommodation.patchValue({
+			title: title?.trim(),
+			description: description?.trim(),
+			city: city?.trim(),
+			street: street?.trim(),
+			state: state?.trim(),
+		});
+	}
+
+	files: File[] = [];
+	acceptObject(files: File[]){
+		this.files = files;
+	}
+
+	intervals: IntervalPrice[] = []
+	acceptIntervals(intervals: IntervalPrice[]){
+		this.intervals = intervals;
+	}
 
 	mapCancellationPolicy(value: string | undefined): CancellationPolicy | undefined {
 		switch (value) {
@@ -208,63 +218,103 @@ export class AccommodationCreateComponent {
 		switch (value) {
 			case 'HOTEL':
 				return AccommodationType.HOTEL;
-			case 'Manual':
+			case 'APARTMENT':
 				return AccommodationType.APARTMENT;
 			default:
 				return undefined;
 		}
 	}
 
+	fieldsRequired: boolean = false;
+	minMaxGuests: boolean = false;
+	minPictureNumber: boolean = false;
+
 	onSubmit(): void {
-		// this.trimValues()
+		this.trimValues()
+		this.fieldsRequired = false;
+		this.minMaxGuests = false;
+		this.minPictureNumber = false;
 
-		if (this.accommodation.valid || this.accommodation.disabled)  {
-			const address: Address = {
-				id: null,
-				street: this.accommodation.value.street || "",
-				city: this.accommodation.value.city || "",
-				postalCode: this.accommodation.value.postalCode || "",
-				state: this.accommodation.value.state || "",
-				latitude: 0,
-				longitude: 0
+		this.childComponent.sendObject();
+		this.priceListComponent.sendObject();
 
-			}
-			// @ts-ignore
-			const acc: Accommodation = {
-				id: null,
-				title: this.accommodation.value.title || "",
-				type: this.mapAccommodationType(this.accommodation.value.type) as AccommodationType,
-				description: this.accommodation.value.description || "",
-				address: address,
-				cancellationPolicy: this.mapCancellationPolicy(this.accommodation.value.cancellationPolicy) as CancellationPolicy,
-				isPriceForEntireAcc: this.mapPaymentMethod(this.accommodation.value.isPriceForEntireAcc),
-				amenities: this.selectedAmenities,
-				accommodationApprovalStatus: ApprovalStatus.PENDING,
-				reservationMethod: this.mapReservationMethod(this.accommodation.value.reservationMethod) as ReservationMethod,
-				maxGuest: this.accommodation.value.maxGuests || 0,
-				minGuest: this.accommodation.value.minGuests || 0,
-				prices: null,
-				images: null,
-				hostId: this.authService.getId()
-			}
+		if (this.accommodation.valid)  {
+			if(this.accommodation.value.minGuests !== undefined && this.accommodation.value.maxGuests !== undefined
+				&& this.accommodation.value.minGuests > 0 && this.accommodation.value.minGuests <= this.accommodation.value.maxGuests
+			&& this.accommodation.value.maxGuests <= 10) {
+				if(this.files.length >= 5){
+					const address: Address = {
+						id: null,
+						street: this.accommodation.value.street || "",
+						city: this.accommodation.value.city || "",
+						postalCode: this.accommodation.value.postalCode || "",
+						state: this.accommodation.value.state || "",
+						latitude: 0,
+						longitude: 0
 
-			// console.log(this.accommodation.value);
-			console.log("----");
-			console.log(acc);
-			console.log("----");
+					}
+					// @ts-ignore
+					const acc: Accommodation = {
+						id: null,
+						title: this.accommodation.value.title || "",
+						type: this.mapAccommodationType(this.accommodation.value.type) as AccommodationType,
+						description: this.accommodation.value.description || "",
+						address: address,
+						cancellationPolicy: this.mapCancellationPolicy(this.accommodation.value.cancellationPolicy) as CancellationPolicy,
+						isPriceForEntireAcc: this.mapPaymentMethod(this.accommodation.value.isPriceForEntireAcc),
+						amenities: this.selectedAmenities,
+						accommodationApprovalStatus: ApprovalStatus.PENDING,
+						reservationMethod: this.mapReservationMethod(this.accommodation.value.reservationMethod) as ReservationMethod,
+						maxGuest: this.accommodation.value.maxGuests || 0,
+						minGuest: this.accommodation.value.minGuests || 0,
+						prices: null,
+						images: null,
+						hostId: this.authService.getId()
+					}
 
-			this.accommodationService.addAccommodation(acc).subscribe({
-				next: (createdAcc) => {
-					console.log("this is created acc");
-					console.log(createdAcc);
-				},
-				error: (error) => {
-					console.error("Error creating accommodation:", error);
+					console.log("----");
+					console.log(acc);
+					console.log("----");
+
+					this.accommodationService.addAccommodation(acc).subscribe({
+						next: (createdAcc) => {
+							console.log("this is created acc");
+							console.log(createdAcc);
+							// this.childComponent.sendObject();
+							this.accommodationService.addAccommodationImages(this.files, createdAcc.id).subscribe({
+								next:(result) => {
+									console.log(result);
+									this.accommodationService.addIntervalPrice(createdAcc.id, this.intervals).subscribe({
+										next:(result) => {
+											console.log(result);
+
+										},
+										error: (error) => {
+											console.error("Error adding intervals:", error);
+										}
+									})
+								},
+								error: (error) => {
+									console.error("Error adding accommodation images:", error);
+								}
+
+							})
+						},
+						error: (error) => {
+							console.error("Error creating accommodation:", error);
+						}
+					});
+
+				} else {
+					this.minPictureNumber = true;
 				}
-			});
-			console.log(this.selectedAmenities);
+
+			} else {
+				this.minMaxGuests = true;
+			}
+
 		} else {
-			console.log('Forma nije ispravna. Popunite obavezna polja.');
+			this.fieldsRequired = true;
 		}
 	}
 }

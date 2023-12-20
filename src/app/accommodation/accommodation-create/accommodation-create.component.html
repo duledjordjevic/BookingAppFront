@@ -48,7 +48,7 @@
 			</div>
 
 			<div class="imageUpload">
-				<app-accommodation-picture-upload></app-accommodation-picture-upload>
+				<app-accommodation-picture-upload (childObject)="acceptObject($event)"></app-accommodation-picture-upload>
 			</div>
 
 			<div class="location">
@@ -116,7 +116,13 @@
 			</div>
 
 			<div class="propertyAvailable">
-				<app-pricelist></app-pricelist>
+				<app-pricelist (priceListObject)="acceptIntervals($event)"></app-pricelist>
+			</div>
+
+			<div class="validateMessage">
+				<p *ngIf="fieldsRequired">All fields are required</p>
+				<p *ngIf="minMaxGuests">Max number of guest is 10 and min is 1</p>
+				<p *ngIf="minPictureNumber">Min number of pictures if 5</p>
 			</div>
 
 			<div class="addButtons">
