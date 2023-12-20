@@ -15,10 +15,9 @@
     border-color: #fff;
     filter: drop-shadow(12px 12px 12px #cacacd);
     margin-bottom: 80px;
-    cursor: pointer;
 }
-.righ-section{
-    width: max-content;
+.right-section{
+    width: 100%;
 }
 
 .coverImage{
@@ -75,4 +74,8 @@
 .btnDecline{
     background-color: #BA1A1A !important;
     color: #fff !important;
+}
+
+img{
+    cursor: pointer;
 }

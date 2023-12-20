@@ -1,7 +1,12 @@
 <div class="main-container">
 	<div class="main">
 		<div class="title">
-			<h1>{{accommodationDetails?.title}}</h1>
+			<h1>{{accommodationDetails?.title}}</h1>  
+			<div class="statusSection">
+				<p *ngIf="user == 'HOST' && isHostAcc == true && accommodationDetails?.accommodationApprovalStatus == 'PENDING'">Status:  <span style="color:#aec309">Pending</span></p>
+				<p *ngIf="user == 'HOST' && isHostAcc == true && accommodationDetails?.accommodationApprovalStatus == 'APPROVED'">Status:  <span style="color:#4fea74">Approved</span></p>
+				<p *ngIf="user == 'HOST' && isHostAcc == true && accommodationDetails?.accommodationApprovalStatus == 'DECLINED'">Status:  <span style="color:#c22121">Declined</span></p>
+			</div>
 		</div>
 
 		<div class="info">
@@ -14,7 +19,7 @@
 					<p>{{accommodationDetails?.address?.street}}, {{accommodationDetails?.address?.city}}, {{accommodationDetails?.address?.state}}</p>
 				</div>
 			</div>
-			<div class="rightInfo">
+			<div class="rightInfo"  *ngIf="user == 'GUEST'">
 				<img [src] = "star" alt="Star" class="star-favourite">
 				<p>Save as favorite</p>
 			</div>

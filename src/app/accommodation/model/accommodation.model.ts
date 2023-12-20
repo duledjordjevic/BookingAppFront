@@ -14,8 +14,14 @@ export interface AccommodationDetails {
     amenities:Amenities[];
     images:string[];
 	hostId?: number;
+	accommodationApprovalStatus? : AccommodationApprovalStatus;
 }
 
+export enum AccommodationApprovalStatus {
+	PENDING = "PENDING",
+    APPROVED = "APPROVED",
+    DECLINED = "DECLINED",
+}
 export enum Amenities {
     WIFI = "WIFI",
     AIRCONDITION = "AIRCONDITION",

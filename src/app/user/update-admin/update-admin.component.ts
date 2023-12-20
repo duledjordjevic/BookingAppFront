@@ -42,14 +42,12 @@ export class UpdateAdminComponent {
     newPasswordRequired: boolean = false;
     updateConfirmation: boolean = false;
     canNotUpdateAdmin: boolean = false;
-    canNotDeleteAdmin: boolean = false;
 
     updateUser(): void {
       this.passwordsMatching= false;
       this.passwordRequired = false;
       this.newPasswordRequired = false;
       this.updateConfirmation = false;
-      this.canNotDeleteAdmin = false;
       this.canNotUpdateAdmin = false;
 
       if(!this.updateAdminForm.valid){
@@ -85,28 +83,4 @@ export class UpdateAdminComponent {
 
   }
 
-  
-  deleteUser(): void{
-    this.canNotDeleteAdmin = false;
-    this.canNotUpdateAdmin = false;
-    this.passwordRequired = false;
-
-    if(this.updateAdminForm.value.oldPassword ==""){
-      this.passwordRequired = true;
-      return;
-    }
-    const user: UserDelete = {
-      password:this.updateAdminForm.value.oldPassword || ""
-    }
-    this.service.deleteUser(user).subscribe({
-      next:(_)=>{
-        console.log("Uspesno obrisan user");
-        this.sharedService.deleteUserFromLocalStorage();
-      },
-      error:(error)=>{
-        console.log(error);
-        this.canNotDeleteAdmin = true;
-      }
-    })
-  }
 }
