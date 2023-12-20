@@ -1,13 +1,13 @@
 <div class="main-container">
     <div class="container">
-        <div class="card" *ngFor="let card of cards;">
+        <div class="card" *ngFor="let card of cards;" >
             <div class="left-section">
-                <img src="{{imageBase64}} {{card.image}}" alt="Image" class="coverImage">
+                <img src="{{imageBase64}} {{card.image}}" alt="Image" class="coverImage" [routerLink]="['/accommodation-details']" [queryParams]="{id: card.id}">
             </div>
             <div class="right-section">
                 <div class="titleSection">
                     <p class="title">{{card.title}}</p>
-                    <p class="address">{{card.address}}</p>
+                    <p class="address">{{card.address?.street}}, {{card.address?.city}} </p>
                 </div>
                 <div class="description-container">
                     <p>{{ card.description | slice:0:250 }}{{ card.description && card.description.length > 250 ? '...' : '' }}</p>
