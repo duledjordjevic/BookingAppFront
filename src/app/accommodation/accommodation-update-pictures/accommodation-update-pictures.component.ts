@@ -31,7 +31,6 @@ export class AccommodationUpdatePicturesComponent {
 	}
 	ngOnInit(): void {
 		this.route.queryParams.subscribe(params => {
-			console.log(params);
 			this.accommodationId = params['id'];
 		});
 
@@ -41,7 +40,6 @@ export class AccommodationUpdatePicturesComponent {
 	getImages(): void {
 		this.accommodationService.getImages(this.accommodationId).subscribe({
 			next: (listOfPictures: string[]) => {
-				console.log('OVOO sam primio', listOfPictures);
 
 				// Čišćenje niza pre dodavanja novih slika
 				this.files = [];
@@ -49,8 +47,6 @@ export class AccommodationUpdatePicturesComponent {
 				this.receivedImages = listOfPictures;
 				this.receivedImages.forEach((pictureUrl, index) => {
 					this.recievedFiles.push(this.createFileFromBase64(pictureUrl, "abc", "jpg"));
-					console.log("POZVAO SAM SE");
-					console.log(this.recievedFiles.length);
 				});
 
 				this.handleFiles(this.recievedFiles);
@@ -73,10 +69,8 @@ export class AccommodationUpdatePicturesComponent {
 		for (let i = 0; i < files.length; i++) {
 			if (this.files.length > 9){
 				this.maxNumberOfPictures = true;
-				console.log(this.files.length);
 				return;
 			}
-			console.log(this.files.length);
 			this.files.push(files[i]);
 			this.generateImagePreview(files[i]);
 		}

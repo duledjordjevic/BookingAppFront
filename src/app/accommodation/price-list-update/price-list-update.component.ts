@@ -1,11 +1,14 @@
 import {Component, EventEmitter, Output} from '@angular/core';
-import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators} from "@angular/forms";
-import {IntervalPrice} from "../model/interval-price.model";
+import { FormBuilder, FormGroup, FormArray, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+import { IntervalPrice } from '../model/interval-price.model';
+import { AccommodationService } from '../services/accommodation.service';
+import { ActivatedRoute } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: 'app-price-list-update',
-  templateUrl: './price-list-update.component.html',
-  styleUrls: ['./price-list-update.component.css']
+	selector: 'app-price-list-update',
+	templateUrl: './price-list-update.component.html',
+	styleUrls: ['./price-list-update.component.css']
 })
 export class PriceListUpdateComponent {
 	@Output() priceListObject: EventEmitter<any> = new EventEmitter();
@@ -15,7 +18,9 @@ export class PriceListUpdateComponent {
 	dateValidation: boolean = false;
 	// currentId: number = 1;
 
-	constructor(private fb: FormBuilder) {
+	constructor(private fb: FormBuilder, private accommodationService: AccommodationService,
+				private route: ActivatedRoute,
+				private http: HttpClient) {
 		this.form = this.fb.group({
 			startDate: [new Date(), Validators.required],
 			endDate: [new Date(), Validators.required],
@@ -27,6 +32,37 @@ export class PriceListUpdateComponent {
 		this.priceListObject.emit(this.data);
 	}
 
+	accommodationId: number = 0;
+
+	ngOnInit(): void {
+		this.route.queryParams.subscribe(params => {
+			console.log(params);
+			this.accommodationId = params['id'];
+		});
+
+		this.getIntervals();
+	}
+
+	getIntervals(): void {
+		this.accommodationService.getIntervals(this.accommodationId).subscribe({
+			next: (intervalPrices: IntervalPrice[]) => {
+				console.log('OVOO sam primio', intervalPrices);
+
+				// Čišćenje niza pre dodavanja novih slika
+				this.data = [];
+
+				this.data = intervalPrices;
+				this.data.forEach((interval, index) => {
+					// this.data.push(interval);
+					console.log(interval);
+				});
+
+			},
+			error: (error) => {
+				console.error('Error fetching accommodation data:', error);
+			}
+		});
+	}
 	addRow() {
 		this.dateValidation = false;
 		this.setCustomValidators();
@@ -104,4 +140,5 @@ export class PriceListUpdateComponent {
 
 		return null;
 	}
+
 }
