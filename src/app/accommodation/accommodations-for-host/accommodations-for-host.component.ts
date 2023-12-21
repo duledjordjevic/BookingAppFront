@@ -19,8 +19,10 @@ export class AccommodationsForHostComponent {
     this.getAccommodations();
     this.route.queryParams
     .subscribe(params => {
-      if(params['newAccommodation'] !== undefined) {
+      if(params['newAccommodation'] !== undefined && params['newAccommodation'] !== "") {
           this.infoMessage = 'Successfully added: ' + params['newAccommodation'] + ' property ';
+      }else if(params['updateAccommodation'] !== undefined && params['updateAccommodation'] !== ""){
+          this.infoMessage = 'Successfully updated: ' + params['updateAccomodation'] + ' property ';
       }
     });
   }
