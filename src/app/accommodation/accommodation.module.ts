@@ -18,6 +18,8 @@ import { AccommodationsForHostComponent } from './accommodations-for-host/accomm
 import { AccommodationUpdateComponent } from './accommodation-update/accommodation-update.component';
 import { AccommodationUpdatePicturesComponent } from './accommodation-update-pictures/accommodation-update-pictures.component';
 import { PriceListUpdateComponent } from './price-list-update/price-list-update.component';
+import { GuestNavBarComponent } from '../layout/nav-bar/guest-nav-bar/guest-nav-bar.component';
+import { GuestReservationsComponent } from './guest-reservations/guest-reservations.component';
 
 
 @NgModule({
@@ -34,7 +36,8 @@ import { PriceListUpdateComponent } from './price-list-update/price-list-update.
   AccommodationsForHostComponent,
   AccommodationUpdateComponent,
   AccommodationUpdatePicturesComponent,
-  PriceListUpdateComponent
+  PriceListUpdateComponent,
+  GuestReservationsComponent
   ],
 	imports: [
 		CommonModule,
@@ -53,7 +56,8 @@ import { PriceListUpdateComponent } from './price-list-update/price-list-update.
 		AccommodationCreateComponent,
 		AccommodationApprovingComponent,
 		AccommodationsFilterComponent,
-		AccommodationsForHostComponent
+		AccommodationsForHostComponent,
+		GuestReservationsComponent
 	]
 })
 export class AccommodationModule { }

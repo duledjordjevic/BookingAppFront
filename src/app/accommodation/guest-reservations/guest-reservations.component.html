@@ -1,0 +1,109 @@
+<div class="main-container">
+  <div class="title">
+    <h1>My reservations</h1>
+  </div>
+  <div class="filters" [formGroup]="searchForm" >
+    <div class="search-container">
+      <input type="text" placeholder="Search..." formControlName="search">
+      <i class="fa fa-search"></i>
+    </div>
+    <div class="dates">
+      <div class="datePicker">
+        <mat-form-field>
+          <mat-label>Check in</mat-label>
+          <input matInput [matDatepicker]="checkinPicker" formControlName="startDate" >
+          <mat-datepicker-toggle matIconSuffix [for]="checkinPicker"></mat-datepicker-toggle>
+          <mat-datepicker #checkinPicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="datePicker">
+        <mat-form-field>
+          <mat-label>Check out</mat-label>
+          <input matInput [matDatepicker]="checkoutPicker" formControlName="endDate" >
+          <mat-datepicker-toggle matIconSuffix [for]="checkoutPicker"></mat-datepicker-toggle>
+          <mat-datepicker #checkoutPicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <p *ngIf="dateWrong == true">*date wrong format</p>
+    </div>
+    <div class="status">
+      <select id="combo-reservationsStatus" formControlName="status">
+        <option value="" disabled selected hidden>Reservation status</option>
+        <option value="ALL">All</option>
+        <option value="PENDING">Pending</option>
+        <option value="ACCEPTED">Accepted</option>
+        <option value="EXPIRED">Expired</option>
+        <option value="DECLINED">Declined</option>
+        <option value="CANCELLED">Cancelled</option>
+    </select>
+    </div>
+    <div id="searchBtn">
+      <button mat-raised-button (click)="search()">Search</button>
+    </div>
+  </div>
+  
+  <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" matSort
+      >
+
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox (change)="$event ? masterToggle() : null"
+                        [checked]="selection.hasValue() && isAllSelected()"
+                        [indeterminate]="selection.hasValue() && !isAllSelected()"
+                        color="primary">
+          </mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selectionToggle(row) : null"
+                        [checked]="selection.isSelected(row)"
+                        color="primary">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="accommodation">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Accommodation </th>
+        <td mat-cell *matCellDef="let element" class="title" [routerLink]="['/accommodation-details']" [queryParams]="{id: element.accommodation.id}"> {{element.accommodation.title}} </td>
+      </ng-container>
+
+        <ng-container matColumnDef="startDate">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Start date </th>
+          <td mat-cell *matCellDef="let element"> {{element.startDate}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="endDate">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> End date </th>
+          <td mat-cell *matCellDef="let element"> {{element.endDate}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="numberOfGuests">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Guests </th>
+          <td mat-cell *matCellDef="let element"> {{element.numberOfGuests}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+          <td mat-cell *matCellDef="let element"> <div class="status" [ngStyle]="getStatusStyles(element.status)">{{element.status}}</div> </td>
+        </ng-container> 
+    
+        <ng-container matColumnDef="price">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Price </th>
+          <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+        </ng-container>
+     
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    
+      <mat-paginator [pageSizeOptions]="[10, 20, 30, 40]"
+                     showFirstLastButtons
+                     aria-label="Select page of periodic elements">
+      </mat-paginator>
+      
+    </div>
+
+    <div class="buttons">
+      <button mat-raised-button [disabled]="isDeleteBtnDisabled" class="deleteBtn" (click)="onDelete()">Delete</button>
+      <button mat-raised-button [disabled]="isCancelBtnDisabled" class="cancelBtn" (click)="onCancel()">Cancel</button>
+    </div>
+</div>

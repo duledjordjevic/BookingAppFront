@@ -15,6 +15,7 @@ import { combineLatest } from 'rxjs';
 import { AccommodationsForHostComponent } from './accommodation/accommodations-for-host/accommodations-for-host.component';
 import { UnauthorizedGuard } from './infrastructure/auth/guard/unauthorized.guard';
 import {AccommodationUpdateComponent} from "./accommodation/accommodation-update/accommodation-update.component";
+import { GuestReservationsComponent } from './accommodation/guest-reservations/guest-reservations.component';
 const routes: Routes = [
   {path : "home", component : HomeComponent,},
   {path: "login", component: LogInComponent, canActivate: [UnauthorizedGuard]},
@@ -26,8 +27,9 @@ const routes: Routes = [
   {path: "update-admin", component: UpdateAdminComponent, canActivate: [AuthGuard], data: {role: ['ADMIN']}},
   {path: "all-accommodations", component: AccommodationsFilterComponent},
   {path: "accommodation-details", component: AccommodationDetailsComponent},
-  {path: "accommodations-for-host", component: AccommodationsForHostComponent,canActivate: [AuthGuard], data: {role: ['HOST']}},
-	{path: "accommodation-update", component: AccommodationUpdateComponent,canActivate: [AuthGuard], data: {role: ['HOST']}}
+  {path: "accommodations-for-host", component: AccommodationsForHostComponent, canActivate: [AuthGuard], data: {role: ['HOST']}},
+	{path: "accommodation-update", component: AccommodationUpdateComponent, canActivate: [AuthGuard], data: {role: ['HOST']}},
+	{path: "guest-reservations", component: GuestReservationsComponent, canActivate: [AuthGuard], data: {role: ['GUEST']}}
 ];
 
 @NgModule({
