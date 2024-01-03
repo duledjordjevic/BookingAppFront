@@ -1,0 +1,106 @@
+.main-container{
+    min-height: 1200px;
+    background-color: #F6F8FA;
+    padding-top: 50px;
+}
+.main-container > *{
+    max-width: 1200px;
+    margin: auto;
+}
+.mat-elevation-z8{
+    margin: auto;
+    margin-top: 30px !important;
+}
+.title {
+    cursor: pointer;
+}
+.buttons {
+    margin:auto;
+    display: flex;
+    justify-content: end;
+}
+#declineBtn{
+    margin: 15px;
+    background-color: #cd3535;
+    color: #FFF;
+}
+
+#declineBtn[disabled]{
+    margin: 15px;
+    background-color: #cd3535;
+    color: #FFF;
+    opacity: 75%;
+}
+#acceptBtn{
+    margin: 15px;
+    background-color: #235471;
+    color: #FFF;
+}
+
+#acceptBtn[disabled]{
+    margin: 15px;
+    background-color: #235471;
+    color: #FFF;
+    opacity: 75%;
+}
+
+
+.search-container {
+    max-width: 1000px;
+    display: flex;
+    align-items: start;
+    padding: 15px;
+}
+  
+.search-container input {
+    padding: 10px;
+    margin-top: 20px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    align-self: center;
+}
+  
+.search-container i {
+    font-size: 18px;
+    margin-left: 5px;
+    cursor: pointer;
+}
+.filters{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.dates{
+    display: flex;
+    gap: 30px;
+    margin-top: 40px;
+}
+
+#combo-reservationsStatus{
+	width: 220px;
+	height: 40px;
+	border-radius: 4px;
+	padding: 5px;
+	border: none;
+    opacity: 0.8;
+    outline: none;
+	filter: drop-shadow(6px 7px 7px rgba(0, 0, 0, 0.1));
+	align-self: auto;
+    margin-left: 20px;
+    margin-top: 15px;
+}
+#combo-reservationsStatus::after {
+    content: '\25BC'; 
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#searchBtn button{
+    margin-top: 15px;
+    margin-right: 10px;
+    background-color: #235471 !important;
+    color: #fff;
+}

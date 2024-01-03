@@ -57,9 +57,34 @@ export class ReservationService {
     return this.http.get<Reservation[]>(url, { params: params });
   }
 
+  getHostReservations(filter: ReservationFilter): Observable<Reservation[]> {
+    const url = environment.apiHost + 'reservations/filterHost';
+
+    let params = new HttpParams();
+    Object.keys(filter).forEach(key => {
+      if (filter[key] !== undefined && filter[key] !== null) {
+        if (filter[key] instanceof Date) {
+          const formattedDate = this.datePipe.transform((filter[key] as Date), 'yyyy-MM-dd');
+          if (formattedDate !== null){
+            params = params.set(key, formattedDate);
+          }
+        } else {
+          params = params.set(key, filter[key]!.toString());
+        }
+      }
+    });
+    console.log(params)
+    return this.http.get<Reservation[]>(url, { params: params });
+  }
+
   deletePendingReservation(reservation: Reservation): Observable<boolean> {
     const url = environment.apiHost + `reservations/pending/${reservation.id}`;
     return this.http.delete<boolean>(url);
+  }
+
+  updateReservationStatus(id: number, reservationStatus: ReservationStatus): Observable<Reservation>{
+    const url = environment.apiHost + `reservations/${id}/${reservationStatus}`;
+    return this.http.put<Reservation>(url, { });
   }
 
 }
