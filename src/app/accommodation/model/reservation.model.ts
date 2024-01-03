@@ -1,3 +1,4 @@
+import { Guest } from "src/app/infrastructure/auth/model/user.model";
 import { Accommodation } from "./accommodation.model";
 
 export interface Reservation {
@@ -10,6 +11,7 @@ export interface Reservation {
     price?: number;
     status?: ReservationStatus;
     accommodation?: Accommodation;
+    guest?: Guest;
 }
 
 export enum ReservationStatus {
