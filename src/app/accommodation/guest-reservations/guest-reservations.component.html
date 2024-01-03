@@ -66,6 +66,11 @@
         <td mat-cell *matCellDef="let element" class="title" [routerLink]="['/accommodation-details']" [queryParams]="{id: element.accommodation.id}"> {{element.accommodation.title}} </td>
       </ng-container>
 
+      <ng-container matColumnDef="cancellationPolicy">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Cancellation policy </th>
+        <td mat-cell *matCellDef="let element"  > {{element.accommodation.cancellationPolicy}} </td>
+      </ng-container>
+
         <ng-container matColumnDef="startDate">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Start date </th>
           <td mat-cell *matCellDef="let element"> {{element.startDate}} </td>
@@ -101,6 +106,8 @@
       </mat-paginator>
       
     </div>
+
+    <p *ngIf="cantCancelReservation" style="color:#c22121">*You can't cancel this reservation</p>
 
     <div class="buttons">
       <button mat-raised-button [disabled]="isDeleteBtnDisabled" class="deleteBtn" (click)="onDelete()">Delete</button>

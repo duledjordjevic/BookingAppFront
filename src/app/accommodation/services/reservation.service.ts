@@ -87,4 +87,9 @@ export class ReservationService {
     return this.http.put<Reservation>(url, { });
   }
 
+  cancelAcceptedReservation(idReservation: number): Observable<Reservation>{
+    const url = environment.apiHost + `reservations/cancelAccepted/${idReservation}`;
+    return this.http.put<Reservation>(url, { });
+  }
+
 }
