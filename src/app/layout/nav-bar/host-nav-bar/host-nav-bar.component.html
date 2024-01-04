@@ -1,7 +1,7 @@
 <div class="nav-bar-container">
     <div class="notification-container">
         <img src="../../../assets/images/notification.svg" [routerLink]="['/notification-for-host']"/>
-        <p>55</p>
+        <p *ngIf="haveNotifications">{{numberOfNotifications}}</p>
     </div>
     <a  [routerLink]="['/accommodation-create']">CREATE PROPERTY</a>
     <a  [routerLink]="['/host-reservations']">RESERVATIONS</a>

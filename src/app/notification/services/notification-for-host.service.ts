@@ -16,4 +16,9 @@ export class NotificationForHostService {
     const url = environment.apiHost + `notificationsForHost/host/${this.authService.getId()}`;
     return this.http.get<NotificationHost[]>(url);
   }
+  markNotificationAsRead(id: number): Observable<NotificationHost> {
+    const url = environment.apiHost + `notificationsForHost/${id}`;
+    return this.http.get<NotificationHost>(url);
+  }
+  
 }

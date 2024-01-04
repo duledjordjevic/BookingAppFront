@@ -1,8 +1,10 @@
 export interface NotificationHost{
     id?:number;
+    title?:string;
     type?:NotificationType;
     description?:string;
-    isRead?:boolean;
+    read?:boolean;
+    icon?:string;
 }
 export enum NotificationType{
     RESERVATION_REQUEST = 'RESERVATION_REQUEST',

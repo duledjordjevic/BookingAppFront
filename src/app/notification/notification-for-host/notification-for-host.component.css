@@ -5,27 +5,59 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-bottom: 50px;
+    padding-top: 50px;
 }
 .notification-card{
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-top: 50px;
+    margin-bottom: 50px;
     width: 500px;
     height: 130px;
     background-color: #FFF;
     border: 10px black;
     border-radius: 10px;
-    cursor: pointer;
     padding-left: 25px;
     filter: drop-shadow(6px 7px 7px rgba(0, 0, 0, 0.1));
+}
+button{
+    background-color: #235471;
+    border-radius: 10px;
+    color: #FFFFFF;
+    border: none;
+    outline: none;
+    width: 120px;
+    padding: 7px;
+}
+button:hover {
+    background-color: white;
+    filter: drop-shadow(6px 7px 7px rgba(0, 0, 0, 0.1));
+    color: #235471;
+    transition: transform 0.5s ease
 }
 .notification-data{
     margin-left: 25px;
 }
 img{
     /* padding-left: 20px; */
-    width: 70px;
+    width: 60px;
+    opacity: 0.7;
+}
+.unread-div{
+    width: 500px;
+    margin-bottom: 5px;
+}
+.notification-card-read{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 50px;
+    width: 500px;
+    height: 130px;
+    background-color: #FFF;
+    border: 10px black;
+    border-radius: 10px;
+    padding-left: 25px;
+    filter: drop-shadow(6px 7px 7px rgba(0, 0, 0, 0.1));
     opacity: 0.7;
 }
