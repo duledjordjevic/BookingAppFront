@@ -1,0 +1,29 @@
+<div class="main-container">
+    <div id="title">
+        <h1>Favourites</h1>
+    </div>
+    <div class="main">
+        <div class="cards">
+            <div class="card" *ngFor="let card of hostAccommodations;">
+                <div class="overlay-image">
+                    <img [src] = "starFill" alt="Star" class="star-favourite" (click)="removeFavourite(card.id!)">
+                </div>
+                <img src="{{imageBase64}} {{card.image}}">
+                <div class="card-description" [routerLink]="['/accommodation-details']" [queryParams]="{id: card.id}">
+                    <div class="title-rating">
+                        <h5>{{ card.title }}</h5>
+                        <div class="rating">
+                            <span><img src="../../../assets/images/star-fill.svg"></span>
+                            <span *ngIf="card.avgRate != null"> {{card.avgRate.toFixed(1)}}</span>
+                            <span id="span-no-reviews" *ngIf="card.avgRate == null"> No reviews</span>
+                        </div>
+                        
+                    </div>
+                    <p>{{card.address?.city}}, {{card.address?.state}}</p>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    
+</div>
