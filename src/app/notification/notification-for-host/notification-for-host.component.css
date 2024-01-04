@@ -1,0 +1,31 @@
+.main-container{
+    width: 100%;
+    min-height: 800px;
+    background-color:#F6F8FA ;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 50px;
+}
+.notification-card{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 50px;
+    width: 500px;
+    height: 130px;
+    background-color: #FFF;
+    border: 10px black;
+    border-radius: 10px;
+    cursor: pointer;
+    padding-left: 25px;
+    filter: drop-shadow(6px 7px 7px rgba(0, 0, 0, 0.1));
+}
+.notification-data{
+    margin-left: 25px;
+}
+img{
+    /* padding-left: 20px; */
+    width: 70px;
+    opacity: 0.7;
+}

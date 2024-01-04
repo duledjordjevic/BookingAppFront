@@ -17,6 +17,8 @@ import { UnauthorizedGuard } from './infrastructure/auth/guard/unauthorized.guar
 import {AccommodationUpdateComponent} from "./accommodation/accommodation-update/accommodation-update.component";
 import { GuestReservationsComponent } from './accommodation/guest-reservations/guest-reservations.component';
 import { HostReservationsComponent } from './accommodation/host-reservations/host-reservations.component';
+import { NotificationForHostComponent } from './notification/notification-for-host/notification-for-host.component';
+import { NotificationForGuestComponent } from './notification/notification-for-guest/notification-for-guest.component';
 const routes: Routes = [
   {path : "home", component : HomeComponent,},
   {path: "login", component: LogInComponent, canActivate: [UnauthorizedGuard]},
@@ -31,7 +33,9 @@ const routes: Routes = [
   {path: "accommodations-for-host", component: AccommodationsForHostComponent, canActivate: [AuthGuard], data: {role: ['HOST']}},
 	{path: "accommodation-update", component: AccommodationUpdateComponent, canActivate: [AuthGuard], data: {role: ['HOST']}},
 	{path: "guest-reservations", component: GuestReservationsComponent, canActivate: [AuthGuard], data: {role: ['GUEST']}},
-	{path: "host-reservations", component: HostReservationsComponent, canActivate: [AuthGuard], data: {role: ['HOST']}}
+	{path: "host-reservations", component: HostReservationsComponent, canActivate: [AuthGuard], data: {role: ['HOST']}},
+  {path: "notification-for-host",component:NotificationForHostComponent,canActivate: [AuthGuard], data: {role:['HOST']}},
+  {path: "notification-for-guest",component:NotificationForGuestComponent,canActivate: [AuthGuard], data: {role:['GUEST']}}
 ];
 
 @NgModule({
