@@ -59,12 +59,12 @@
 
         <ng-container matColumnDef="guest">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Guest </th>
-            <td mat-cell *matCellDef="let element" class="title" > {{element.guest.name}} {{element.guest.lastName}}</td>
+            <td mat-cell *matCellDef="let element" > {{element.guest.name}} {{element.guest.lastName}}</td>
         </ng-container>
 
         <ng-container matColumnDef="numberOfCancellation">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Guest cancellations </th>
-            <td mat-cell *matCellDef="let element" class="title" > {{element.guest.numberOfCancellation}}</td>
+            <td mat-cell *matCellDef="let element"  > {{element.guest.numberOfCancellation}}</td>
         </ng-container>
 
         <ng-container matColumnDef="accommodation">

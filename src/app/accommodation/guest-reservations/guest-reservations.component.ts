@@ -7,6 +7,7 @@ import { ReservationService } from '../services/reservation.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AuthService } from 'src/app/infrastructure/auth/services/auth.service';
+import { CancellationPolicy } from '../model/cancellation-policy.model';
 
 @Component({
   selector: 'app-guest-reservations',
@@ -17,7 +18,7 @@ export class GuestReservationsComponent {
 
   reservations: Reservation[] = [];
   dataSource!: MatTableDataSource<Reservation>;
-  displayedColumns: string[] = ['select','accommodation', 'startDate', 'endDate', 'numberOfGuests', 'status', 'price'];
+  displayedColumns: string[] = ['select','accommodation','cancellationPolicy', 'startDate', 'endDate', 'numberOfGuests', 'status', 'price'];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator; 
   @ViewChild(MatSort) sort!: MatSort;
@@ -57,21 +58,30 @@ export class GuestReservationsComponent {
 
 
   updateCancelBtnDisabled() {
-    this.isCancelBtnDisabled = this.selection.isEmpty() || !this.selection.selected.every(row => row.status === 'ACCEPTED');
+    this.isCancelBtnDisabled = !(this.selection.selected.length === 1 && this.selection.selected[0].status === ReservationStatus.ACCEPTED && this.selection.selected[0].accommodation?.cancellationPolicy !== CancellationPolicy.NON_REFUNDABLE);
   }
 
   updateDeleteBtnDisabled() {
-    this.isDeleteBtnDisabled = this.selection.isEmpty() || !this.selection.selected.every(row => row.status === 'PENDING');
+    this.isDeleteBtnDisabled = this.selection.isEmpty() || !this.selection.selected.every(row => row.status === ReservationStatus.PENDING);
   }
 
+  cantCancelReservation:boolean = false;
 
   onCancel():void {
-    this.selection.selected.forEach(reservation => {
-      if(reservation.status !== ReservationStatus.PENDING){
-        return;
-      }
-    })
+    this.cantCancelReservation = false;
 
+    this.reservationService.cancelAcceptedReservation(this.selection.selected[0].id!).subscribe({
+      next: () => {
+        console.log("Successful ")
+        this.refreshTable();
+      },
+      error: (error) =>{
+        if(error.status === 405){
+              this.cantCancelReservation = true;
+        }
+      }
+  })
+    
   }
   onDelete():void {
     this.selection.selected.forEach(reservation => {
