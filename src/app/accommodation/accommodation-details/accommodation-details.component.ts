@@ -39,6 +39,7 @@ export class AccommodationDetailsComponent{
 	amenitieAirCondition = "assets/images/air_condition.svg";
 	amenitieParking= "assets/images/parking.svg";
 
+	isStarFilled: boolean = false;
 	starFill = "assets/images/star-fill.svg"
 	star = "assets/images/star.svg"
 
@@ -206,6 +207,14 @@ export class AccommodationDetailsComponent{
 				this.getAvailableDates(accommodationInfo.id);
 
 				this.user = this.authService.getRole() ?? 'UNREGISTERED';
+
+				this.accommodationService.isFavourite(this.authService.getId(), accommodationInfo.id).subscribe({
+					next: (isFavourite) => {
+						if(isFavourite){
+							this.isStarFilled = true;
+						}
+					}
+				})
 			}
 
 		})
@@ -372,6 +381,29 @@ export class AccommodationDetailsComponent{
 
 	routeToUpdate(): void {
 		this.router.navigate(['accommodation-update'], {queryParams: { id: this.accommodationDetails?.id} })
+	}
+
+
+	addOrRemoveFavourite(): void {
+		if(this.isStarFilled){
+			this.accommodationService.removeFavourite(this.authService.getId(), this.accommodationDetails?.id!).subscribe({
+				next: () => {
+					this.isStarFilled = false;
+				},
+				error: () => {
+					console.log("error")
+				}
+			})
+		}else{
+			this.accommodationService.addFavourite(this.authService.getId(), this.accommodationDetails?.id!).subscribe({
+				next: () => {
+					this.isStarFilled = true;
+				},
+				error: () => {
+					console.log("error")
+				}
+			})
+		}
 	}
 }
 

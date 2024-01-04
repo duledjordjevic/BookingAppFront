@@ -20,7 +20,7 @@
 				</div>
 			</div>
 			<div class="rightInfo"  *ngIf="user == 'GUEST'">
-				<img [src] = "star" alt="Star" class="star-favourite">
+				<img [src] = "isStarFilled ? starFill : star" alt="Star" class="star-favourite" (click)="addOrRemoveFavourite()">
 				<p>Save as favorite</p>
 			</div>
 		</div>
