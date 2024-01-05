@@ -35,7 +35,7 @@ export class AccommodationService {
     return this.http.get<AccommodationCard[]>(url);
   }
 
-  addFavourite(guestUserId: number, accommodationId: number): Observable<boolean> {
+addFavourite(guestUserId: number, accommodationId: number): Observable<boolean> {
     const url = environment.apiHost + `guests/favourites/${guestUserId}/${accommodationId}`;
 	  return this.http.post<boolean>(url, {});
   }

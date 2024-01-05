@@ -19,6 +19,7 @@ import { GuestReservationsComponent } from './accommodation/guest-reservations/g
 import { HostReservationsComponent } from './accommodation/host-reservations/host-reservations.component';
 import { NotificationForHostComponent } from './notification/notification-for-host/notification-for-host.component';
 import { NotificationForGuestComponent } from './notification/notification-for-guest/notification-for-guest.component';
+import { FavouritesComponent } from './accommodation/favourites/favourites.component';
 const routes: Routes = [
   {path : "home", component : HomeComponent,},
   {path: "login", component: LogInComponent, canActivate: [UnauthorizedGuard]},
@@ -35,7 +36,8 @@ const routes: Routes = [
 	{path: "guest-reservations", component: GuestReservationsComponent, canActivate: [AuthGuard], data: {role: ['GUEST']}},
 	{path: "host-reservations", component: HostReservationsComponent, canActivate: [AuthGuard], data: {role: ['HOST']}},
   {path: "notification-for-host",component:NotificationForHostComponent,canActivate: [AuthGuard], data: {role:['HOST']}},
-  {path: "notification-for-guest",component:NotificationForGuestComponent,canActivate: [AuthGuard], data: {role:['GUEST']}}
+  {path: "notification-for-guest",component:NotificationForGuestComponent,canActivate: [AuthGuard], data: {role:['GUEST']}},
+	{path: "favourites", component: FavouritesComponent, canActivate: [AuthGuard], data: {role: ['GUEST']}},
 ];
 
 @NgModule({
