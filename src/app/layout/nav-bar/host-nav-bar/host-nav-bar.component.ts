@@ -22,7 +22,7 @@ export class HostNavBarComponent {
   }
  
   ngOnInit():void {
-    this.service.getNotifications().subscribe({
+    this.service.getNotificationsHost().subscribe({
       next:(notifications: NotificationHost[]) => {
 
         notifications.forEach((notification: NotificationHost) => {

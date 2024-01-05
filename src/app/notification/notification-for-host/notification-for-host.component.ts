@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NotificationForHostService } from '../services/notification-for-host.service';
 import { NotificationHost } from '../model/notification-host';
 import { SharedService } from 'src/app/services/shared.service';
+import { format } from 'date-fns';
 
 @Component({
   selector: 'app-notification-for-host',
@@ -15,6 +16,7 @@ export class NotificationForHostComponent {
       this.numberOfNotifications = data;
     });
   }
+  
 
   allNotifications: NotificationHost[]  = [];
   unreadNotifications: NotificationHost[] = [];
@@ -22,11 +24,16 @@ export class NotificationForHostComponent {
   haveUnreadNotifications: boolean = false;
 
   cancelReservationImage: string = "assets/images/cancel.png";
-  reviewImage: string = "assets/images/star.svg"
-  requestImage: string = "assets/images/quote-request.png"
+  reviewImage: string = "assets/images/star.svg";
+  requestImage: string = "assets/images/quote-request.png";
+  acceptedImage: string = "assets/images/accepted.png";
 
   ngOnInit():void{
-    this.service.getNotifications().subscribe({
+    const currentDate = new Date();
+    const dateString = format(currentDate, 'yyyy-MM-dd HH:mm');
+    console.log(dateString);
+    
+    this.service.getNotificationsHost().subscribe({
       next:(notifications: NotificationHost[]) => {
         this.allNotifications = notifications;
         console.log(this.allNotifications);
@@ -45,6 +52,9 @@ export class NotificationForHostComponent {
               notification.title = "New review"
               notification.icon = this.reviewImage;
               break;
+            case 'CREATED_RESERVATION':
+              notification.title = "Reservation created";
+              notification.icon = this.acceptedImage;
           }
           return notification;
         })
@@ -52,6 +62,7 @@ export class NotificationForHostComponent {
 
         this.allNotifications.forEach((notification: NotificationHost) => {
           console.log(notification);
+          notification.dateParsed = format(notification.dateTime || new Date, 'yyyy-MM-dd HH:mm');
           if(notification.read){
             console.log("Procitana notifikacija")
             this.readNotifications.push(notification);
@@ -68,7 +79,7 @@ export class NotificationForHostComponent {
     })
   }
   markAsRead(notification: NotificationHost): void {
-    this.service.markNotificationAsRead(notification.id || 0).subscribe({
+    this.service.markNotificationHostAsRead(notification.id || 0).subscribe({
       next:(_) => {
       }
     })

@@ -13,6 +13,9 @@ import { SharedService } from '../services/shared.service';
   ],
   imports: [
     CommonModule
+  ],
+  exports:[
+    NotificationForHostComponent,
   ]
 })
 export class NotificationModule { }

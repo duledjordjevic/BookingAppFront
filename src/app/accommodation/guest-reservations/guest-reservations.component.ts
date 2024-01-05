@@ -8,6 +8,9 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AuthService } from 'src/app/infrastructure/auth/services/auth.service';
 import { CancellationPolicy } from '../model/cancellation-policy.model';
+import { CreateNotification, NotificationType } from 'src/app/notification/model/notification-host';
+import { NotificationForHostService } from 'src/app/notification/services/notification-for-host.service';
+import { elementAt } from 'rxjs';
 
 @Component({
   selector: 'app-guest-reservations',
@@ -15,6 +18,9 @@ import { CancellationPolicy } from '../model/cancellation-policy.model';
   styleUrls: ['./guest-reservations.component.css']
 })
 export class GuestReservationsComponent {
+  constructor(private reservationService: ReservationService, 
+    private fb: FormBuilder, private authService: AuthService, 
+    private cdr:ChangeDetectorRef, private zone: NgZone,private notificationService: NotificationForHostService) {}
 
   reservations: Reservation[] = [];
   dataSource!: MatTableDataSource<Reservation>;
@@ -74,6 +80,15 @@ export class GuestReservationsComponent {
       next: () => {
         console.log("Successful ")
         this.refreshTable();
+        // const notification: CreateNotification = {
+        //   type: NotificationType.CANCELLED_RESERVATION,
+        //   description: this.authService.getEmail() + " cancelled a reservation for accommodation " + this.accommodationDetails?.title,
+        //   hostId: this.accommodationDetails?.hostId,
+        // }
+        // this.notificationService.createNotification(notification).subscribe({
+        //   next:(_) => {
+        //     console.log("Uspesno kreirana notifikacija");
+        //   }
       },
       error: (error) =>{
         if(error.status === 405){
@@ -104,9 +119,7 @@ export class GuestReservationsComponent {
     this.searchForm.reset();
   }
 
-  constructor(private reservationService: ReservationService, 
-    private fb: FormBuilder, private authService: AuthService, 
-    private cdr:ChangeDetectorRef, private zone: NgZone) {}
+  
 
   searchForm: FormGroup = this.fb.group({
     search: [''],

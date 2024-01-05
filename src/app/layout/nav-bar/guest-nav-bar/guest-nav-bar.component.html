@@ -1,3 +1,8 @@
-<a  [routerLink]="['/guest-reservations']" routerLinkActive="router-link-active">RESERVATIONS</a>
-<a  [routerLink]="['/update-profile']" routerLinkActive="router-link-active">PROFILE</a>
-
+<div class="nav-bar-container">
+    <div class="notification-container">
+        <img src="../../../assets/images/notification.svg" [routerLink]="['/notification-for-guest']"/>
+        <p *ngIf="haveNotifications">{{numberOfNotifications}}</p>
+    </div>
+    <a  [routerLink]="['/guest-reservations']" routerLinkActive="router-link-active">RESERVATIONS</a>
+    <a  [routerLink]="['/update-profile']" routerLinkActive="router-link-active">PROFILE</a>
+</div>
