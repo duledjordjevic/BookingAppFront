@@ -21,6 +21,7 @@ import { PriceListUpdateComponent } from './price-list-update/price-list-update.
 import { GuestNavBarComponent } from '../layout/nav-bar/guest-nav-bar/guest-nav-bar.component';
 import { GuestReservationsComponent } from './guest-reservations/guest-reservations.component';
 import { HostReservationsComponent } from './host-reservations/host-reservations.component';
+import { FavouritesComponent } from './favourites/favourites.component';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { HostReservationsComponent } from './host-reservations/host-reservations
   AccommodationUpdatePicturesComponent,
   PriceListUpdateComponent,
   GuestReservationsComponent,
-  HostReservationsComponent
+  HostReservationsComponent,
+  FavouritesComponent
   ],
 	imports: [
 		CommonModule,
@@ -60,7 +62,8 @@ import { HostReservationsComponent } from './host-reservations/host-reservations
 		AccommodationsFilterComponent,
 		AccommodationsForHostComponent,
 		GuestReservationsComponent,
-		HostReservationsComponent
+		HostReservationsComponent,
+		FavouritesComponent
 	]
 })
 export class AccommodationModule { }

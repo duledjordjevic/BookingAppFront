@@ -25,11 +25,30 @@ export class AccommodationService {
 
   constructor(private http: HttpClient,private datePipe: DatePipe,private authService: AuthService) { }
 
+  getFavouritesAccommodations(id: number): Observable<AccommodationCard[]> {
+    const url = environment.apiHost + `guests/${id}/favourites`;
+    return this.http.get<AccommodationCard[]>(url);
+  }
+
   getAccommodations(): Observable<AccommodationCard[]> {
     const url = environment.apiHost + 'accommodations/adminApproving';
     return this.http.get<AccommodationCard[]>(url);
-``}
+  }
 
+  addFavourite(guestUserId: number, accommodationId: number): Observable<boolean> {
+    const url = environment.apiHost + `guests/favourites/${guestUserId}/${accommodationId}`;
+	  return this.http.post<boolean>(url, {});
+  }
+
+  removeFavourite(guestUserId: number, accommodationId: number): Observable<boolean> {
+    const url = environment.apiHost + `guests/favourites/${guestUserId}/${accommodationId}`;
+	  return this.http.delete<boolean>(url);
+  }
+
+  isFavourite(guestUserId: number, accommodationId: number): Observable<boolean> {
+    const url = environment.apiHost + `guests/isFavourite/${guestUserId}/${accommodationId}`;
+	  return this.http.get<boolean>(url);
+  }
 
   setApprovalStatusAccommodation(id: number, approvalStatus: string): Observable<AccommodationDetails>{
     const url = environment.apiHost + 'accommodations/' + id + '/approvalStatus' ;
