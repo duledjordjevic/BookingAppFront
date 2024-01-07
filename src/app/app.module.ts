@@ -16,6 +16,7 @@ import { SharedModule } from './shared/shared.module';
 import { DatePipe } from '@angular/common';
 import { NgChartsModule } from 'ng2-charts';
 import { AnalyticsModule } from './analytics/analytics.module';
+import { NotificationModule } from './notification/notification.module';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { AnalyticsModule } from './analytics/analytics.module';
     AuthModule,
     SharedModule,
     NgChartsModule,
-    AnalyticsModule
+    AnalyticsModule,
+    NotificationModule
   ],
   
   providers: [DatePipe,

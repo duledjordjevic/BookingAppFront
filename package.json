@@ -27,6 +27,7 @@
     "bootstrap-icons": "^1.11.2",
     "chart.js": "^4.4.1",
     "chartjs-plugin-annotation": "^3.0.1",
+    "date-fns": "^3.1.0",
     "google-libphonenumber": "^3.2.33",
     "html2canvas": "^1.4.1",
     "intl-tel-input": "^17.0.3",
