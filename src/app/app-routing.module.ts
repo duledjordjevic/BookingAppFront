@@ -17,6 +17,8 @@ import { UnauthorizedGuard } from './infrastructure/auth/guard/unauthorized.guar
 import {AccommodationUpdateComponent} from "./accommodation/accommodation-update/accommodation-update.component";
 import { GuestReservationsComponent } from './accommodation/guest-reservations/guest-reservations.component';
 import { HostReservationsComponent } from './accommodation/host-reservations/host-reservations.component';
+import { NotificationForHostComponent } from './notification/notification-for-host/notification-for-host.component';
+import { NotificationForGuestComponent } from './notification/notification-for-guest/notification-for-guest.component';
 import { FavouritesComponent } from './accommodation/favourites/favourites.component';
 const routes: Routes = [
   {path : "home", component : HomeComponent,},
@@ -33,6 +35,8 @@ const routes: Routes = [
 	{path: "accommodation-update", component: AccommodationUpdateComponent, canActivate: [AuthGuard], data: {role: ['HOST']}},
 	{path: "guest-reservations", component: GuestReservationsComponent, canActivate: [AuthGuard], data: {role: ['GUEST']}},
 	{path: "host-reservations", component: HostReservationsComponent, canActivate: [AuthGuard], data: {role: ['HOST']}},
+  {path: "notification-for-host",component:NotificationForHostComponent,canActivate: [AuthGuard], data: {role:['HOST']}},
+  {path: "notification-for-guest",component:NotificationForGuestComponent,canActivate: [AuthGuard], data: {role:['GUEST']}},
 	{path: "favourites", component: FavouritesComponent, canActivate: [AuthGuard], data: {role: ['GUEST']}},
 ];
 

@@ -14,6 +14,7 @@ import {Interceptor} from "./infrastructure/auth/interceptor";
 import { AuthModule } from './infrastructure/auth/auth.module';
 import { SharedModule } from './shared/shared.module';
 import { DatePipe } from '@angular/common';
+import { NotificationModule } from './notification/notification.module';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { DatePipe } from '@angular/common';
     UserModule,
     HttpClientModule,
     AuthModule,
-    SharedModule
+    SharedModule,
+    NotificationModule
   ],
   
   providers: [DatePipe,
