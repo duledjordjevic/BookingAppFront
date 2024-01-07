@@ -14,6 +14,8 @@ import {Interceptor} from "./infrastructure/auth/interceptor";
 import { AuthModule } from './infrastructure/auth/auth.module';
 import { SharedModule } from './shared/shared.module';
 import { DatePipe } from '@angular/common';
+import { NgChartsModule } from 'ng2-charts';
+import { AnalyticsModule } from './analytics/analytics.module';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { DatePipe } from '@angular/common';
     UserModule,
     HttpClientModule,
     AuthModule,
-    SharedModule
+    SharedModule,
+    NgChartsModule,
+    AnalyticsModule
   ],
   
   providers: [DatePipe,
