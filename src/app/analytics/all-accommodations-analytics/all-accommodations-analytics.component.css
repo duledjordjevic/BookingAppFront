@@ -1,6 +1,8 @@
-.main-container{
+/* .main-container{
     margin: auto;
-}
+    max-width: 1600px;
+    background-color: #fff;
+} */
 #charts{
     display: flex;
     justify-content: space-between;
@@ -27,28 +29,38 @@ select {
 
 .input-container button{
 	height: 45px;
-	width: 170px;
+	width: 200px;
 	margin: 10px;
-    margin-right: 70px;
+    margin-top: 15px;
 	background-color: #38b88f;
 	color: #FFF;
+}
+.input-container #filterAnalyticsBtn{
+	background-color: #235471;
+    margin-right: 50px;
 }
 
 .input-container{
     display: flex;
-    /* justify-content: space-between; */
-    align-items: center;
     gap: 50px;
 }
+.dates{
+    display: flex;
+    margin-left: 50px;
+}
+.dates p {
+    margin-top: 25px;
+    width: 160px;
+    color: #e91b00;
+}
+mat-form-field {
+    padding: 10px;
+}
+h2{
+    padding: 40px;
+}
+
 
 .input-container > div label, .input-container > div select{
     margin: 10px;
-}
-
-h2{
-    padding: 30px;
-}
-
-#accommodation{
-    width: 250px;
 }

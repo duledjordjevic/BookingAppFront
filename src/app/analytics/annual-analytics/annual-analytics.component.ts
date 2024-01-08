@@ -4,6 +4,8 @@ import html2canvas from 'html2canvas';
 import * as jspdf from 'jspdf';
 import { AnalyticsService } from '../services/analytics.service';
 import { AuthService } from 'src/app/infrastructure/auth/services/auth.service';
+import { Accommodation, AccommodationPopular } from 'src/app/accommodation/model/accommodation.model';
+import { AccommodationService } from 'src/app/accommodation/services/accommodation.service';
 
 @Component({
   selector: 'app-annual-analytics',
@@ -12,9 +14,12 @@ import { AuthService } from 'src/app/infrastructure/auth/services/auth.service';
 })
 export class AnnualAnalyticsComponent {
   @Input() accommodationId: number = 0;
-
+  @Input() isAccommodationDetails: boolean = false;
+  
+  accommodations: AccommodationPopular[] = [];
   years: number[];
   selectedYear: number;
+
 
   chartType: ChartType;
   chartTypes: ChartType[] = ["bar", "line", "pie"];
@@ -30,7 +35,8 @@ export class AnnualAnalyticsComponent {
     return years;
   }
 
-  constructor(private analyticsService: AnalyticsService, private authService: AuthService){
+  constructor(private analyticsService: AnalyticsService, private authService: AuthService,
+     private accommodationService: AccommodationService){
     this.chartType = "line";
     this.years = this.getYears();
     this.selectedYear = new Date().getFullYear();
@@ -46,11 +52,24 @@ export class AnnualAnalyticsComponent {
   
  
   ngOnInit(): void {
-    this.getAnnualAnalytics(this.selectedYear);
+    if(this.isAccommodationDetails){
+      this.accommodationService.getAccommodationsForHost().subscribe({
+        next: (data) => {
+          this.accommodations = data;
+          if(this.accommodations.length > 0){
+            this.accommodationId = this.accommodations[0].id!;
+          }
+          this.getAnnualAnalytics();
+        }
+      })
+    }else{
+      this.getAnnualAnalytics();
+    }
   }
 
-  getAnnualAnalytics(year: number): void{
-    this.analyticsService.getAnnualAnalytics(year, this.accommodationId, this.authService.getId()).subscribe({
+  getAnnualAnalytics(accommodation?: AccommodationPopular): void{
+
+    this.analyticsService.getAnnualAnalytics(this.selectedYear, this.accommodationId, this.authService.getId()).subscribe({
       next: (analytics) => {
         this.chartEarningsData = [
           {data: analytics.earningsPerMonth, label: "Earnings", fill: 'origin',}

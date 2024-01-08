@@ -3,20 +3,23 @@ import { CommonModule } from '@angular/common';
 import { NgChartsModule, NgChartsConfiguration } from 'ng2-charts';
 import { AnnualAnalyticsComponent } from './annual-analytics/annual-analytics.component';
 import { AnalyticsComponent } from './analytics/analytics.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../infrastructure/material/material.module';
+import { AllAccommodationsAnalyticsComponent } from './all-accommodations-analytics/all-accommodations-analytics.component';
 
 
 
 @NgModule({
   declarations: [
     AnnualAnalyticsComponent,
-    AnalyticsComponent
+    AnalyticsComponent,
+    AllAccommodationsAnalyticsComponent
   ],
   imports: [
     CommonModule,
     NgChartsModule,
     FormsModule,
+    ReactiveFormsModule,
     MaterialModule
   ],
   providers: [
@@ -24,7 +27,8 @@ import { MaterialModule } from '../infrastructure/material/material.module';
   ],
   exports: [
     AnalyticsComponent,
-    AnnualAnalyticsComponent
+    AnnualAnalyticsComponent,
+    AllAccommodationsAnalyticsComponent
   ]
 })
 export class AnalyticsModule { }
