@@ -225,5 +225,9 @@
 				<button (click)="expandComments()" *ngIf="!allCommentsVisible" mat-raised-button>See all reviews</button>
 			</div>
 		</div>
+		<div id="analytics-section" *ngIf="user == 'HOST' && isHostAcc == true">
+			<app-annual-analytics #analyticscomponent [accommodationId]="accommodationId"></app-annual-analytics>
+		</div>
 	</div>
+	
 </div>

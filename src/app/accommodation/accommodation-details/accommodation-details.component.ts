@@ -2,7 +2,7 @@
 // import { Component } from '@angular/core';
 import { AccommodationService } from "../services/accommodation.service";
 import {CommentModel} from "../model/comment.model";
-import { AfterViewInit, Component, OnInit, ViewChild, inject } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild, inject } from '@angular/core';
 import { RatingModel } from "../model/rating.model";
 import { AccommodationDetails, Amenities, AmenitiesIcons } from "../model/accommodation.model";
 import { MapService } from "src/app/layout/map/map.service";
@@ -16,6 +16,7 @@ import { DialogService } from "src/app/shared/services/dialog.service";
 import { ReservationMethod } from "../model/reservation-method.model";
 import { MatCalendarCellCssClasses, MatDatepicker } from "@angular/material/datepicker";
 import { ActivatedRoute, Router } from "@angular/router";
+import { AnnualAnalyticsComponent } from "src/app/analytics/annual-analytics/annual-analytics.component";
 import { NotificationForHostService } from "src/app/notification/services/notification-for-host.service";
 import { CreateNotification, NotificationHost, NotificationType } from 'src/app/notification/model/notification-host';
 
@@ -30,7 +31,8 @@ export class AccommodationDetailsComponent{
 	constructor(private accommodationService: AccommodationService, private mapService: MapService,
 		private reservationService: ReservationService, private authService: AuthService,
 		private dialogService: DialogService,private route: ActivatedRoute,private router: Router,
-		private notificationService: NotificationForHostService) {
+		private cdr: ChangeDetectorRef, private notificationService: NotificationForHostService) {
+
 		this.updateDisplayedComments();
 		this.reservationForm.get('numOfGuests')?.setValue(0);
 
@@ -431,6 +433,15 @@ export class AccommodationDetailsComponent{
 			})
 		}
 	}
+
+	// updateYear(): void{
+	// 	this.cdr.detectChanges();
+	// 	this.analyticsComponent?.getAnnualAnalytics(this.year, this.accommodationId);
+	// }
+
+	// @ViewChild('analyticscomponent') analyticsComponent?: AnnualAnalyticsComponent;
+
+	// year: number = 2024;
 }
 
 

@@ -20,6 +20,8 @@ import { HostReservationsComponent } from './accommodation/host-reservations/hos
 import { NotificationForHostComponent } from './notification/notification-for-host/notification-for-host.component';
 import { NotificationForGuestComponent } from './notification/notification-for-guest/notification-for-guest.component';
 import { FavouritesComponent } from './accommodation/favourites/favourites.component';
+import { AnalyticsComponent } from './analytics/analytics/analytics.component';
+import { AllAccommodationsAnalyticsComponent } from './analytics/all-accommodations-analytics/all-accommodations-analytics.component';
 const routes: Routes = [
   {path : "home", component : HomeComponent,},
   {path: "login", component: LogInComponent, canActivate: [UnauthorizedGuard]},
@@ -38,6 +40,8 @@ const routes: Routes = [
   {path: "notification-for-host",component:NotificationForHostComponent,canActivate: [AuthGuard], data: {role:['HOST']}},
   {path: "notification-for-guest",component:NotificationForGuestComponent,canActivate: [AuthGuard], data: {role:['GUEST']}},
 	{path: "favourites", component: FavouritesComponent, canActivate: [AuthGuard], data: {role: ['GUEST']}},
+	{path: "analytics", component: AnalyticsComponent},
+	{path: "analytics2", component: AllAccommodationsAnalyticsComponent},
 ];
 
 @NgModule({

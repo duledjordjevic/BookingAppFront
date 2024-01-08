@@ -360,3 +360,11 @@ hr {
 .pictures img{
 	cursor: pointer;
 }
+
+#analytics-section {
+	background-color: white;
+	border-radius: 15px;
+	padding: 30px;
+	margin-bottom: 50px;
+	/* margin: auto; */
+}

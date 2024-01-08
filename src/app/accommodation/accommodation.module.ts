@@ -22,6 +22,7 @@ import { GuestNavBarComponent } from '../layout/nav-bar/guest-nav-bar/guest-nav-
 import { GuestReservationsComponent } from './guest-reservations/guest-reservations.component';
 import { HostReservationsComponent } from './host-reservations/host-reservations.component';
 import { FavouritesComponent } from './favourites/favourites.component';
+import { AnalyticsModule } from '../analytics/analytics.module';
 
 
 @NgModule({
@@ -53,6 +54,7 @@ import { FavouritesComponent } from './favourites/favourites.component';
 		ReactiveFormsModule,
 		MatCheckboxModule,
 		MatSliderModule,
+		AnalyticsModule
 	],
 	exports: [
 		AccommodationDetailsComponent,

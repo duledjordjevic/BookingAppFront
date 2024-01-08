@@ -1,0 +1,42 @@
+<div class="main-container">
+    <h2 *ngIf="isAccommodationDetails == true">Annual analytics for specific accommodation</h2>
+    <h2 *ngIf="isAccommodationDetails == false">Annual analytics</h2>
+    <div class="input-container">
+        <div>
+            <label for="year">Chose year:</label>
+            <select id="year" [(ngModel)]="selectedYear" (ngModelChange)="getAnnualAnalytics()">
+                <option *ngFor="let year of years" [value]="year" >{{ year }}</option>
+            </select>
+            <select id="chartType" [(ngModel)]="chartType" (ngModelChange)="getAnnualAnalytics()">
+                <option *ngFor="let chartType of chartTypes" [value]="chartType" >{{ chartType.toUpperCase() }}</option>
+            </select>
+            <select *ngIf="isAccommodationDetails == true" id="accommodation"  [(ngModel)]="accommodationId" (ngModelChange)="getAnnualAnalytics()">
+                <option *ngFor="let accommodation of accommodations" [value]="accommodation.id" >{{ accommodation.title }}</option>
+            </select>
+        </div>
+    
+        <button mat-raised-button (click)="exportToPDF()">Export to PDF</button>
+    </div>
+
+    <div id="charts">
+        <canvas baseChart
+        [datasets]="chartEarningsData"
+        [labels]="chartLabels"
+        [options]="chartOptions"
+        [legend]="chartLegend"
+        [type]="chartType"
+        id="earnings">
+    </canvas>
+    <canvas baseChart
+        [datasets]="chartReservationsData"
+        [labels]="chartLabels"
+        [options]="chartOptions"
+        [legend]="chartLegend"
+        [type]="chartType"
+        id="reservations">
+    </canvas>
+    </div>
+    
+
+    
+</div>
