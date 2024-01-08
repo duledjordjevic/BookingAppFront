@@ -14,6 +14,7 @@ import {Interceptor} from "./infrastructure/auth/interceptor";
 import { AuthModule } from './infrastructure/auth/auth.module';
 import { SharedModule } from './shared/shared.module';
 import { DatePipe } from '@angular/common';
+import {CommentsModule} from "./comments/comments.module";
 
 @NgModule({
   declarations: [
@@ -28,15 +29,16 @@ import { DatePipe } from '@angular/common';
     UserModule,
     HttpClientModule,
     AuthModule,
-    SharedModule
+    SharedModule,
+	  CommentsModule
   ],
-  
+
   providers: [DatePipe,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: Interceptor,
       multi: true,
-      
+
     },
     SharedService],
   bootstrap: [AppComponent]

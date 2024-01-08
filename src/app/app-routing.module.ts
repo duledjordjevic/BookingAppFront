@@ -18,6 +18,7 @@ import {AccommodationUpdateComponent} from "./accommodation/accommodation-update
 import { GuestReservationsComponent } from './accommodation/guest-reservations/guest-reservations.component';
 import { HostReservationsComponent } from './accommodation/host-reservations/host-reservations.component';
 import { FavouritesComponent } from './accommodation/favourites/favourites.component';
+import {CommentHostComponent} from "./comments/comment-host/comment-host.component";
 const routes: Routes = [
   {path : "home", component : HomeComponent,},
   {path: "login", component: LogInComponent, canActivate: [UnauthorizedGuard]},
@@ -34,6 +35,7 @@ const routes: Routes = [
 	{path: "guest-reservations", component: GuestReservationsComponent, canActivate: [AuthGuard], data: {role: ['GUEST']}},
 	{path: "host-reservations", component: HostReservationsComponent, canActivate: [AuthGuard], data: {role: ['HOST']}},
 	{path: "favourites", component: FavouritesComponent, canActivate: [AuthGuard], data: {role: ['GUEST']}},
+	{path: "comment-host", component: CommentHostComponent, canActivate: [AuthGuard], data: {role: ['GUEST']}},
 ];
 
 @NgModule({
