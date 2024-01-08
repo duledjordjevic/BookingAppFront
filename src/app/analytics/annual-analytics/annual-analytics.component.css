@@ -1,0 +1,54 @@
+.main-container{
+    margin: auto;
+}
+#charts{
+    display: flex;
+    justify-content: space-between;
+    gap: 100px;
+    max-width: 600px;
+}
+#charts canvas{
+    padding: 20px;
+    margin-top: 20px;
+
+}
+
+select {
+	width: 150px;
+	height: 55px;
+	border-radius: 4px;
+	padding: 5px;
+	border: none;
+    opacity: 0.8;
+    outline: none;
+	filter: drop-shadow(6px 7px 7px rgba(0, 0, 0, 0.1));
+	align-self: auto;
+}
+
+.input-container button{
+	height: 45px;
+	width: 170px;
+	margin: 10px;
+    margin-right: 70px;
+	background-color: #38b88f;
+	color: #FFF;
+}
+
+.input-container{
+    display: flex;
+    /* justify-content: space-between; */
+    align-items: center;
+    gap: 50px;
+}
+
+.input-container > div label, .input-container > div select{
+    margin: 10px;
+}
+
+h2{
+    padding: 30px;
+}
+
+#accommodation{
+    width: 250px;
+}

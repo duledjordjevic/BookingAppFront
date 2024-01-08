@@ -1,0 +1,50 @@
+<div class="main">
+    <h2>Analytics for all accommodations</h2>
+    <div class="input-container">
+        <div [formGroup]="filterForm">
+            <div class="dates">
+                <div class="datePicker">
+                  <mat-form-field>
+                    <mat-label>Start date</mat-label>
+                    <input matInput [matDatepicker]="checkinPicker" formControlName="startDate" >
+                    <mat-datepicker-toggle matIconSuffix [for]="checkinPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #checkinPicker></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div class="datePicker">
+                  <mat-form-field>
+                    <mat-label>End date</mat-label>
+                    <input matInput [matDatepicker]="checkoutPicker" formControlName="endDate" >
+                    <mat-datepicker-toggle matIconSuffix [for]="checkoutPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #checkoutPicker></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <p *ngIf="dateWrong == true">*date wrong format</p>
+              </div>  
+        </div>
+        <button mat-raised-button id="filterAnalyticsBtn" (click)="filter()">Get analytics</button>
+        <button mat-raised-button (click)="exportToPDF()">Export to PDF</button>
+    </div>
+
+    <div id="charts">
+        <canvas baseChart
+            [datasets]="chartEarningsData"
+            [labels]="chartLabels"
+            [options]="chartOptions"
+            [legend]="chartLegend"
+            [type]="chartType"
+            id="earningsAllAcommodation">
+        </canvas>
+        <canvas baseChart
+            [datasets]="chartReservationsData"
+            [labels]="chartLabels"
+            [options]="chartOptions"
+            [legend]="chartLegend"
+            [type]="chartType"
+            id="reservationsAllAcommodation">
+        </canvas>
+    </div>
+    
+
+    
+</div>

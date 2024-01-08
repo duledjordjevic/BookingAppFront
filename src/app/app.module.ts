@@ -15,6 +15,9 @@ import { AuthModule } from './infrastructure/auth/auth.module';
 import { SharedModule } from './shared/shared.module';
 import { DatePipe } from '@angular/common';
 import {CommentsModule} from "./comments/comments.module";
+import { NgChartsModule } from 'ng2-charts';
+import { AnalyticsModule } from './analytics/analytics.module';
+import { NotificationModule } from './notification/notification.module';
 
 @NgModule({
   declarations: [
@@ -30,7 +33,10 @@ import {CommentsModule} from "./comments/comments.module";
     HttpClientModule,
     AuthModule,
     SharedModule,
-	  CommentsModule
+	  CommentsModule,
+    NgChartsModule,
+    AnalyticsModule,
+    NotificationModule
   ],
 
   providers: [DatePipe,
