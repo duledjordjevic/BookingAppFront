@@ -1,0 +1,80 @@
+<div class="main-container">
+	<div class="main">
+		<div class="title">
+			<h1>Comment host</h1>
+		</div>
+
+		<div class="newComments">
+			<div *ngFor="let acc of accommodations">
+				<div class="commentAndReview">
+					<div class="comment">
+						<div class="nameWithReview">
+							<div class="pictureWithName">
+								<div class="icon">
+									<img [src]="userIcon" alt="UserIcon">
+								</div>
+								<div class="hostName">
+									<p id="hostName">{{acc.host?.name}} {{acc.host?.lastName}}</p>
+									<p id="accName">{{acc.title}}</p>
+								</div>
+							</div>
+							<div class="review">
+								<button #matButton mat-icon-button [color]="color" *ngFor="let ratingId of ratingArr; index as i" [id]="'star_'+i"
+										(click)="onClick(i+1, acc.id)" [matTooltip]="(ratingId + 1).toString()" matTooltipPosition="above">
+									<mat-icon class="star-icon">
+										{{ showIcon(i, acc.id) }}
+									</mat-icon>
+								</button>
+							</div>
+						</div>
+						<div class="textPlace">
+							<textarea placeholder="Add a comment..." [(ngModel)]="commentContent[acc.id ?? -1]"></textarea>
+						</div>
+					</div>
+					<div class="commentButton">
+						<button mat-raised-button type="submit" id="add" (click)="addComment(acc.hostId, acc.id)">Comment</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="oldComments">
+			<div *ngFor="let com of commentsForDeleting">
+				<div class="commentAndReview">
+					<div class="comment">
+						<div class="nameWithReview">
+							<div class="pictureWithName">
+								<div class="icon">
+									<img [src]="userIcon" alt="UserIcon">
+								</div>
+								<div class="hostName">
+									<p>{{com.host?.name}} {{com.host?.lastName}}</p>
+								</div>
+							</div>
+							<div class="review">
+								<button #matButtonOld mat-icon-button [color]="color" *ngFor="let ratingId of ratingArrOld; index as i" [id]="'star_'+i"
+									[matTooltip]="(ratingId + 1).toString()"  [disabled]="true" matTooltipPosition="above">
+									<mat-icon class="star-icon">
+										{{ showIconOld(i, com.rating) }}
+									</mat-icon>
+								</button>
+							</div>
+						</div>
+						<div class="textPlace">
+							<textarea readonly placeholder="Add a comment...">{{com.content}}</textarea>
+						</div>
+					</div>
+					<div class="commentButton">
+						<button mat-raised-button id="delete" (click)="deleteComment(com.id)">Delete</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+
+
+
+

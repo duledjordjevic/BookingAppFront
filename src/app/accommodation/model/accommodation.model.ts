@@ -3,6 +3,8 @@ import {ReservationMethod} from "./reservation-method.model";
 import {CancellationPolicy} from "./cancellation-policy.model";
 import {ApprovalStatus} from "./approval-status.model";
 import {PriceList} from "./price-list.model";
+import {User} from "../../infrastructure/auth/model/user.model";
+import {Host} from "../../infrastructure/auth/model/user.model";
 
 export interface AccommodationDetails {
     id: number,
@@ -15,6 +17,7 @@ export interface AccommodationDetails {
     images:string[];
 	hostId?: number;
 	accommodationApprovalStatus? : AccommodationApprovalStatus;
+	host?: Host;
 }
 
 export enum AccommodationApprovalStatus {
@@ -68,6 +71,7 @@ export interface Accommodation{
 	hostId?: number;
 	prices?: PriceList[] | null;
 	images?: string[] | null;
+	host?: Host;
 }
 
 export interface AccommodationCreate{
@@ -86,4 +90,5 @@ export interface AccommodationCreate{
 	prices: PriceList[];
 	hostId: number;
 	address: Address;
+	host?: Host;
 }
