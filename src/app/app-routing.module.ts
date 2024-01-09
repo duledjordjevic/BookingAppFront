@@ -23,6 +23,7 @@ import { FavouritesComponent } from './accommodation/favourites/favourites.compo
 import {CommentHostComponent} from "./comments/comment-host/comment-host.component";
 import { AnalyticsComponent } from './analytics/analytics/analytics.component';
 import { AllAccommodationsAnalyticsComponent } from './analytics/all-accommodations-analytics/all-accommodations-analytics.component';
+import {CommentAccComponent} from "./comments/comment-acc/comment-acc.component";
 
 const routes: Routes = [
   {path : "home", component : HomeComponent,},
@@ -45,6 +46,7 @@ const routes: Routes = [
 	{path: "comment-host", component: CommentHostComponent, canActivate: [AuthGuard], data: {role: ['GUEST']}},
 	{path: "analytics", component: AnalyticsComponent},
 	{path: "analytics2", component: AllAccommodationsAnalyticsComponent},
+	{path: "comment-acc", component: CommentAccComponent},
 ];
 
 @NgModule({
