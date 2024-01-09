@@ -7,6 +7,10 @@ import { ReservationService } from '../services/reservation.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AuthService } from 'src/app/infrastructure/auth/services/auth.service';
+import { CreateNotificationGuest } from 'src/app/notification/model/notification-guest';
+import { NotificationForGuestService } from 'src/app/notification/services/notification-for-guest.service';
+import { ReportPopupComponent } from '../report-popup/report-popup.component';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-host-reservations',
@@ -14,6 +18,7 @@ import { AuthService } from 'src/app/infrastructure/auth/services/auth.service';
   styleUrls: ['./host-reservations.component.css']
 })
 export class HostReservationsComponent {
+  dialogRef!: MatDialogRef<ReportPopupComponent>;
 
   reservations: Reservation[] = [];
   dataSource!: MatTableDataSource<Reservation>;
@@ -26,6 +31,15 @@ export class HostReservationsComponent {
 
 
   selection = new SelectionModel<Reservation>(true, []);
+  openDialog(): void {
+    this.dialogRef = this.matDialog.open(ReportPopupComponent, {
+    });
+  }
+  closeDialog(): void {
+    if (this.dialogRef) {
+      this.dialogRef.close();
+    }
+  }
 
   selectionToggle(row: any) {
     if (this.selection.isSelected(row)) {
@@ -49,7 +63,9 @@ export class HostReservationsComponent {
 
   constructor(private reservationService: ReservationService, 
     private fb: FormBuilder, private authService: AuthService, 
-    private cdr:ChangeDetectorRef, private zone: NgZone) {}
+    private cdr:ChangeDetectorRef, private zone: NgZone,
+    private notificationService:NotificationForGuestService,
+    private matDialog: MatDialog) {}
 
   searchForm: FormGroup = this.fb.group({
     search: [''],
@@ -138,6 +154,16 @@ export class HostReservationsComponent {
   onAccept(): void {
     this.reservationService.updateReservationStatus(this.selection.selected[0].id!, ReservationStatus.ACCEPTED).subscribe({
       next: () => {
+        console.log(this.selection.selected[0].accommodation?.title);
+        const notification: CreateNotificationGuest = {
+          description: this.authService.getEmail() + " acceptedyour reservation request for accommodation: " + this.selection.selected[0].accommodation?.title,
+          guestId: this.selection.selected[0].guest?.id,
+        }
+        this.notificationService.createNotificationGuest(notification).subscribe({
+          next:(_) => {
+            console.log("Uspesno kreirana notifikacija");
+          }
+        })
         this.refreshTable();
       },
       error: () => {console.log("Error!")}
@@ -147,6 +173,15 @@ export class HostReservationsComponent {
   onDecline(): void {
     this.reservationService.updateReservationStatus(this.selection.selected[0].id!, ReservationStatus.DECLINED).subscribe({
       next: () => {
+        const notification: CreateNotificationGuest = {
+          description: this.authService.getEmail() + " declined your reservation request for accommodation: " + this.selection.selected[0].accommodation?.title,
+          guestId: this.selection.selected[0].guest?.id,
+        }
+        this.notificationService.createNotificationGuest(notification).subscribe({
+          next:(_) => {
+            console.log("Uspesno kreirana notifikacija");
+          }
+        })
         this.refreshTable();
       },
       error: () => {console.log("Error!")}

@@ -3,6 +3,8 @@ import { NotificationForGuestService } from '../services/notification-for-guest.
 import { SharedService } from 'src/app/services/shared.service';
 import { NotificationGuest } from '../model/notification-guest';
 import { format } from 'date-fns';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+
 
 
 @Component({
@@ -12,12 +14,13 @@ import { format } from 'date-fns';
 })
 export class NotificationForGuestComponent {
   numberOfNotifications: number = 0;
+
   constructor(private service: NotificationForGuestService,private sharedService:SharedService){
     this.sharedService.numberOfNotifications$.subscribe(data => {
       this.numberOfNotifications = data;
     });
   }
-  
+ 
 
   allNotifications: NotificationGuest[]  = [];
   unreadNotifications: NotificationGuest[] = [];
@@ -41,7 +44,11 @@ export class NotificationForGuestComponent {
         this.allNotifications.forEach((notification: NotificationGuest) => {
           notification.dateParsed = format(notification.dateTime || new Date, 'yyyy-MM-dd HH:mm');
           notification.title = "Response to the reservation request"
-          notification.icon = this.requestImage;
+          if(notification.description?.includes("accepted ")){
+            notification.icon = this.acceptedImage;
+          }else{
+            notification.icon = this.cancelReservationImage;
+          }
           if(notification.read){
             console.log("Procitana notifikacija")
             this.readNotifications.push(notification);
@@ -70,5 +77,15 @@ export class NotificationForGuestComponent {
     if(this.unreadNotifications.length == 0){
       this.haveUnreadNotifications = false;
     }    
+  }
+
+  isPopupOpen: boolean = false;
+
+  openPopup(): void {
+    this.isPopupOpen = true;
+  }
+
+  closePopup(): void {
+    this.isPopupOpen = false;
   }
 }
