@@ -4,6 +4,7 @@ import { SharedService } from 'src/app/services/shared.service';
 import { NotificationGuest } from '../model/notification-guest';
 import { format } from 'date-fns';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { NotificationTypeStatus } from '../model/notification-type-status';
 
 
 
@@ -25,6 +26,7 @@ export class NotificationForGuestComponent {
   allNotifications: NotificationGuest[]  = [];
   unreadNotifications: NotificationGuest[] = [];
   readNotifications: NotificationGuest[] = [];
+  notificationsStatus: boolean | undefined;
   haveUnreadNotifications: boolean = false;
 
   cancelReservationImage: string = "assets/images/cancel.png";
@@ -35,6 +37,20 @@ export class NotificationForGuestComponent {
   
   ngOnInit():void{
     
+    this.getNotificationsTypeStatus();
+    
+    this.getAllNotifications();
+    
+  }
+  getNotificationsTypeStatus(): void{
+    this.service.getGuestNotificationsStatus().subscribe({
+      next:(notificationsTypeStatus:NotificationTypeStatus[]) => {
+        console.log(notificationsTypeStatus);
+        this.notificationsStatus = notificationsTypeStatus[0].isTurned;
+      }
+    })
+  }
+  getAllNotifications(): void {
     this.service.getNotificationsForGuest().subscribe({
       next:(notifications: NotificationGuest[]) => {
         this.allNotifications = notifications;

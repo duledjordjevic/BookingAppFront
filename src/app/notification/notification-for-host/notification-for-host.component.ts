@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { NotificationForHostService } from '../services/notification-for-host.service';
-import { NotificationHost } from '../model/notification-host';
+import { NotificationHost, NotificationType } from '../model/notification-host';
 import { SharedService } from 'src/app/services/shared.service';
 import { format } from 'date-fns';
+import { NotificationTypeStatus } from '../model/notification-type-status';
 
 @Component({
   selector: 'app-notification-for-host',
@@ -22,6 +23,11 @@ export class NotificationForHostComponent {
   unreadNotifications: NotificationHost[] = [];
   readNotifications: NotificationHost[] = [];
   haveUnreadNotifications: boolean = false;
+  notificationsStatus: NotificationTypeStatus[] = [];
+  isTurnedReservationRequest: boolean | undefined;
+  isTurnedReservationCreated: boolean | undefined;
+  isTurnedReservationCancelled: boolean | undefined;
+  isTurnedReview: boolean | undefined;
 
   cancelReservationImage: string = "assets/images/cancel.png";
   reviewImage: string = "assets/images/star.svg";
@@ -29,14 +35,57 @@ export class NotificationForHostComponent {
   acceptedImage: string = "assets/images/accepted.png";
 
   ngOnInit():void{
-    const currentDate = new Date();
-    const dateString = format(currentDate, 'yyyy-MM-dd HH:mm');
-    console.log(dateString);
+
+    this.getNotificationsStatus();
+
+    this.getAllNotifications();
     
+  }
+
+  getNotificationsStatus(){
+    this.service.getHostNotificationsStatus().subscribe({
+      next:(notificationsTypeStatus: NotificationTypeStatus[]) => {
+        this.notificationsStatus = notificationsTypeStatus;
+        this.notificationsStatus.forEach((notificationTypeStatus: NotificationTypeStatus) =>{
+          switch(notificationTypeStatus.type){
+            case NotificationType.RESERVATION_REQUEST:
+              if(notificationTypeStatus.isTurned){
+                this.isTurnedReservationRequest = true;
+              }else{
+                this.isTurnedReservationRequest = false;
+              }
+              break;
+            case NotificationType.CREATED_RESERVATION:
+              if(notificationTypeStatus.isTurned){
+                this.isTurnedReservationCreated = true;
+              }else{
+                this.isTurnedReservationCreated = false;
+              }
+              break;
+            case NotificationType.CANCELLED_RESERVATION:
+              if(notificationTypeStatus.isTurned){
+                this.isTurnedReservationCancelled = true;
+              }else{
+                this.isTurnedReservationCancelled = false;
+              }
+              break;
+            case NotificationType.NEW_REVIEW:
+              if(notificationTypeStatus.isTurned){
+                this.isTurnedReview = true;
+              }else{
+                this.isTurnedReview = false;
+              }
+              break;
+          }
+        })
+      }
+    })
+  }
+
+  getAllNotifications(): void {
     this.service.getNotificationsHost().subscribe({
       next:(notifications: NotificationHost[]) => {
         this.allNotifications = notifications;
-        console.log(this.allNotifications);
 
         const updatedNotifications =  this.allNotifications.map(notification => {
           switch(notification.type){
@@ -61,13 +110,10 @@ export class NotificationForHostComponent {
         this.allNotifications = updatedNotifications;
 
         this.allNotifications.forEach((notification: NotificationHost) => {
-          console.log(notification);
           notification.dateParsed = format(notification.dateTime || new Date, 'yyyy-MM-dd HH:mm');
           if(notification.read){
-            console.log("Procitana notifikacija")
             this.readNotifications.push(notification);
           }else{
-            console.log("Neprocitana notifikacija")
             this.unreadNotifications.push(notification);
           }
         })

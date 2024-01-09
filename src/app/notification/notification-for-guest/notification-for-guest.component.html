@@ -1,7 +1,7 @@
 <div class="main-container">
     <div class="activate-notification">
         <h5>Turn on/off notifications</h5>
-        <mat-slide-toggle></mat-slide-toggle>
+        <mat-slide-toggle [(ngModel)]="notificationsStatus"></mat-slide-toggle>
     </div>
     <div *ngIf="haveUnreadNotifications == true" class="unread-div">
         <h4>Unread</h4>

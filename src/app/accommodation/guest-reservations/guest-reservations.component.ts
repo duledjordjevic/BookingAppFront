@@ -39,8 +39,12 @@ export class GuestReservationsComponent {
   isDeleteBtnDisabled: boolean = true;
 
   selection = new SelectionModel<Reservation>(true, []);
-  openDialog(): void {
+  openDialog(firstName: string,lastName:string): void {
     this.dialogRef = this.matDialog.open(ReportPopupComponent, {
+      data:{
+        name:firstName,
+        lastName: lastName
+      }
     });
   }
   closeDialog(): void {

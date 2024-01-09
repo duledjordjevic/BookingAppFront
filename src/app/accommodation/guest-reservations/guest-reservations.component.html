@@ -67,7 +67,7 @@
       </ng-container>
       <ng-container matColumnDef="host">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Host </th>
-        <td mat-cell *matCellDef="let element"  > {{element.accommodation.host.name}} {{element.accommodation.host.lastName}} <img (click)="openDialog()" id="red-flag" src="../../../assets/images/red-flag.png"> </td>
+        <td mat-cell *matCellDef="let element"  > <div (click)="openDialog(element.accommodation.host.name,element.accommodation.host.lastName)">{{element.accommodation.host.name}} {{element.accommodation.host.lastName}} <img  id="red-flag" src="../../../assets/images/red-flag.png"></div> </td>
       </ng-container>
 
       <ng-container matColumnDef="cancellationPolicy">

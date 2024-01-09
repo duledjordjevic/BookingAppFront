@@ -5,6 +5,7 @@ import { NotificationForGuestComponent } from './notification-for-guest/notifica
 import { SharedService } from '../services/shared.service';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { MatDialog} from '@angular/material/dialog';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -16,7 +17,8 @@ import { MatDialog} from '@angular/material/dialog';
   ],
   imports: [
     CommonModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    FormsModule
   ],
   exports:[
     NotificationForHostComponent,
