@@ -5,4 +5,5 @@ export interface NotificationTypeStatus{
     user?:User;
     type?:NotificationType;
     isTurned?:boolean;
+    userId?:number;
 }

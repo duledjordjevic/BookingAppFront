@@ -5,6 +5,8 @@ import { NotificationGuest } from '../model/notification-guest';
 import { format } from 'date-fns';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { NotificationTypeStatus } from '../model/notification-type-status';
+import { NotificationType } from '../model/notification-host';
+import { AuthService } from 'src/app/infrastructure/auth/services/auth.service';
 
 
 
@@ -16,7 +18,8 @@ import { NotificationTypeStatus } from '../model/notification-type-status';
 export class NotificationForGuestComponent {
   numberOfNotifications: number = 0;
 
-  constructor(private service: NotificationForGuestService,private sharedService:SharedService){
+  constructor(private service: NotificationForGuestService,private sharedService:SharedService,
+    private authService: AuthService){
     this.sharedService.numberOfNotifications$.subscribe(data => {
       this.numberOfNotifications = data;
     });
@@ -45,8 +48,18 @@ export class NotificationForGuestComponent {
   getNotificationsTypeStatus(): void{
     this.service.getGuestNotificationsStatus().subscribe({
       next:(notificationsTypeStatus:NotificationTypeStatus[]) => {
-        console.log(notificationsTypeStatus);
         this.notificationsStatus = notificationsTypeStatus[0].isTurned;
+      }
+    })
+  }
+  onToggleChange(): void {
+    const notificationTypeStatusRequest: NotificationTypeStatus = {
+      type: NotificationType.RESERVATION_REQUEST_RESPOND,
+      userId: this.authService.getId(),
+      isTurned: this.notificationsStatus
+    }
+    this.service.updateNotificationStatus(notificationTypeStatusRequest).subscribe({
+      next:(_) => {
       }
     })
   }
@@ -54,8 +67,6 @@ export class NotificationForGuestComponent {
     this.service.getNotificationsForGuest().subscribe({
       next:(notifications: NotificationGuest[]) => {
         this.allNotifications = notifications;
-        console.log(this.allNotifications);
-
 
         this.allNotifications.forEach((notification: NotificationGuest) => {
           notification.dateParsed = format(notification.dateTime || new Date, 'yyyy-MM-dd HH:mm');
@@ -66,10 +77,8 @@ export class NotificationForGuestComponent {
             notification.icon = this.cancelReservationImage;
           }
           if(notification.read){
-            console.log("Procitana notifikacija")
             this.readNotifications.push(notification);
           }else{
-            console.log("Neprocitana notifikacija")
             this.unreadNotifications.push(notification);
           }
         })

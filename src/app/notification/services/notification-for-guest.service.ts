@@ -32,4 +32,9 @@ export class NotificationForGuestService {
     const url = environment.apiHost + `notificationsForGuest/guestNotificationStatus/${this.authService.getId()}`;
     return this.http.get<NotificationTypeStatus[]>(url);
   }
+
+  updateNotificationStatus(notification: NotificationTypeStatus): Observable<any>{
+    const url = environment.apiHost + `notificationsForGuest/changeNotificationStatus`;
+    return this.http.put(url, notification);  
+  }
 }

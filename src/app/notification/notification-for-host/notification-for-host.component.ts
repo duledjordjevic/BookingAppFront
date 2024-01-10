@@ -4,6 +4,7 @@ import { NotificationHost, NotificationType } from '../model/notification-host';
 import { SharedService } from 'src/app/services/shared.service';
 import { format } from 'date-fns';
 import { NotificationTypeStatus } from '../model/notification-type-status';
+import { AuthService } from 'src/app/infrastructure/auth/services/auth.service';
 
 @Component({
   selector: 'app-notification-for-host',
@@ -12,7 +13,8 @@ import { NotificationTypeStatus } from '../model/notification-type-status';
 })
 export class NotificationForHostComponent {
   numberOfNotifications: number = 0;
-  constructor(private service: NotificationForHostService,private sharedService:SharedService){
+  constructor(private service: NotificationForHostService,private sharedService:SharedService,
+    private authService: AuthService){
     this.sharedService.numberOfNotifications$.subscribe(data => {
       this.numberOfNotifications = data;
     });
@@ -40,6 +42,57 @@ export class NotificationForHostComponent {
 
     this.getAllNotifications();
     
+  }
+  onToggleChange(notificationType: string): void {
+    switch (notificationType) {
+      case 'reservationRequest':
+        const notificationTypeStatusRequest: NotificationTypeStatus = {
+          type: NotificationType.RESERVATION_REQUEST,
+          userId: this.authService.getId(),
+          isTurned: this.isTurnedReservationRequest
+        }
+        this.service.updateNotificationStatus(notificationTypeStatusRequest).subscribe({
+          next:(_) => {
+          }
+        })
+        break;
+      case 'reservationCreated':
+         const notificationTypeStatusCreated: NotificationTypeStatus = {
+          type: NotificationType.CREATED_RESERVATION,
+          userId: this.authService.getId(),
+          isTurned: this.isTurnedReservationCreated
+        }
+        this.service.updateNotificationStatus(notificationTypeStatusCreated).subscribe({
+          next:(_) => {
+          }
+        })        
+        break;
+      case 'reservationCancelled':
+        const notificationTypeStatusCancelled: NotificationTypeStatus = {
+          type: NotificationType.CANCELLED_RESERVATION,
+          userId: this.authService.getId(),
+          isTurned: this.isTurnedReservationCreated
+        }
+        this.service.updateNotificationStatus(notificationTypeStatusCancelled).subscribe({
+          next:(_) => {
+          }
+        })        
+        break;
+      case 'review':
+        const notificationTypeStatusReview: NotificationTypeStatus = {
+          type: NotificationType.NEW_REVIEW,
+          userId: this.authService.getId(),
+          isTurned: this.isTurnedReview
+        }
+        this.service.updateNotificationStatus(notificationTypeStatusReview).subscribe({
+          next:(_) => {
+          }
+        })        
+        break;
+      default:
+        console.warn('Unknown notification type:', notificationType);
+        break;
+    }
   }
 
   getNotificationsStatus(){
