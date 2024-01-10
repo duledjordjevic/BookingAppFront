@@ -65,3 +65,20 @@ img{
 span{
     font-size: 85%;
 }
+
+.activate-notification{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 510px;
+    padding-left: 5px;
+    height: 35px;
+    background-color: #FFF;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    filter: drop-shadow(6px 7px 7px rgba(0, 0, 0, 0.1));
+}
+.activate-notification:nth-child(4){
+    margin-bottom: 40px;
+}

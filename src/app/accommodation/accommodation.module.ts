@@ -23,6 +23,7 @@ import { GuestReservationsComponent } from './guest-reservations/guest-reservati
 import { HostReservationsComponent } from './host-reservations/host-reservations.component';
 import { FavouritesComponent } from './favourites/favourites.component';
 import { AnalyticsModule } from '../analytics/analytics.module';
+import { ReportPopupComponent } from './report-popup/report-popup.component';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { AnalyticsModule } from '../analytics/analytics.module';
   PriceListUpdateComponent,
   GuestReservationsComponent,
   HostReservationsComponent,
-  FavouritesComponent
+  FavouritesComponent,
+  ReportPopupComponent
   ],
 	imports: [
 		CommonModule,

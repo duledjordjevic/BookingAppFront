@@ -10,5 +10,5 @@ export interface NotificationGuest{
 
 export interface CreateNotificationGuest{
     description?:string;
-    hostId?:number;
+    guestId?:number;
 }

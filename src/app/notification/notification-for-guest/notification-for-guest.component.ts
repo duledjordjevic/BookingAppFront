@@ -3,6 +3,11 @@ import { NotificationForGuestService } from '../services/notification-for-guest.
 import { SharedService } from 'src/app/services/shared.service';
 import { NotificationGuest } from '../model/notification-guest';
 import { format } from 'date-fns';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { NotificationTypeStatus } from '../model/notification-type-status';
+import { NotificationType } from '../model/notification-host';
+import { AuthService } from 'src/app/infrastructure/auth/services/auth.service';
+
 
 
 @Component({
@@ -12,16 +17,19 @@ import { format } from 'date-fns';
 })
 export class NotificationForGuestComponent {
   numberOfNotifications: number = 0;
-  constructor(private service: NotificationForGuestService,private sharedService:SharedService){
+
+  constructor(private service: NotificationForGuestService,private sharedService:SharedService,
+    private authService: AuthService){
     this.sharedService.numberOfNotifications$.subscribe(data => {
       this.numberOfNotifications = data;
     });
   }
-  
+ 
 
   allNotifications: NotificationGuest[]  = [];
   unreadNotifications: NotificationGuest[] = [];
   readNotifications: NotificationGuest[] = [];
+  notificationsStatus: boolean | undefined;
   haveUnreadNotifications: boolean = false;
 
   cancelReservationImage: string = "assets/images/cancel.png";
@@ -32,21 +40,45 @@ export class NotificationForGuestComponent {
   
   ngOnInit():void{
     
+    this.getNotificationsTypeStatus();
+    
+    this.getAllNotifications();
+    
+  }
+  getNotificationsTypeStatus(): void{
+    this.service.getGuestNotificationsStatus().subscribe({
+      next:(notificationsTypeStatus:NotificationTypeStatus[]) => {
+        this.notificationsStatus = notificationsTypeStatus[0].isTurned;
+      }
+    })
+  }
+  onToggleChange(): void {
+    const notificationTypeStatusRequest: NotificationTypeStatus = {
+      type: NotificationType.RESERVATION_REQUEST_RESPOND,
+      userId: this.authService.getId(),
+      isTurned: this.notificationsStatus
+    }
+    this.service.updateNotificationStatus(notificationTypeStatusRequest).subscribe({
+      next:(_) => {
+      }
+    })
+  }
+  getAllNotifications(): void {
     this.service.getNotificationsForGuest().subscribe({
       next:(notifications: NotificationGuest[]) => {
         this.allNotifications = notifications;
-        console.log(this.allNotifications);
-
 
         this.allNotifications.forEach((notification: NotificationGuest) => {
           notification.dateParsed = format(notification.dateTime || new Date, 'yyyy-MM-dd HH:mm');
           notification.title = "Response to the reservation request"
-          notification.icon = this.requestImage;
+          if(notification.description?.includes("accepted ")){
+            notification.icon = this.acceptedImage;
+          }else{
+            notification.icon = this.cancelReservationImage;
+          }
           if(notification.read){
-            console.log("Procitana notifikacija")
             this.readNotifications.push(notification);
           }else{
-            console.log("Neprocitana notifikacija")
             this.unreadNotifications.push(notification);
           }
         })
@@ -70,5 +102,15 @@ export class NotificationForGuestComponent {
     if(this.unreadNotifications.length == 0){
       this.haveUnreadNotifications = false;
     }    
+  }
+
+  isPopupOpen: boolean = false;
+
+  openPopup(): void {
+    this.isPopupOpen = true;
+  }
+
+  closePopup(): void {
+    this.isPopupOpen = false;
   }
 }

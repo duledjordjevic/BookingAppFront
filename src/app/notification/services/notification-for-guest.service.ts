@@ -5,6 +5,7 @@ import { CreateNotificationGuest, NotificationGuest } from '../model/notificatio
 import { Observable } from 'rxjs';
 import { environment } from 'src/env/env';
 import { CreateNotification } from '../model/notification-host';
+import { NotificationTypeStatus } from '../model/notification-type-status';
 
 @Injectable({
   providedIn: 'root'
@@ -25,4 +26,15 @@ export class NotificationForGuestService {
   createNotificationGuest(notification: CreateNotificationGuest): Observable<NotificationGuest> {
     const url = environment.apiHost + `notificationsForGuest`
     return this.http.post<NotificationGuest>(url,notification);
-  }}
+  }
+
+  getGuestNotificationsStatus(): Observable<NotificationTypeStatus[]> {
+    const url = environment.apiHost + `notificationsForGuest/guestNotificationStatus/${this.authService.getId()}`;
+    return this.http.get<NotificationTypeStatus[]>(url);
+  }
+
+  updateNotificationStatus(notification: NotificationTypeStatus): Observable<any>{
+    const url = environment.apiHost + `notificationsForGuest/changeNotificationStatus`;
+    return this.http.put(url, notification);  
+  }
+}

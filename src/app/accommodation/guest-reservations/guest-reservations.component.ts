@@ -11,6 +11,8 @@ import { CancellationPolicy } from '../model/cancellation-policy.model';
 import { CreateNotification, NotificationType } from 'src/app/notification/model/notification-host';
 import { NotificationForHostService } from 'src/app/notification/services/notification-for-host.service';
 import { elementAt } from 'rxjs';
+import { ReportPopupComponent } from '../report-popup/report-popup.component';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-guest-reservations',
@@ -18,13 +20,17 @@ import { elementAt } from 'rxjs';
   styleUrls: ['./guest-reservations.component.css']
 })
 export class GuestReservationsComponent {
+  dialogRef!: MatDialogRef<ReportPopupComponent>;
+
+
   constructor(private reservationService: ReservationService, 
     private fb: FormBuilder, private authService: AuthService, 
-    private cdr:ChangeDetectorRef, private zone: NgZone,private notificationService: NotificationForHostService) {}
+    private cdr:ChangeDetectorRef, private zone: NgZone,private notificationService: NotificationForHostService,
+    private matDialog: MatDialog) {}
 
   reservations: Reservation[] = [];
   dataSource!: MatTableDataSource<Reservation>;
-  displayedColumns: string[] = ['select','accommodation','cancellationPolicy', 'startDate', 'endDate', 'numberOfGuests', 'status', 'price'];
+  displayedColumns: string[] = ['select','accommodation','host','cancellationPolicy', 'startDate', 'endDate', 'numberOfGuests', 'status', 'price'];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator; 
   @ViewChild(MatSort) sort!: MatSort;
@@ -33,7 +39,19 @@ export class GuestReservationsComponent {
   isDeleteBtnDisabled: boolean = true;
 
   selection = new SelectionModel<Reservation>(true, []);
-
+  openDialog(firstName: string,lastName:string): void {
+    this.dialogRef = this.matDialog.open(ReportPopupComponent, {
+      data:{
+        name:firstName,
+        lastName: lastName
+      }
+    });
+  }
+  closeDialog(): void {
+    if (this.dialogRef) {
+      this.dialogRef.close();
+    }
+  }
   masterToggle() {
     this.zone.run(() => {
       this.isAllSelected() ?
