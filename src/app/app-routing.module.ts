@@ -43,8 +43,7 @@ const routes: Routes = [
   {path: "notification-for-guest",component:NotificationForGuestComponent,canActivate: [AuthGuard], data: {role:['GUEST']}},
 	{path: "favourites", component: FavouritesComponent, canActivate: [AuthGuard], data: {role: ['GUEST']}},
 	{path: "comment-host", component: CommentHostComponent, canActivate: [AuthGuard], data: {role: ['GUEST']}},
-	{path: "analytics", component: AnalyticsComponent},
-	{path: "analytics2", component: AllAccommodationsAnalyticsComponent},
+	{path: "analytics", component: AnalyticsComponent, canActivate: [AuthGuard], data: {role: ['HOST']}}
 ];
 
 @NgModule({

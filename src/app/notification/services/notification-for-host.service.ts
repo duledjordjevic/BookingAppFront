@@ -34,6 +34,7 @@ export class NotificationForHostService {
   }
   updateNotificationStatus(notification: NotificationTypeStatus): Observable<any>{
     const url = environment.apiHost + `notificationsForHost/changeNotificationStatus`;
-    return this.http.put(url, notification);  }
+    return this.http.put(url, notification);  
+  }
   
 }
