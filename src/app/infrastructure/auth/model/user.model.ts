@@ -15,8 +15,11 @@ export interface Guest{
     lastName?: string;
     numberOfCancellation?: number;
 }
+
 export interface Host{
-    id?: number;
-    name?: string;
-    lastName?: string;
+	id?: number;
+	isReported?: boolean;
+	status?: string;
+	name?: string;
+	lastName?: string;
 }

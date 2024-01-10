@@ -23,7 +23,7 @@ $angular-booking-application-warn: mat.define-palette(mat.$red-palette);
 $angular-booking-application-theme: mat.define-light-theme((
   color: (
     primary: $angular-booking-application-primary,
-    accent: $angular-booking-application-accent,
+    accent: mat.define-palette(mat.$amber-palette),
     warn: $angular-booking-application-warn,
   )
 ));
