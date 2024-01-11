@@ -14,12 +14,14 @@ export interface Guest{
     name?: string;
     lastName?: string;
     numberOfCancellation?: number;
+    user:User;
 }
 
 export interface Host{
 	id?: number;
 	isReported?: boolean;
 	status?: string;
-	name?: string;
+	name?: string;  
 	lastName?: string;
+    user?:User;
 }

@@ -13,6 +13,8 @@ export interface Reservation {
     accommodation?: Accommodation;
     guest?: Guest;
     host?:Host;
+    hostReported?:boolean;
+    guestReported?:boolean;
 }
 
 export enum ReservationStatus {

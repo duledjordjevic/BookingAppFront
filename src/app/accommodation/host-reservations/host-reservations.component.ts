@@ -11,6 +11,7 @@ import { CreateNotificationGuest } from 'src/app/notification/model/notification
 import { NotificationForGuestService } from 'src/app/notification/services/notification-for-guest.service';
 import { ReportPopupComponent } from '../report-popup/report-popup.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { endOf } from 'ngx-bootstrap/chronos';
 
 @Component({
   selector: 'app-host-reservations',
@@ -29,21 +30,32 @@ export class HostReservationsComponent {
   
   isBtnDisabled: boolean = true;
 
+  canReportUser(reservation: Reservation):boolean {
+    let currentDate:Date = new Date();
+    if(reservation.endDate == null){
+      return false;
+    }
+    const reservationEndDate: Date = new Date(reservation.endDate);
 
-  selection = new SelectionModel<Reservation>(true, []);
-  openDialog(firstName: string,lastName:string): void {
+    const formattedReservationEndDate: Date = new Date(reservationEndDate.getFullYear(), reservationEndDate.getMonth(), reservationEndDate.getDate());
+    const formattedCurrentDate: Date = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
+    return formattedReservationEndDate <= formattedCurrentDate && reservation.status == ReservationStatus.ACCEPTED && !reservation.guestReported ;
+  }
+  openDialog(reservation: Reservation): void {
     this.dialogRef = this.matDialog.open(ReportPopupComponent, {
       data:{
-        name:firstName,
-        lastName: lastName
+        name:reservation.guest?.name,
+        lastName: reservation.guest?.lastName,
+        userId:reservation.guest?.user?.id,
+        reservationId:reservation.id,
       }
     });
+    this.dialogRef.afterClosed().subscribe(() => {
+      reservation.guestReported = true;
+    });
   }
-  closeDialog(): void {
-    if (this.dialogRef) {
-      this.dialogRef.close();
-    }
-  }
+
+  selection = new SelectionModel<Reservation>(true, []);
 
   selectionToggle(row: any) {
     if (this.selection.isSelected(row)) {
