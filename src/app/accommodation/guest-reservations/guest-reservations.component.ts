@@ -58,12 +58,15 @@ export class GuestReservationsComponent {
       data:{
         name:reservation.accommodation?.host?.name,
         lastName: reservation.accommodation?.host?.lastName,
-        userId:reservation.accommodation?.host?.user?.id || null,
+        userReportedId:reservation.accommodation?.host?.user?.id || null,
+        userReportingId:this.authService.getId(),
         reservationId:reservation.id,
       }
     });
-    this.dialogRef.afterClosed().subscribe(() => {
-      reservation.hostReported = true;
+    this.dialogRef.afterClosed().subscribe((result: boolean) => {
+      if(result){
+        reservation.guestReported = true;
+      }
     });
   }
 
@@ -162,7 +165,7 @@ export class GuestReservationsComponent {
   });
   
   ngOnInit(): void {
-    this.getGuestReservations({id : this.authService.getId()});
+    this.getGuestReservations({guestId : this.authService.getId()});
   }
 
   getGuestReservations(filter: ReservationFilter):void {
@@ -209,7 +212,7 @@ export class GuestReservationsComponent {
     this.dateWrong = false;
 
     const filter: ReservationFilter = {
-      id: this.authService.getId()
+      guestId: this.authService.getId()
     };
 
     const startDateValue = this.searchForm.get('startDate')?.value;

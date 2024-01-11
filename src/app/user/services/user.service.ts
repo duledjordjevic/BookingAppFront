@@ -6,6 +6,8 @@ import { inject } from '@angular/core/testing';
 import { AuthService } from '../../infrastructure/auth/services/auth.service';
 import { Admin, AdminUpdate } from '../model/admin.model';
 import { environment } from 'src/env/env';
+import { UserBlock } from '../model/user-block';
+import { UserModule } from '../user.module';
 
 @Injectable({
   providedIn: 'root'
@@ -33,5 +35,14 @@ export class UserService {
   updateAdmin(admin: AdminUpdate): Observable<Admin>{
     const url = environment.apiHost + `users/admin/${this.authService.getId()}`;
     return this.http.put<Admin>(url, admin);  }
+
+  getReportedUserData(): Observable<UserBlock[]>{
+    const url = environment.apiHost + `users/reported`;
+    return this.http.get<UserBlock[]>(url);
+  }
+  blockUser(id: number): Observable<UserInfo>{
+    const url = environment.apiHost + `users/block/${id}`;
+    return this.http.put<UserInfo>(url,id);
+  }
 
 }

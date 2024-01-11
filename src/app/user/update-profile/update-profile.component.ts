@@ -5,6 +5,7 @@ import { FormGroup, FormControl, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import { SharedService } from 'src/app/services/shared.service';
 import { Address } from 'src/app/models/shared.models';
+import { UserBlock } from '../model/user-block';
 
 @Component({
   selector: 'app-update-profile',
@@ -18,6 +19,10 @@ export class UpdateProfileComponent implements OnInit {
       private sharedService: SharedService) { }
 
     ngOnInit(): void {
+      this.getUserInfo();
+    }
+
+    getUserInfo():void {
       this.service.getUser().subscribe({
         next:(result: UserInfo) =>{
           this.res = result;
