@@ -4,13 +4,15 @@ import { UpdateProfileComponent } from './update-profile/update-profile.componen
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule} from '@angular/forms';
 import { UpdateAdminComponent } from './update-admin/update-admin.component';
+import { BlockUserComponent } from './block-user/block-user.component';
 
 
 
 @NgModule({
   declarations: [
     UpdateProfileComponent,
-    UpdateAdminComponent
+    UpdateAdminComponent,
+    BlockUserComponent
   ],
   imports: [
     CommonModule,

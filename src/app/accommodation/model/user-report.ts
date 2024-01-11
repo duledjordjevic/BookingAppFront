@@ -1,6 +1,7 @@
 export interface UserReport{
     id?:number;
-    userId?:number;
+    userReportedId?:number;
+    userReportingId?:number;
     reason?:string;
     reservationId?:number;
 }

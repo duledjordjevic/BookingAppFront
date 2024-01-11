@@ -46,12 +46,15 @@ export class HostReservationsComponent {
       data:{
         name:reservation.guest?.name,
         lastName: reservation.guest?.lastName,
-        userId:reservation.guest?.user?.id,
+        userReportedId:reservation.guest?.user?.id,
+        userReportingId:this.authService.getId(),
         reservationId:reservation.id,
       }
     });
-    this.dialogRef.afterClosed().subscribe(() => {
-      reservation.guestReported = true;
+    this.dialogRef.afterClosed().subscribe((result:boolean) => {
+      if(result){
+        reservation.guestReported = true;
+      }
     });
   }
 

@@ -23,6 +23,7 @@ import { FavouritesComponent } from './accommodation/favourites/favourites.compo
 import {CommentHostComponent} from "./comments/comment-host/comment-host.component";
 import { AnalyticsComponent } from './analytics/analytics/analytics.component';
 import { AllAccommodationsAnalyticsComponent } from './analytics/all-accommodations-analytics/all-accommodations-analytics.component';
+import { BlockUserComponent } from './user/block-user/block-user.component';
 
 const routes: Routes = [
   {path : "home", component : HomeComponent,},
@@ -43,7 +44,8 @@ const routes: Routes = [
   {path: "notification-for-guest",component:NotificationForGuestComponent,canActivate: [AuthGuard], data: {role:['GUEST']}},
 	{path: "favourites", component: FavouritesComponent, canActivate: [AuthGuard], data: {role: ['GUEST']}},
 	{path: "comment-host", component: CommentHostComponent, canActivate: [AuthGuard], data: {role: ['GUEST']}},
-	{path: "analytics", component: AnalyticsComponent, canActivate: [AuthGuard], data: {role: ['HOST']}}
+	{path: "analytics", component: AnalyticsComponent, canActivate: [AuthGuard], data: {role: ['HOST']}},
+  {path: "block-user", component:BlockUserComponent, canActivate: [AuthGuard], data: {role: ['ADMIN']}}
 ];
 
 @NgModule({
