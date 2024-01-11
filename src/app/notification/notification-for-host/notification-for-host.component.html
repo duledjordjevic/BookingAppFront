@@ -1,4 +1,21 @@
 <div class="main-container">
+    <div class="activate-notification">
+        <h5>Turn on/off reservation requests notifications</h5>
+        <mat-slide-toggle [(ngModel)]="isTurnedReservationRequest" (change)="onToggleChange('reservationRequest')"></mat-slide-toggle>
+      </div>
+      <div class="activate-notification">
+        <h5>Turn on/off created reservation notifications</h5>
+        <mat-slide-toggle [(ngModel)]="isTurnedReservationCreated" (change)="onToggleChange('reservationCreated')"></mat-slide-toggle>
+      </div>
+      <div class="activate-notification">
+        <h5>Turn on/off cancelled reservation notifications</h5>
+        <mat-slide-toggle [(ngModel)]="isTurnedReservationCancelled" (change)="onToggleChange('reservationCancelled')"></mat-slide-toggle>
+      </div>
+      <div class="activate-notification">
+        <h5>Turn on/off review notifications</h5>
+        <mat-slide-toggle [(ngModel)]="isTurnedReview" (change)="onToggleChange('review')"></mat-slide-toggle>
+      </div>
+    
     <div *ngIf="haveUnreadNotifications == true" class="unread-div">
         <h4>Unread</h4>
         <hr>

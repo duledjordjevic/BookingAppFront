@@ -1,4 +1,4 @@
-import { Guest } from "src/app/infrastructure/auth/model/user.model";
+import { Guest, Host, User } from "src/app/infrastructure/auth/model/user.model";
 import { Accommodation } from "./accommodation.model";
 
 export interface Reservation {
@@ -12,6 +12,9 @@ export interface Reservation {
     status?: ReservationStatus;
     accommodation?: Accommodation;
     guest?: Guest;
+    host?:Host;
+    hostReported?:boolean;
+    guestReported?:boolean;
 }
 
 export enum ReservationStatus {

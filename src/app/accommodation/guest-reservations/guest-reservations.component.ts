@@ -11,6 +11,8 @@ import { CancellationPolicy } from '../model/cancellation-policy.model';
 import { CreateNotification, NotificationType } from 'src/app/notification/model/notification-host';
 import { NotificationForHostService } from 'src/app/notification/services/notification-for-host.service';
 import { elementAt } from 'rxjs';
+import { ReportPopupComponent } from '../report-popup/report-popup.component';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-guest-reservations',
@@ -18,21 +20,52 @@ import { elementAt } from 'rxjs';
   styleUrls: ['./guest-reservations.component.css']
 })
 export class GuestReservationsComponent {
+  dialogRef!: MatDialogRef<ReportPopupComponent>;
+
+
   constructor(private reservationService: ReservationService, 
     private fb: FormBuilder, private authService: AuthService, 
-    private cdr:ChangeDetectorRef, private zone: NgZone,private notificationService: NotificationForHostService) {}
+    private cdr:ChangeDetectorRef, private zone: NgZone,private notificationService: NotificationForHostService,
+    private matDialog: MatDialog,
+    private cdRef: ChangeDetectorRef) {}
 
   reservations: Reservation[] = [];
   dataSource!: MatTableDataSource<Reservation>;
-  displayedColumns: string[] = ['select','accommodation','cancellationPolicy', 'startDate', 'endDate', 'numberOfGuests', 'status', 'price'];
+  displayedColumns: string[] = ['select','accommodation','host','cancellationPolicy', 'startDate', 'endDate', 'numberOfGuests', 'status', 'price'];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator; 
   @ViewChild(MatSort) sort!: MatSort;
   
   isCancelBtnDisabled: boolean = true;
   isDeleteBtnDisabled: boolean = true;
+  reservationAfterReport: Reservation = {};
 
   selection = new SelectionModel<Reservation>(true, []);
+
+  canReportUser(reservation: Reservation):boolean {
+    let currentDate:Date = new Date();
+    if(reservation.endDate == null){
+      return false;
+    }
+    const reservationEndDate: Date = new Date(reservation.endDate);
+
+    const formattedReservationEndDate: Date = new Date(reservationEndDate.getFullYear(), reservationEndDate.getMonth(), reservationEndDate.getDate());
+    const formattedCurrentDate: Date = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
+    return formattedReservationEndDate <= formattedCurrentDate && reservation.status == ReservationStatus.ACCEPTED && !reservation.hostReported ;
+  }
+  openDialog(reservation: Reservation): void {
+    this.dialogRef = this.matDialog.open(ReportPopupComponent, {
+      data:{
+        name:reservation.accommodation?.host?.name,
+        lastName: reservation.accommodation?.host?.lastName,
+        userId:reservation.accommodation?.host?.user?.id || null,
+        reservationId:reservation.id,
+      }
+    });
+    this.dialogRef.afterClosed().subscribe(() => {
+      reservation.hostReported = true;
+    });
+  }
 
   masterToggle() {
     this.zone.run(() => {

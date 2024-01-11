@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Subscription, interval } from 'rxjs';
 import { NotificationGuest } from 'src/app/notification/model/notification-guest';
 import { NotificationForGuestService } from 'src/app/notification/services/notification-for-guest.service';
 import { SharedService } from 'src/app/services/shared.service';
@@ -11,6 +12,8 @@ import { SharedService } from 'src/app/services/shared.service';
 export class GuestNavBarComponent {
   numberOfNotifications: number = 0;
   haveNotifications: boolean = false;
+  refreshSubscription: Subscription = new Subscription();
+
 
   constructor(private service: NotificationForGuestService,private sharedService: SharedService) {
     this.sharedService.numberOfNotifications$.subscribe(data => {
@@ -22,9 +25,16 @@ export class GuestNavBarComponent {
   }
  
   ngOnInit():void {
+    this.refreshSubscription = interval(20000).subscribe(() => {
+      this.refreshData();
+    });
+    
+  }
+  refreshData():void{
     this.service.getNotificationsForGuest().subscribe({
       next:(notifications: NotificationGuest[]) => {
         console.log(notifications);
+        this.numberOfNotifications = 0;
         notifications.forEach((notification: NotificationGuest) => {
           if (!notification.read) {
             this.numberOfNotifications += 1;
@@ -35,5 +45,11 @@ export class GuestNavBarComponent {
         }
       }
     })
+  }
+
+  ngOnDestroy(): void {
+    if (this.refreshSubscription) {
+      this.refreshSubscription.unsubscribe();
+    }
   }
 }

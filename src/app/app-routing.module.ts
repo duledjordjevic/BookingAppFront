@@ -47,6 +47,7 @@ const routes: Routes = [
 	{path: "analytics", component: AnalyticsComponent},
 	{path: "analytics2", component: AllAccommodationsAnalyticsComponent},
 	{path: "comment-acc", component: CommentAccComponent, canActivate: [AuthGuard], data: {role: ['GUEST']}},
+	{path: "analytics", component: AnalyticsComponent, canActivate: [AuthGuard], data: {role: ['HOST']}}
 ];
 
 @NgModule({

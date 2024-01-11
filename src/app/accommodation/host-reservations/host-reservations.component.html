@@ -59,7 +59,7 @@
 
         <ng-container matColumnDef="guest">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Guest </th>
-            <td mat-cell *matCellDef="let element" > {{element.guest.name}} {{element.guest.lastName}}</td>
+            <td mat-cell *matCellDef="let element" > <div>{{element.guest.name}} {{element.guest.lastName}}  <img *ngIf="canReportUser(element)" (click)="openDialog(element)" id="red-flag" src="../../../assets/images/red-flag.png"></div> </td>
         </ng-container>
 
         <ng-container matColumnDef="numberOfCancellation">
