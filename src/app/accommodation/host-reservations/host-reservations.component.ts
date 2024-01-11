@@ -94,7 +94,7 @@ export class HostReservationsComponent {
   });
   
   ngOnInit(): void {
-    this.getHostReservations({id : this.authService.getId()});
+    this.getHostReservations({hostId : this.authService.getId()});
   }
 
   getHostReservations(filter: ReservationFilter):void {
@@ -141,7 +141,7 @@ export class HostReservationsComponent {
     this.dateWrong = false;
 
     const filter: ReservationFilter = {
-      id: this.authService.getId()
+      hostId: this.authService.getId()
     };
 
     const startDateValue = this.searchForm.get('startDate')?.value;

@@ -1,1 +1,58 @@
-<p>block-user works!</p>
+<div class="main-container">
+    <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort>
+  
+            <ng-container matColumnDef="select">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let row">
+                  <mat-checkbox (click)="$event.stopPropagation(); selectionToggle(row)"
+                                [checked]="selection.isSelected(row)"
+                                color="primary">
+                  </mat-checkbox>
+                </td>
+              </ng-container>
+
+        <ng-container matColumnDef="reported user">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Reported user </th>
+          <td mat-cell *matCellDef="let element" class="title" > {{element.reportedUser.name}} {{element.reportedUser.lastname}} {{element.reportedUser.userType}} </td>
+        </ng-container>
+        <ng-container matColumnDef="accommodation">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Accommodation </th>
+          <td mat-cell *matCellDef="let element"  > <div>{{element.accommodationTitle}}</div> </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="reporting user">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Reporting user </th>
+          <td mat-cell *matCellDef="let element"  > {{element.reportingUser.name}} {{element.reportingUser.lastname}} {{element.reportingUser.userType}} </td>
+        </ng-container>
+  
+          <ng-container matColumnDef="startDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Start date </th>
+            <td mat-cell *matCellDef="let element"> {{element.startDate}} </td>
+          </ng-container>
+      
+          <ng-container matColumnDef="endDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> End date </th>
+            <td mat-cell *matCellDef="let element"> {{element.endDate}} </td>
+          </ng-container>
+      
+          <ng-container matColumnDef="reason">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Reason </th>
+            <td mat-cell *matCellDef="let element"> {{element.reason}} </td>
+          </ng-container>
+       
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      
+        <mat-paginator [pageSizeOptions]="[10, 20, 30, 40]"
+                       showFirstLastButtons
+                       aria-label="Select page of periodic elements">
+        </mat-paginator>
+        
+      </div>
+  
+      <div class="buttons">
+        <button mat-raised-button [disabled]="isBtnDisabled" id="acceptBtn" (click)="blockUser()" >Block</button>
+      </div>
+</div>

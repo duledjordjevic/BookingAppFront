@@ -25,6 +25,7 @@ export enum ReservationStatus {
     CANCELLED = "CANCELLED"
 }
 export interface ReservationFilter {
+    hostId?:number;
     userId?: number;
     title?: string;
     startDate?: Date;
