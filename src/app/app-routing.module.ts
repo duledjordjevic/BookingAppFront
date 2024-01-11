@@ -24,6 +24,7 @@ import {CommentHostComponent} from "./comments/comment-host/comment-host.compone
 import { AnalyticsComponent } from './analytics/analytics/analytics.component';
 import { AllAccommodationsAnalyticsComponent } from './analytics/all-accommodations-analytics/all-accommodations-analytics.component';
 import { BlockUserComponent } from './user/block-user/block-user.component';
+import {CommentAccComponent} from "./comments/comment-acc/comment-acc.component";
 
 const routes: Routes = [
   {path : "home", component : HomeComponent,},
@@ -45,7 +46,8 @@ const routes: Routes = [
 	{path: "favourites", component: FavouritesComponent, canActivate: [AuthGuard], data: {role: ['GUEST']}},
 	{path: "comment-host", component: CommentHostComponent, canActivate: [AuthGuard], data: {role: ['GUEST']}},
 	{path: "analytics", component: AnalyticsComponent, canActivate: [AuthGuard], data: {role: ['HOST']}},
-  {path: "block-user", component:BlockUserComponent, canActivate: [AuthGuard], data: {role: ['ADMIN']}}
+  {path: "block-user", component:BlockUserComponent, canActivate: [AuthGuard], data: {role: ['ADMIN']}},
+	{path: "comment-acc", component: CommentAccComponent, canActivate: [AuthGuard], data: {role: ['GUEST']}},
 ];
 
 @NgModule({

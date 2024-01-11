@@ -1,32 +1,29 @@
 import {
-    Component,
-    EventEmitter,
-    Input,
-    Output,
-    ChangeDetectorRef,
-    Renderer2,
-    ViewChild,
-    ElementRef
+	ChangeDetectorRef,
+	Component,
+	ElementRef,
+	EventEmitter,
+	Input,
+	Output,
+	Renderer2,
+	ViewChild
 } from '@angular/core';
-import { MatSnackBar } from "@angular/material/snack-bar";
-import { ThemePalette } from "@angular/material/core";
-import {AccommodationService} from "../../accommodation/services/accommodation.service";
-import {AuthService} from "../../infrastructure/auth/services/auth.service";
-import {ActivatedRoute, Router} from "@angular/router";
-import {CommentsService} from "../services/comments.service";
-import {CommentModel} from "../../accommodation/model/comment.model";
+import {ThemePalette} from "@angular/material/core";
 import {Accommodation} from "../../accommodation/model/accommodation.model";
-import {UserInfo} from "../../user/model/user.model";
-import {add} from "ngx-bootstrap/chronos";
 import {CommentAboutHost} from "../model/comment-about-host.model";
-import {Host} from "../../infrastructure/auth/model/user.model";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {CommentsService} from "../services/comments.service";
+import {ActivatedRoute} from "@angular/router";
+import {AuthService} from "../../infrastructure/auth/services/auth.service";
+import {CommentAboutAcc} from "../model/comment-about-acc-model";
+import {environment} from "../../../env/env";
 
 @Component({
-	selector: 'app-comment-host',
-	templateUrl: './comment-host.component.html',
-	styleUrls: ['./comment-host.component.css']
+  selector: 'app-comment-acc',
+  templateUrl: './comment-acc.component.html',
+  styleUrls: ['./comment-acc.component.css']
 })
-export class CommentHostComponent {
+export class CommentAccComponent {
 
 	@Input() color: ThemePalette = 'accent';
 	@Input('starCount') starCount: number = 5;
@@ -41,23 +38,23 @@ export class CommentHostComponent {
 	@ViewChild('matButton', { static: true }) matButtonOld!: ElementRef;
 
 	private setTouchTargetStyles() {
-        const touchTarget = this.matButton.nativeElement.querySelector('.mat-mdc-button-touch-target');
-        if (touchTarget) {
-            this.renderer.setStyle(touchTarget, 'width', '24px');
-            this.renderer.setStyle(touchTarget, 'height', '24px');
-        }
-    }
+		const touchTarget = this.matButton.nativeElement.querySelector('.mat-mdc-button-touch-target');
+		if (touchTarget) {
+			this.renderer.setStyle(touchTarget, 'width', '24px');
+			this.renderer.setStyle(touchTarget, 'height', '24px');
+		}
+	}
 
 	snackBarDuration: number = 2000;
 	ratingArr: number[] = [];
 	ratingArrOld: number[] = [];
-	// commentContent: string = '';
 	commentContent: { [key: number]: string } = {};
 	ratings: { [key: number]: number } = {};
 
-	userIcon = "assets/images/user-circle.svg";
+	accIcon = "assets/images/side1.jpg";
+	imageBase64:string = environment.imageBase64;
 	accommodations: Accommodation[] = [];
-	commentsForDeleting: CommentAboutHost[] = [];
+	commentsForDeleting: CommentAboutAcc[] = [];
 
 	constructor(private snackBar: MatSnackBar, private cdr: ChangeDetectorRef,
 				private renderer: Renderer2, private commentsService: CommentsService,
@@ -69,7 +66,7 @@ export class CommentHostComponent {
 			this.ratingArrOld.push(index);
 		}
 
-		this.commentsService.getGuestAccommodations(this.authService.getId()).subscribe({
+		this.commentsService.getGuestAccommodationsForComment(this.authService.getId()).subscribe({
 			next:(resultAcc: Accommodation[]) =>{
 				this.accommodations = resultAcc;
 				this.accommodations.forEach(acc => {
@@ -81,13 +78,14 @@ export class CommentHostComponent {
 			}
 		})
 
-		this.getCommentsAboutHost();
+		this.getCommentsAboutAcc();
 	}
 
-	getCommentsAboutHost(): void {
-		this.commentsService.getCommentsAboutHostForGuest(this.authService.getId()).subscribe({
+	getCommentsAboutAcc(): void {
+		this.commentsService.getCommentsAboutAcctForGuest(this.authService.getId()).subscribe({
 			next:(result: CommentAboutHost[]) =>{
 				this.commentsForDeleting = result;
+				console.log(this.commentsForDeleting);
 			}
 		})
 	}
@@ -123,41 +121,45 @@ export class CommentHostComponent {
 		}
 	}
 
-	addComment(host?: number | undefined, acc?: number | null | undefined): void {
+	addComment(acc?: number | null | undefined): void {
 		if (this.commentContent[acc as number] === "") {
 			return;
 		}
 
-		const comment: CommentAboutHost = {
+		const comment: CommentAboutAcc = {
 			rating: this.ratings[acc as number],
 			content: this.commentContent[acc as number],
 			guestId: this.authService.getId(),
-			hostId: host
+			accommodationId: acc as number
 		}
 
-		this.commentsService.createCommentAboutHost(comment).subscribe({
+		this.commentsService.createCommentAboutAcc(comment).subscribe({
 			next: (createdComm) => {
 				console.log(createdComm);
 				this.commentContent[acc as number] = '';
-				this.getCommentsAboutHost();
+				this.getCommentsAboutAcc();
 			},
 			error: (error) => {
 				console.error("Error creating comment:", error);
 			}
 		});
+
+		console.log("AccId: ", acc);
+		console.log("Guest: ", this.authService.getId());
+		console.log("Rating: ", this.rating);
+		console.log("Content: ", this.commentContent);
 	}
 
 	deleteComment(commentId: number | undefined): void {
-		this.commentsService.deleteCommentAboutHost(commentId as number).subscribe({
+		this.commentsService.deleteCommentAboutAcc(commentId as number).subscribe({
 			next: (deletedComm) => {
 				console.log(deletedComm);
-				this.getCommentsAboutHost();
+				this.getCommentsAboutAcc();
 			},
 			error: (error) => {
 				console.error("Error deleting comment:", error);
 			}
 		});
 	}
-
 
 }

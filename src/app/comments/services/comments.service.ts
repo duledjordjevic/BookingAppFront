@@ -7,6 +7,7 @@ import {DatePipe} from "@angular/common";
 import {AuthService} from "../../infrastructure/auth/services/auth.service";
 import {UserInfo} from "../../user/model/user.model";
 import {CommentAboutHost} from "../model/comment-about-host.model";
+import {CommentAboutAcc} from "../model/comment-about-acc-model";
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +34,30 @@ export class CommentsService {
 	createCommentAboutHost(commentAboutHost: CommentAboutHost): Observable<CommentAboutHost>{
 		const url = environment.apiHost + 'commentsAboutHost';
 		return this.http.post<CommentAboutHost>(url, commentAboutHost, {
+			headers: new HttpHeaders({
+				'Content-Type': 'application/json'
+			})
+		});
+	}
+
+	getGuestAccommodationsForComment(guestUserId: number): Observable<Accommodation[]>{
+		const url = environment.apiHost + `accommodations/guest/comment/${guestUserId}`;
+		return this.http.get<Accommodation[]>(url);
+	}
+
+	getCommentsAboutAcctForGuest(guestUserId: number): Observable<CommentAboutAcc[]>{
+		const url =  environment.apiHost + `commentsAboutAcc/guest/${guestUserId}`;
+		return this.http.get<CommentAboutAcc[]>(url);
+	}
+
+	deleteCommentAboutAcc(id: number): Observable<CommentAboutAcc>{
+		const url =  environment.apiHost + `commentsAboutAcc/${id}`;
+		return this.http.delete<CommentAboutAcc>(url);
+	}
+
+	createCommentAboutAcc(commentAboutHost: CommentAboutHost): Observable<CommentAboutAcc>{
+		const url = environment.apiHost + 'commentsAboutAcc';
+		return this.http.post<CommentAboutAcc>(url, commentAboutHost, {
 			headers: new HttpHeaders({
 				'Content-Type': 'application/json'
 			})
