@@ -145,11 +145,6 @@ export class CommentHostComponent {
 				console.error("Error creating comment:", error);
 			}
 		});
-
-		console.log("Host: ", host);
-		console.log("Guest: ", this.authService.getId());
-		// console.log("Rating: ", this.rating);
-		// console.log("Content: ", this.commentContent);
 	}
 
 	deleteComment(commentId: number | undefined): void {

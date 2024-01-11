@@ -15,6 +15,8 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {CommentsService} from "../services/comments.service";
 import {ActivatedRoute} from "@angular/router";
 import {AuthService} from "../../infrastructure/auth/services/auth.service";
+import {CommentAboutAcc} from "../model/comment-about-acc-model";
+import {environment} from "../../../env/env";
 
 @Component({
   selector: 'app-comment-acc',
@@ -46,13 +48,13 @@ export class CommentAccComponent {
 	snackBarDuration: number = 2000;
 	ratingArr: number[] = [];
 	ratingArrOld: number[] = [];
-	// commentContent: string = '';
 	commentContent: { [key: number]: string } = {};
 	ratings: { [key: number]: number } = {};
 
 	accIcon = "assets/images/side1.jpg";
+	imageBase64:string = environment.imageBase64;
 	accommodations: Accommodation[] = [];
-	commentsForDeleting: CommentAboutHost[] = [];
+	commentsForDeleting: CommentAboutAcc[] = [];
 
 	constructor(private snackBar: MatSnackBar, private cdr: ChangeDetectorRef,
 				private renderer: Renderer2, private commentsService: CommentsService,
@@ -64,7 +66,7 @@ export class CommentAccComponent {
 			this.ratingArrOld.push(index);
 		}
 
-		this.commentsService.getGuestAccommodations(this.authService.getId()).subscribe({
+		this.commentsService.getGuestAccommodationsForComment(this.authService.getId()).subscribe({
 			next:(resultAcc: Accommodation[]) =>{
 				this.accommodations = resultAcc;
 				this.accommodations.forEach(acc => {
@@ -76,37 +78,38 @@ export class CommentAccComponent {
 			}
 		})
 
-		this.getCommentsAboutHost();
+		this.getCommentsAboutAcc();
 	}
 
-	getCommentsAboutHost(): void {
-		this.commentsService.getCommentsAboutHostForGuest(this.authService.getId()).subscribe({
+	getCommentsAboutAcc(): void {
+		this.commentsService.getCommentsAboutAcctForGuest(this.authService.getId()).subscribe({
 			next:(result: CommentAboutHost[]) =>{
 				this.commentsForDeleting = result;
+				console.log(this.commentsForDeleting);
 			}
 		})
 	}
 
-	onClick(rating: number) {
+	onClick(rating: number, accId: number | null | undefined) {
 
 		this.snackBar.open('You rated ' + rating + ' / ' + this.starCount, '', {
 			duration: this.snackBarDuration
 		});
 
-		// this.ratingUpdated.emit(this.ratings[accId as number]);
-		// this.ratings[accId as number] = rating;
+		this.ratingUpdated.emit(this.ratings[accId as number]);
+		this.ratings[accId as number] = rating;
 		this.cdr.detectChanges();
 
 		return false;
 	}
 
 
-	showIcon(index: number) {
-		// if (this.ratings[accId as number] >= index + 1) {
-		// 	return 'star';
-		// } else {
-		// 	return 'star_border';
-		// }
+	showIcon(index: number, accId: number | null | undefined) {
+		if (this.ratings[accId as number] >= index + 1) {
+			return 'star';
+		} else {
+			return 'star_border';
+		}
 	}
 
 	showIconOld(index: number, commentRating: number | undefined) {
@@ -118,44 +121,45 @@ export class CommentAccComponent {
 		}
 	}
 
-	addComment(host?: number | undefined, acc?: number | null | undefined): void {
+	addComment(acc?: number | null | undefined): void {
 		if (this.commentContent[acc as number] === "") {
 			return;
 		}
 
-		const comment: CommentAboutHost = {
+		const comment: CommentAboutAcc = {
 			rating: this.ratings[acc as number],
 			content: this.commentContent[acc as number],
 			guestId: this.authService.getId(),
-			hostId: host
+			accommodationId: acc as number
 		}
 
-		this.commentsService.createCommentAboutHost(comment).subscribe({
+		this.commentsService.createCommentAboutAcc(comment).subscribe({
 			next: (createdComm) => {
 				console.log(createdComm);
 				this.commentContent[acc as number] = '';
-				this.getCommentsAboutHost();
+				this.getCommentsAboutAcc();
 			},
 			error: (error) => {
 				console.error("Error creating comment:", error);
 			}
 		});
 
-		console.log("Host: ", host);
+		console.log("AccId: ", acc);
 		console.log("Guest: ", this.authService.getId());
-		// console.log("Rating: ", this.rating);
-		// console.log("Content: ", this.commentContent);
+		console.log("Rating: ", this.rating);
+		console.log("Content: ", this.commentContent);
 	}
 
 	deleteComment(commentId: number | undefined): void {
-		this.commentsService.deleteCommentAboutHost(commentId as number).subscribe({
+		this.commentsService.deleteCommentAboutAcc(commentId as number).subscribe({
 			next: (deletedComm) => {
 				console.log(deletedComm);
-				this.getCommentsAboutHost();
+				this.getCommentsAboutAcc();
 			},
 			error: (error) => {
 				console.error("Error deleting comment:", error);
 			}
 		});
 	}
+
 }
