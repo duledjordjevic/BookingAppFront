@@ -5,9 +5,9 @@
     </div>
     <div>
         <p>The reason why you are reporting the user: {{firstname}} {{lastName}}</p>
-        <textarea></textarea>
+        <textarea [(ngModel)]="reportReason" placeholder="At least 10 characters"></textarea>
     </div>
-    <button (click)="closeDialog()">
+    <button (click)="reportUser()">
         Report
     </button>
 </div>

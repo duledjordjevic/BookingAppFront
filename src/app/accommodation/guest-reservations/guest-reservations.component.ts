@@ -26,7 +26,8 @@ export class GuestReservationsComponent {
   constructor(private reservationService: ReservationService, 
     private fb: FormBuilder, private authService: AuthService, 
     private cdr:ChangeDetectorRef, private zone: NgZone,private notificationService: NotificationForHostService,
-    private matDialog: MatDialog) {}
+    private matDialog: MatDialog,
+    private cdRef: ChangeDetectorRef) {}
 
   reservations: Reservation[] = [];
   dataSource!: MatTableDataSource<Reservation>;
@@ -37,21 +38,35 @@ export class GuestReservationsComponent {
   
   isCancelBtnDisabled: boolean = true;
   isDeleteBtnDisabled: boolean = true;
+  reservationAfterReport: Reservation = {};
 
   selection = new SelectionModel<Reservation>(true, []);
-  openDialog(firstName: string,lastName:string): void {
+
+  canReportUser(reservation: Reservation):boolean {
+    let currentDate:Date = new Date();
+    if(reservation.endDate == null){
+      return false;
+    }
+    const reservationEndDate: Date = new Date(reservation.endDate);
+
+    const formattedReservationEndDate: Date = new Date(reservationEndDate.getFullYear(), reservationEndDate.getMonth(), reservationEndDate.getDate());
+    const formattedCurrentDate: Date = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
+    return formattedReservationEndDate <= formattedCurrentDate && reservation.status == ReservationStatus.ACCEPTED && !reservation.hostReported ;
+  }
+  openDialog(reservation: Reservation): void {
     this.dialogRef = this.matDialog.open(ReportPopupComponent, {
       data:{
-        name:firstName,
-        lastName: lastName
+        name:reservation.accommodation?.host?.name,
+        lastName: reservation.accommodation?.host?.lastName,
+        userId:reservation.accommodation?.host?.user?.id || null,
+        reservationId:reservation.id,
       }
     });
+    this.dialogRef.afterClosed().subscribe(() => {
+      reservation.hostReported = true;
+    });
   }
-  closeDialog(): void {
-    if (this.dialogRef) {
-      this.dialogRef.close();
-    }
-  }
+
   masterToggle() {
     this.zone.run(() => {
       this.isAllSelected() ?
