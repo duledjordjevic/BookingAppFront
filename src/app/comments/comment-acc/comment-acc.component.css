@@ -19,6 +19,7 @@
 	background-color: white;
 	padding: 20px;
 	border-radius: 15px;
+	margin-bottom: 30px;
 }
 
 .commentButton {
@@ -49,7 +50,7 @@
 	/*font-weight: bold;*/
 }
 
-#accName {
+.accAddress {
 	margin-left: 15px;
 	margin-top: 2px;
 	color: #7E7E7E;
