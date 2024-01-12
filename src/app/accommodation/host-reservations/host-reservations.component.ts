@@ -76,7 +76,7 @@ export class HostReservationsComponent {
   }
 
   refreshTable():void {
-    this.getHostReservations({id : this.authService.getId()});
+    this.getHostReservations({hostId : this.authService.getId()});
     this.searchForm.reset();
   }
 
