@@ -1,7 +1,7 @@
 <div class="main-container">
 	<div class="main">
 		<div class="title">
-			<h1>{{accommodationDetails?.title}}</h1>  
+			<h1>{{accommodationDetails?.title}}</h1>
 			<div class="statusSection">
 				<p *ngIf="user == 'HOST' && isHostAcc == true && accommodationDetails?.accommodationApprovalStatus == 'PENDING'">Status:  <span style="color:#aec309">Pending</span></p>
 				<p *ngIf="user == 'HOST' && isHostAcc == true && accommodationDetails?.accommodationApprovalStatus == 'APPROVED'">Status:  <span style="color:#4fea74">Approved</span></p>
@@ -158,7 +158,7 @@
 										<p class="progressValue">{{ratings.excellent}}</p>
 									</div>
 								</div>
-								<mat-progress-bar mode="determinate" value="ratings.excellent" class="progressColor"></mat-progress-bar>
+								<mat-progress-bar mode="determinate" [value]="(ratings.excellent / ratings.count) * 100" class="progressColor"></mat-progress-bar>
 							</div>
 							<div class="oneReview">
 								<div class="infoReview">
@@ -169,7 +169,7 @@
 										<p class="progressValue">{{ratings.good}}</p>
 									</div>
 								</div>
-								<mat-progress-bar mode="determinate" value="ratings.good"></mat-progress-bar>
+								<mat-progress-bar mode="determinate" [value]="(ratings.good / ratings.count) * 100"></mat-progress-bar>
 							</div>
 							<div class="oneReview">
 								<div class="infoReview">
@@ -180,7 +180,7 @@
 										<p class="progressValue">{{ratings.okay}}</p>
 									</div>
 								</div>
-								<mat-progress-bar mode="determinate" value="ratings.okay"></mat-progress-bar>
+								<mat-progress-bar mode="determinate" [value]="(ratings.okay / ratings.count) * 100"></mat-progress-bar>
 							</div>
 							<div class="oneReview">
 								<div class="infoReview">
@@ -191,7 +191,7 @@
 										<p class="progressValue">{{ratings.poor}}</p>
 									</div>
 								</div>
-								<mat-progress-bar mode="determinate" value="ratings.poor"></mat-progress-bar>
+								<mat-progress-bar mode="determinate" [value]="(ratings.poor / ratings.count) * 100"></mat-progress-bar>
 							</div>
 							<div class="oneReview">
 								<div class="infoReview">
@@ -202,7 +202,7 @@
 										<p class="progressValue">{{ratings.terrible}}</p>
 									</div>
 								</div>
-								<mat-progress-bar mode="determinate" value="ratings.terrible"></mat-progress-bar>
+								<mat-progress-bar mode="determinate" [value]="(ratings.terrible / ratings.count) * 100"></mat-progress-bar>
 							</div>
 						</div>
 					</div>
@@ -211,7 +211,7 @@
 						<div *ngFor="let comment of displayedComments">
 							<div class="comment">
 								<h4>{{ comment.rating }}/5 {{ comment.ratingDescription }}  </h4>
-								<h5>{{ comment.guestEmail }}	{{ comment.guestName }} {{ comment.guestLastName }}</h5>
+								<h5>{{ comment.guestName }} {{ comment.guestLastName }}</h5>
 								<p>{{comment.date}}</p>
 								<p>{{ comment.content }}</p>
 								<hr>
@@ -229,5 +229,5 @@
 			<app-annual-analytics #analyticscomponent [accommodationId]="accommodationId"></app-annual-analytics>
 		</div>
 	</div>
-	
+
 </div>

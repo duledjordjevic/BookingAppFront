@@ -20,7 +20,7 @@
 .statusSection p{
 	margin-top: 10px;
 	font-size: 20px;
-	
+
 }
 .info {
 	display: flex;
@@ -205,13 +205,16 @@ hr {
 
 .comments-container {
 	display: flex;
+	flex-wrap: wrap;
 	width: 100%;
 }
 
 .review {
 	box-sizing: border-box;
 	flex: 1;
-	margin-right: 155px;
+	margin-right: 100px;
+	/*margin-left: 50px;*/
+	padding-left: 30px;
 	overflow: hidden;
 }
 
@@ -221,8 +224,7 @@ hr {
 	display: flex;
 	flex-wrap: wrap;
 	flex-direction: column;
-	overflow: hidden;
-	margin-left: 35px;
+	/*margin-left: 35px;*/
 }
 
 .comment {
@@ -230,6 +232,8 @@ hr {
 	box-sizing: border-box;
 	width: 100%;
 	margin-bottom: 10px;
+	max-width: 450px;
+	word-wrap: break-word;
 }
 
 .infoReview {
@@ -263,21 +267,23 @@ hr {
 .commentsSection {
 	background-color: white;
 	border-radius: 15px;
-	padding: 30px;
+	padding: 50px;
 	margin-bottom: 50px;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
-	align-items: center;
+	justify-content: space-around;
+	/*align-items: center;*/
 }
 
 .expandCommentsButton {
 	margin-top: 50px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .reviewDisplay {
 	display: flex;
-	justify-content: flex-start; /* Postavlja elemente na početak */
+	justify-content: flex-start;
 }
 
 .reviewDisplayLeft,

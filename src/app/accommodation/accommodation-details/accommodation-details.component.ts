@@ -245,10 +245,10 @@ export class AccommodationDetailsComponent{
 	}
 	calculateAverageRating(): number {
 
-		const sumaOcena = this.comments.reduce((suma, komentar) => suma + komentar.rating, 0);
-		const prosecnaOcena = sumaOcena / this.comments.length;
+		const reviewSum = this.comments.reduce((reviewSum, comment) => reviewSum + comment.rating, 0);
+		const avgSum = reviewSum / this.comments.length;
 
-		return Number(prosecnaOcena.toFixed(1));
+		return Number(avgSum.toFixed(1));
 	  }
 
 
