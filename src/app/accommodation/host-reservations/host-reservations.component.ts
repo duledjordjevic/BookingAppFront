@@ -175,7 +175,7 @@ export class HostReservationsComponent {
       next: () => {
         console.log(this.selection.selected[0].accommodation?.title);
         const notification: CreateNotificationGuest = {
-          description: this.authService.getEmail() + " acceptedyour reservation request for accommodation: " + this.selection.selected[0].accommodation?.title,
+          description: this.authService.getEmail() + " accepted your reservation request for accommodation: " + this.selection.selected[0].accommodation?.title,
           guestId: this.selection.selected[0].guest?.id,
         }
         this.notificationService.createNotificationGuest(notification).subscribe({
