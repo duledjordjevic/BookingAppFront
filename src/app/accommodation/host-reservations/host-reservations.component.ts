@@ -46,12 +46,15 @@ export class HostReservationsComponent {
       data:{
         name:reservation.guest?.name,
         lastName: reservation.guest?.lastName,
-        userId:reservation.guest?.user?.id,
+        userReportedId:reservation.guest?.user?.id,
+        userReportingId:this.authService.getId(),
         reservationId:reservation.id,
       }
     });
-    this.dialogRef.afterClosed().subscribe(() => {
-      reservation.guestReported = true;
+    this.dialogRef.afterClosed().subscribe((result:boolean) => {
+      if(result){
+        reservation.guestReported = true;
+      }
     });
   }
 
@@ -91,7 +94,7 @@ export class HostReservationsComponent {
   });
   
   ngOnInit(): void {
-    this.getHostReservations({id : this.authService.getId()});
+    this.getHostReservations({hostId : this.authService.getId()});
   }
 
   getHostReservations(filter: ReservationFilter):void {
@@ -138,7 +141,7 @@ export class HostReservationsComponent {
     this.dateWrong = false;
 
     const filter: ReservationFilter = {
-      id: this.authService.getId()
+      hostId: this.authService.getId()
     };
 
     const startDateValue = this.searchForm.get('startDate')?.value;

@@ -53,3 +53,9 @@ button:hover {
     color: #235471;
     transition: transform 0.5s ease
 }
+.textarea-conatiner{
+    height: 170px;
+}
+#validator{
+    color: red;
+}
