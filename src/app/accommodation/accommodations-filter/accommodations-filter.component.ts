@@ -85,8 +85,6 @@ export class AccommodationsFilterComponent {
         next:(accommodations: AccommodationPopular[]) => {
           this.filteredAccommodations = accommodations;
 
-          console.log(this.filteredAccommodations);
-
           if(this.filteredAccommodations.length == 0){
             this.haveFilteredResults = false;
           }
@@ -192,8 +190,6 @@ export class AccommodationsFilterComponent {
       this.startedValue,this.endValue,this.amenities,this.accommodationType).subscribe({
         next:(accommodations: AccommodationPopular[]) => {
           this.filteredAccommodations = accommodations;
-
-          console.log(this.filteredAccommodations);
 
           if(this.filteredAccommodations.length == 0){
             this.haveFilteredResults = false;

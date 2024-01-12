@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
-import { Subscription, interval } from 'rxjs';
 import { NotificationGuest } from 'src/app/notification/model/notification-guest';
 import { NotificationForGuestService } from 'src/app/notification/services/notification-for-guest.service';
 import { SharedService } from 'src/app/services/shared.service';
+import { environment } from 'src/env/env';
+import {Stomp } from '@stomp/stompjs';
+import * as SockJS from 'sockjs-client';
+import { AuthService } from 'src/app/infrastructure/auth/services/auth.service';
 
 @Component({
   selector: 'app-guest-nav-bar',
@@ -12,10 +15,14 @@ import { SharedService } from 'src/app/services/shared.service';
 export class GuestNavBarComponent {
   numberOfNotifications: number = 0;
   haveNotifications: boolean = false;
-  refreshSubscription: Subscription = new Subscription();
 
+  private serverUrl = environment.socket + 'socket'
+  private stompClient: any;
 
-  constructor(private service: NotificationForGuestService,private sharedService: SharedService) {
+  isLoaded: boolean = false;
+  isCustomSocketOpened = false;
+  constructor(private service: NotificationForGuestService,private sharedService: SharedService,
+    private authService: AuthService) {
     this.sharedService.numberOfNotifications$.subscribe(data => {
       this.numberOfNotifications = data;
       if(this.numberOfNotifications == 0){
@@ -25,12 +32,10 @@ export class GuestNavBarComponent {
   }
  
   ngOnInit():void {
-    this.refreshSubscription = interval(20000).subscribe(() => {
-      this.refreshData();
-    });
-    
+    this.initializeWebSocketConnection();
+    this.getData();
   }
-  refreshData():void{
+  getData():void{
     this.service.getNotificationsForGuest().subscribe({
       next:(notifications: NotificationGuest[]) => {
         console.log(notifications);
@@ -47,9 +52,30 @@ export class GuestNavBarComponent {
     })
   }
 
-  ngOnDestroy(): void {
-    if (this.refreshSubscription) {
-      this.refreshSubscription.unsubscribe();
+  initializeWebSocketConnection() {
+    let ws = new SockJS(this.serverUrl);
+    this.stompClient = Stomp.over(ws);
+    let that = this;
+    
+    this.stompClient.connect({}, function () {
+      that.isLoaded = true;
+      that.openSocket();
+    });
+  }
+  openSocket() {
+    if (this.isLoaded) {
+      this.isCustomSocketOpened = true;
+      this.stompClient.subscribe("/socket-publisher/" + this.authService.getId(), (message: { body: string; }) => {
+        this.handleResult(message);
+      });
+    }
+  }
+  handleResult(message: { body: string; }) {
+    if (message.body) {
+      if(this.numberOfNotifications==0){
+        this.haveNotifications = true;
+      }
+      this.numberOfNotifications += 1;
     }
   }
 }

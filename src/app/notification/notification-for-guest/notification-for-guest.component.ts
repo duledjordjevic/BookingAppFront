@@ -7,8 +7,11 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { NotificationTypeStatus } from '../model/notification-type-status';
 import { NotificationType } from '../model/notification-host';
 import { AuthService } from 'src/app/infrastructure/auth/services/auth.service';
+import { Stomp } from '@stomp/stompjs';
 
 
+import * as SockJS from 'sockjs-client';
+import { environment } from 'src/env/env';
 
 @Component({
   selector: 'app-notification-for-guest',
@@ -25,7 +28,12 @@ export class NotificationForGuestComponent {
     });
   }
  
+  private serverUrl = environment.socket + 'socket'
+  private stompClient: any;
 
+  isLoaded: boolean = false;
+  isCustomSocketOpened = false;
+  
   allNotifications: NotificationGuest[]  = [];
   unreadNotifications: NotificationGuest[] = [];
   readNotifications: NotificationGuest[] = [];
@@ -39,7 +47,7 @@ export class NotificationForGuestComponent {
 
   
   ngOnInit():void{
-    
+    this.initializeWebSocketConnection();
     this.getNotificationsTypeStatus();
     
     this.getAllNotifications();
@@ -113,4 +121,38 @@ export class NotificationForGuestComponent {
   closePopup(): void {
     this.isPopupOpen = false;
   }
+  initializeWebSocketConnection() {
+    let ws = new SockJS(this.serverUrl);
+    this.stompClient = Stomp.over(ws);
+    let that = this;
+
+    this.stompClient.connect({}, function () {
+      that.isLoaded = true;
+      that.openSocket()
+    });
+
+  }
+  openSocket() {
+    if (this.isLoaded) {
+      this.isCustomSocketOpened = true;
+      this.stompClient.subscribe("/socket-publisher/" + this.authService.getId(), (message: { body: string; }) => {
+        this.handleResult(message);
+      });
+    }
+  }
+
+  handleResult(message: { body: string; }) {
+    if (message.body) {
+      let notificationGuest: NotificationGuest = JSON.parse(message.body);
+      notificationGuest.dateParsed = format(notificationGuest.dateTime || new Date, 'yyyy-MM-dd HH:mm');
+      notificationGuest.title = "Response to the reservation request"
+      if(notificationGuest.description?.includes("accepted ")){
+        notificationGuest.icon = this.acceptedImage;
+      }else{
+        notificationGuest.icon = this.cancelReservationImage;
+      }
+      this.unreadNotifications.unshift(notificationGuest);
+    }
+  }
+
 }
