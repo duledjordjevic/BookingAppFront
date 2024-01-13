@@ -1,0 +1,170 @@
+.main {
+	background-color: #F6F8FA;
+	padding: 70px 150px 150px;
+	max-width: 1600px;
+	margin: auto;
+}
+.main-container{
+	background-color: #F6F8FA;
+}
+
+.title {
+	margin-bottom: 50px;
+}
+
+.commentAndReview {
+	display: flex;
+	flex-direction: column;
+	max-width: 900px;
+	background-color: white;
+	padding: 20px;
+	border-radius: 15px;
+	margin-bottom: 30px;
+}
+
+.commentButton {
+	margin-top: 10px;
+	display: flex;
+	justify-content: flex-end;
+}
+
+.commentButton button {
+	background-color: #235471;
+	color: white;
+}
+
+.pictureWithName {
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+}
+
+.hostName {
+	margin-top: 20px;
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+}
+
+.accAddress {
+	margin-left: 15px;
+	margin-top: 2px;
+	color: #7E7E7E;
+	font-size: 14px;
+}
+
+textarea {
+	width: 100%;
+	height: 80px;
+	background-color: #FAFAFA;
+	border: 1px solid #ccc;
+	padding: 10px;
+	font-size: 14px;
+	color: #333;
+	border-radius: 15px;
+}
+
+textarea:focus {
+	outline: none;
+	border-color: #235471;
+}
+
+button.mat-icon-button {
+	margin: 0;
+	padding: 0;
+}
+
+.review {
+	display: flex;
+	gap: 3px;
+	margin-top: 20px;
+}
+
+#star_0,
+#star_1,
+#star_2,
+#star_3,
+#star_4 {
+	padding: 0;
+	width: 24px !important;
+	height: 24px !important;
+}
+
+.nameWithReview {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+#delete, #deleteHost {
+	background-color: #BA1A1A;
+	color: white;
+	margin-left: 20px;
+}
+
+.icon img {
+	width: 150px;
+	height: 150px;
+	object-fit: cover;
+	padding: 10px;
+}
+
+
+.photoComment {
+	display: flex;
+	flex-direction: row;
+	justify-content: stretch;
+	max-width: 900px;
+}
+
+.comment {
+	margin-left: 30px;
+	width: 100%;
+}
+
+.h4 {
+	margin-top: 50px;
+}
+
+.example-section {
+	margin: 12px 0;
+}
+
+.example-margin {
+	margin: 0 12px;
+}
+
+.checkboxes {
+	margin-left: 50px;
+	margin-bottom: 50px;
+}
+
+.commentsAboutAcc, commentsAboutHost {
+	margin-top: 50px;
+}
+
+.titleComment {
+	margin-bottom: 20px;
+}
+
+.commentAndReviewHost {
+	display: flex;
+	flex-direction: column;
+	max-width: 800px;
+}
+
+.pictureWithNameHost {
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+}
+
+.nameWithReviewHost {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.textPlaceHost {
+	margin-left: 55px;
+}
