@@ -1,1 +1,47 @@
-<p>approve-comments works!</p>
+<div class="main-container">
+	<div class="main">
+		<div class="title">
+			<h1>Approve comments</h1>
+		</div>
+
+		<div class="commentsForApproving">
+			<h4 *ngIf="haveCommentsForDisplay == false">There is no comments about accommodation for approving</h4>
+			<div *ngFor="let com of commentsForApproving">
+				<div class="commentAndReview">
+					<div class="photoComment">
+						<div class="icon">
+							<img src="{{imageBase64}} {{com.coverImage}}">
+							<!--							<img [src]="accIcon" alt="UserIcon">-->
+						</div>
+						<div class="comment">
+							<div class="nameWithReview">
+								<div class="pictureWithName">
+									<div class="hostName">
+										<p>{{com.accommodation?.title}}</p>
+										<p class="accAddress">{{com.accommodation?.address?.state}}, {{com.accommodation?.address?.city}}</p>
+									</div>
+								</div>
+								<div class="review">
+									<button #matButtonOld mat-icon-button [color]="color" *ngFor="let ratingId of ratingArr; index as i" [id]="'star_'+i"
+											[matTooltip]="(ratingId + 1).toString()"  [disabled]="true" matTooltipPosition="above">
+										<mat-icon class="star-icon">
+											{{ showIcon(i, com.rating) }}
+										</mat-icon>
+									</button>
+								</div>
+							</div>
+							<div class="textPlace">
+								<textarea readonly placeholder="Add a comment...">{{com.content}}</textarea>
+							</div>
+						</div>
+					</div>
+					<div class="commentButton">
+						<button mat-raised-button (click)="approveComment(com.id)">Approve</button>
+						<button mat-raised-button id="delete" (click)="deleteComment(com.id)">Delete</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
