@@ -37,7 +37,6 @@ export class ApproveCommentsComponent {
 	ratings: { [key: number]: number } = {};
 
 	imageBase64:string = environment.imageBase64;
-	accommodations: Accommodation[] = [];
 	commentsForApproving: CommentAboutAcc[] = [];
 	haveCommentsForDisplay: boolean = true;
 
