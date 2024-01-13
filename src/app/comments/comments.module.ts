@@ -13,10 +13,10 @@ import { ReportCommentsComponent } from './report-comments/report-comments.compo
     ApproveCommentsComponent,
     ReportCommentsComponent
   ],
-	imports: [
-		CommonModule,
-		MaterialModule,
-	],
+    imports: [
+        CommonModule,
+        MaterialModule,
+    ],
 	exports: [
 		CommentHostComponent,
 	]
