@@ -64,4 +64,14 @@ export class CommentsService {
 		});
 	}
 
+	approveCommentAboutAcc(id: number, isApproved: boolean): Observable<CommentAboutAcc> {
+		const url = environment.apiHost + `commentsAboutAcc/${id}/approve/${isApproved}`;
+		return this.http.put<CommentAboutAcc>(url, {});
+	}
+
+	getCommentsForApproving(): Observable<CommentAboutAcc[]>{
+		const url =  environment.apiHost + `commentsAboutAcc/approving`;
+		return this.http.get<CommentAboutAcc[]>(url);
+	}
+
 }
