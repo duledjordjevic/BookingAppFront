@@ -13,4 +13,5 @@ export interface CommentAboutHost{
 	hostId?: number;
 	guestId?: number;
 	host?: Host;
+	ratingDescription?: string;
 }
