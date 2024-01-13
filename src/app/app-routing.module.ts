@@ -26,6 +26,7 @@ import { AllAccommodationsAnalyticsComponent } from './analytics/all-accommodati
 import { BlockUserComponent } from './user/block-user/block-user.component';
 import {CommentAccComponent} from "./comments/comment-acc/comment-acc.component";
 import {ApproveCommentsComponent} from "./comments/approve-comments/approve-comments.component";
+import {ReportCommentsComponent} from "./comments/report-comments/report-comments.component";
 
 const routes: Routes = [
   {path : "home", component : HomeComponent,},
@@ -50,6 +51,7 @@ const routes: Routes = [
   {path: "block-user", component:BlockUserComponent, canActivate: [AuthGuard], data: {role: ['ADMIN']}},
 	{path: "comment-acc", component: CommentAccComponent, canActivate: [AuthGuard], data: {role: ['GUEST']}},
 	{path: "approve-comments", component: ApproveCommentsComponent, canActivate: [AuthGuard], data: {role: ['ADMIN']}},
+	{path: "report-comments", component: ReportCommentsComponent, canActivate: [AuthGuard], data: {role: ['ADMIN']}},
 ];
 
 @NgModule({
