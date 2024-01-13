@@ -5,6 +5,7 @@
 		</div>
 
 		<div class="newComments">
+			<h4 *ngIf="haveCommentsForDisplay == false">There is no available accommodations for commenting</h4>
 			<div *ngFor="let acc of accommodations">
 				<div class="commentAndReview">
 					<div class="photoComment">

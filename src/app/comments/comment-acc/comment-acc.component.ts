@@ -55,6 +55,7 @@ export class CommentAccComponent {
 	imageBase64:string = environment.imageBase64;
 	accommodations: Accommodation[] = [];
 	commentsForDeleting: CommentAboutAcc[] = [];
+	haveCommentsForDisplay: boolean = true;
 
 	constructor(private snackBar: MatSnackBar, private cdr: ChangeDetectorRef,
 				private renderer: Renderer2, private commentsService: CommentsService,
@@ -69,6 +70,7 @@ export class CommentAccComponent {
 		this.commentsService.getGuestAccommodationsForComment(this.authService.getId()).subscribe({
 			next:(resultAcc: Accommodation[]) =>{
 				this.accommodations = resultAcc;
+				this.haveCommentsForDisplay = this.accommodations.length != 0;
 				this.accommodations.forEach(acc => {
 					this.commentContent[acc.id as number] = '';
 				});
