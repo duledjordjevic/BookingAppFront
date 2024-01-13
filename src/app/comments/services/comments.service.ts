@@ -74,4 +74,13 @@ export class CommentsService {
 		return this.http.get<CommentAboutAcc[]>(url);
 	}
 
+	getReportedCommentsAboutAcc(): Observable<CommentAboutAcc[]>{
+		const url =  environment.apiHost + `commentsAboutAcc/reported`;
+		return this.http.get<CommentAboutAcc[]>(url);
+	}
+
+	getReportedCommentsAboutHost(): Observable<CommentAboutHost[]>{
+		const url =  environment.apiHost + `commentsAboutHost/reported`;
+		return this.http.get<CommentAboutHost[]>(url);
+	}
 }
