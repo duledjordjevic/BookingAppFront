@@ -58,6 +58,8 @@ export class CommentHostComponent {
 	userIcon = "assets/images/user-circle.svg";
 	accommodations: Accommodation[] = [];
 	commentsForDeleting: CommentAboutHost[] = [];
+	haveCommentsForDeleting: boolean = true;
+	haveCommentsForDisplay: boolean = true;
 
 	constructor(private snackBar: MatSnackBar, private cdr: ChangeDetectorRef,
 				private renderer: Renderer2, private commentsService: CommentsService,
@@ -72,6 +74,7 @@ export class CommentHostComponent {
 		this.commentsService.getGuestAccommodations(this.authService.getId()).subscribe({
 			next:(resultAcc: Accommodation[]) =>{
 				this.accommodations = resultAcc;
+				this.haveCommentsForDisplay = this.accommodations.length != 0;
 				this.accommodations.forEach(acc => {
 					this.commentContent[acc.id as number] = '';
 				});
@@ -88,6 +91,7 @@ export class CommentHostComponent {
 		this.commentsService.getCommentsAboutHostForGuest(this.authService.getId()).subscribe({
 			next:(result: CommentAboutHost[]) =>{
 				this.commentsForDeleting = result;
+				this.haveCommentsForDeleting = this.commentsForDeleting.length != 0;
 			}
 		})
 	}
