@@ -130,7 +130,8 @@
 		</div>
 
 		<div class="commentsSection">
-			<h2 *ngIf="haveCommentsAndReviews == false">This accommodation has no comments or ratings</h2>
+			<h4 *ngIf="haveCommentsAndReviews == true" id="commentsAccTitle">Comments about accommodation</h4>
+			<h4 *ngIf="haveCommentsAndReviews == false">This accommodation has no comments or ratings</h4>
 			<div class="comments" *ngIf="haveCommentsAndReviews == true">
 				<div class="comments-container">
 					<div class="review">
@@ -210,7 +211,11 @@
 					<div class="commentsAcc">
 						<div *ngFor="let comment of displayedComments">
 							<div class="comment">
-								<h4>{{ comment.rating }}/5 {{ comment.ratingDescription }}  </h4>
+								<div class="reportIcon">
+									<h4>{{ comment.rating }}/5 {{ comment.ratingDescription }}  </h4>
+									<img [src]="reportIcon" alt="UserIcon" (click)="reportCommentAboutAcc(comment.id)"
+										 *ngIf="user == 'HOST' && isHostAcc == true">
+								</div>
 								<h5>{{ comment.guestName }} {{ comment.guestLastName }}</h5>
 								<p>{{comment.date}}</p>
 								<p>{{ comment.content }}</p>
@@ -223,6 +228,108 @@
 
 			<div *ngIf="haveCommentsAndReviews == true" class="expandCommentsButton">
 				<button (click)="expandComments()" *ngIf="!allCommentsVisible" mat-raised-button>See all reviews</button>
+			</div>
+		</div>
+
+		<div class="commentsSection">
+			<h4 *ngIf="haveCommentsAndReviewsHost == true" id="commentsHostTitle">Comments about host</h4>
+			<h4 *ngIf="haveCommentsAndReviewsHost == false">This host has no comments or ratings</h4>
+			<div class="comments" *ngIf="haveCommentsAndReviewsHost == true">
+				<div class="comments-container">
+					<div class="review">
+						<div class="reviewEl">
+							<div class="reviewDisplay">
+								<div class="reviewDisplayLeft">
+									<h1>{{ratingsHost.average}}</h1>
+								</div>
+								<div class="reviewDisplayRight">
+									<div class="reviewDisplayRightUp">
+										<h5>Excellent</h5>
+									</div>
+									<div class="reviewDisplayRightUp">
+										<p>{{ratingsHost.count}} reviewers</p>
+									</div>
+								</div>
+							</div>
+
+							<div class="oneReview">
+								<div class="infoReview">
+									<div class="rightReview">
+										<p>5 - Excellent</p>
+									</div>
+									<div class="leftReview">
+										<p class="progressValue">{{ratingsHost.excellent}}</p>
+									</div>
+								</div>
+								<mat-progress-bar mode="determinate" [value]="(ratingsHost.excellent / ratingsHost.count) * 100" class="progressColor"></mat-progress-bar>
+							</div>
+							<div class="oneReview">
+								<div class="infoReview">
+									<div class="rightReview">
+										<p>4 - Good</p>
+									</div>
+									<div class="leftReview">
+										<p class="progressValue">{{ratingsHost.good}}</p>
+									</div>
+								</div>
+								<mat-progress-bar mode="determinate" [value]="(ratingsHost.good / ratingsHost.count) * 100"></mat-progress-bar>
+							</div>
+							<div class="oneReview">
+								<div class="infoReview">
+									<div class="rightReview">
+										<p>3 - Okay</p>
+									</div>
+									<div class="leftReview">
+										<p class="progressValue">{{ratingsHost.okay}}</p>
+									</div>
+								</div>
+								<mat-progress-bar mode="determinate" [value]="(ratingsHost.okay / ratingsHost.count) * 100"></mat-progress-bar>
+							</div>
+							<div class="oneReview">
+								<div class="infoReview">
+									<div class="rightReview">
+										<p>2 - Poor</p>
+									</div>
+									<div class="leftReview">
+										<p class="progressValue">{{ratingsHost.poor}}</p>
+									</div>
+								</div>
+								<mat-progress-bar mode="determinate" [value]="(ratingsHost.poor / ratingsHost.count) * 100"></mat-progress-bar>
+							</div>
+							<div class="oneReview">
+								<div class="infoReview">
+									<div class="rightReview">
+										<p>1 - Terrible</p>
+									</div>
+									<div class="leftReview">
+										<p class="progressValue">{{ratingsHost.terrible}}</p>
+									</div>
+								</div>
+								<mat-progress-bar mode="determinate" [value]="(ratingsHost.terrible / ratingsHost.count) * 100"></mat-progress-bar>
+							</div>
+						</div>
+					</div>
+
+					<div class="commentsAcc">
+						<div *ngFor="let comment of displayedCommentsHost">
+							<div class="comment">
+								<div class="reportIcon">
+									<h4>{{ comment.rating }}/5 {{ comment.ratingDescription }}  </h4>
+									<img [src]="reportIcon" alt="UserIcon" (click)="reportCommentAboutHost(comment.id)"
+										 *ngIf="user == 'HOST' && isHostAcc == true">
+								</div>
+								<h5>{{ comment.guestName }} {{ comment.guestLastName }}</h5>
+								<p>{{comment.date}}</p>
+								<p>{{ comment.content }}</p>
+								<hr>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div *ngIf="haveCommentsAndReviewsHost == true" class="expandCommentsButton">
+				<button (click)="expandCommentsHost()" *ngIf="!allCommentsHostVisible" mat-raised-button>See all reviews</button>
 			</div>
 		</div>
 		<div id="analytics-section" *ngIf="user == 'HOST' && isHostAcc == true">

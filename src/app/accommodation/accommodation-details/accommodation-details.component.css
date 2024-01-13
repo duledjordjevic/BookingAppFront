@@ -374,3 +374,16 @@ hr {
 	margin-bottom: 50px;
 	/* margin: auto; */
 }
+
+.reportIcon {
+	display: flex;
+	justify-content: space-between;
+}
+
+#commentsAccTitle {
+	margin-bottom: 50px;
+}
+
+#commentsHostTitle {
+	margin-bottom: 50px;
+}
