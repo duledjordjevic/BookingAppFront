@@ -17,6 +17,7 @@ import {MatRadioModule} from "@angular/material/radio";
 import { MatDialogModule } from "@angular/material/dialog";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatTooltip, MatTooltipModule} from "@angular/material/tooltip";
+import {MatCheckboxModule} from "@angular/material/checkbox";
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import {MatTooltip, MatTooltipModule} from "@angular/material/tooltip";
     MatToolbarModule,
 	  MatSnackBarModule,
 	  MatTooltipModule,
+	  MatCheckboxModule,
   ],
   exports: [
     MatToolbarModule,
@@ -64,6 +66,7 @@ import {MatTooltip, MatTooltipModule} from "@angular/material/tooltip";
     MatToolbarModule,
 	  MatSnackBarModule,
 	  MatTooltipModule,
+	  MatCheckboxModule,
   ]
 })
 export class MaterialModule { }
