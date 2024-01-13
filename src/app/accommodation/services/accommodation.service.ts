@@ -16,6 +16,8 @@ import { DatePipe } from '@angular/common';
 import {Reservation} from "../model/reservation.model";
 import {ReservationMethod} from "../model/reservation-method.model";
 import {IntervalPrice} from "../model/interval-price.model";
+import {CommentAboutAcc} from "../../comments/model/comment-about-acc-model";
+import {CommentAboutHost} from "../../comments/model/comment-about-host.model";
 
 
 @Injectable({
@@ -59,9 +61,9 @@ addFavourite(guestUserId: number, accommodationId: number): Observable<boolean> 
     });
   }
 
-  getCommentsAboutAcc(id: number): Observable<CommentModel[]> {
+  getCommentsAboutAcc(id: number): Observable<CommentAboutAcc[]> {
     const url = environment.apiHost + `commentsAboutAcc/acc/${id}`;
-    return this.http.get<CommentModel[]>(url);
+    return this.http.get<CommentAboutAcc[]>(url);
   }
 
 
@@ -167,6 +169,21 @@ addFavourite(guestUserId: number, accommodationId: number): Observable<boolean> 
 	getIntervals(id: number): Observable<IntervalPrice[]>{
 		const url = environment.apiHost + `accommodations/intervalPrices/${id}`;
 		return this.http.get<IntervalPrice[]>(url);
+	}
+
+	reportCommentAboutAcc(id: number, isReported: boolean): Observable<CommentAboutAcc> {
+		const url = environment.apiHost + `commentsAboutAcc/${id}/report/${isReported}`;
+		return this.http.put<CommentAboutAcc>(url, {});
+	}
+
+	getCommentsAboutHost(hostUserId: number): Observable<CommentAboutHost[]> {
+		const url = environment.apiHost + `commentsAboutHost/host/${hostUserId}`;
+		return this.http.get<CommentAboutHost[]>(url);
+	}
+
+	reportCommentAboutHost(id: number, isReported: boolean): Observable<CommentAboutAcc> {
+		const url = environment.apiHost + `commentsAboutHost/${id}/report/${isReported}`;
+		return this.http.put<CommentAboutAcc>(url, {});
 	}
 }
 
