@@ -1,1 +1,15 @@
-<p>report-comment-popup works!</p>
+<div class="main-container">
+	<div class="title-closebtn">
+		<h4>Report comment</h4>
+		<img id="red-flag" src="../../../assets/images/close.png" (click)="closeDialog()">
+	</div>
+	<div class="textarea-conatiner">
+		<p *ngIf="isAcc == false">The reason why you are reporting comment about user: {{firstname}} {{lastName}}</p>
+		<p *ngIf="isAcc == true">The reason why you are reporting comment about accommodation : {{title}}</p>
+		<textarea [(ngModel)]="reportReason" placeholder="At least 10 characters"></textarea>
+		<p id="validator" *ngIf="validator == true">*You must enter at least 10 characters</p>
+	</div>
+	<button (click)="reportUser()">
+		Report
+	</button>
+</div>
