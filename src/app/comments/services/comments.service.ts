@@ -64,4 +64,43 @@ export class CommentsService {
 		});
 	}
 
+	approveCommentAboutAcc(id: number, isApproved: boolean): Observable<CommentAboutAcc> {
+		const url = environment.apiHost + `commentsAboutAcc/${id}/approve/${isApproved}`;
+		return this.http.put<CommentAboutAcc>(url, {});
+	}
+
+	getCommentsForApproving(): Observable<CommentAboutAcc[]>{
+		const url =  environment.apiHost + `commentsAboutAcc/approving`;
+		return this.http.get<CommentAboutAcc[]>(url);
+	}
+
+	getReportedCommentsAboutAcc(): Observable<CommentAboutAcc[]>{
+		const url =  environment.apiHost + `commentsAboutAcc/reported`;
+		return this.http.get<CommentAboutAcc[]>(url);
+	}
+
+	getReportedCommentsAboutHost(): Observable<CommentAboutHost[]>{
+		const url =  environment.apiHost + `commentsAboutHost/reported`;
+		return this.http.get<CommentAboutHost[]>(url);
+	}
+
+	setReportMessageAcc(id: number, message: string): Observable<CommentAboutAcc> {
+		const url = environment.apiHost + `commentsAboutAcc/reportMessage/${id}`;
+		return this.http.put<CommentAboutAcc>(url, message);
+	}
+
+	setReportMessageHost(id: number, message: string): Observable<CommentAboutHost> {
+		const url = environment.apiHost + `commentsAboutHost/reportMessage/${id}`;
+		return this.http.put<CommentAboutHost>(url, message);
+	}
+
+	reportCommentAboutAcc(id: number, isReported: boolean): Observable<CommentAboutAcc> {
+		const url = environment.apiHost + `commentsAboutAcc/${id}/report/${isReported}`;
+		return this.http.put<CommentAboutAcc>(url, {});
+	}
+
+	reportCommentAboutHost(id: number, isReported: boolean): Observable<CommentAboutAcc> {
+		const url = environment.apiHost + `commentsAboutHost/${id}/report/${isReported}`;
+		return this.http.put<CommentAboutAcc>(url, {});
+	}
 }

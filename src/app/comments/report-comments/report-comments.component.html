@@ -1,0 +1,97 @@
+<div class="main-container">
+	<div class="main">
+		<div class="title">
+			<h1>Reported comments</h1>
+		</div>
+
+		<div class="checkboxes">
+			<section class="example-section">
+				<mat-checkbox class="example-margin" (change)="showCommentsAboutHost()">Comments about host</mat-checkbox>
+				<mat-checkbox class="example-margin" (change)="showCommentsAboutAcc()">Comments about accommodation</mat-checkbox>
+			</section>
+		</div>
+
+		<div class="commentsAboutHost" *ngIf="commentsAboutHostVisible">
+			<h4 *ngIf="haveCommentsAboutAccForDisplay == false" class="titleComment">There is no reported comments about host</h4>
+			<h4 *ngIf="haveCommentsAboutAccForDisplay == true" class="titleComment">Comments about host</h4>
+			<div *ngFor="let com of reportedCommentsAboutHost">
+				<div class="commentAndReviewHost">
+					<div>
+						<div class="nameWithReviewHost">
+							<div class="pictureWithNameHost">
+								<div class="iconHost">
+									<img [src]="userIcon" alt="UserIcon">
+								</div>
+								<div class="hostName">
+									<p>{{com.host?.name}} {{com.host?.lastName}}</p>
+								</div>
+							</div>
+							<div class="review">
+								<button #matButtonOld mat-icon-button [color]="color" *ngFor="let ratingId of ratingArr; index as i" [id]="'star_'+i"
+										[matTooltip]="(ratingId + 1).toString()"  [disabled]="true" matTooltipPosition="above">
+									<mat-icon class="star-icon">
+										{{ showIcon(i, com.rating) }}
+									</mat-icon>
+								</button>
+							</div>
+						</div>
+						<div class="textPlaceHost">
+							<textarea readonly placeholder="Add a comment...">{{com.content}}</textarea>
+						</div>
+						<div class="reportMessage">
+							<p id="reasonMessHost">Report reason: </p>
+							<p>{{com.reportMessage}}</p>
+						</div>
+					</div>
+					<div class="commentButton">
+						<button mat-raised-button id="deleteHost" (click)="deleteCommentAboutHost(com.id)">Delete</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="commentsAboutAcc" *ngIf="commentsAboutAccVisible">
+			<h4 *ngIf="haveCommentsAboutAccForDisplay == false" class="titleComment">There is no reported comments about accommodation</h4>
+			<h4 *ngIf="haveCommentsAboutAccForDisplay == true" class="titleComment">Comments about accommodation</h4>
+			<div *ngFor="let com of reportedCommentsAboutAcc">
+				<div class="commentAndReview">
+					<div class="photoComment">
+						<div class="icon">
+							<img src="{{imageBase64}} {{com.coverImage}}">
+						</div>
+						<div class="comment">
+							<div class="nameWithReview">
+								<div class="pictureWithName">
+									<div class="hostName">
+										<p>{{com.accommodation?.title}}</p>
+										<p class="accAddress">{{com.accommodation?.address?.state}}, {{com.accommodation?.address?.city}}</p>
+									</div>
+								</div>
+								<div class="review">
+									<button #matButtonOld mat-icon-button [color]="color" *ngFor="let ratingId of ratingArr; index as i" [id]="'star_'+i"
+											[matTooltip]="(ratingId + 1).toString()"  [disabled]="true" matTooltipPosition="above">
+										<mat-icon class="star-icon">
+											{{ showIcon(i, com.rating) }}
+										</mat-icon>
+									</button>
+								</div>
+							</div>
+							<div class="textPlace">
+								<textarea readonly placeholder="Add a comment...">{{com.content}}</textarea>
+							</div>
+						</div>
+					</div>
+					<div class="reportMessage">
+						<p id="reasonMess">Report reason: </p>
+						<p>{{com.reportMessage}}</p>
+					</div>
+					<div class="commentButton">
+						<button mat-raised-button id="delete" (click)="deleteCommentAboutAcc(com.id)">Delete</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+

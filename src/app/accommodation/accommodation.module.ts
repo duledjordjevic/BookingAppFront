@@ -24,6 +24,7 @@ import { HostReservationsComponent } from './host-reservations/host-reservations
 import { FavouritesComponent } from './favourites/favourites.component';
 import { AnalyticsModule } from '../analytics/analytics.module';
 import { ReportPopupComponent } from './report-popup/report-popup.component';
+import {CommentsModule} from "../comments/comments.module";
 
 
 @NgModule({
@@ -56,7 +57,8 @@ import { ReportPopupComponent } from './report-popup/report-popup.component';
 		ReactiveFormsModule,
 		MatCheckboxModule,
 		MatSliderModule,
-		AnalyticsModule
+		AnalyticsModule,
+		CommentsModule
 	],
 	exports: [
 		AccommodationDetailsComponent,
@@ -67,7 +69,8 @@ import { ReportPopupComponent } from './report-popup/report-popup.component';
 		AccommodationsForHostComponent,
 		GuestReservationsComponent,
 		HostReservationsComponent,
-		FavouritesComponent
+		FavouritesComponent,
+		CommentsModule
 	]
 })
 export class AccommodationModule { }

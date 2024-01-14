@@ -108,6 +108,7 @@ button.mat-icon-button {
 #delete {
 	background-color: #BA1A1A;
 	color: white;
+	margin-left: 20px;
 }
 
 .icon img {
