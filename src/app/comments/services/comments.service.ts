@@ -84,8 +84,23 @@ export class CommentsService {
 		return this.http.get<CommentAboutHost[]>(url);
 	}
 
-	setReportMessage(id: number, message: string): Observable<CommentAboutAcc> {
+	setReportMessageAcc(id: number, message: string): Observable<CommentAboutAcc> {
 		const url = environment.apiHost + `commentsAboutAcc/reportMessage/${id}`;
 		return this.http.put<CommentAboutAcc>(url, message);
+	}
+
+	setReportMessageHost(id: number, message: string): Observable<CommentAboutHost> {
+		const url = environment.apiHost + `commentsAboutHost/reportMessage/${id}`;
+		return this.http.put<CommentAboutHost>(url, message);
+	}
+
+	reportCommentAboutAcc(id: number, isReported: boolean): Observable<CommentAboutAcc> {
+		const url = environment.apiHost + `commentsAboutAcc/${id}/report/${isReported}`;
+		return this.http.put<CommentAboutAcc>(url, {});
+	}
+
+	reportCommentAboutHost(id: number, isReported: boolean): Observable<CommentAboutAcc> {
+		const url = environment.apiHost + `commentsAboutHost/${id}/report/${isReported}`;
+		return this.http.put<CommentAboutAcc>(url, {});
 	}
 }
