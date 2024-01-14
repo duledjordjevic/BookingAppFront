@@ -51,7 +51,7 @@ export class GuestReservationsComponent {
 
     const formattedReservationEndDate: Date = new Date(reservationEndDate.getFullYear(), reservationEndDate.getMonth(), reservationEndDate.getDate());
     const formattedCurrentDate: Date = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
-    return formattedReservationEndDate <= formattedCurrentDate && reservation.status == ReservationStatus.ACCEPTED && !reservation.hostReported ;
+    return formattedReservationEndDate <= formattedCurrentDate && reservation.status == ReservationStatus.ACCEPTED && !reservation.guestReported ;
   }
   openDialog(reservation: Reservation): void {
     this.dialogRef = this.matDialog.open(ReportPopupComponent, {
@@ -151,7 +151,7 @@ export class GuestReservationsComponent {
   }
 
   refreshTable():void {
-    this.getGuestReservations({id : this.authService.getId()});
+    this.getGuestReservations({guestId : this.authService.getId()});
     this.searchForm.reset();
   }
 

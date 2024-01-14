@@ -5,6 +5,9 @@ import { SharedService } from 'src/app/services/shared.service';
 import { format } from 'date-fns';
 import { NotificationTypeStatus } from '../model/notification-type-status';
 import { AuthService } from 'src/app/infrastructure/auth/services/auth.service';
+import { environment } from 'src/env/env';
+import { Stomp } from '@stomp/stompjs';
+import * as SockJS from 'sockjs-client';
 
 @Component({
   selector: 'app-notification-for-host',
@@ -20,6 +23,11 @@ export class NotificationForHostComponent {
     });
   }
   
+  private serverUrl = environment.socket + 'socket'
+  private stompClient: any;
+
+  isLoaded: boolean = false;
+  isCustomSocketOpened = false;
 
   allNotifications: NotificationHost[]  = [];
   unreadNotifications: NotificationHost[] = [];
@@ -37,11 +45,9 @@ export class NotificationForHostComponent {
   acceptedImage: string = "assets/images/accepted.png";
 
   ngOnInit():void{
-
+    this.initializeWebSocketConnection()
     this.getNotificationsStatus();
-
     this.getAllNotifications();
-    
   }
   onToggleChange(notificationType: string): void {
     switch (notificationType) {
@@ -189,5 +195,51 @@ export class NotificationForHostComponent {
     if(this.unreadNotifications.length == 0){
       this.haveUnreadNotifications = false;
     }    
+  }
+
+  initializeWebSocketConnection() {
+    let ws = new SockJS(this.serverUrl);
+    this.stompClient = Stomp.over(ws);
+    let that = this;
+    
+    this.stompClient.connect({}, function () {
+      that.isLoaded = true;
+      that.openSocket();
+    });
+  }
+  openSocket() {
+    if (this.isLoaded) {
+      this.isCustomSocketOpened = true;
+      this.stompClient.subscribe("/socket-publisher/" + this.authService.getId(), (message: { body: string; }) => {
+        this.handleResult(message);
+      });
+    }
+  }
+
+  handleResult(message: { body: string; }) {
+    if (message.body) {
+      let notificationHost: NotificationHost = JSON.parse(message.body);
+      switch(notificationHost.type){
+        case 'RESERVATION_REQUEST':
+          notificationHost.title = "Reservation request";
+          notificationHost.icon = this.requestImage;
+          break;
+        case 'CANCELLED_RESERVATION':
+          notificationHost.title = "Cancelled reservation"
+          notificationHost.icon = this.cancelReservationImage;
+          break;
+        case 'NEW_REVIEW':
+          notificationHost.title = "New review"
+          notificationHost.icon = this.reviewImage;
+          break;
+        case 'CREATED_RESERVATION':
+          notificationHost.title = "Reservation created";
+          notificationHost.icon = this.acceptedImage;
+      }
+      notificationHost.dateParsed = format(notificationHost.dateTime || new Date, 'yyyy-MM-dd HH:mm');
+      this.unreadNotifications.unshift(notificationHost);
+      console.log(this.unreadNotifications);
+
+    }
   }
 }
