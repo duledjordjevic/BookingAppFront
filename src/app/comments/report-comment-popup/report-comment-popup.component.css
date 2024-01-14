@@ -10,11 +10,12 @@
 }
 h4{
 	max-height: 17px;
-	margin-left: 200px;
+	margin-left: 170px;
 }
 textarea{
 	width: 500px;
 	height: 100px;
+	padding: 10px;
 }
 img{
 	width: 17px;
