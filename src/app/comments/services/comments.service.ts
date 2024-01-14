@@ -83,4 +83,9 @@ export class CommentsService {
 		const url =  environment.apiHost + `commentsAboutHost/reported`;
 		return this.http.get<CommentAboutHost[]>(url);
 	}
+
+	setReportMessage(id: number, message: string): Observable<CommentAboutAcc> {
+		const url = environment.apiHost + `commentsAboutAcc/reportMessage/${id}`;
+		return this.http.put<CommentAboutAcc>(url, message);
+	}
 }
