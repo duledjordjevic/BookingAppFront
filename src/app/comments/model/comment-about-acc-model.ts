@@ -13,4 +13,5 @@ export interface CommentAboutAcc{
 	accommodation?: Accommodation;
 	coverImage?: string;
 	ratingDescription?: string;
+	reportMessage?: string;
 }
