@@ -168,3 +168,23 @@ button.mat-icon-button {
 .textPlaceHost {
 	margin-left: 55px;
 }
+
+.reportMessage {
+	margin-top: 15px;
+	/*margin-left: 15px;*/
+	display: flex;
+	flex-direction: row;
+}
+
+#reasonMess, #reasonMessHost {
+	font-weight: bold;
+	margin-right: 10px;
+}
+
+#reasonMessHost {
+	margin-left: 55px;
+}
+
+#reasonMess {
+	margin-left: 15px;
+}

@@ -38,6 +38,10 @@
 						<div class="textPlaceHost">
 							<textarea readonly placeholder="Add a comment...">{{com.content}}</textarea>
 						</div>
+						<div class="reportMessage">
+							<p id="reasonMessHost">Report reason: </p>
+							<p>{{com.reportMessage}}</p>
+						</div>
 					</div>
 					<div class="commentButton">
 						<button mat-raised-button id="deleteHost" (click)="deleteCommentAboutHost(com.id)">Delete</button>
@@ -76,6 +80,10 @@
 								<textarea readonly placeholder="Add a comment...">{{com.content}}</textarea>
 							</div>
 						</div>
+					</div>
+					<div class="reportMessage">
+						<p id="reasonMess">Report reason: </p>
+						<p>{{com.reportMessage}}</p>
 					</div>
 					<div class="commentButton">
 						<button mat-raised-button id="delete" (click)="deleteCommentAboutAcc(com.id)">Delete</button>
