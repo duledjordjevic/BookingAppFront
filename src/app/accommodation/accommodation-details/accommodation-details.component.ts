@@ -1,7 +1,6 @@
 
 // import { Component } from '@angular/core';
 import { AccommodationService } from "../services/accommodation.service";
-import {CommentModel} from "../model/comment.model";
 import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild, inject } from '@angular/core';
 import { RatingModel } from "../model/rating.model";
 import { AccommodationDetails, Amenities, AmenitiesIcons } from "../model/accommodation.model";
@@ -22,6 +21,9 @@ import { CreateNotification, NotificationHost, NotificationType } from 'src/app/
 import {CommentAboutAcc} from "../../comments/model/comment-about-acc-model";
 import {CommentAboutHost} from "../../comments/model/comment-about-host.model";
 import {Host} from "../../infrastructure/auth/model/user.model";
+import {ReportPopupComponent} from "../report-popup/report-popup.component";
+import {MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {ReportCommentPopupComponent} from "../../comments/report-comment-popup/report-comment-popup.component";
 
 
 @Component({
@@ -34,7 +36,8 @@ export class AccommodationDetailsComponent{
 	constructor(private accommodationService: AccommodationService, private mapService: MapService,
 		private reservationService: ReservationService, private authService: AuthService,
 		private dialogService: DialogService,private route: ActivatedRoute,private router: Router,
-		private cdr: ChangeDetectorRef, private notificationService: NotificationForHostService) {
+		private cdr: ChangeDetectorRef, private notificationService: NotificationForHostService,
+				private matDialog: MatDialog) {
 
 		this.updateDisplayedComments();
 		this.reservationForm.get('numOfGuests')?.setValue(0);
@@ -46,7 +49,7 @@ export class AccommodationDetailsComponent{
 	starFill = "assets/images/star-fill.svg"
 	star = "assets/images/star.svg"
 
-	commentsAboutAcc: CommentModel[] = [];
+	commentsAboutAcc: CommentAboutAcc[] = [];
 
 	myLatLng: {lat : number, lng: number} = { lat: 42.546, lng: 21.882 };
 	mapOptions: google.maps.MapOptions = {};
@@ -107,6 +110,7 @@ export class AccommodationDetailsComponent{
 	isHostAcc:boolean = false;
 	host?: Host;
 	haveCommentsAndReviewsHost: boolean = true;
+	dialogRef!: MatDialogRef<ReportCommentPopupComponent>;
 
 	ngOnInit(): void{
 		this.route.queryParams.subscribe(params => {
@@ -533,28 +537,17 @@ export class AccommodationDetailsComponent{
 		}
 	}
 
-	reportCommentAboutAcc(commentId?: number ): void {
-		this.accommodationService.reportCommentAboutAcc(commentId as number, true).subscribe({
-			next: () => {
-				// this.getCommentsAboutAcc();
-				console.log("Uspesno reportovanje komentara");
-			},
-			error: () => {
-				console.log("Error reporting comment");
+	openDialog(comAccId: number | undefined, comHostId: number | undefined, isComAcc: boolean): void {
+		this.dialogRef = this.matDialog.open(ReportCommentPopupComponent, {
+			data:{
+				firstname: this.host?.name,
+				lastName: this.host?.lastName,
+				title: this.accommodationDetails?.title,
+				commentAccId: comAccId,
+				commentHostId: comHostId,
+				isAcc: isComAcc,
 			}
-		})
-	}
-
-	reportCommentAboutHost(commentId?: number ): void {
-		this.accommodationService.reportCommentAboutHost(commentId as number, true).subscribe({
-			next: () => {
-				// this.getCommentsAboutHost();
-				console.log("Uspesno reportovanje komentara");
-			},
-			error: () => {
-				console.log("Error reporting comment");
-			}
-		})
+		});
 	}
 
 }

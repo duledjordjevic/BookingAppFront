@@ -213,7 +213,7 @@
 							<div class="comment">
 								<div class="reportIcon">
 									<h4>{{ comment.rating }}/5 {{ comment.ratingDescription }}  </h4>
-									<img [src]="reportIcon" alt="UserIcon" (click)="reportCommentAboutAcc(comment.id)"
+									<img [src]="reportIcon" alt="UserIcon" (click)="openDialog(comment.id, 0, true)"
 										 *ngIf="user == 'HOST' && isHostAcc == true">
 								</div>
 								<h5>{{ comment.guestName }} {{ comment.guestLastName }}</h5>
@@ -315,7 +315,7 @@
 							<div class="comment">
 								<div class="reportIcon">
 									<h4>{{ comment.rating }}/5 {{ comment.ratingDescription }}  </h4>
-									<img [src]="reportIcon" alt="UserIcon" (click)="reportCommentAboutHost(comment.id)"
+									<img [src]="reportIcon" alt="UserIcon" (click)="openDialog(0, comment.id, false)"
 										 *ngIf="user == 'HOST' && isHostAcc == true">
 								</div>
 								<h5>{{ comment.guestName }} {{ comment.guestLastName }}</h5>
@@ -327,7 +327,7 @@
 					</div>
 				</div>
 			</div>
-
+<!--			openDialog(comAccId: number, comHostId: number, isComAcc: boolean)-->
 			<div *ngIf="haveCommentsAndReviewsHost == true" class="expandCommentsButton">
 				<button (click)="expandCommentsHost()" *ngIf="!allCommentsHostVisible" mat-raised-button>See all reviews</button>
 			</div>
