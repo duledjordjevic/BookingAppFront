@@ -171,19 +171,10 @@ addFavourite(guestUserId: number, accommodationId: number): Observable<boolean> 
 		return this.http.get<IntervalPrice[]>(url);
 	}
 
-	reportCommentAboutAcc(id: number, isReported: boolean): Observable<CommentAboutAcc> {
-		const url = environment.apiHost + `commentsAboutAcc/${id}/report/${isReported}`;
-		return this.http.put<CommentAboutAcc>(url, {});
-	}
-
 	getCommentsAboutHost(hostUserId: number): Observable<CommentAboutHost[]> {
 		const url = environment.apiHost + `commentsAboutHost/host/${hostUserId}`;
 		return this.http.get<CommentAboutHost[]>(url);
 	}
 
-	reportCommentAboutHost(id: number, isReported: boolean): Observable<CommentAboutAcc> {
-		const url = environment.apiHost + `commentsAboutHost/${id}/report/${isReported}`;
-		return this.http.put<CommentAboutAcc>(url, {});
-	}
 }
 
