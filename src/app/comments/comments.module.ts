@@ -5,13 +5,15 @@ import {MaterialModule} from "../infrastructure/material/material.module";
 import { CommentAccComponent } from './comment-acc/comment-acc.component';
 import { ApproveCommentsComponent } from './approve-comments/approve-comments.component';
 import { ReportCommentsComponent } from './report-comments/report-comments.component';
+import { ReportCommentPopupComponent } from './report-comment-popup/report-comment-popup.component';
 
 @NgModule({
   declarations: [
     CommentHostComponent,
     CommentAccComponent,
     ApproveCommentsComponent,
-    ReportCommentsComponent
+    ReportCommentsComponent,
+    ReportCommentPopupComponent
   ],
     imports: [
         CommonModule,
