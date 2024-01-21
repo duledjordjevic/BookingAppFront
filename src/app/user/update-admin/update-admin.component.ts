@@ -43,7 +43,7 @@ export class UpdateAdminComponent {
     updateConfirmation: boolean = false;
     canNotUpdateAdmin: boolean = false;
 
-    updateUser(): void {
+    onSubmit(): void {
       this.passwordsMatching= false;
       this.passwordRequired = false;
       this.newPasswordRequired = false;
@@ -65,22 +65,26 @@ export class UpdateAdminComponent {
         return;
       }
      
-      const updatedAdmin: AdminUpdate = {
-          email:this.res?.email || "", 
-          oldPassword: this.updateAdminForm.value.oldPassword || "",
-          newPassword: this.updateAdminForm.value.newPassword || "",
-      }
-      this.service.updateAdmin(updatedAdmin).subscribe({
-          next:(_)=>{
-              console.log("Uspesan zahtev");
-              this.updateConfirmation= true;
-          },
-          error:(error)=>{
-            console.log(error);
-            this.canNotUpdateAdmin = true;
-          }
-      })
+      this.updateUser();
 
+  }
+
+  updateUser(): void{
+    const updatedAdmin: AdminUpdate = {
+      email:this.res?.email || "", 
+      oldPassword: this.updateAdminForm.value.oldPassword || "",
+      newPassword: this.updateAdminForm.value.newPassword || "",
+    }
+    this.service.updateAdmin(updatedAdmin).subscribe({
+        next:(_)=>{
+            console.log("Uspesan zahtev");
+            this.updateConfirmation= true;
+        },
+        error:(error)=>{
+          console.log(error);
+          this.canNotUpdateAdmin = true;
+        }
+    })
   }
 
 }

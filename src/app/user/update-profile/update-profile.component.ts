@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { UserDelete, UserInfo, UserUpdate } from '../model/user.model';
-import { FormGroup, FormControl, Validators} from '@angular/forms';
+import { FormGroup, FormControl, Validators, ValidatorFn, ValidationErrors, AbstractControl} from '@angular/forms';
 import { Router } from '@angular/router';
 import { SharedService } from 'src/app/services/shared.service';
 import { Address } from 'src/app/models/shared.models';
@@ -51,7 +51,14 @@ export class UpdateProfileComponent implements OnInit {
         newPassword: new FormControl(''),
         newPasswordConfirmed: new FormControl(''),
         oldPassword: new FormControl('',[Validators.required]),
-      })
+      },)
+
+      passwordsMatchValidator: ValidatorFn = (formGroup: AbstractControl): ValidationErrors | null => {
+        const newPassword = this.updateProfileForm.get('newPassword')?.value;
+        const confirmPassword = this.updateProfileForm.get('newPasswordConfirmed')?.value;
+      
+        return newPassword === confirmPassword ? null : { passwordsNotMatch: true };
+      };
     
     
     passwordRequired: boolean = false;
@@ -69,7 +76,7 @@ export class UpdateProfileComponent implements OnInit {
     canNotUpdateUser: boolean = false;
     canNotDeleteUser:boolean = false;
 
-    updateUser(): void {
+    onSubmit(): void {
       this.streetRequired = false;
       this.phoneNumberRequired = false;
       this.postalCodeRequired = false;
@@ -121,34 +128,38 @@ export class UpdateProfileComponent implements OnInit {
             this.passwordsMatching = true;
             return;
         }
-        const address: Address = {
-            id: null,
-            state: this.updateProfileForm.value.state || "",
-            city: this.updateProfileForm.value.city || "",
-            postalCode: this.updateProfileForm.value.postalCode || "",
-            street: this.updateProfileForm.value.street || ""
-        }
-        const updatedUser: UserUpdate = {
-            id: null,
-            name: this.updateProfileForm.value.name || "",
-            lastname: this.updateProfileForm.value.lastname || "",
-            phoneNumber: this.updateProfileForm.value.phoneNumber || "",
-            oldPassword: this.updateProfileForm.value.oldPassword || "",
-            newPassword: this.updateProfileForm.value.newPassword || "",
-            address: address,
-        }
-        this.service.updateUser(updatedUser).subscribe({
-            next:(_)=>{
-              this.updateConfirmation = true;
-              console.log("Uspesan zahtev");
-            },
-            error:(error) =>{
-              console.log(error);
-              this.canNotUpdateUser = true;
-            }
-        })
-
+        
+        this.updateUser();
     }
+    updateUser(): void {
+      const address: Address = {
+        id: null,
+        state: this.updateProfileForm.value.state || "",
+        city: this.updateProfileForm.value.city || "",
+        postalCode: this.updateProfileForm.value.postalCode || "",
+        street: this.updateProfileForm.value.street || ""
+      }
+      const updatedUser: UserUpdate = {
+          id: null,
+          name: this.updateProfileForm.value.name || "",
+          lastname: this.updateProfileForm.value.lastname || "",
+          phoneNumber: this.updateProfileForm.value.phoneNumber || "",
+          oldPassword: this.updateProfileForm.value.oldPassword || "",
+          newPassword: this.updateProfileForm.value.newPassword || "",
+          address: address,
+      }
+      this.service.updateUser(updatedUser).subscribe({
+          next:(_)=>{
+            this.updateConfirmation = true;
+            console.log("Uspesan zahtev");
+          },
+          error:(error) =>{
+            console.log(error);
+            this.canNotUpdateUser = true;
+          }
+      })
+    }
+
     deleteUser(): void{
       this.passwordRequired = false;
       this.canNotDeleteUser = false;
