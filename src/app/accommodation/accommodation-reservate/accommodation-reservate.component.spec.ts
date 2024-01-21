@@ -82,14 +82,67 @@ describe('AccommodationReservateComponent', () => {
   });
 
   it("form should be invalid", () => {
-    component.reservationForm.get("startDate")?.setValue(new Date('1/24/2024'));
-    component.reservationForm.get("endDate")?.setValue(new Date('1/26/2024'));
+    const yourMethodSpy = spyOn(component, 'getAvailableDates').and.returnValue(undefined);
+    const startDate = new Date('2024-01-20');
 
-    component.reservationForm.get("numOfGuests")?.setValue(5);
+    for (let i = 0; i < 10; i++) {
+      const nextDate = new Date(startDate);
+      nextDate.setDate(startDate.getDate() + i);
+      component.availableDates.push(nextDate);
+    }
+
+    component.reservationForm.get("startDate")?.setValue(new Date());
+    component.reservationForm.get("endDate")?.setValue(new Date());
+
+    component.reservationForm.get("numOfGuests")?.setValue(0);
 
     expect(component.reservationForm.valid).toBeFalsy();
   });
 
+  it("form valid but numOfGuest not selected", () => {
+    const yourMethodSpy = spyOn(component, 'getAvailableDates').and.returnValue(undefined);
+    const startDate = new Date('2024-01-20');
 
+    for (let i = 0; i < 10; i++) {
+      const nextDate = new Date(startDate);
+      nextDate.setDate(startDate.getDate() + i);
+      component.availableDates.push(nextDate);
+    }
+    component.reservationForm.get("startDate")?.setValue(new Date('2024-01-22'));
+    component.reservationForm.get("endDate")?.setValue(new Date('2024-01-25'));
+    component.reservationForm.get("numOfGuests")?.setValue(0);
+
+    spyOn(component, 'calculateReservationPrice');
+
+    el = fixture.debugElement.query(By.css('.reservate button')).nativeElement;
+    el.click();
+
+    expect(component.calculateReservationPrice).toHaveBeenCalledTimes(0);
+  });
+
+  it("form should be valid", () => {
+    const yourMethodSpy = spyOn(component, 'getAvailableDates').and.returnValue(undefined);
+    const startDate = new Date('2024-01-20');
+
+    for (let i = 0; i < 10; i++) {
+      const nextDate = new Date(startDate);
+      nextDate.setDate(startDate.getDate() + i);
+      component.availableDates.push(nextDate);
+    }
+    component.reservationForm.get("startDate")?.setValue(new Date('2024-01-22'));
+    component.reservationForm.get("endDate")?.setValue(new Date('2024-01-25'));
+
+    component.reservationForm.get("numOfGuests")?.setValue(5);
+
+
+    spyOn(component, 'calculateReservationPrice');
+
+    el = fixture.debugElement.query(By.css('.reservate button')).nativeElement;
+    el.click();
+
+    expect(component.reservationForm.valid).toBeTruthy();
+    expect(component.calculateReservationPrice).toHaveBeenCalledTimes(1);
+
+  });
 
 });
