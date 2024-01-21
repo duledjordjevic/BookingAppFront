@@ -25,6 +25,7 @@ import { FavouritesComponent } from './favourites/favourites.component';
 import { AnalyticsModule } from '../analytics/analytics.module';
 import { ReportPopupComponent } from './report-popup/report-popup.component';
 import {CommentsModule} from "../comments/comments.module";
+import { AccommodationReservateComponent } from './accommodation-reservate/accommodation-reservate.component';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import {CommentsModule} from "../comments/comments.module";
   GuestReservationsComponent,
   HostReservationsComponent,
   FavouritesComponent,
-  ReportPopupComponent
+  ReportPopupComponent,
+  AccommodationReservateComponent
   ],
 	imports: [
 		CommonModule,

@@ -21,6 +21,7 @@ import {CommentAboutHost} from "../../comments/model/comment-about-host.model";
 import {Host} from "../../infrastructure/auth/model/user.model";
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {ReportCommentPopupComponent} from "../../comments/report-comment-popup/report-comment-popup.component";
+import { AccommodationReservateComponent } from "../accommodation-reservate/accommodation-reservate.component";
 
 
 @Component({
@@ -29,6 +30,8 @@ import {ReportCommentPopupComponent} from "../../comments/report-comment-popup/r
   styleUrls: ['./accommodation-details.component.css']
 })
 export class AccommodationDetailsComponent{
+	// @ViewChild(AccommodationReservateComponent) accommodationReservate!: AccommodationReservateComponent;
+
 
 	constructor(private accommodationService: AccommodationService, private mapService: MapService,
 		private reservationService: ReservationService, private authService: AuthService,
@@ -48,22 +51,22 @@ export class AccommodationDetailsComponent{
 
 	commentsAboutAcc: CommentAboutAcc[] = [];
 
-	myLatLng: {lat : number, lng: number} = { lat: 42.546, lng: 21.882 };
-	mapOptions: google.maps.MapOptions = {};
+	// myLatLng: {lat : number, lng: number} = { lat: 42.546, lng: 21.882 };
+	// mapOptions: google.maps.MapOptions = {};
 
 
-	search(street: string): void {
-		this.mapService.search(street).subscribe({
-		  next: (result) => {
-			this.myLatLng = { lat: Number(result[0].lat), lng: Number(result[0].lon) };
-			this.mapOptions =  {
-				center: this.myLatLng,
-				zoom: 15,
-			};
-		  },
-		  error: () => {},
-		});
-	  }
+	// search(street: string): void {
+	// 	this.mapService.search(street).subscribe({
+	// 	  next: (result) => {
+	// 		this.myLatLng = { lat: Number(result[0].lat), lng: Number(result[0].lon) };
+	// 		this.mapOptions =  {
+	// 			center: this.myLatLng,
+	// 			zoom: 15,
+	// 		};
+	// 	  },
+	// 	  error: () => {},
+	// 	});
+	//   }
 
 
 	images:String[] = [];
@@ -126,7 +129,7 @@ export class AccommodationDetailsComponent{
 					}
 				}
 				)
-				this.search(this.accommodationDetails.address.street + ', ' + this.accommodationDetails.address.city);
+				// this.search(this.accommodationDetails.address.street + ', ' + this.accommodationDetails.address.city);
 
 				this.amenities = accommodationInfo.amenities;
 				for(const element of this.amenities){
@@ -187,7 +190,6 @@ export class AccommodationDetailsComponent{
 				this.getCommentsAboutHost();
 
 				//availableDates
-				this.getAvailableDates(accommodationInfo.id);
 
 				this.user = this.authService.getRole() ?? 'UNREGISTERED';
 

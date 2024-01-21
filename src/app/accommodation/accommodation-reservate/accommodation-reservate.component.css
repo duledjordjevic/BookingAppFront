@@ -1,0 +1,35 @@
+.buttons {
+	padding: 10px;
+	display: flex;
+	justify-content: space-between;
+	height: auto;
+	margin-bottom: 20px;
+}
+
+.datePickers {
+	display: flex;
+	flex-direction: row;
+}
+
+.datePicker {
+	padding-right: 10px;
+}
+
+.reservate button {
+	color: white;
+	background-color: #235471;
+	padding-inline: 70px;
+	height: 45px;
+}
+
+#combo-numberOfGuests{
+	width: 220px;
+	height: 55px;
+	border-radius: 4px;
+	padding: 5px;
+	border: none;
+    opacity: 0.8;
+    outline: none;
+	filter: drop-shadow(6px 7px 7px rgba(0, 0, 0, 0.1));
+	align-self: auto;
+}
