@@ -97,6 +97,7 @@ export class AccommodationReservateComponent {
     onSubmit(){
       if(this.user == "UNREGISTERED"){
         this.router.navigate(["login"]);
+        return;
       }
       this.setCustomValidators();
   
