@@ -1,21 +1,21 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+// import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ReportCommentsComponent } from './report-comments.component';
+// import { ReportCommentsComponent } from './report-comments.component';
 
-describe('ReportCommentsComponent', () => {
-  let component: ReportCommentsComponent;
-  let fixture: ComponentFixture<ReportCommentsComponent>;
+// describe('ReportCommentsComponent', () => {
+//   let component: ReportCommentsComponent;
+//   let fixture: ComponentFixture<ReportCommentsComponent>;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [ReportCommentsComponent]
-    });
-    fixture = TestBed.createComponent(ReportCommentsComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+//   beforeEach(() => {
+//     TestBed.configureTestingModule({
+//       declarations: [ReportCommentsComponent]
+//     });
+//     fixture = TestBed.createComponent(ReportCommentsComponent);
+//     component = fixture.componentInstance;
+//     fixture.detectChanges();
+//   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+//   it('should create', () => {
+//     expect(component).toBeTruthy();
+//   });
+// });

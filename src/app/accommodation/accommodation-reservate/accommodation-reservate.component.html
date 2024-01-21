@@ -1,0 +1,42 @@
+<form [formGroup]="reservationForm" (ngSubmit)="onSubmit()" >
+    <div class="buttons">
+
+            <div class="datePickers">
+                <div class="datePicker">
+                    <mat-form-field>
+                        <mat-label>Check in</mat-label>
+                        <input matInput [matDatepicker]="checkinPicker" formControlName="startDate" [matDatepickerFilter]="rangeFilter">
+                        <mat-hint>MM/DD/YYYY</mat-hint>
+                        <mat-datepicker-toggle matIconSuffix [for]="checkinPicker"></mat-datepicker-toggle>
+                        <mat-datepicker #checkinPicker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div class="datePicker">
+                    <mat-form-field>
+                        <mat-label>Check out</mat-label>
+                        <input matInput [matDatepicker]="checkoutPicker" formControlName="endDate" [matDatepickerFilter]="rangeFilter">
+                        <mat-hint>MM/DD/YYYY</mat-hint>
+                        <mat-datepicker-toggle matIconSuffix [for]="checkoutPicker"></mat-datepicker-toggle>
+                        <mat-datepicker #checkoutPicker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <select id="combo-numberOfGuests" formControlName="numOfGuests">
+                        <option [ngValue]=0 disabled selected>Select number of guests</option>
+                        <option *ngFor="let num of numberOfGuests" [value]="num">{{ num }}</option>
+                    </select>
+                </div>
+
+                <div class="ui-messages">
+                    <p *ngIf="fieldsNotValid == true" style="color:#e91b00">*Input fields are not valid</p>
+                    <p *ngIf="notAvailable == true" style="color:#e91b00">Apartment is not available in that interval</p>
+                    <p *ngIf="createdReservation == true" style="color:#4fea74">Reservation is created! {{reservationMessage}}</p>
+                    <p *ngIf="serverError == true" style="color:#4fea74">Server error</p>
+
+                </div>
+            </div>
+            <div class="reservate">
+                <button mat-raised-button type="submit">Reserve</button>
+            </div>
+    </div>
+</form>
