@@ -8,9 +8,6 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AuthService } from 'src/app/infrastructure/auth/services/auth.service';
 import { CancellationPolicy } from '../model/cancellation-policy.model';
-import { CreateNotification, NotificationType } from 'src/app/notification/model/notification-host';
-import { NotificationForHostService } from 'src/app/notification/services/notification-for-host.service';
-import { elementAt } from 'rxjs';
 import { ReportPopupComponent } from '../report-popup/report-popup.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
@@ -25,7 +22,7 @@ export class GuestReservationsComponent {
 
   constructor(private reservationService: ReservationService, 
     private fb: FormBuilder, private authService: AuthService, 
-    private cdr:ChangeDetectorRef, private zone: NgZone,private notificationService: NotificationForHostService,
+    private cdr:ChangeDetectorRef, private zone: NgZone,
     private matDialog: MatDialog,
     private cdRef: ChangeDetectorRef) {}
 
@@ -100,7 +97,9 @@ export class GuestReservationsComponent {
 
 
   updateCancelBtnDisabled() {
-    this.isCancelBtnDisabled = !(this.selection.selected.length === 1 && this.selection.selected[0].status === ReservationStatus.ACCEPTED && this.selection.selected[0].accommodation?.cancellationPolicy !== CancellationPolicy.NON_REFUNDABLE);
+    let startDate:Date = new Date(this.selection.selected[0].startDate!);
+    this.isCancelBtnDisabled = !(this.selection.selected.length === 1 && this.selection.selected[0].status === ReservationStatus.ACCEPTED
+       && this.selection.selected[0].accommodation?.cancellationPolicy !== CancellationPolicy.NON_REFUNDABLE && startDate > new Date());
   }
 
   updateDeleteBtnDisabled() {
@@ -116,15 +115,6 @@ export class GuestReservationsComponent {
       next: () => {
         console.log("Successful ")
         this.refreshTable();
-        // const notification: CreateNotification = {
-        //   type: NotificationType.CANCELLED_RESERVATION,
-        //   description: this.authService.getEmail() + " cancelled a reservation for accommodation " + this.accommodationDetails?.title,
-        //   hostId: this.accommodationDetails?.hostId,
-        // }
-        // this.notificationService.createNotification(notification).subscribe({
-        //   next:(_) => {
-        //     console.log("Uspesno kreirana notifikacija");
-        //   }
       },
       error: (error) =>{
         if(error.status === 405){

@@ -72,7 +72,8 @@ export class HostReservationsComponent {
   }
 
   updateButtonState() {
-    this.isBtnDisabled = !(this.selection.selected.length === 1 && this.selection.selected[0].status === ReservationStatus.PENDING);
+    let startDate:Date = new Date(this.selection.selected[0].startDate!);
+    this.isBtnDisabled = !(this.selection.selected.length === 1 && this.selection.selected[0].status === ReservationStatus.PENDING && startDate > new Date());
   }
 
   refreshTable():void {
@@ -173,16 +174,6 @@ export class HostReservationsComponent {
   onAccept(): void {
     this.reservationService.updateReservationStatus(this.selection.selected[0].id!, ReservationStatus.ACCEPTED).subscribe({
       next: () => {
-        console.log(this.selection.selected[0].accommodation?.title);
-        const notification: CreateNotificationGuest = {
-          description: this.authService.getEmail() + " accepted your reservation request for accommodation: " + this.selection.selected[0].accommodation?.title,
-          guestId: this.selection.selected[0].guest?.id,
-        }
-        this.notificationService.createNotificationGuest(notification).subscribe({
-          next:(_) => {
-            console.log("Uspesno kreirana notifikacija");
-          }
-        })
         this.refreshTable();
       },
       error: () => {console.log("Error!")}
@@ -192,15 +183,6 @@ export class HostReservationsComponent {
   onDecline(): void {
     this.reservationService.updateReservationStatus(this.selection.selected[0].id!, ReservationStatus.DECLINED).subscribe({
       next: () => {
-        const notification: CreateNotificationGuest = {
-          description: this.authService.getEmail() + " declined your reservation request for accommodation: " + this.selection.selected[0].accommodation?.title,
-          guestId: this.selection.selected[0].guest?.id,
-        }
-        this.notificationService.createNotificationGuest(notification).subscribe({
-          next:(_) => {
-            console.log("Uspesno kreirana notifikacija");
-          }
-        })
         this.refreshTable();
       },
       error: () => {console.log("Error!")}
