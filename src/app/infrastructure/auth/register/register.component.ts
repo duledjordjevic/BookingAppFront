@@ -11,7 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
-  constructor(private navbarService: SharedService, 
+  constructor(private navbarService: SharedService,
     private authService: AuthService,
     private router: Router) {}
 
@@ -42,7 +42,7 @@ export class RegisterComponent {
     const email = this.form.value.email;
     const password = this.form.value.password;
     const confirmPassword = this.form.value.confirmPassword;
-    
+
     this.form.patchValue({
       name: name?.trim(),
       lastName: lastName?.trim(),
@@ -85,15 +85,12 @@ export class RegisterComponent {
           password: this.form.value.password || "",
           phoneNumber: this.form.value.phoneNumber || ""
         }
-        this.authService.register(user).subscribe(
-          data => this.router.navigate(['login'], {queryParams: { registered: 'true' } }),
-          error => this.userExist = true
-        )
+        this.register(user);
       }else{
         this.passwordNotMatch = true;
       }
-    }else if(this.form.value.name === "" || this.form.value.lastName === "" || this.form.value.city === "" || this.form.value.street === "" 
-          || this.form.value.state === "" || this.form.value.accountType === "" || this.form.value.phoneNumber === "" || this.form.value.accountType === "" 
+    }else if(this.form.value.name === "" || this.form.value.lastName === "" || this.form.value.city === "" || this.form.value.street === ""
+          || this.form.value.state === "" || this.form.value.accountType === "" || this.form.value.phoneNumber === "" || this.form.value.accountType === ""
           || this.form.value.email === "" || this.form.value.password === "" || this.form.value.confirmPassword === ""){
             this.fieldsRequired = true;
     }else{
@@ -102,6 +99,12 @@ export class RegisterComponent {
 
   }
 
+  register(user: Registration){
+	  this.authService.register(user).subscribe(
+		  data => this.router.navigate(['login'], {queryParams: { registered: 'true' } }),
+		  error => this.userExist = true
+	  )
+  }
 
   ngOnInit(): void {
     this.navbarService.toggleNavbarVisibility(false);

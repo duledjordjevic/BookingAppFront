@@ -23,7 +23,7 @@
             <div class="div-margin">
                 <input formControlName="street" type="text" required required placeholder="Street">
             </div>
-            
+
             <div class="div-margin">
                 <select class="custom-combobox" formControlName="accountType">
                     <option value="" disabled selected hidden>Account type</option>
@@ -48,7 +48,7 @@
             <p *ngIf="userExist == true">User with that email already exist</p>
             <p *ngIf="passwordNotMatch == true">*Password not match</p>
             <div class="div-margin">
-                <button type="submit" id="button-register">Create Account</button>
+                <button type="submit" id="button-register" (click)="onSubmit()">Create Account</button>
             </div>
             <div>
                 <label>Already have one?</label>
