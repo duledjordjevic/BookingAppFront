@@ -97,9 +97,7 @@ export class GuestReservationsComponent {
 
 
   updateCancelBtnDisabled() {
-    let startDate:Date = new Date(this.selection.selected[0].startDate!);
-    this.isCancelBtnDisabled = !(this.selection.selected.length === 1 && this.selection.selected[0].status === ReservationStatus.ACCEPTED
-       && this.selection.selected[0].accommodation?.cancellationPolicy !== CancellationPolicy.NON_REFUNDABLE && startDate > new Date());
+    this.isCancelBtnDisabled = !(this.selection.selected.length === 1 && this.selection.selected[0].status === ReservationStatus.ACCEPTED);
   }
 
   updateDeleteBtnDisabled() {
