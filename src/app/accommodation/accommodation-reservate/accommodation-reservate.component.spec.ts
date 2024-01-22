@@ -82,7 +82,7 @@ describe('AccommodationReservateComponent', () => {
   });
 
   it("form should be invalid", () => {
-    const yourMethodSpy = spyOn(component, 'getAvailableDates').and.returnValue(undefined);
+    spyOn(component, 'getAvailableDates').and.returnValue(undefined);
     const startDate = new Date('2024-01-20');
 
     for (let i = 0; i < 10; i++) {
@@ -100,16 +100,16 @@ describe('AccommodationReservateComponent', () => {
   });
 
   it("form valid but numOfGuest not selected", () => {
-    const yourMethodSpy = spyOn(component, 'getAvailableDates').and.returnValue(undefined);
-    const startDate = new Date('2024-01-20');
+    spyOn(component, 'getAvailableDates').and.returnValue(undefined);
+    const startDate = new Date('2024-02-20');
 
     for (let i = 0; i < 10; i++) {
       const nextDate = new Date(startDate);
       nextDate.setDate(startDate.getDate() + i);
       component.availableDates.push(nextDate);
     }
-    component.reservationForm.get("startDate")?.setValue(new Date('2024-01-22'));
-    component.reservationForm.get("endDate")?.setValue(new Date('2024-01-25'));
+    component.reservationForm.get("startDate")?.setValue(new Date('2024-02-22'));
+    component.reservationForm.get("endDate")?.setValue(new Date('2024-02-25'));
     component.reservationForm.get("numOfGuests")?.setValue(0);
 
     spyOn(component, 'calculateReservationPrice');
@@ -121,16 +121,16 @@ describe('AccommodationReservateComponent', () => {
   });
 
   it("form should be valid", () => {
-    const yourMethodSpy = spyOn(component, 'getAvailableDates').and.returnValue(undefined);
-    const startDate = new Date('2024-01-20');
+    spyOn(component, 'getAvailableDates').and.returnValue(undefined);
+    const startDate = new Date('2024-02-20');
 
     for (let i = 0; i < 10; i++) {
       const nextDate = new Date(startDate);
       nextDate.setDate(startDate.getDate() + i);
       component.availableDates.push(nextDate);
     }
-    component.reservationForm.get("startDate")?.setValue(new Date('2024-01-22'));
-    component.reservationForm.get("endDate")?.setValue(new Date('2024-01-25'));
+    component.reservationForm.get("startDate")?.setValue(new Date('2024-02-22'));
+    component.reservationForm.get("endDate")?.setValue(new Date('2024-02-25'));
 
     component.reservationForm.get("numOfGuests")?.setValue(5);
 

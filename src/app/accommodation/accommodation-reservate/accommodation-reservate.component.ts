@@ -104,6 +104,7 @@ export class AccommodationReservateComponent {
       this.fieldsNotValid = false;
       this.notAvailable = false;
       this.createdReservation = false;
+      console.log(this.reservationForm.value.startDate,this.reservationForm.value.endDate);
   
       if(this.reservationForm.valid && this.reservationForm.value.numOfGuests !== 0){
         const reservation: Reservation = this.getReservationFromForm();
