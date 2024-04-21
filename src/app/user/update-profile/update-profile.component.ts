@@ -6,6 +6,11 @@ import { Router } from '@angular/router';
 import { SharedService } from 'src/app/services/shared.service';
 import { Address } from 'src/app/models/shared.models';
 import { UserBlock } from '../model/user-block';
+import { AuthService } from 'src/app/infrastructure/auth/services/auth.service';
+import { RequestCertificatePopupComponent } from '../request-certificate-popup/request-certificate-popup.component';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { CertifcateService } from 'src/app/certificate/services/certifcate.service';
+import { Certificate } from 'src/app/certificate/model/Certificate.model';
 
 @Component({
   selector: 'app-update-profile',
@@ -14,12 +19,20 @@ import { UserBlock } from '../model/user-block';
 })
 export class UpdateProfileComponent implements OnInit {
     res: UserInfo | undefined;
+    userRole: string = "";
+    canGetCertificate: boolean = true;
+    cert: Certificate = {}
 
     constructor(private service: UserService,
-      private sharedService: SharedService) { }
+      private sharedService: SharedService,
+      private authService: AuthService,
+      private matDialog: MatDialog,
+      private certService: CertifcateService) { }
 
     ngOnInit(): void {
       this.getUserInfo();
+      this.userRole = this.authService.getRole() ?? 'UNREGISTERED';
+
     }
 
     getUserInfo():void {
@@ -38,6 +51,15 @@ export class UpdateProfileComponent implements OnInit {
             newPassword: new FormControl(''),
             newPasswordConfirmed: new FormControl(''),
             oldPassword: new FormControl('',[Validators.required]),
+          })
+
+          this.certService.hasCert(result.email).subscribe({
+            next: (cert) =>{
+              if (cert != null){
+                this.cert = cert;
+                this.canGetCertificate = false;
+              }
+            }
           })
         },
         error:(err : any)=>{
@@ -190,5 +212,13 @@ export class UpdateProfileComponent implements OnInit {
       })
     }
 
+
+    dialog!: MatDialogRef<RequestCertificatePopupComponent>;
+    
+    openPopup(): void{
+      if (this.canGetCertificate){
+        this.dialog = this.matDialog.open(RequestCertificatePopupComponent);
+      }
+    }
 
 }
