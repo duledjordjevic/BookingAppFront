@@ -124,3 +124,26 @@ p{
 #update-label{
     color:#235471;
 }
+
+.certifacate-container {
+    margin: auto;
+    width: fit-content;
+    display: flex;
+    padding: 30px;
+    align-items: center; 
+}
+
+.certifacate-container svg{
+    cursor: pointer;
+    
+}
+.certifacate-container svg:hover{
+    transform: scale(1.1);
+}
+
+.certifacate-container p{
+    color:#000000;
+    font-size: 20px;
+    margin-top: 8px;
+    margin-left: 50px;
+}

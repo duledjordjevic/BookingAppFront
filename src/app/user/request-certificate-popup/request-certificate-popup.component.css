@@ -1,0 +1,83 @@
+.main-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 530px;
+    padding: 20px;
+}
+h4{
+    max-height: 17px;
+    margin-left: 200px;
+}
+img{
+    width: 17px;
+    height: 17px;
+    opacity: 0.8;
+    cursor: pointer;
+    margin-left: 170px;
+}
+img:hover{
+    opacity: 1.5;
+}
+.title-closebtn{
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 50px;
+    width: 100%;
+
+}
+
+button{
+    background-color: #235471;
+    border-radius: 10px;
+    color: #FFFFFF;
+    border: none;
+    outline: none;
+    width: 100px;
+    padding: 7px;
+    font-size:85%;
+    margin-bottom: 30px;
+    margin-top: 20px;
+}
+button:hover {
+    background-color: white;
+    filter: drop-shadow(6px 7px 7px rgba(0, 0, 0, 0.1));
+    color: #235471;
+    transition: transform 0.5s ease
+}
+
+
+input[type="radio"] {
+    margin-right: 10px;
+  }
+  
+.file-input-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    border: 1px solid #ccc;
+    padding: 6px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    color: #333;
+}
+  
+.file-input-wrapper input[type="file"] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+
+.radiobuttons-container {
+   padding: 20px;
+}
+  .file-container {
+    padding: 50px;
+  }

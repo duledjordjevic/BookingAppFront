@@ -7,6 +7,7 @@ import { ReactiveFormsModule} from '@angular/forms';
 import { UpdateAdminComponent } from './update-admin/update-admin.component';
 import { BlockUserComponent } from './block-user/block-user.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { RequestCertificatePopupComponent } from './request-certificate-popup/request-certificate-popup.component';
 
 
 
@@ -15,7 +16,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
   declarations: [
     UpdateProfileComponent,
     UpdateAdminComponent,
-    BlockUserComponent
+    BlockUserComponent,
+    RequestCertificatePopupComponent
   ],
   imports: [
     CommonModule,
