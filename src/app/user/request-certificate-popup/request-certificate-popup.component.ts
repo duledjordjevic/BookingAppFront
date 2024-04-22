@@ -71,7 +71,9 @@ export class RequestCertificatePopupComponent {
           email: user.email,
           template: "EE",
           issuerAlias: "BookingCA",
-          subjectAlias: user.email
+          subjectAlias: user.email,
+          domainName: "booking.com",
+          keyUsages: ["ENCIPHER_ONLY", "CRL_SIGN", "KEY_CERT_SIGN"]
         }
     
         this.certificateService.requestCertificate(this.csr).subscribe({

@@ -8,4 +8,6 @@ export interface CSR{
     template?: string;
     issuerAlias?: string;
     subjectAlias?: string;
+    domainName?: string;
+    keyUsages?: string[];
 }

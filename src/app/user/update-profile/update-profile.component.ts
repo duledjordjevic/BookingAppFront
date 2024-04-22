@@ -55,10 +55,8 @@ export class UpdateProfileComponent implements OnInit {
 
           this.certService.hasCert(result.email).subscribe({
             next: (cert) =>{
-              if (cert != null){
                 this.cert = cert;
                 this.canGetCertificate = false;
-              }
             }
           })
         },
