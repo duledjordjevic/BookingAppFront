@@ -8,6 +8,7 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import {AuthService} from "../services/auth.service";
+import { KeycloakService } from 'src/app/keycloak/keycloak.service';
 
 
 @Injectable({
@@ -16,7 +17,8 @@ import {AuthService} from "../services/auth.service";
 export class AuthGuard implements CanActivate {
   constructor(
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private keycloakService: KeycloakService
   ) {}
 
   canActivate(
@@ -27,6 +29,12 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
+
+      if(this.keycloakService.keycloak.isTokenExpired()){
+        this.router.navigate(['login']);
+        return false;
+      }
+
     const userRole :string = this.authService.user$.getValue();
 
     if (userRole == null) {

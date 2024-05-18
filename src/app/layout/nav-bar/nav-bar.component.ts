@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/infrastructure/auth/services/auth.service';
+import { KeycloakService } from 'src/app/keycloak/keycloak.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -10,27 +11,33 @@ import { AuthService } from 'src/app/infrastructure/auth/services/auth.service';
 export class NavBarComponent implements OnInit{
 
   role: string = '';
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService,
+     private router: Router, 
+     private keycloakService: KeycloakService) {
   }
 
   ngOnInit(): void {
-    this.authService.userState.subscribe((result) => {
-      this.role = result;
-    })
+    if (!this.keycloakService.keycloak.isTokenExpired()){
+      this.role = "ADMIN";
+    }
+    // this.authService.userState.subscribe((result) => {
+    //   this.role = result;
+    // })
   }
 
-  logOut(): void {
-    this.authService.logout().subscribe({
-      next: (_) => {
-        localStorage.removeItem('user');
-        this.authService.setUser();
-        this.router.navigate(['login']);
-      },
-      error: (error) => {
-        localStorage.removeItem('user');
-        this.authService.setUser();
-        this.router.navigate(['login']);
-      }
-    })
+  async logOut() {
+    this.keycloakService.logout();
+    // this.authService.logout().subscribe({
+    //   next: (_) => {
+    //     localStorage.removeItem('user');
+    //     this.authService.setUser();
+    //     this.router.navigate(['login']);
+    //   },
+    //   error: (error) => {
+    //     localStorage.removeItem('user');
+    //     this.authService.setUser();
+    //     this.router.navigate(['login']);
+    //   }
+    // })
   }
 }
