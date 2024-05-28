@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,6 +18,22 @@ import {CommentsModule} from "./comments/comments.module";
 import { NgChartsModule } from 'ng2-charts';
 import { AnalyticsModule } from './analytics/analytics.module';
 import { NotificationModule } from './notification/notification.module';
+import { AuthConfig, OAuthModule, OAuthService } from 'angular-oauth2-oidc';
+import { KeycloakService } from './keycloak/keycloak.service';
+
+export const authCodeFlowConfig: AuthConfig = {
+  issuer: 'http://localhost:8180/realms/proba',
+  tokenEndpoint: 'http://localhost:8180/realms/proba/protocol/openid-connect/token',
+  redirectUri: window.location.origin,
+  clientId: 'web-client',
+  responseType: 'code',
+  scope: 'openid profile',
+  showDebugInformation: true,
+};
+
+export function initializeKeyCloak(kcService: KeycloakService) {
+  return () => kcService.init();
+}
 
 @NgModule({
   declarations: [
@@ -28,25 +44,33 @@ import { NotificationModule } from './notification/notification.module';
     AppRoutingModule,
     BrowserAnimationsModule,
     LayoutModule,
-	  AccommodationModule,
+    AccommodationModule,
     UserModule,
     HttpClientModule,
     AuthModule,
     SharedModule,
-	  CommentsModule,
+    CommentsModule,
     NgChartsModule,
     AnalyticsModule,
-    NotificationModule
+    NotificationModule,
+    OAuthModule.forRoot()  
   ],
-
-  providers: [DatePipe,
+  providers: [
+    DatePipe,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: Interceptor,
       multi: true,
-
     },
-    SharedService],
+    SharedService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeKeyCloak,
+      multi: true,
+      deps: [KeycloakService]
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
