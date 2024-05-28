@@ -17,7 +17,6 @@ import { KeycloakService } from 'src/app/keycloak/keycloak.service';
 export class AuthGuard implements CanActivate {
   constructor(
     private router: Router,
-    private authService: AuthService,
     private keycloakService: KeycloakService
   ) {}
 
@@ -35,7 +34,7 @@ export class AuthGuard implements CanActivate {
         return false;
       }
 
-    const userRole :string = this.authService.user$.getValue();
+    const userRole = this.keycloakService.getRole() ;
 
     if (userRole == null) {
       this.router.navigate(['login']);

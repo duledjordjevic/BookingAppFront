@@ -22,6 +22,7 @@ import {Host} from "../../infrastructure/auth/model/user.model";
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {ReportCommentPopupComponent} from "../../comments/report-comment-popup/report-comment-popup.component";
 import { AccommodationReservateComponent } from "../accommodation-reservate/accommodation-reservate.component";
+import { KeycloakService } from "src/app/keycloak/keycloak.service";
 
 
 @Component({

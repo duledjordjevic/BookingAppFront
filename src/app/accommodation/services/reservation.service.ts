@@ -6,16 +6,24 @@ import { Reservation , ReservationFilter, ReservationStatus} from '../model/rese
 import { Observable } from 'rxjs';
 import { ReservationMethod } from '../model/reservation-method.model';
 import { DatePipe } from '@angular/common';
+import { KeycloakService } from 'src/app/keycloak/keycloak.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReservationService {
 
-  constructor(private http: HttpClient, private authService: AuthService, private datePipe: DatePipe) { }
+  constructor(private http: HttpClient, private authService: AuthService, private datePipe: DatePipe, private keycloakService: KeycloakService) { }
 
   reservate(reservation: Reservation): Observable<ReservationMethod>{
     const url = environment.apiHost + 'reservations';
+    // const reserv = {
+    //   startDate: reservation.startDate,
+		// 	endDate: reservation.endDate,
+		// 	numberOfGuests: reservation.numberOfGuests,
+		// 	guestId: this.keycloakService.getEmail(),
+		// 	accommodationId: reservation.accommodationId
+		// }
     return this.http.post<ReservationMethod>(url, reservation, {
         headers: new HttpHeaders({
             'Content-Type': 'application/json'

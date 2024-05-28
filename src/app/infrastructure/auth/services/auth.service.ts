@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, OnInit, inject } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {BehaviorSubject, Observable} from "rxjs";
 import { AuthResponse } from '../model/auth-response.model';
@@ -6,13 +6,14 @@ import {JwtHelperService} from "@auth0/angular-jwt";
 import {environment} from '../../../../env/env'
 import { Registration } from '../model/registration.model';
 import { User } from '../model/user.model';
+import { KeycloakService } from 'src/app/keycloak/keycloak.service';
 
 
 @Injectable({
     providedIn: 'root'
 })
 
-export class AuthService {
+export class AuthService implements OnInit{
 
     private headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -22,8 +23,14 @@ export class AuthService {
     user$ = new BehaviorSubject("");
     userState = this.user$.asObservable();
   
-    constructor() {
-      this.user$.next(this.getRole());
+    constructor(private keycloakService: KeycloakService) {
+    }
+
+    ngOnInit(): void {
+      if(!this.keycloakService.keycloak.isTokenExpired()){
+        this.user$.next(this.keycloakService.getRole()!);
+      }
+      
     }
   
     http = inject(HttpClient);
@@ -41,17 +48,13 @@ export class AuthService {
 
     getRole(): any {
       if (this.isLoggedIn()) {
-        const accessToken: any = localStorage.getItem('user');
-        const helper = new JwtHelperService();
-        return helper.decodeToken(accessToken).Authorities[0];
+        return this.keycloakService.getRole();
       }
       return null;
     }
     getId(): number{
       if (this.isLoggedIn()) {
-        const accessToken: any = localStorage.getItem('user');
-        const helper = new JwtHelperService();
-        return helper.decodeToken(accessToken).id;
+        return this.keycloakService.getUserId();
       }
       return 0;
     }
@@ -62,15 +65,13 @@ export class AuthService {
 
     getEmail(): string{
       if (this.isLoggedIn()) {
-        const accessToken: any = localStorage.getItem('user');
-        const helper = new JwtHelperService();
-        return helper.decodeToken(accessToken).sub;
+        return this.keycloakService.getEmail()!;
       }
       return "";
     }
 
     isLoggedIn(): boolean {
-      return localStorage.getItem('user') != null;
+      return !this.keycloakService.keycloak.isTokenExpired();
     }
 
     setUser(): void {
@@ -82,4 +83,10 @@ export class AuthService {
         headers: this.headers,
       });
     }
+
+    isUserRegistred(email: string): Observable<User> {
+      const url = environment.apiHost + "register/" + email ;
+      return this.http.get<User>(url);
+    }
+
   }
