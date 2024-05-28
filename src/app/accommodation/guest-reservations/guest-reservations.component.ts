@@ -10,6 +10,7 @@ import { AuthService } from 'src/app/infrastructure/auth/services/auth.service';
 import { CancellationPolicy } from '../model/cancellation-policy.model';
 import { ReportPopupComponent } from '../report-popup/report-popup.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { SanitizationService } from 'src/app/security/sanitization.service';
 
 @Component({
   selector: 'app-guest-reservations',
@@ -24,7 +25,8 @@ export class GuestReservationsComponent {
     private fb: FormBuilder, private authService: AuthService, 
     private cdr:ChangeDetectorRef, private zone: NgZone,
     private matDialog: MatDialog,
-    private cdRef: ChangeDetectorRef) {}
+    private cdRef: ChangeDetectorRef,
+  private sanitizationService: SanitizationService) {}
 
   reservations: Reservation[] = [];
   dataSource!: MatTableDataSource<Reservation>;
@@ -205,7 +207,7 @@ export class GuestReservationsComponent {
 
     const startDateValue = this.searchForm.get('startDate')?.value;
     const endDateValue = this.searchForm.get('endDate')?.value;
-    const search = this.searchForm.get('search')?.value;
+    const search = this.sanitizationService.sanitize(this.searchForm.get('search')?.value);
     const status = this.searchForm.get('status')?.value;
 
     if (startDateValue !== null && startDateValue !== '') {

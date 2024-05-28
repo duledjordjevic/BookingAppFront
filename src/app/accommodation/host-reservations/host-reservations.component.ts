@@ -12,6 +12,7 @@ import { NotificationForGuestService } from 'src/app/notification/services/notif
 import { ReportPopupComponent } from '../report-popup/report-popup.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { endOf } from 'ngx-bootstrap/chronos';
+import { SanitizationService } from 'src/app/security/sanitization.service';
 
 @Component({
   selector: 'app-host-reservations',
@@ -85,7 +86,8 @@ export class HostReservationsComponent {
     private fb: FormBuilder, private authService: AuthService, 
     private cdr:ChangeDetectorRef, private zone: NgZone,
     private notificationService:NotificationForGuestService,
-    private matDialog: MatDialog) {}
+    private matDialog: MatDialog,
+    private sanitizationService: SanitizationService) {}
 
   searchForm: FormGroup = this.fb.group({
     search: [''],
@@ -147,7 +149,7 @@ export class HostReservationsComponent {
 
     const startDateValue = this.searchForm.get('startDate')?.value;
     const endDateValue = this.searchForm.get('endDate')?.value;
-    const search = this.searchForm.get('search')?.value;
+    const search = this.sanitizationService.sanitize(this.searchForm.get('search')?.value);
     const status = this.searchForm.get('status')?.value;
 
     if (startDateValue !== null && startDateValue !== '') {

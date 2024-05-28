@@ -6,6 +6,7 @@ import { AccommodationPopular, AccommodationType, Amenities } from '../model/acc
 import { environment } from 'src/env/env';
 import { FormBuilder, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { SanitizationService } from 'src/app/security/sanitization.service';
 @Component({
   selector: 'app-accommodations-filter',
   templateUrl: './accommodations-filter.component.html',
@@ -13,7 +14,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AccommodationsFilterComponent {
 
-  constructor(private accommodationService: AccommodationService){
+  constructor(private accommodationService: AccommodationService, private sanitizationService: SanitizationService){
 
   }
   checkboxes: { label: string, isChecked: boolean }[] = [
@@ -80,7 +81,7 @@ export class AccommodationsFilterComponent {
  
 
   getAccommodations() : void{
-    this.accommodationService.filterAccommodations(this.headerFilterForm.value.city,this.headerFilterForm.value.numOfGuests,this.headerFilterForm.value.startDate,this.headerFilterForm.value.endDate,
+    this.accommodationService.filterAccommodations(this.sanitizationService.sanitize(this.headerFilterForm.value.city!),this.headerFilterForm.value.numOfGuests,this.headerFilterForm.value.startDate,this.headerFilterForm.value.endDate,
       this.startedValue,this.endValue,this.amenities,this.accommodationType).subscribe({
         next:(accommodations: AccommodationPopular[]) => {
           this.filteredAccommodations = accommodations;
