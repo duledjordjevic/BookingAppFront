@@ -1,4 +1,5 @@
 export interface Registration {
+    id?: number;
     name: string;
     lastname: string;
     address: Address;

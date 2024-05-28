@@ -21,15 +21,7 @@ import { NotificationModule } from './notification/notification.module';
 import { AuthConfig, OAuthModule, OAuthService } from 'angular-oauth2-oidc';
 import { KeycloakService } from './keycloak/keycloak.service';
 
-export const authCodeFlowConfig: AuthConfig = {
-  issuer: 'http://localhost:8180/realms/proba',
-  tokenEndpoint: 'http://localhost:8180/realms/proba/protocol/openid-connect/token',
-  redirectUri: window.location.origin,
-  clientId: 'web-client',
-  responseType: 'code',
-  scope: 'openid profile',
-  showDebugInformation: true,
-};
+
 
 export function initializeKeyCloak(kcService: KeycloakService) {
   return () => kcService.init();

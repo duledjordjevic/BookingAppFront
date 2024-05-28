@@ -29,6 +29,7 @@ import {ApproveCommentsComponent} from "./comments/approve-comments/approve-comm
 import {ReportCommentsComponent} from "./comments/report-comments/report-comments.component";
 
 const routes: Routes = [
+  { path: "", redirectTo: "home", pathMatch: "full" },
   {path : "home", component : HomeComponent,},
   {path: "login", component: LogInComponent, canActivate: [UnauthorizedGuard]},
   {path: "register", component: RegisterComponent, canActivate: [UnauthorizedGuard]},
