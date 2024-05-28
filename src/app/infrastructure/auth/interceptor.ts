@@ -7,13 +7,14 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { KeycloakService } from 'src/app/keycloak/keycloak.service';
+import * as DOMPurify from 'dompurify';
+import { SanitizationService } from 'src/app/security/sanitization.service';
 
 @Injectable()
 export class Interceptor implements HttpInterceptor {
 
-  constructor(private keycloakService: KeycloakService){
-    
-  }
+  constructor(private keycloakService: KeycloakService,
+            private sanitizationService : SanitizationService){}
 
   intercept(
     req: HttpRequest<any>,
@@ -23,12 +24,16 @@ export class Interceptor implements HttpInterceptor {
     // const accessToken: any = localStorage.getItem('user');
     if (req.headers.get('skip')) return next.handle(req);
 
+    const sanitizedUrl = DOMPurify.sanitize(req.url);
+
+    let clonedReq = req.clone({ url: sanitizedUrl });
+
     if (accessToken) {
-      const cloned = req.clone({
+        clonedReq = clonedReq.clone({
         headers: req.headers.set('Authorization', "Bearer " + accessToken),
       });
 
-      return next.handle(cloned);
+      return next.handle(clonedReq);
     } else {
       return next.handle(req);
     }
